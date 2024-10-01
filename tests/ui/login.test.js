@@ -1,4 +1,4 @@
-const { test, expect } = require('@foundryTest/tests');
+const { test, expect } = require('@playwright/test');
 const LoginPage = require('../pages/loginPage');
 
 test.describe('Login Page UI Tests', () => {
