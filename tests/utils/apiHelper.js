@@ -1,38 +1,41 @@
-const axios = require('axios');
+import { expect } from '@playwright/test';
+import { apiUrl } from "../data/testData";
 
 // Helper function to make API requests
-async function makeApiRequest(method, url, data = {}, headers = {}) {
+export async function makeApiRequest(method, url, data = {}, headers = {}) {
     try {
-        const response = await axios({
+        const response = await fetch(url, {
             method: method,
-            url: url,
-            data: data,
+            body: data,
             headers: headers,
         });
-        return response.data;
+        return response;
     } catch (error) {
         return error.response;
     }
 }
 
 //Helper function to Authenticate and get token
-async function login(username, password) {
-    const url = 'https://devapi.centigrade.earth/auth/token';
-    const data = {
+export async function login(username, password) {
+    const url = `${apiUrl}/auth/token`;
+    const data = new URLSearchParams({
         username: username,
         password: password,
+    });
+    const headers = {
+        'Content-Type': 'application/x-www-form-urlencoded',
     };
-    const response = await makeApiRequest('POST', url, data);
-    
+    const response = await makeApiRequest('POST', url, data, headers);
+
     if (response.status === 200) {
-        return response.token; 
+        return response.access_token;
     } else {
         throw new Error(`Login failed: ${response.error}`);
     }
 }
 
 //Helper function to Set Authorization Header
-function setAuthHeader(token) {
+export function setAuthHeader(token) {
     return {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
@@ -45,7 +48,7 @@ async function getRequest(url, headers = {}) {
 }
 
 //Helper function to make POST request
-async function postRequest(url, data, headers = {}) {
+export async function postRequest(url, data, headers = {}) {
     return await makeApiRequest('POST', url, data, headers);
 }
 
@@ -84,3 +87,22 @@ function checkResponseStatus(response, expectedStatus) {
         throw new Error(`Expected status ${expectedStatus} but received ${response.status}`);
     }
 }
+
+export const validateErrorResponse = (responseBody, expectedStatusCode, expectedMessage) => {
+    expect(responseBody).toHaveProperty('statusCode', expectedStatusCode);
+    expect(responseBody).toHaveProperty('errorType', 'HTTP_ERROR');
+    expect(responseBody).toHaveProperty('errorMessage', expectedMessage);
+    expect(responseBody).toHaveProperty('context');
+    expect(responseBody.context).toHaveProperty('exception', `${expectedStatusCode}: ${expectedMessage}`);
+    const expectedStructure = {
+        "statusCode": expectedStatusCode,
+        "errorType": "HTTP_ERROR",
+        "errorMessage": expectedMessage,
+        "context": {
+            "exception": `${expectedStatusCode}: ${expectedMessage}`
+        },
+        "timestamp": expect.any(String),
+        "requestId": expect.any(String)
+    };
+    expect(responseBody).toMatchObject(expectedStructure);
+};
