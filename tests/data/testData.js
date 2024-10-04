@@ -36,3 +36,5 @@ export const InvalidCreadentials = [
 
 export const apiUrl = 'https://devapi.centigrade.earth';
 export const devUrl = 'https://devfoundry.centigrade.earth';
+export const clientId = '3vt9mvi7g8brl86n35rqe5pf93';
+export const expectedUsername = 'bpaul';
