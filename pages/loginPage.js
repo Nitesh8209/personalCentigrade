@@ -22,7 +22,7 @@ class LoginPage {
     }
 
     async getErrorMessage() {
-        return await this.page.locator('.banner-content').innerText('Unable to log in because the email or password is not correct');
+        return await this.page.locator('.banner-content').innerText();
     }
 }
 
