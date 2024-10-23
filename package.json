@@ -12,6 +12,8 @@
     "@types/node": "^22.7.4"
   },
   "dependencies": {
-    "@faker-js/faker": "^9.0.3"
+    "@faker-js/faker": "^9.0.3",
+    "google-auth-library": "^9.14.2",
+    "googleapis": "^144.0.0"
   }
 }

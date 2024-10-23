@@ -2,7 +2,7 @@ import { Credentials, devUrl } from "./testData";
 
 export const loginTestCases = [
     {
-        description: 'Successfully Login with valid credentials',
+        description: 'Login with valid credentials',
         email: Credentials.username,
         password: Credentials.password,
         expectedUrl: `${devUrl}/projects`,
@@ -11,7 +11,7 @@ export const loginTestCases = [
         isValidUsername: true,
     },
     {
-        description: 'Successfully Login with Uppercase Email',
+        description: 'Login with Uppercase Email',
         email: Credentials.username.toUpperCase(),
         password: Credentials.password,
         expectedUrl: `${devUrl}/projects`,
