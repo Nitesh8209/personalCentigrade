@@ -1,12 +1,13 @@
 import { expect } from '@playwright/test';
 import { apiUrl } from "../data/testData";
+const fs = require('fs');
 
 // Helper function to make API requests
 export async function makeApiRequest(method, url, data = {}, headers = {}) {
     try {
         const response = await fetch(url, {
             method: method,
-            body: data,
+            body: method === 'GET' ? undefined : data,
             headers: headers,
         });
         return response;
@@ -43,7 +44,7 @@ export function setAuthHeader(token) {
 }
 
 //Helper function to make GET request
-async function getRequest(url, headers = {}) {
+export async function getRequest(url, headers = {}) {
     return await makeApiRequest('GET', url, {}, headers);
 }
 
@@ -53,7 +54,7 @@ export async function postRequest(url, data, headers = {}) {
 }
 
 //Helper function to make PUT request
-async function putRequest(url, data, headers = {}) {
+export async function putRequest(url, data, headers = {}) {
     return await makeApiRequest('PUT', url, data, headers);
 }
 
@@ -87,6 +88,16 @@ function checkResponseStatus(response, expectedStatus) {
         throw new Error(`Expected status ${expectedStatus} but received ${response.status}`);
     }
 }
+
+ const dataFilePath = './tests/data/Creadential.json';
+ export async function saveToken(token) {
+    fs.writeFileSync(dataFilePath, JSON.stringify({ adminAccessToken: token }, null, 2));
+  }
+  
+ export async function getToken() {
+    const data = fs.readFileSync(dataFilePath);
+    return JSON.parse(data).adminAccessToken;
+  }
 
 export const validateErrorResponse = (responseBody, expectedStatusCode, expectedMessage) => {
     expect(responseBody).toHaveProperty('statusCode', expectedStatusCode);
