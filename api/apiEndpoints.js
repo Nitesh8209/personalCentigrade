@@ -2,6 +2,7 @@ export const API_BASE_URL = 'https://devapi.centigrade.earth';
 
 export const API_ENDPOINTS = {
   authTOken: `${API_BASE_URL}/auth/token`,
+  resetEmail: `${API_BASE_URL}/auth/reset/email`,
   resetPassword: `${API_BASE_URL}/auth/reset/password`,
   onboardSignup: `${API_BASE_URL}/auth/onboard/signup`,
   onboardVerify: `${API_BASE_URL}/auth/onboard/verify`,

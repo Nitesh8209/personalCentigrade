@@ -71,7 +71,7 @@ test.describe.serial(`Member Invitation and Approval Flow`, () => {
       // Authenticate the admin member and Store token for inviting process
       const authdata = new URLSearchParams({
         username: newEmail,
-        password: ValidTestData.newPassword,
+        password: ValidTestData.Password,
       });
       const authResponse = await postRequest(API_ENDPOINTS.authTOken, authdata, headers);
       expect(authResponse.status).toBe(200);
