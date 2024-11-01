@@ -1,84 +1,27 @@
 import { test, expect } from '@playwright/test';
-import { getGmailMessages, generateTestEmail } from '../utils/signUpHelper'
-import { postRequest, getRequest, putRequest } from '../utils/apiHelper'
-import { ValidTestData } from '../data/SignUpData';
-import { API_ENDPOINTS } from '../../api/apiEndpoints'
-import { getToken } from '../utils/apiHelper'
+import { inValidTestData, ValidTestData } from '../../data/SignUpData';
+import { generateTestEmail, getGmailMessages } from '../../utils/signUpHelper';
+import { postRequest, getRequest, putRequest, getData, saveData } from '../../utils/apiHelper';
+import API_ENDPOINTS from '../../../api/apiEndpoints';
 
-test.describe.serial("valid Sign Up Api Test", () => {
+test.describe.serial(`Member Invitation and Approval Flow`, () => {
+  const { newEmail, admin_access_token } = getData();
+
   let headers;
-  let newEmail;
-  let verificationCode;
   let InviteEmail;
   let organizationId;
   let accessToken;
-  let admin_access_token;
+  let memberEmail;
+  let approveEmail;
 
-  // Generate email and set default headers before all tests
   test.beforeAll(async () => {
-    admin_access_token = await getToken();
-
-    newEmail = generateTestEmail();
     headers = {
       'Content-Type': 'application/x-www-form-urlencoded',
     };
   });
 
-  // Test for successful signup and email verification status
-  test('If member.verification_status is in Unverified or SingUp', async () => {
-    const data = new URLSearchParams({
-      firstName: ValidTestData.firstName,
-      lastName: ValidTestData.lastName,
-      organizationName: ValidTestData.organizationName,
-      email: newEmail,
-    });
-    const response = await postRequest(API_ENDPOINTS.onboardSignup, data, headers);
-
-    const { receivedVerificationCode } = await getGmailMessages();  // Fetch Gmail message for verification code
-    expect(response.status).toBe(200);
-    const responseBody = await response.json();
-    expect(responseBody).toHaveProperty('verificationCode', receivedVerificationCode);
-    expect(responseBody).toHaveProperty('email', newEmail);
-  })
-
-  // Resend the Verification code 
-  test('Send the ONBOARDING_SIGNUP with the existing verification code', async () => {
-
-    const resendParams = new URLSearchParams({email: newEmail})
-    const ResendUrl = `${API_ENDPOINTS.onboardResend}?${resendParams.toString()}`;
-    const data = new URLSearchParams({});
-    const response = await postRequest(ResendUrl, data, headers);
-    const responseBody = await response.json();
-    expect(response.status).toBe(200);
-  
-    const { receivedVerificationCode } = await getGmailMessages();  // Fetch Gmail message for verification code
-
-    expect(responseBody).toHaveProperty('verificationCode', receivedVerificationCode);
-    expect(responseBody).toHaveProperty('email', newEmail);
-    expect(responseBody).toMatchObject({
-      verificationCode: receivedVerificationCode,
-      email: newEmail,
-    });
-    verificationCode = receivedVerificationCode; // Storing verification code for next steps
-  
-  })
-
-   // Test for verification is correct and given password
-  test('If the member exists and verification is correct', async () => {
-    const data = new URLSearchParams({
-      verificationCode: verificationCode,
-      email: newEmail,
-      password: ValidTestData.Password
-    });
-
-    const response = await postRequest(API_ENDPOINTS.onboardVerify, data, headers);    // Send the Post Request for verify verificationCode, email, password
-    const responseBody = await response.json();
-    expect(response.status).toBe(200);
-    expect(responseBody).toHaveProperty('email', newEmail);
-  })
-
   // before Invite the new member set the new member as an Admin
-  test('Set the member to Admin', async () => {
+  test('Set member to Admin role', async () => {
     const authHeaders = {
       'Content-Type': 'application/x-www-form-urlencoded',
       'Authorization': `Bearer ${admin_access_token}`
@@ -90,7 +33,7 @@ test.describe.serial("valid Sign Up Api Test", () => {
     const memberResponse = await getRequest(getMemberUrl, authHeaders);
     const memberData = await memberResponse.json();
     expect(memberResponse.status).toBe(200);
-    organizationId = memberData[0].roles[0].resourceId;     
+    organizationId = memberData[0].roles[0].resourceId;
     const memberOrganizationsId = memberData[0].roles[1].resourceId;
 
     // Fetch organization role types and filter by memberOrganizationsId and save ID
@@ -98,7 +41,7 @@ test.describe.serial("valid Sign Up Api Test", () => {
     const roleData = await roleResponse.json();
     expect(roleResponse.status).toBe(200);
     const filteredRoles = roleData.filter(item => item.memberOrganizationsId === memberOrganizationsId);
-    const id = filteredRoles[0].id;     
+    const id = filteredRoles[0].id;
 
     // send the put request for update the member as an Admin
     const updateRoleUrl = `${API_ENDPOINTS.getMemberOrganizationTypes}/${id}`;
@@ -115,12 +58,13 @@ test.describe.serial("valid Sign Up Api Test", () => {
     expect(updateResponse.status).toBe(200);
     expect(updateResponseBody.roleType).toHaveProperty('id', 18);
     expect(updateResponseBody.roleType).toHaveProperty('name', 'ORG_ADMIN');
+    await saveData({ organizationId: organizationId })
   })
+
 
   // Test for inviting a new user to an organization and verifying the invite process
   ValidTestData.Approve.forEach(({ description, reject, expectedSubject }) => {
 
-    test.describe.serial(`Approval Case: ${description}`, () => {
 
     test(`Invite a new user to the organization for ${description}`, async () => {
 
@@ -133,9 +77,13 @@ test.describe.serial("valid Sign Up Api Test", () => {
       expect(authResponse.status).toBe(200);
       const authResponseBody = await authResponse.json();
       accessToken = authResponseBody.access_token;
+      await saveData({ InviteaccessToken: accessToken });
 
       // Generate random email for invite and send the post request for Invite
-      InviteEmail = generateTestEmail();  
+      InviteEmail = generateTestEmail();
+      if (reject === false) {
+        memberEmail = InviteEmail;
+      }
       const inviteData = {
         organizationId: organizationId,
         email: InviteEmail,
@@ -151,7 +99,7 @@ test.describe.serial("valid Sign Up Api Test", () => {
       expect(inviteResponseBody).toBe(200);
 
       // Fetch Gmail invite email
-      const {  subject, body } = await getGmailMessages();
+      const { subject, body } = await getGmailMessages();
       expect(subject).toBe(`${ValidTestData.organizationName} has invited you to Centigrade`);
       const expectedLinkPattern = /Accept invitation \[(https?:\/\/[^\]]+)\]/;
       const invitationLink = body.match(expectedLinkPattern)[1];
@@ -184,7 +132,7 @@ test.describe.serial("valid Sign Up Api Test", () => {
 
     // Test for approving or rejecting the invite
     test(`${description} the invite request`, async () => {
-     
+
       // send the post request for approval to admin
       const approvalParams = new URLSearchParams({ reject });
       const approveInviteUrl = `${API_ENDPOINTS.onboardApprove}?${approvalParams.toString()}`;
@@ -206,5 +154,91 @@ test.describe.serial("valid Sign Up Api Test", () => {
     })
 
   })
+
+  test.describe.serial('Invalid Approval Cases', () => {
+    // Test: Attempt to approve as a non-admin member
+    test('Member Approve by non-admin privileges', async () => {
+      approveEmail = generateTestEmail();
+      await saveData({ approveEmail: approveEmail })
+
+      // Invitee signs up and verifies their account
+      const inviteSignUpData = new URLSearchParams({
+        firstName: ValidTestData.Invite.firstName,
+        lastName: ValidTestData.Invite.lastName,
+        organizationName: ValidTestData.Invite.organizationName,
+        email: approveEmail,
+        reason: '',
+      });
+      const inviteSignUpResponse = await postRequest(API_ENDPOINTS.onboardSignup, inviteSignUpData, headers);
+      expect(inviteSignUpResponse.status).toBe(200);
+      const inviteSignUpBody = await inviteSignUpResponse.json();
+      const inviteVerificationCode = inviteSignUpBody.verificationCode;
+
+      // Verify invitee account using the verification code
+      const verifyInviteeData = new URLSearchParams({
+        verificationCode: inviteVerificationCode,
+        email: approveEmail,
+        password: ValidTestData.Password
+      });
+      const verifyInviteeResponse = await postRequest(API_ENDPOINTS.onboardVerify, verifyInviteeData, headers);
+      expect(verifyInviteeResponse.status).toBe(200);
+
+      // Authenticate non-admin member
+      const authdata = new URLSearchParams({
+        username: memberEmail,
+        password: ValidTestData.Password,
+      });
+      const authResponse = await postRequest(API_ENDPOINTS.authTOken, authdata, headers);
+      expect(authResponse.status).toBe(200);
+      const authResponseBody = await authResponse.json();
+      const memberAccessToken = authResponseBody.access_token;
+
+      // Attempt approval by non-admin and validate error response
+      const approveInviteData = new URLSearchParams({
+        email: approveEmail,
+      });
+
+      const approveInviteHeaders = {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': `Bearer ${memberAccessToken}`
+      };
+      const response = await postRequest(API_ENDPOINTS.onboardApprove, approveInviteData, approveInviteHeaders);
+      const responseBody = await response.json();
+      expect(response.status).toBe(401);
+      expect(responseBody).toHaveProperty('statusCode', 401);
+      expect(responseBody).toHaveProperty('errorType', 'UNAUTHORIZED');
+      expect(responseBody).toHaveProperty('errorMessage', 'You are not authorized to approve members');
+      expect(responseBody.context.approving_member).toHaveProperty('email', memberEmail);
+    })
+
+    // Test: Approving a non-existent member
+    test('Approve non-existent member', async () => {
+      const approveInviteData = new URLSearchParams({
+        email: inValidTestData.InvalidEmail,
+      });
+
+      const approveInviteHeaders = {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': `Bearer ${accessToken}`
+      };
+      const response = await postRequest(API_ENDPOINTS.onboardApprove, approveInviteData, approveInviteHeaders);
+      const responseBody = await response.json();
+      expect(response.status).toBe(404);
+      expect(responseBody).toHaveProperty('statusCode', 404);
+      expect(responseBody).toHaveProperty('errorType', 'MODEL_NOT_FOUND');
+      expect(responseBody).toHaveProperty('errorMessage', 'Member not found');
+      expect(responseBody).toMatchObject({
+        statusCode: 404,
+        errorType: "MODEL_NOT_FOUND",
+        errorMessage: "Member not found",
+        context: {
+          email: inValidTestData.InvalidEmail
+        },
+        timestamp: expect.any(String),
+        requestId: expect.any(String),
+      });
+
+    })
+  })
+
 });
-})

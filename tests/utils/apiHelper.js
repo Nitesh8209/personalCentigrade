@@ -59,7 +59,7 @@ export async function putRequest(url, data, headers = {}) {
 }
 
 //Helper function to make Delete request
-async function deleteRequest(url, headers = {}) {
+export async function deleteRequest(url, headers = {}) {
     return await makeApiRequest('DELETE', url, {}, headers);
 }
 
@@ -89,15 +89,22 @@ function checkResponseStatus(response, expectedStatus) {
     }
 }
 
- const dataFilePath = './tests/data/Creadential.json';
- export async function saveToken(token) {
-    fs.writeFileSync(dataFilePath, JSON.stringify({ adminAccessToken: token }, null, 2));
-  }
-  
- export async function getToken() {
+const dataFilePath = './tests/data/Creadential.json';
+
+// Function to save new data to the JSON file by merging it with existing data
+export async function saveData(newData) {
+    let data = {};
+    const rawData = fs.readFileSync(dataFilePath, 'utf8');
+    data = JSON.parse(rawData);
+    data = { ...data, ...newData };
+    fs.writeFileSync(dataFilePath, JSON.stringify(data, null, 2));
+}
+
+// Function to retrieve data from the JSON file
+export function getData() {
     const data = fs.readFileSync(dataFilePath);
-    return JSON.parse(data).adminAccessToken;
-  }
+    return JSON.parse(data);
+}
 
 export const validateErrorResponse = (responseBody, expectedStatusCode, expectedMessage) => {
     expect(responseBody).toHaveProperty('statusCode', expectedStatusCode);

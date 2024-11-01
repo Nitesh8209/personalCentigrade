@@ -1,17 +1,22 @@
 import { google } from 'googleapis';
 import { OAuth2Client } from 'google-auth-library';
 
+// securely load credentials from environment variables
 const clientID = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
 const refreshToken = process.env.REFRESH_TOKEN;
 
+// Initialize OAuth2 client with provided client credentials
 const oauth2Client = new OAuth2Client(clientID, clientSecret);
 oauth2Client.setCredentials({ refresh_token: refreshToken });
 
+// Initialize the Gmail API with OAuth2 client authentication
 const gmail = google.gmail({ version: 'v1', auth: oauth2Client });
 
-// Function to get Gmail messages
+// Function to retrieve Gmail messages
 export async function getGmailMessages() {
+
+  // Adding delay to ensure the email arrives before attempting to fetch it
   await new Promise(resolve => setTimeout(resolve, 5000));
   try {
     const response = await gmail.users.messages.list({
@@ -19,13 +24,14 @@ export async function getGmailMessages() {
       maxResults: 1,
       q: 'from:no-reply@centigrade.earth'
     });
-
     const messages = response.data.messages || [];
 
+    // Check if no messages were found from the specified sender
     if (messages.length === 0) {
       throw new Error('No messages found from no-reply@centigrade.earth');
     }
 
+    // Retrieve details for the first message
     return await getMessageDetails(messages[0].id);
   } catch (error) {
     throw new Error(`Error fetching messages: ${error.message}`);
@@ -64,6 +70,7 @@ export async function getMessageDetails(messageId) {
   }
 }
 
+// Utility function to generate unique test email addresses with timestamp
 export function generateTestEmail() {
   const newEmail = `nitesh.agarwalautomation+test${Date.now()}@gmail.com`;
   return newEmail;

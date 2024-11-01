@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
-import { Credentials, apiUrl, InvalidCreadentials } from '../data/testData';
-import { postRequest, validateErrorResponse, saveToken } from '../utils/apiHelper'
+import { Credentials, apiUrl, InvalidCreadentials } from '../../data/testData';
+import { postRequest, validateErrorResponse, saveData } from '../../utils/apiHelper'
 
 test.describe('Login Api Tests', () => {
     let url;
@@ -26,7 +26,7 @@ test.describe('Login Api Tests', () => {
         expect(responseBody).toHaveProperty('refresh_token');
 
         const accessToken = responseBody.access_token;
-        await saveToken(accessToken);
+        await saveData({admin_access_token: accessToken});
 
     });
 
