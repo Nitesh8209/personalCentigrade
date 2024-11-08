@@ -6,7 +6,7 @@ import { ValidTestData } from '../../data/SignUpData';
 
 test.describe.serial('Edge Cases and Organization Deletion Scenarios', () => {
   // Destructure organization-related details from retrieved data
-  const { organizationId, InviteaccessToken, approveEmail } = getData();
+  const { organizationId, InviteaccessToken, approveEmail } = getData('Api');
 
   let headers;
   let resendEmail;

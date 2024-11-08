@@ -4,7 +4,7 @@ import { inValidTestData, ValidTestData } from '../../data/SignUpData';
 import API_ENDPOINTS from '../../../api/apiEndpoints';
 
 test.describe.serial('Account Verification Flow', () => {
-  const { newEmail, verificationCode } = getData();
+  const { newEmail, verificationCode } = getData('Api');
 
   let headers;
 

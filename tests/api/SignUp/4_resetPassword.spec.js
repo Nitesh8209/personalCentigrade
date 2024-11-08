@@ -6,7 +6,7 @@ import { Credentials } from '../../data/testData';
 import { getGmailMessages } from '../../utils/signUpHelper';
 
 test.describe.serial("Password Reset Flow", () => {
-  const { newEmail } = getData();
+  const { newEmail } = getData('Api');
   let headers;
   let temporaryPassword;
 

@@ -26,7 +26,7 @@ test.describe('Login Api Tests', () => {
         expect(responseBody).toHaveProperty('refresh_token');
 
         const accessToken = responseBody.access_token;
-        await saveData({admin_access_token: accessToken});
+        await saveData({admin_access_token: accessToken}, 'Api');
 
     });
 
