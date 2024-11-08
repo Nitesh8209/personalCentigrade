@@ -5,7 +5,7 @@ import { postRequest, getRequest, putRequest, getData, saveData } from '../../ut
 import API_ENDPOINTS from '../../../api/apiEndpoints';
 
 test.describe.serial(`Member Invitation and Approval Flow`, () => {
-  const { newEmail, admin_access_token } = getData();
+  const { newEmail, admin_access_token } = getData('Api');
 
   let headers;
   let InviteEmail;
@@ -58,7 +58,7 @@ test.describe.serial(`Member Invitation and Approval Flow`, () => {
     expect(updateResponse.status).toBe(200);
     expect(updateResponseBody.roleType).toHaveProperty('id', 18);
     expect(updateResponseBody.roleType).toHaveProperty('name', 'ORG_ADMIN');
-    await saveData({ organizationId: organizationId })
+    await saveData({ organizationId: organizationId },'Api')
   })
 
 
@@ -77,7 +77,7 @@ test.describe.serial(`Member Invitation and Approval Flow`, () => {
       expect(authResponse.status).toBe(200);
       const authResponseBody = await authResponse.json();
       accessToken = authResponseBody.access_token;
-      await saveData({ InviteaccessToken: accessToken });
+      await saveData({ InviteaccessToken: accessToken }, 'Api');
 
       // Generate random email for invite and send the post request for Invite
       InviteEmail = generateTestEmail();
@@ -159,7 +159,7 @@ test.describe.serial(`Member Invitation and Approval Flow`, () => {
     // Test: Attempt to approve as a non-admin member
     test('Member Approve by non-admin privileges', async () => {
       approveEmail = generateTestEmail();
-      await saveData({ approveEmail: approveEmail })
+      await saveData({ approveEmail: approveEmail },'Api')
 
       // Invitee signs up and verifies their account
       const inviteSignUpData = new URLSearchParams({

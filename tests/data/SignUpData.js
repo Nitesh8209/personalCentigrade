@@ -30,7 +30,7 @@ export const inValidTestData = {
     lastName: "Agarwal",
     organizationName: 'Invalidorganization',
     existEmail: 'nitesh.agarwal@kreeti.com',
-    InvalidEmail: 'InvalidUser@gmail.com',
+    InvalidEmail: 'invaliduser@gmail.com',
     NoMemberOrganizationEmail: 'nitesh.agarwalautomation+test13@gmail.com',
     // NoOrganizationId: 264,
 
@@ -40,7 +40,7 @@ export const inValidTestData = {
         UnverfiedEmail: 'nitesh.agarwal+test10@kreeti.com',
         InvalidPassword: '123456789',
         Password: 'Centigrade@54321',
-        incorrectverifiationCode: '12345'
+        incorrectverifiationCode: '123456'
     },
 
     Password: 'Centigrade@54321',

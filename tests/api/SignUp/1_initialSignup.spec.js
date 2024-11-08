@@ -27,13 +27,13 @@ test.describe.serial("Initial Sign Up Flow", () => {
       });
       const response = await postRequest(API_ENDPOINTS.onboardSignup, data, headers);
 
-      const { receivedVerificationCode } = await getGmailMessages();  // Fetch Gmail message for verification code
+      const { receivedVerificationCode } = await getGmailMessages(newEmail);  // Fetch Gmail message for verification code
       expect(response.status).toBe(200);
       const responseBody = await response.json();
       expect(responseBody).toHaveProperty('verificationCode', receivedVerificationCode);
       expect(responseBody).toHaveProperty('email', newEmail);
 
-      await saveData({ newEmail: newEmail });
+      await saveData({ newEmail: newEmail }, 'Api');
     })
 
 

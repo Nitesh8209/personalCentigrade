@@ -1,9 +1,9 @@
 import { test, expect } from "@playwright/test";
 import { faker } from '@faker-js/faker';
-import { LoginPage } from "../../pages/loginPage";
-import { expectedUsername, clientId } from "../data/testData";
-import { getPasswordAuthResponse, getSrpAuthResponse, getTokens } from "../utils/authHelper";
-import { loginTestCases } from "../data/IntegrationtestData";
+import { LoginPage } from "../../../pages/loginPage";
+import { expectedUsername, clientId } from "../../data/testData";
+import { getPasswordAuthResponse, getSrpAuthResponse, getTokens } from "../../utils/authHelper";
+import { loginTestCases } from "../../data/IntegrationtestData";
 
 // Variables to store dynamically generated invalid credentials
 let invalidUsername;

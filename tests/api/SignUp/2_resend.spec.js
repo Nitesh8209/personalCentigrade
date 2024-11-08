@@ -5,7 +5,7 @@ import { inValidTestData } from '../../data/SignUpData';
 import API_ENDPOINTS from '../../../api/apiEndpoints';
 
 test.describe.serial('Verification Code Flow', () => {
-const { newEmail } = getData(); 
+const { newEmail } = getData('Api'); 
   let headers;
 
   // set default headers before all tests
@@ -25,7 +25,7 @@ const { newEmail } = getData();
     const responseBody = await response.json();
 
     expect(response.status).toBe(200);
-    const { receivedVerificationCode } = await getGmailMessages();  // Fetch Gmail message for verification code
+    const { receivedVerificationCode } = await getGmailMessages(newEmail);  // Fetch Gmail message for verification code
 
     expect(responseBody).toHaveProperty('verificationCode', receivedVerificationCode);
     expect(responseBody).toHaveProperty('email', newEmail);
@@ -34,7 +34,7 @@ const { newEmail } = getData();
       email: newEmail,
     });
    
-    await saveData({ verificationCode: receivedVerificationCode }) // Storing verification code for next steps
+    await saveData({ verificationCode: receivedVerificationCode }, 'Api') // Storing verification code for next steps
   })
 
   // Resend the Verification code to non-existent member

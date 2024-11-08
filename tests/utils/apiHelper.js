@@ -92,18 +92,20 @@ function checkResponseStatus(response, expectedStatus) {
 const dataFilePath = './tests/data/Creadential.json';
 
 // Function to save new data to the JSON file by merging it with existing data
-export async function saveData(newData) {
+export async function saveData(newData, section) {
     let data = {};
     const rawData = fs.readFileSync(dataFilePath, 'utf8');
     data = JSON.parse(rawData);
-    data = { ...data, ...newData };
+    data[section] = { ...data[section], ...newData };
     fs.writeFileSync(dataFilePath, JSON.stringify(data, null, 2));
 }
 
 // Function to retrieve data from the JSON file
-export function getData() {
-    const data = fs.readFileSync(dataFilePath);
-    return JSON.parse(data);
+export function getData(section) {
+    let data = {};
+    const rawData = fs.readFileSync(dataFilePath, 'utf8');
+    data = JSON.parse(rawData);
+    return data[section] || {};
 }
 
 export const validateErrorResponse = (responseBody, expectedStatusCode, expectedMessage) => {
