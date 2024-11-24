@@ -158,33 +158,33 @@ test.describe.serial("Password Reset Flow", () => {
     });
   })
 
- // Test for Password Reset with Expired Temporary Password
- test('Password Reset with Expired Temporary Password', async () => {
-  const ExpiredResetPayload = new URLSearchParams({
-    username: newEmail,
-    oldPassword: temporaryPassword,
-    newPassword: ValidTestData.Password,
-  });
-  const response = await postRequest(API_ENDPOINTS.resetPassword, ExpiredResetPayload, headers);
-  const responseBody = await response.json();
+  // Test for Password Reset with Expired Temporary Password
+  test('Password Reset with Expired Temporary Password', async () => {
+    const ExpiredResetPayload = new URLSearchParams({
+      username: newEmail,
+      oldPassword: temporaryPassword,
+      newPassword: ValidTestData.Password,
+    });
+    const response = await postRequest(API_ENDPOINTS.resetPassword, ExpiredResetPayload, headers);
+    const responseBody = await response.json();
 
-  // Validate response for mismatched username and password
-  expect(response.status).toBe(401);
-  expect(responseBody).toHaveProperty('statusCode', 401);
-  expect(responseBody).toHaveProperty('errorType', 'HTTP_ERROR');
-  expect(responseBody).toHaveProperty('errorMessage', 'password not correct');
+    // Validate response for mismatched username and password
+    expect(response.status).toBe(401);
+    expect(responseBody).toHaveProperty('statusCode', 401);
+    expect(responseBody).toHaveProperty('errorType', 'HTTP_ERROR');
+    expect(responseBody).toHaveProperty('errorMessage', 'password not correct');
 
-  // Match structure for detailed error response
-  expect(responseBody).toMatchObject({
-    statusCode: 401,
-    errorType: "HTTP_ERROR",
-    errorMessage: "password not correct",
-    context: {
-      exception: '401: password not correct'
-    },
-    timestamp: expect.any(String),    // timestamp should be a string in the format YYYY-MM-DDTHH:MM:SSZ
-    requestId: expect.any(String),    // requestId should be a unique string identifier for the request
-  });
-})
+    // Match structure for detailed error response
+    expect(responseBody).toMatchObject({
+      statusCode: 401,
+      errorType: "HTTP_ERROR",
+      errorMessage: "password not correct",
+      context: {
+        exception: '401: password not correct'
+      },
+      timestamp: expect.any(String),    // timestamp should be a string in the format YYYY-MM-DDTHH:MM:SSZ
+      requestId: expect.any(String),    // requestId should be a unique string identifier for the request
+    });
+  })
 
 })

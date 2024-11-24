@@ -58,7 +58,7 @@ test.describe.serial(`Member Invitation and Approval Flow`, () => {
     expect(updateResponse.status).toBe(200);
     expect(updateResponseBody.roleType).toHaveProperty('id', 18);
     expect(updateResponseBody.roleType).toHaveProperty('name', 'ORG_ADMIN');
-    await saveData({ organizationId: organizationId },'Api')
+    await saveData({ organizationId: organizationId }, 'Api')
   })
 
 
@@ -159,7 +159,7 @@ test.describe.serial(`Member Invitation and Approval Flow`, () => {
     // Test: Attempt to approve as a non-admin member
     test('Member Approve by non-admin privileges', async () => {
       approveEmail = generateTestEmail();
-      await saveData({ approveEmail: approveEmail },'Api')
+      await saveData({ approveEmail: approveEmail }, 'Api')
 
       // Invitee signs up and verifies their account
       const inviteSignUpData = new URLSearchParams({

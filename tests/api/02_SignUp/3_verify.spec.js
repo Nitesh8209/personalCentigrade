@@ -31,14 +31,14 @@ test.describe.serial('Account Verification Flow', () => {
     // Validate the status and response properties
     expect(response.status).toBe(400);
     expect(responseBody).toHaveProperty('statusCode', 400);
-    expect(responseBody).toHaveProperty('errorType', 'HTTP_ERROR');
-    expect(responseBody).toHaveProperty('errorMessage', 'Password must be between 8 and 16 characters');
+    expect(responseBody).toHaveProperty('errorType', 'BAD_REQUEST');
+    expect(responseBody).toHaveProperty('errorMessage', 'Password does not meet the requirements. Failed constraints: min_length');
     expect(responseBody).toMatchObject({
       statusCode: 400,
-      errorType: "HTTP_ERROR",
-      errorMessage: "Password must be between 8 and 16 characters",
+      errorType: "BAD_REQUEST",
+      errorMessage: "Password does not meet the requirements. Failed constraints: min_length",
       context: {
-        exception: "400: Password must be between 8 and 16 characters"
+        password: inValidTestData.Verify.InvalidLengthPassword
       },
       timestamp: expect.any(String),
       requestId: expect.any(String),
@@ -59,14 +59,14 @@ test.describe.serial('Account Verification Flow', () => {
     // Validate the status and error messages for incorrect password format
     expect(response.status).toBe(400);
     expect(responseBody).toHaveProperty('statusCode', 400);
-    expect(responseBody).toHaveProperty('errorType', 'HTTP_ERROR');
-    expect(responseBody).toHaveProperty('errorMessage', 'Password must contain at least one lowercase letter, one uppercase letter, one number, and one special character');
+    expect(responseBody).toHaveProperty('errorType', 'BAD_REQUEST');
+    expect(responseBody).toHaveProperty('errorMessage', 'Password does not meet the requirements. Failed constraints: uppercase, lowercase, special_character');
     expect(responseBody).toMatchObject({
       statusCode: 400,
-      errorType: "HTTP_ERROR",
-      errorMessage: "Password must contain at least one lowercase letter, one uppercase letter, one number, and one special character",
+      errorType: "BAD_REQUEST",
+      errorMessage: "Password does not meet the requirements. Failed constraints: uppercase, lowercase, special_character",
       context: {
-        exception: "400: Password must contain at least one lowercase letter, one uppercase letter, one number, and one special character"
+        password: inValidTestData.Verify.InvalidPassword
       },
       timestamp: expect.any(String),
       requestId: expect.any(String),
