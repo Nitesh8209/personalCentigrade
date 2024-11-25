@@ -5,7 +5,7 @@ import { inValidTestData } from '../../data/SignUpData';
 import API_ENDPOINTS from '../../../api/apiEndpoints';
 
 test.describe.serial('Verification Code Flow', () => {
-const { newEmail } = getData('Api'); 
+  const { newEmail } = getData('Api');
   let headers;
 
   // set default headers before all tests
@@ -33,7 +33,7 @@ const { newEmail } = getData('Api');
       verificationCode: receivedVerificationCode,
       email: newEmail,
     });
-   
+
     await saveData({ verificationCode: receivedVerificationCode }, 'Api') // Storing verification code for next steps
   })
 
@@ -47,7 +47,7 @@ const { newEmail } = getData('Api');
     const response = await postRequest(resendUrl, data, headers);
     const responseBody = await response.json();
 
-     // Validate specific error properties
+    // Validate specific error properties
     expect(response.status).toBe(404);
     expect(responseBody).toHaveProperty('statusCode', 404);
     expect(responseBody).toHaveProperty('errorType', 'MODEL_NOT_FOUND');

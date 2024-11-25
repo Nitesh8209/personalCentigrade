@@ -11,7 +11,10 @@ export const API_ENDPOINTS = {
   onboardApprove: `${API_BASE_URL}/auth/onboard/approve`,
   getMember: `${API_BASE_URL}/member`,
   getMemberOrganizationTypes: `${API_BASE_URL}/member-organization-types`,
-  organization: `${API_BASE_URL}/organization`
+  organization: `${API_BASE_URL}/organization`,
+  createProject: `${API_BASE_URL}/project`,
+  modularbenefitproject: `${API_BASE_URL}/modular-benefit-project`,
+  organizationtype: `${API_BASE_URL}/organization-types`,
 }
 
 export default API_ENDPOINTS;

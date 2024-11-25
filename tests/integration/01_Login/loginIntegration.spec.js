@@ -16,7 +16,7 @@ test.beforeAll(async () => {
 });
 
 test.describe('Integration Login', () => {
-  
+
   // Loop through each test case provided in `loginTestCases`
   loginTestCases.forEach(({ description, email, password, expectedUrl, expectedTokens, expectedStatus, isValidUsername }) => {
 
@@ -29,7 +29,7 @@ test.describe('Integration Login', () => {
     test(description, async ({ page }) => {
 
       const username = email === 'invalidUsername' ? invalidUsername : email;
-      const testPassword  = password === 'invalidPassword' ? invalidPassword : password;
+      const testPassword = password === 'invalidPassword' ? invalidPassword : password;
 
       const loginPage = new LoginPage(page);
 
@@ -69,8 +69,8 @@ test.describe('Integration Login', () => {
 
       // If the response status is 400, ensure error message is displayed
       if (expectedStatus === 400) {
-        const errorMessage = await loginPage.getErrorMessage(); 
-        expect(errorMessage).toBe('Unable to log in because the email or password is not correct'); 
+        const errorMessage = await loginPage.getErrorMessage();
+        expect(errorMessage).toBe('Unable to log in because the email or password is not correct');
       }
 
       // Validate token presence or absence based on expectedTokens flag
