@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { Credentials, apiUrl, InvalidCreadentials } from '../../data/testData';
+import { Credentials, API_BASE_URL, InvalidCreadentials } from '../../data/testData';
 import { postRequest, validateErrorResponse, saveData } from '../../utils/apiHelper'
 
 test.describe('Login Api Tests', () => {
@@ -7,7 +7,8 @@ test.describe('Login Api Tests', () => {
     let headers;
 
     test.beforeAll(async () => {
-        url = `${apiUrl}/auth/token`;
+        url = `${API_BASE_URL}/auth/token`;
+        console.log(url);
         headers = {
             'Content-Type': 'application/x-www-form-urlencoded',
         };

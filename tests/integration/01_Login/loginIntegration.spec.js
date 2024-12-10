@@ -26,12 +26,12 @@ test.describe('Integration Login', () => {
       : expect.not.stringMatching(expectedUsername);
 
     // Define the actual test with Playwright
-    test(description, async ({ page }) => {
+    test(description, async ({ page, baseURL }) => {
 
       const username = email === 'invalidUsername' ? invalidUsername : email;
       const testPassword = password === 'invalidPassword' ? invalidPassword : password;
 
-      const loginPage = new LoginPage(page);
+      const loginPage = new LoginPage(page, baseURL);
 
       // Navigate to login page and perform login
       await loginPage.navigate();
@@ -86,8 +86,8 @@ test.describe('Integration Login', () => {
       }
 
       // Ensure that the page navigates to the expected URL
-      await page.waitForURL(expectedUrl);
-      expect(page.url()).toBe(expectedUrl);
+      await page.waitForURL(`${baseURL}/${expectedUrl}`);
+      expect(page.url()).toBe(`${baseURL}/${expectedUrl}`);
     })
   })
 });

@@ -134,10 +134,10 @@ test.describe('Project API Tests', () => {
   })
 
   // Test case to update project details
-  test('Update Project Data', async () => {
+  test('Update Project Data', async ({baseURL}) => {
     const ProjectUrl = `${API_ENDPOINTS.createProject}/${projectId}`;
     const projectData = {
-      domain: "https://devfoundry.centigrade.earth/",
+      domain: `${baseURL}/`,
     };
 
     const response = await putRequest(ProjectUrl, JSON.stringify(projectData), headers);
@@ -146,7 +146,7 @@ test.describe('Project API Tests', () => {
     // Assert the response status and updated project properties
     expect(response.status).toBe(200);
     expect(responseBody).toHaveProperty('id', projectId);
-    expect(responseBody).toHaveProperty('domain', "https://devfoundry.centigrade.earth/");
+    expect(responseBody).toHaveProperty('domain', `${baseURL}/`);
     expect(responseBody).toHaveProperty('organizationId', organizationId);
   })
 

@@ -10,9 +10,9 @@ test.describe('Verification Code Flow', () => {
   const { newEmail } = getData('Integration');
 
   // Test case: Successful resend verification code
-  test('Successful resend verification code', async ({ page }) => {
+  test('Successful resend verification code', async ({ page, baseURL }) => {
 
-    const signUpPage = new SignUpPage(page);
+    const signUpPage = new SignUpPage(page, baseURL);
 
     // Navigate to the verification page and trigger resend action
     await signUpPage.navigateVerification(newEmail);
@@ -27,7 +27,7 @@ test.describe('Verification Code Flow', () => {
     expect(response.status()).toBe(200);
 
     // Assert that the API response includes the expected verification code and email
-    const { receivedVerificationCode } = await getGmailMessages();
+    const { receivedVerificationCode } = await getGmailMessages(newEmail);
     expect(responseBody).toMatchObject({
       verificationCode: receivedVerificationCode,
       email: newEmail
@@ -37,9 +37,9 @@ test.describe('Verification Code Flow', () => {
   })
 
   // Test case: Resend verification for a non-existent member
-  test('Resend verification to non-existent member', async ({ page }) => {
+  test('Resend verification to non-existent member', async ({ page, baseURL }) => {
 
-    const signUpPage = new SignUpPage(page);
+    const signUpPage = new SignUpPage(page, baseURL);
 
     // Attempt to navigate and resend for an invalid email
     await signUpPage.navigateVerification(inValidTestData.InvalidEmail);

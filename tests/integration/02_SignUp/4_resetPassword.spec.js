@@ -14,10 +14,10 @@ test.describe('Password Reset Flow', () => {
   let resetPasswordLink;
 
   // Test for Request password reset with a valid registered email
-  test('Request password reset with a valid registered email', async ({ page }) => {
+  test('Request password reset with a valid registered email', async ({ page, baseURL }) => {
 
-    const signUpPage = new SignUpPage(page);
-    const loginPage = new LoginPage(page);
+    const signUpPage = new SignUpPage(page, baseURL);
+    const loginPage = new LoginPage(page, baseURL);
 
     // Navigate to login page and perform login
     await loginPage.navigate();
@@ -39,7 +39,7 @@ test.describe('Password Reset Flow', () => {
     const loginButton = await signUpPage.backToLoginButton();
     await expect(loginButton).toBeVisible();
 
-    const { body, subject } = await getGmailMessages();
+    const { body, subject } = await getGmailMessages(newEmail);
     expect(subject).toBe('Centigrade password reset request');
 
     // Extract temporary password and reset link using regex
@@ -48,17 +48,17 @@ test.describe('Password Reset Flow', () => {
     const tempPassword = tempPasswordMatch[1];
     resetPasswordLink = resetLinkMatch[1];  //store the resetPasswordLink
     expect(tempPassword).toBeDefined();
-    expect(resetPasswordLink).toContain('https://devfoundry.centigrade.earth/reset');
+    expect(resetPasswordLink).toContain(`${baseURL}/reset`);
 
     temporaryPassword = tempPassword;    //store the temporary password
   })
 
 
   // Test for Request Password Reset with Invalid Email Format
-  test(`Request Password Reset with Invalid Email Format`, async ({ page }) => {
+  test(`Request Password Reset with Invalid Email Format`, async ({ page , baseURL}) => {
 
-    const signUpPage = new SignUpPage(page);
-    const loginPage = new LoginPage(page);
+    const signUpPage = new SignUpPage(page, baseURL);
+    const loginPage = new LoginPage(page, baseURL);
 
     // Navigate to login page and perform login
     await loginPage.navigate();
@@ -85,8 +85,8 @@ test.describe('Password Reset Flow', () => {
   })
 
   // Test for Successful Password Reset with Mandatory Fields
-  test('Successful Password Reset with Mandatory Fields', async ({ page }) => {
-    const signUpPage = new SignUpPage(page);
+  test('Successful Password Reset with Mandatory Fields', async ({ page, baseURL }) => {
+    const signUpPage = new SignUpPage(page, baseURL);
 
     await page.goto(resetPasswordLink);
     await signUpPage.tempPasswordInput(temporaryPassword);
@@ -111,8 +111,8 @@ test.describe('Password Reset Flow', () => {
   })
 
   // Test for password reset with an invalid temporary password
-  test('Password Reset with Invalid Temporary Password', async ({ page }) => {
-    const signUpPage = new SignUpPage(page);
+  test('Password Reset with Invalid Temporary Password', async ({ page, baseURL }) => {
+    const signUpPage = new SignUpPage(page, baseURL);
 
     await page.goto(resetPasswordLink);
     await signUpPage.tempPasswordInput(ValidTestData.InvalidPassword);
@@ -136,9 +136,9 @@ test.describe('Password Reset Flow', () => {
   })
 
   // Test for password reset with mismatched username and temporary password
-  test('Password Reset with Mismatched Username and Temporary Password', async ({ page }) => {
+  test('Password Reset with Mismatched Username and Temporary Password', async ({ page, baseURL }) => {
 
-    const signUpPage = new SignUpPage(page);
+    const signUpPage = new SignUpPage(page, baseURL);
 
     await page.goto(resetPasswordLink);
     await signUpPage.tempPasswordInput(Credentials.password);
@@ -162,9 +162,9 @@ test.describe('Password Reset Flow', () => {
   })
 
   // Test for Password Reset with Expired Temporary Password
-  test('Password Reset with Expired Temporary Password', async ({ page }) => {
+  test('Password Reset with Expired Temporary Password', async ({ page, baseURL }) => {
 
-    const signUpPage = new SignUpPage(page);
+    const signUpPage = new SignUpPage(page, baseURL);
 
     await page.goto(resetPasswordLink);
     await signUpPage.tempPasswordInput(temporaryPassword);

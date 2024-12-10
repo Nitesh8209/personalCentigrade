@@ -1,4 +1,4 @@
-export const API_BASE_URL = 'https://devapi.centigrade.earth';
+import { API_BASE_URL } from "../tests/data/testData";
 
 export const API_ENDPOINTS = {
   authTOken: `${API_BASE_URL}/auth/token`,
@@ -15,6 +15,7 @@ export const API_ENDPOINTS = {
   createProject: `${API_BASE_URL}/project`,
   modularbenefitproject: `${API_BASE_URL}/modular-benefit-project`,
   organizationtype: `${API_BASE_URL}/organization-types`,
+  publicProject: `${API_BASE_URL}/public/projects`,
 }
 
 export default API_ENDPOINTS;

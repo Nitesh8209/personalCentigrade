@@ -19,15 +19,38 @@ docker build -t playwright-tests .
 
 ### 2. Run the test 
 
+#### For local
+
 ```bash
 docker run --rm \
-  -v ${PWD}/test-results:/app/test-results \
-  -v ${PWD}/playwright-report:/app/playwright-report \
+  -e PLATFORM=local \
+  -v "$(pwd -W)/test-results:/app/test-results" \
+  -v "$(pwd -W)/playwright-report:/app/playwright-report" \
+  playwright-tests
+
+```
+### For Dev
+
+```bash
+docker run --rm \
+  -e PLATFORM=dev \
+  -v "$(pwd -W)/test-results:/app/test-results" \
+  -v "$(pwd -W)/playwright-report:/app/playwright-report" \
+  playwright-tests
+
+```
+### For Prod
+
+```bash
+docker run --rm \
+  -e PLATFORM=prod \
+  -v "$(pwd -W)/test-results:/app/test-results" \
+  -v "$(pwd -W)/playwright-report:/app/playwright-report" \
   playwright-tests
 
 ```
 
-### 3. Show the report
+### 3. See the report
 
 ```bash
 npx playwright show-report

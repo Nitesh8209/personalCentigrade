@@ -1,12 +1,11 @@
-import { devUrl } from "../tests/data/testData";
 class LoginPage {
-    constructor(page) {
+    constructor(page, baseURL) {
         this.page = page;
-
+        this.baseURL = baseURL;
     }
 
     async navigate() {
-        await this.page.goto(devUrl);
+        await this.page.goto(this.baseURL);
     }
    
     async enterEmail(email) {
@@ -23,6 +22,11 @@ class LoginPage {
 
     async getErrorMessage() {
         return await this.page.locator('.banner-content').innerText();
+    }
+
+    async logOut() {
+        await this.page.locator('.dropdown-trigger > .avatar > span').click();
+        await this.page.locator('.dropdown-item').click();
     }
 }
 
