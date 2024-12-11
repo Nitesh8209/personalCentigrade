@@ -1,14 +1,14 @@
 export const ValidTestData = {
     firstName: "Nitesh",
     lastName: "Agarwal",
-    organizationName: "automationtest",
+    organizationName: "automationtest3",
     Password: 'Centigrade@54321',
     newPassword: 'Centigrade@12345',
     InvalidPassword: '123456789',
     Invite: {
         firstName: "Nitesh10",
         lastName: "Agarwal",
-        organizationName: "SignupAutomation",
+        organizationName: "automationtest3",
         Password: 'Centigrade@54321',
     },
     Approve: [

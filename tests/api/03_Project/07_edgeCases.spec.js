@@ -43,11 +43,10 @@ test.describe('Edge Case Testing for Projects API', () => {
     await expectModelNotFound(response, projectId);
   })
 
-  test('Attempt to update a deleted project', async () => {
+  test('Attempt to update a deleted project', async ({baseURL}) => {
     const ProjectUrl = `${API_ENDPOINTS.createProject}/${projectId}`;
-    console.log(ProjectUrl);
     const projectData = {
-      domain: "https://devfoundry.centigrade.earth/",
+      domain: `${baseURL}/`,
     };
     const response = await putRequest(ProjectUrl, JSON.stringify(projectData), headers);
     const responseBody = await response.json();

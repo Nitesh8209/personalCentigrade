@@ -9,9 +9,9 @@ test.describe('Account Verification Flow', () => {
   const { newEmail, verificationCode } = getData('Integration');
 
   // Test case to verify response when the password is less than 8 characters
-  test('Verification with password less than 8 characters', async ({ page }) => {
+  test('Verification with password less than 8 characters', async ({ page, baseURL }) => {
 
-    const signUpPage = new SignUpPage(page);
+    const signUpPage = new SignUpPage(page, baseURL);
     await signUpPage.navigateVerification(newEmail);
     await signUpPage.codeInput(verificationCode);
     await signUpPage.Password(inValidTestData.Verify.InvalidLengthPassword);
@@ -19,13 +19,13 @@ test.describe('Account Verification Flow', () => {
 
     // Validate the passwordErrorMessage 
     const passwordErrorMessage = await signUpPage.passwordErrorMessage();
-    expect(passwordErrorMessage).toBe('Password should be at least 8 characters and contain an uppercase, a lowercase, and a special character.')
+    expect(passwordErrorMessage).toBe('Password must be at least 8 characters and contain an uppercase, a lowercase, a number, and a special character')
   })
 
   // Test case for incorrect verification code
-  test('Verification with incorrect code', async ({ page }) => {
+  test('Verification with incorrect code', async ({ page, baseURL }) => {
 
-    const signUpPage = new SignUpPage(page);
+    const signUpPage = new SignUpPage(page, baseURL);
     await signUpPage.navigateVerification(newEmail);
     await signUpPage.codeInput(inValidTestData.Verify.incorrectverifiationCode);
     await signUpPage.Password(inValidTestData.Verify.Password);
@@ -46,9 +46,9 @@ test.describe('Account Verification Flow', () => {
   })
 
   // Test case to verify response when attempting to verify a non-existent member
-  test('Verification for non-existent member', async ({ page }) => {
+  test('Verification for non-existent member', async ({ page, baseURL }) => {
 
-    const signUpPage = new SignUpPage(page);
+    const signUpPage = new SignUpPage(page, baseURL);
     await signUpPage.navigateVerification(inValidTestData.InvalidEmail);
     await signUpPage.codeInput(verificationCode);
     await signUpPage.Password(inValidTestData.Verify.Password);
@@ -70,9 +70,9 @@ test.describe('Account Verification Flow', () => {
   })
 
   // Test for verification is correct and given password
-  test('Successful verification with correct code and password', async ({ page }) => {
+  test('Successful verification with correct code and password', async ({ page, baseURL }) => {
 
-    const signUpPage = new SignUpPage(page);
+    const signUpPage = new SignUpPage(page, baseURL);
     await signUpPage.navigateVerification(newEmail);
     await signUpPage.codeInput(verificationCode);
     await signUpPage.Password(inValidTestData.Verify.Password);
@@ -91,9 +91,9 @@ test.describe('Account Verification Flow', () => {
   })
 
   // Test case for attempting signup with an already verified email
-  test('Attempt signup with already verified email', async ({ page }) => {
+  test('Attempt signup with already verified email', async ({ page, baseURL }) => {
 
-    const signUpPage = new SignUpPage(page);
+    const signUpPage = new SignUpPage(page, baseURL);
 
     await signUpPage.navigate();
     await signUpPage.firstName(inValidTestData.firstName);
@@ -118,9 +118,9 @@ test.describe('Account Verification Flow', () => {
   })
 
   // Test case for resending verification to an already verified member
-  test('Resend verification to already verified member', async ({ page }) => {
+  test('Resend verification to already verified member', async ({ page, baseURL }) => {
 
-    const signUpPage = new SignUpPage(page);
+    const signUpPage = new SignUpPage(page, baseURL);
     await signUpPage.navigateVerification(newEmail);
     await signUpPage.resend();
 
@@ -142,9 +142,9 @@ test.describe('Account Verification Flow', () => {
   })
 
   // Test case for resending verification to non-existent member
-  test('Resend verification to non-existent member', async ({ page }) => {
+  test('Resend verification to non-existent member', async ({ page , baseURL}) => {
 
-    const signUpPage = new SignUpPage(page);
+    const signUpPage = new SignUpPage(page, baseURL);
     await signUpPage.navigateVerification(inValidTestData.InvalidEmail);
     await signUpPage.resend();
 

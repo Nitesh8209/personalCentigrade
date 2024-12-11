@@ -18,7 +18,7 @@ test.describe.serial("Password Reset Flow", () => {
   });
 
   // Test for Request password reset with a valid registered email
-  test(`Request password reset with a valid registered email`, async () => {
+  test(`Request password reset with a valid registered email`, async ({baseURL}) => {
     const resetEmailData = new URLSearchParams({
       email: newEmail,
     });
@@ -38,7 +38,7 @@ test.describe.serial("Password Reset Flow", () => {
     const tempPassword = tempPasswordMatch[1];
     const resetPasswordLink = resetLinkMatch[1];
     expect(tempPassword).toBeDefined();
-    expect(resetPasswordLink).toContain('https://devfoundry.centigrade.earth/reset');
+    expect(resetPasswordLink).toContain(`${baseURL}/reset`);
     temporaryPassword = tempPassword;    //store the temporary password 
   })
 

@@ -15,10 +15,10 @@ test.describe('Member Invitation and Approval Flow', () => {
   let InviteEmail;
 
   // before Invite the new member set the new member as an Admin
-  test('Set member to Admin role', async ({ page }) => {
+  test('Set member to Admin role', async ({ page , baseURL}) => {
 
-    const loginPage = new LoginPage(page);
-    const projectsPage = new ProjectsPage(page);
+    const loginPage = new LoginPage(page, baseURL);
+    const projectsPage = new ProjectsPage(page, baseURL);
 
     // Navigate to login page and perform login
     await loginPage.navigate();
@@ -33,11 +33,11 @@ test.describe('Member Invitation and Approval Flow', () => {
     await projectsPage.teamButton();
 
     // Update the member Role
-    await projectsPage.UpdateinAdmin();
+    await projectsPage.UpdateinAdmin(newEmail);
 
     //Wait for response member
     await page.waitForResponse(response =>
-      response.url() === 'https://devapi.centigrade.earth/member' && response.status() === 200
+      response.url() === API_ENDPOINTS.getMember && response.status() === 200
     );
     await page.waitForTimeout(2000);
 
@@ -46,8 +46,8 @@ test.describe('Member Invitation and Approval Flow', () => {
   })
 
   // Test for Invite the member and after sign up auto approved
-  test('invite Member and auto approved', async ({ page }) => {
-    const loginPage = new LoginPage(page);
+  test('invite Member and auto approved', async ({ page, baseURL }) => {
+    const loginPage = new LoginPage(page, baseURL);
     const projectsPage = new ProjectsPage(page);
     InviteEmail = generateTestEmail();
 
@@ -73,29 +73,29 @@ test.describe('Member Invitation and Approval Flow', () => {
     expect(inviteSuccessEmail).toBe(InviteEmail);
 
     // Fetch Gmail invite email
-    const { subject, body } = await getGmailMessages();
+    const { subject, body } = await getGmailMessages(InviteEmail);
     expect(subject).toBe(`${ValidTestData.organizationName} has invited you to Centigrade`);
     const expectedLinkPattern = /Accept invitation \[(https?:\/\/[^\]]+)\]/;
     const invitationLink = body.match(expectedLinkPattern)[1];
-    expect(invitationLink).toContain(`https://devfoundry.centigrade.earth/create-account`);
+    expect(invitationLink).toContain(`${baseURL}/create-account`);
 
     await page.goto(invitationLink);
     await page.waitForResponse(response =>
       response.url() === API_ENDPOINTS.organization && response.status() === 200
     );
     await page.waitForTimeout(2000);
-    const signUpPage = new SignUpPage(page);
+    const signUpPage = new SignUpPage(page,baseURL);
 
     await signUpPage.firstName(ValidTestData.Invite.firstName);
     await signUpPage.lastName(ValidTestData.Invite.lastName);
     await signUpPage.checkBox();
     await signUpPage.signUp();
-    const { receivedVerificationCode } = await getGmailMessages();
+    const { receivedVerificationCode } = await getGmailMessages(InviteEmail);
     await signUpPage.codeInput(receivedVerificationCode);
     await signUpPage.Password(ValidTestData.Password);
     await signUpPage.createAccount();
     await page.waitForResponse(response =>
-      response.url().includes('https://devapi.centigrade.earth/public/projects') && response.status() === 200
+      response.url().includes(API_ENDPOINTS.publicProject) && response.status() === 200
     );
     expect(page.url()).toContain('/listings');
   })
@@ -105,9 +105,9 @@ test.describe('Member Invitation and Approval Flow', () => {
   ValidTestData.Approve.forEach(({ description, expectedSubject }) => {
 
     // Test for Inviting the user 
-    test(`Invite a new user to the organization for ${description}`, async ({ page }) => {
+    test(`Invite a new user to the organization for ${description}`, async ({ page, baseURL }) => {
       InviteEmail = generateTestEmail();
-      const signUpPage = new SignUpPage(page);
+      const signUpPage = new SignUpPage(page, baseURL);
 
       await signUpPage.navigate();
       await signUpPage.firstName(inValidTestData.firstName);
@@ -128,9 +128,9 @@ test.describe('Member Invitation and Approval Flow', () => {
     })
 
     // Test for approving or rejecting the invite
-    test(`${description} the invite request`, async ({ page }) => {
+    test(`${description} the invite request`, async ({ page, baseURL }) => {
 
-      const loginPage = new LoginPage(page);
+      const loginPage = new LoginPage(page, baseURL);
       const projectsPage = new ProjectsPage(page);
 
       // Navigate to login page and perform login
@@ -153,7 +153,7 @@ test.describe('Member Invitation and Approval Flow', () => {
       expect(approveResponseBody).toHaveProperty('email', InviteEmail);
 
       // Fetch Gmail approval email  
-      const { subject } = await getGmailMessages();
+      const { subject } = await getGmailMessages(InviteEmail);
       expect(subject).toBe(expectedSubject);
 
     })

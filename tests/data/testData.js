@@ -34,7 +34,12 @@ export const InvalidCreadentials = [
   }
 ];
 
-export const apiUrl = 'https://devapi.centigrade.earth';
-export const devUrl = 'https://devfoundry.centigrade.earth';
+export const API_BASE_URL =
+  process.env.PLATFORM === 'local'
+    ? process.env.API_BASE_URL_LOCAL
+    : process.env.PLATFORM === 'dev'
+      ? process.env.API_BASE_URL_DEV
+      : process.env.API_BASE_URL_PROD;
+
 export const clientId = '3vt9mvi7g8brl86n35rqe5pf93';
 export const expectedUsername = 'bpaul';

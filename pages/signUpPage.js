@@ -1,11 +1,11 @@
-import { devUrl } from "../tests/data/testData";
 class SignUpPage {
-  constructor(page) {
+  constructor(page, baseURL) {
     this.page = page;
+    this.baseURL = baseURL;
   }
 
   async navigate() {
-    await this.page.goto(`${devUrl}/create-account`);
+    await this.page.goto(`${this.baseURL}/create-account`);
   }
 
   async firstName(firstName) {
@@ -18,7 +18,7 @@ class SignUpPage {
 
   async organizationName(organizationName) {
     await this.page.locator('input[name="orgName"]').fill(organizationName);
-    await this.page.locator('.autocomplete-option').click();
+    // await this.page.locator('.autocomplete-option').click();
   }
 
   async email(email) {
@@ -34,7 +34,7 @@ class SignUpPage {
   }
 
   async navigateVerification(newEmail) {
-    await this.page.goto(`${devUrl}/verification?email=${encodeURIComponent(newEmail)}`);
+    await this.page.goto(`${this.baseURL}/verification?email=${encodeURIComponent(newEmail)}`);
   }
 
   async codeInput(verificationCode) {
@@ -70,7 +70,7 @@ class SignUpPage {
   }
 
   async forgotPassword() {
-    await this.page.locator('.forgot-password-link').click();
+    await this.page.getByRole('link', { name: 'Forgot Password' }).click();
   }
 
   async forgotPasswordEmail(email) {

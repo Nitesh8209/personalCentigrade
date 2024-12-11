@@ -1,5 +1,5 @@
 import { expect } from '@playwright/test';
-import { apiUrl } from "../data/testData";
+import { API_BASE_URL } from "../data/testData";
 const fs = require('fs');
 
 // Helper function to make API requests
@@ -18,7 +18,7 @@ export async function makeApiRequest(method, url, data = {}, headers = {}) {
 
 //Helper function to Authenticate and get token
 export async function login(username, password) {
-    const url = `${apiUrl}/auth/token`;
+    const url = `${API_BASE_URL}/auth/token`;
     const data = new URLSearchParams({
         username: username,
         password: password,

@@ -6,9 +6,9 @@ import { OAuth2Client } from 'google-auth-library';
 // const clientSecret = process.env.CLIENT_SECRET;
 // const refreshToken = process.env.REFRESH_TOKEN;
 
-const clientID = "386197563960-msd1cg1e0jflkt9uoelqfb8tjkqrvfle.apps.googleusercontent.com";
-const clientSecret = "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";
-const refreshToken = '1//04qM3PixMWSOTCgYIARAAGAQSNwF-L9IrvynIiSr4MWAIs5zW9ky8ixjZrRH3RnjUjq3HCEf4osLEumE6UUq5s8cVHku-6AyFGBo';
+const clientID = "851831849678-vq1748n181rjns0pp86c890n8nr0dv86.apps.googleusercontent.com";
+const clientSecret = "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";
+const refreshToken = '1//04ZqjpTZ2oxMPCgYIARAAGAQSNwF-L9IrqzHrtx-BtBs6-_Dm_0QyZUDp1iht6-iwlfps6b4k_I1cJmXKJylVnEpHgnTBLP20R3U';
 
 // Initialize OAuth2 client with provided client credentials
 const oauth2Client = new OAuth2Client(clientID, clientSecret);
@@ -17,6 +17,22 @@ oauth2Client.setCredentials({ refresh_token: refreshToken });
 // Initialize the Gmail API with OAuth2 client authentication
 const gmail = google.gmail({ version: 'v1', auth: oauth2Client });
 
+async function getLabelId(labelName) {
+  try {
+    const response = await gmail.users.labels.list({ userId: 'me' });
+    const labels = response.data.labels || [];
+    const label = labels.find(l => l.name === labelName);
+
+    if (!label) {
+      throw new Error(`Label "${labelName}" not found.`);
+    }
+
+    return label.id;
+  } catch (error) {
+    throw new Error(`Error fetching labels: ${error.message}`);
+  }
+}
+
 // Function to retrieve Gmail messages
 export async function getGmailMessages(to='') {
 
@@ -24,6 +40,7 @@ export async function getGmailMessages(to='') {
   await new Promise(resolve => setTimeout(resolve, 5000));
   try {
 
+    const labelId = await getLabelId('Centigrade');
     let query = 'from:no-reply@centigrade.earth';
     if (to) {
       query += ` to:${to}`;
@@ -31,7 +48,8 @@ export async function getGmailMessages(to='') {
     const response = await gmail.users.messages.list({
       userId: 'me',
       maxResults: 1,
-      q: query
+      q: query,
+      labelIds: [labelId]
     });
     const messages = response.data.messages || [];
 
@@ -81,6 +99,6 @@ export async function getMessageDetails(messageId) {
 
 // Utility function to generate unique test email addresses with timestamp
 export function generateTestEmail() {
-  const newEmail = `nitesh.agarwalautomation+test${Date.now()}@gmail.com`;
+  const newEmail = `nitesh.agarwal+test${Date.now()}@kreeti.com`;
   return newEmail;
 }

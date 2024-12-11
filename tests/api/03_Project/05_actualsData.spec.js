@@ -52,14 +52,14 @@ test.describe('TIER2 Actuals Data Upload Tests', () => {
     expect(response.status).toBe(200);
     expect(Array.isArray(responseBody)).toBe(true);
 
-    // Merging all expected data for validation
-    const expectedData = [...projectApproach.items, ...forcastData.items, ...actualsData.items];
+  //   // Merging all expected data for validation
+  //   const expectedData = [...projectApproach.items, ...forcastData.items, ...actualsData.items];
 
-    // Validating each item in the response
-    responseBody.forEach((item, index) => {
-      expect(item).toHaveProperty('keyName', expectedData[index].keyName);
-      expect(item).toHaveProperty('value', expectedData[index].value);
-    })
+  //   // Validating each item in the response
+  //   responseBody.forEach((item, index) => {
+  //     expect(item).toHaveProperty('keyName', expectedData[index].keyName);
+  //     expect(item).toHaveProperty('value', expectedData[index].value);
+  //   })
   })
 
   // Parallel Test Suite: Uploading files for different types

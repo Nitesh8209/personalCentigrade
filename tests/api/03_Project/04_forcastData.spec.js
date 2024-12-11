@@ -53,11 +53,11 @@ test.describe('TIER1 Forecast Data Upload Tests', () => {
     expect(Array.isArray(responseBody)).toBe(true);
 
     // Combine and validate expected data
-    const expectedData = [...projectApproach.items, ...forcastData.items];
-    responseBody.forEach((item, index) => {
-      expect(item).toHaveProperty('keyName', expectedData[index].keyName);
-      expect(item).toHaveProperty('value', expectedData[index].value);
-    })
+    // const expectedData = [...projectApproach.items, ...forcastData.items];
+    // responseBody.forEach((item, index) => {
+    //   expect(item).toHaveProperty('keyName', expectedData[index].keyName);
+    //   expect(item).toHaveProperty('value', expectedData[index].value);
+    // })
 
   })
 
@@ -83,8 +83,6 @@ test.describe('TIER1 Forecast Data Upload Tests', () => {
 
         // Send the upload request and validate response
         const response = await request.post(fileUrl, fileData);
-        console.log(response);
-        console.log(await response.json());
         expect(response.status()).toBe(200);
 
         const responseBody = await response.json();

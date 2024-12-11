@@ -17,9 +17,9 @@ test.describe('Intial sign up integration test', () => {
   });
 
   // Test for successful signup and email verification status
-  test('Successful sign up with new email', async ({ page }) => {
+  test('Successful sign up with new email', async ({ page, baseURL }) => {
 
-    const signUpPage = new SignUpPage(page);
+    const signUpPage = new SignUpPage(page, baseURL);
 
     await signUpPage.navigate();
     await signUpPage.firstName(ValidTestData.firstName);
