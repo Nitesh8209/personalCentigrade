@@ -83,7 +83,7 @@ test.describe('Project API Tests', () => {
     const getProjectUrl = `${API_ENDPOINTS.createProject}/${projectId}`;
     const response = await getRequest(getProjectUrl, headers);
     const responseBody = await response.json();
-    console.log(responseBody)
+
     // Assert the expected 404 error response
     expect(response.status).toBe(404);
     expect(responseBody).toHaveProperty('statusCode', 404);

@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { LoginPage } from '../../../pages/loginPage';
 import { ValidTestData } from '../../data/SignUpData';
 import { ProjectsPage } from '../../../pages/projectsPage';
-import { getData } from '../../utils/apiHelper';
+import { deleteRequest, getData } from '../../utils/apiHelper';
 import { Credentials } from '../../data/testData';
 import API_ENDPOINTS from '../../../api/apiEndpoints';
 import { EnhancementsData } from '../../data/IntegrationtestData';
@@ -10,6 +10,7 @@ import { EnhancementsData } from '../../data/IntegrationtestData';
 
 test.describe('add data for TIER-3 Enhancements fields', () => {
   const { newEmail, projectId } = getData('Integration');
+  const { admin_access_token } = getData();
 
   test.afterEach(async ({ page, baseURL }) => {
     // Perform logout steps after each test
@@ -107,6 +108,14 @@ test.describe('add data for TIER-3 Enhancements fields', () => {
     // Get the success message displayed on the UI
     const updateMessage = await projectsPage.updateMessage();
     expect(updateMessage).toBe('Your changes have been saved.');
+
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${admin_access_token}`
+    };
+    const projectUrl = `${API_ENDPOINTS.createProject}/${projectId}`
+    const response = await deleteRequest(projectUrl, headers);
+    expect(response.status).toBe(204);
   })
 
 })

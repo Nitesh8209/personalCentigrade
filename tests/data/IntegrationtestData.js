@@ -49,11 +49,11 @@ export const loginTestCases = [
 ];
 
 export const publishProjectData = [
-    // {
-    //     description: 'project Details',
-    //     action: 'projectDetails',
-    //     uploadFile: true,
-    // },
+    {
+        description: 'project Details',
+        action: 'projectDetails',
+        uploadFile: true,
+    },
     {
         description: 'project Approach',
         action: 'projectApproach',
@@ -102,7 +102,7 @@ export const publishProjectData = [
     {
         description: 'Equity And social Inclusion',
         action: 'EquityAndsocialInclusion',
-        uploadFile: true
+        uploadFile: false
     },
     {
         description: 'Air',
@@ -135,7 +135,7 @@ export const forecastData = [
     {
         description: 'Net Present Value',
         action: 'netPresentValue',
-        uploadFile: true
+        uploadFile: false
     },
     {
         description: 'Project Design',
@@ -175,7 +175,7 @@ export const forecastData = [
     {
         description: 'forecasted Credits',
         action: 'forecastedCredits',
-        uploadFile: true
+        uploadFile: false
     },
     {
         description: 'monitoring Approach',
@@ -223,7 +223,7 @@ export const actualsData = [
     {
         description: 'Uncertainty actuals',
         action: 'actualsUncertaintyactuals',
-        uploadFile: true
+        uploadFile: false
     },
     {
         description: 'Bufferactuals',

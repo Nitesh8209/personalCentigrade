@@ -8,7 +8,6 @@ test.describe('Login Api Tests', () => {
 
     test.beforeAll(async () => {
         url = `${API_BASE_URL}/auth/token`;
-        console.log(url);
         headers = {
             'Content-Type': 'application/x-www-form-urlencoded',
         };

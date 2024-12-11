@@ -45,7 +45,6 @@ test.describe('Edge Case Testing for Projects API', () => {
 
   test('Attempt to update a deleted project', async ({baseURL}) => {
     const ProjectUrl = `${API_ENDPOINTS.createProject}/${projectId}`;
-    console.log(ProjectUrl);
     const projectData = {
       domain: `${baseURL}/`,
     };

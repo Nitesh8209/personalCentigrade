@@ -3,7 +3,6 @@ import { API_BASE_URL } from "../tests/data/testData";
 
 async function getprojectdetails(keyName, data) {
     const item = data.items.find(item => item.keyName === keyName);
-    console.log('value',item.value);
     return item.value;
 }
 class ProjectsPage {

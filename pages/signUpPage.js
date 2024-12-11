@@ -70,7 +70,7 @@ class SignUpPage {
   }
 
   async forgotPassword() {
-    await this.page.locator('.forgot-password-link').click();
+    await this.page.getByRole('link', { name: 'Forgot Password' }).click();
   }
 
   async forgotPasswordEmail(email) {

@@ -83,8 +83,6 @@ test.describe('TIER1 Forecast Data Upload Tests', () => {
 
         // Send the upload request and validate response
         const response = await request.post(fileUrl, fileData);
-        console.log(response);
-        console.log(await response.json());
         expect(response.status()).toBe(200);
 
         const responseBody = await response.json();
