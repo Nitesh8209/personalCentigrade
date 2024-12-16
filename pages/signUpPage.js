@@ -1,3 +1,4 @@
+import { expect } from '@playwright/test';
 class SignUpPage {
   constructor(page, baseURL) {
     this.page = page;
@@ -58,7 +59,7 @@ class SignUpPage {
   }
 
   async getSuccessMessage() {
-    return await this.page.locator('toast-content').innerText();
+    return await this.page.locator('.toast-content').innerText();
   }
 
   async getErrorMessage() {
@@ -116,6 +117,128 @@ class SignUpPage {
   async login() {
     return await this.page.getByRole('button', { name: 'Log in' });
   }
+
+  async forgotPassworderrortitle() {
+    return await this.page.locator('.banner-title');
+  }
+
+  async verificationCodecard() {
+    await expect(this.page.locator('.card.elevate.create-account-container.gap-xl')).toBeVisible();
+  }
+
+  async verificationCodeheading() {
+   return await this.page.getByRole('heading', { name: 'Verify your email' });
+  }
+
+  async verificationCodeEmail() {
+    return await this.page.locator('span.font-semibold');
+  }
+
+  async verificationCodeinput() {
+    return await this.page.locator('.code-input');
+   }
+
+   async verificationCodepasswordInput() {
+    return await this.page.locator('input[type="password"]');
+   }
+
+   async verificationCodesubmit() {
+    return await this.page.locator('button[type="submit"]');
+  }
+
+  async verificationCoderesendlink() {
+    return await this.page.locator('a.text-link');
+  }
+
+  async verificationCodehelpertext() {
+    return await this.page.locator('.helper-text');
+  }
+
+  async awaitingApprovalleft() {
+    return await this.page.locator('.hero-section');
+  }
+  
+  async logo() {
+    return await this.page.locator('.centigrade-logo-container');
+  }
+  
+  async awaitingApprovalheading() {
+    return await this.page.locator('.awaiting-approval h1');
+  }
+
+  async awaitingApprovalnotificationText() {
+    return await this.page.locator('.awaiting-approval p');
+  }
+
+  async awaitingApprovalbackToProjectsLink() {
+    return await this.page.locator('a.text-link.body-semibold').first();
+  }
+
+  async awaitingApprovalcontactSupportLink() {
+    return await this.page.locator('a.text-link.body-semibold').last();
+  }
+
+  async navigateResetPassword(newEmail) {
+    await this.page.goto(`${this.baseURL}/reset?email=${encodeURIComponent(newEmail)}`);
+  }
+
+  async resetPasswordheading() {
+    return await this.page.locator('h1');
+  }
+
+  async resetPasswordmsg() {
+    return await this.page.locator('p');
+  }
+
+  async resetPasswordemail() {
+    return await this.page.locator('input[name="email"]');
+  }
+
+  async resetPasswordtempPassword() {
+    return await this.page.locator('input[name="temporaryPassword"]');
+  }
+
+  async resetPasswordtempPasswordbtn() {
+    return await this.page.locator('button[aria-label="Show password"]').nth(0);
+  }
+
+  async resetPasswordtempHelperText() {
+    return await this.page.locator(".content div:nth-child(2) div:nth-child(3)");
+  }
+
+  async resetPasswordnewPassword() {
+    return await this.page.locator('input[name="newPassword"]');
+  }
+
+  async resetPasswordnewPasswordbtn() {
+    return await this.page.locator('button[aria-label="Show password"]').nth(1);
+  }
+
+  async resetPasswordHelperText() {
+    return await this.page.locator('div.helper-text').nth(1);
+  }
+
+  async resetPasswordSubmit() {
+    return await this.page.locator('button[type="submit"]');
+  }
+
+  async resetPassworderrorBanner() {
+    return await this.page.locator('.banner-danger');
+  }
+
+  async resetPasswordsuccesserrormsg() {
+    return await this.page.locator('.banner-content');
+  }
+
+  async resetPasswordsucessheader() {
+    return await this.page.locator('.reset-confirmation h1');
+  }
+
+  async resetPasswordsucesssubText() {
+    return await this.page.locator('.reset-confirmation p');
+  }
+
+
 
 }
 
