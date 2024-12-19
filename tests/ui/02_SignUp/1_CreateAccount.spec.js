@@ -141,13 +141,7 @@ test.describe('Create Account Page UI Tests', () => {
     const signUpPage = new SignUpPage(page, baseURL);
 
     // Navigate to the sign-up page and fill in the required fields
-    await signUpPage.navigate();
-    await signUpPage.firstName(ValidTestData.firstName);
-    await signUpPage.lastName(ValidTestData.lastName);
-    await signUpPage.organizationName(ValidTestData.organizationName);
-    await signUpPage.email(newEmail);
-    await signUpPage.checkBox();
-    await signUpPage.signUp();
+    await signUpPage.completeSignUpProcess(ValidTestData.firstName, ValidTestData.lastName, ValidTestData.organizationName, newEmail);
 
     // Save the email data for later validation
     await saveData({ newEmail: newEmail }, 'UI');
@@ -193,13 +187,9 @@ test.describe('Create Account Page UI Tests', () => {
     const signUpPage = new SignUpPage(page, baseURL);
 
     // Navigate to the sign-up page and fill in the required fields
-    await signUpPage.navigate();
-    await signUpPage.firstName(ValidTestData.firstName);
-    await signUpPage.lastName(ValidTestData.lastName);
-    await signUpPage.organizationName(ValidTestData.organizationName);
-    await signUpPage.email(Credentials.username);
-    await signUpPage.checkBox();
-    await signUpPage.signUp();
+
+    await signUpPage.completeSignUpProcess(ValidTestData.firstName, ValidTestData.lastName, ValidTestData.organizationName, Credentials.username);
+
 
     const resetPassworderrorBanner = await signUpPage.resetPassworderrorBanner();
     const forgotPassworderrortitle = await signUpPage.forgotPassworderrortitle();

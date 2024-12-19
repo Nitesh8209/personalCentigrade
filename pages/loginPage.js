@@ -172,6 +172,11 @@ class LoginPage {
        return await this.page.getByRole('link', { name: 'Log in' });
     }
 
+    async login(email, password) {
+        await this.enterEmail(email);
+        await this.enterPassword(password);
+        await this.submit();
+      }
     
 }
 

@@ -238,7 +238,15 @@ class SignUpPage {
     return await this.page.locator('.reset-confirmation p');
   }
 
-
+  async completeSignUpProcess(firstName, lastName, organizationName, email) {
+    await this.navigate();
+    await this.firstName(firstName);
+    await this.lastName(lastName);
+    await this.organizationName(organizationName);
+    await this.email(email);
+    await this.checkBox();
+    await this.signUp();
+  }
 
 }
 
