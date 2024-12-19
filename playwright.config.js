@@ -20,6 +20,8 @@ const baseUrl =
  */
 module.exports = defineConfig({
   testDir: './tests',
+  snapshotPathTemplate: 'tests/assets/{arg}{ext}',
+  snapshotDir: '__snapshots__',
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -37,10 +39,13 @@ module.exports = defineConfig({
     baseURL: baseUrl,
     actionTimeout: 60000,
     navigationTimeout: 60000,
-
+    
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on',
     screenshot: 'on'
+  },
+  expect: {
+    timeout: 10000, // Global timeout for assertions (10 seconds)
   },
 
   /* Configure projects for major browsers */

@@ -1,6 +1,7 @@
 export const Credentials = {
   username: 'bidipta.paul@kreeti.com',
   password: 'Centigrade@2024',
+  invalidPassword: 'InvalidPassword'
 };
 
 export const InvalidCreadentials = [

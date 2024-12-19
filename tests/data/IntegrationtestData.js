@@ -123,8 +123,8 @@ export const publishProjectData = [
 
 export const forecastData = [
     {
-        description: 'Project eligibility requirements',
-        action: 'projectEligibilityRequirements',
+        description: 'General eligibility requirements',
+        action: 'Generaleligibilityrequirements',
         uploadFile: true
     },
     {
@@ -178,8 +178,8 @@ export const forecastData = [
         uploadFile: false
     },
     {
-        description: 'monitoring Approach',
-        action: 'monitoringApproach',
+        description: 'Monitoring plan',
+        action: 'monitoringplan',
         uploadFile: true
     },
     {
