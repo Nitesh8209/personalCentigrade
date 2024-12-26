@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { LoginPage } from '../../../pages/loginPage';
 import { ValidTestData } from '../../data/SignUpData';
 import { ProjectsPage } from '../../../pages/projectsPage';
-import { deleteRequest, getData } from '../../utils/apiHelper';
+import { deleteRequest, getData, getRequest } from '../../utils/apiHelper';
 import { Credentials } from '../../data/testData';
 import API_ENDPOINTS from '../../../api/apiEndpoints';
 import { EnhancementsData } from '../../data/IntegrationtestData';
@@ -109,6 +109,11 @@ test.describe('add data for TIER-3 Enhancements fields', () => {
     const updateMessage = await projectsPage.updateMessage();
     expect(updateMessage).toBe('Your changes have been saved.');
 
+    const resetButton = await projectsPage.resetButton();
+    await resetButton.click();
+    await page.waitForTimeout(5000);
+    await projectsPage.setting();
+
     const headers = {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${admin_access_token}`
@@ -116,6 +121,20 @@ test.describe('add data for TIER-3 Enhancements fields', () => {
     const projectUrl = `${API_ENDPOINTS.createProject}/${projectId}`
     const response = await deleteRequest(projectUrl, headers);
     expect(response.status).toBe(204);
+
+     const OrganizationUrl = `${API_ENDPOINTS.organization}?name=${ValidTestData.organizationName}`;
+     const getOrganization = await getRequest(OrganizationUrl, headers);
+     const getOrganizationresponse = await getOrganization.json();
+
+     const deleteOrganizationUrl = `${API_ENDPOINTS.organization}/${getOrganizationresponse[0].id}`;
+        const deleteOrganizationHeaders = {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': `Bearer ${admin_access_token}`
+        };
+
+        // Send DELETE request to delete the organization
+        const deleteOrganizationresponse = await deleteRequest(deleteOrganizationUrl, deleteOrganizationHeaders);
+        expect(deleteOrganizationresponse.status).toBe(200);
   })
 
 })

@@ -43,6 +43,10 @@ test.describe('Member Invitation and Approval Flow', () => {
 
     const admin = await projectsPage.adminrole();
     expect(admin).toBe('Admin');
+
+    const resetButton = await projectsPage.resetButton();
+    await resetButton.click();
+    await projectsPage.setting();
   })
 
   // Test for Invite the member and after sign up auto approved

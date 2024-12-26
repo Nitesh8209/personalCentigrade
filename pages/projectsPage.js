@@ -1,5 +1,6 @@
 import { actualsData, forcastData, projectApproach } from "../tests/data/projectData";
 import { API_BASE_URL } from "../tests/data/testData";
+import { expect } from '@playwright/test';
 
 async function getprojectdetails(keyName, data) {
     const item = data.items.find(item => item.keyName === keyName);
@@ -14,7 +15,7 @@ class ProjectsPage {
 
     async disableFeedbackWidget() {
         await this.page.addStyleTag({
-          content: `
+            content: `
             #zsfeedbackwidgetdiv {
               pointer-events: none !important;
             }
@@ -27,6 +28,8 @@ class ProjectsPage {
     }
 
     async selectOrg(organization) {
+        await this.page.locator('input.autocomplete-input[data-part="input"]').click();
+        await this.page.locator('input.autocomplete-input[data-part="input"]').fill('');
         await this.page.locator('input.autocomplete-input[data-part="input"]').fill(organization);
         await this.page.locator('.autocomplete-option').click();
     }
@@ -56,7 +59,7 @@ class ProjectsPage {
 
     async UpdateinAdmin(targetEmail) {
         const rowLocator = await this.page.locator(`.tabs >div:nth-child(4)> .team-tab >.editable-table >table:nth-child(1) > tbody:nth-child(2) > tr:has(:text("${targetEmail}"))`);
-        await rowLocator.locator('button').nth(0).click({force: true});
+        await rowLocator.locator('button').nth(0).click({ force: true });
         await this.page.getByRole('combobox', { name: 'Member type' }).click();
         await this.page.getByLabel('Edit Member').getByText('Admin').click();
         await this.page.getByRole('button', { name: 'Save' }).click();
@@ -146,7 +149,7 @@ class ProjectsPage {
         await this.page.getByRole('combobox', { name: 'Credit issuer Information icon' }).click();
         await this.page.getByRole('option', { name: 'Verra' }).click();
         await this.page.getByLabel('Registry standard version used').fill(await getprojectdetails('standardVersion', projectApproach));
-        await this.page.getByLabel('Project registry link').fill(await getprojectdetails('projectRegistryLink',projectApproach));
+        await this.page.getByLabel('Project registry link').fill(await getprojectdetails('projectRegistryLink', projectApproach));
         await this.page.getByLabel('Project registry ID').fill(await getprojectdetails('projectRegistryID', projectApproach));
         await this.page.getByRole('combobox', { name: 'Project status' }).click();
         await this.page.getByRole('option', { name: 'Validated' }).click();
@@ -175,7 +178,7 @@ class ProjectsPage {
         await this.page.locator('.menu.menu-root > div:nth-child(2)').click();
         await this.page.locator('.menu.menu-root > div:nth-child(2) > .collapsible-content > .menu> a:has-text("Disclosures")').click();
         await this.page.waitForLoadState('networkidle');
-        await this.page.locator('.radio-group.field.half-width > .radio-group-options > div:nth-child(1) > .radio > .radio-control').check({force:true});
+        await this.page.locator('.radio-group.field.half-width > .radio-group-options > div:nth-child(1) > .radio > .radio-control').check({ force: true });
         await this.page.locator('.checkbox-group-options > div:nth-child(2)').click();
         await this.page.locator('.step > :nth-child(2) > :nth-child(1) > .field-group > .fields > div:nth-child(3) > .radio-group-options > div:nth-child(1) > .radio > .radio-control').check();
         await this.page.getByLabel('Additional comments on labor').fill(await getprojectdetails('laborComments', projectApproach));
@@ -227,12 +230,12 @@ class ProjectsPage {
         await this.page.getByLabel('Number of total projects').fill(await getprojectdetails('organizationExperienceProjects', projectApproach));
         await this.page.getByLabel('Number of projects with issued credits').fill('5');
         await this.page.getByLabel('Organization history and').fill('org history');
-        await this.page.getByLabel('Years of operation').fill(await getprojectdetails('organizationOperationYears', projectApproach));
+        await this.page.getByLabel('Years of experience developing carbon projects').fill(await getprojectdetails('organizationOperationYears', projectApproach));
     }
 
-    async projectEligibilityRequirements() {
+    async Generaleligibilityrequirements() {
         await this.page.locator('.menu.menu-root > div:nth-child(3)').click();
-        await this.page.getByRole('link', { name: 'Project eligibility' }).click();
+        await this.page.getByRole('link', { name: 'General eligibility requirements' }).click();
         await this.page.waitForLoadState('networkidle');
         await this.page.getByLabel('Project occurs on eligible').locator('label').filter({ hasText: 'Yes' }).locator('div').click();
         await this.page.getByLabel('Project area meets the').fill('test');
@@ -246,9 +249,9 @@ class ProjectsPage {
         await this.page.getByLabel('Commercial harvesting at').locator('label').filter({ hasText: 'Yes' }).locator('div').click();
         await this.page.getByRole('combobox', { name: 'Commercial harvesting' }).click();
         await this.page.getByText('Be certified by FSC, SFI, or').click();
-        await this.page.getByRole('heading', { name: 'Project eligibility' }).click();
+        await this.page.locator('.select-indicator svg').click();
         await this.page.getByLabel('Later occurrence of').locator('label').filter({ hasText: 'Yes' }).locator('div').click();
- }
+    }
 
     async baselineScenario() {
         await this.page.locator('.menu.menu-root > div:nth-child(3)').click();
@@ -256,7 +259,7 @@ class ProjectsPage {
         await this.page.getByLabel('Inventory development overview').fill('inventory');
         await this.page.getByLabel('Inventory analysis and results').fill('inverntory');
         await this.page.getByLabel('Inventory QA/QC procedure').fill('QA');
-        await this.page.locator('.radio-group-options > div:nth-child(1) > .radio > .radio-control').check({force:true});
+        await this.page.locator('.radio-group-options > div:nth-child(1) > .radio > .radio-control').check({ force: true });
         await this.page.getByLabel('Stratification procedure and').fill(await getprojectdetails('stratificationProcedure', forcastData));
         await this.page.getByLabel('Growth model overview').fill('groth');
         await this.page.getByLabel('Baseline quantification').fill('baseline');
@@ -268,19 +271,19 @@ class ProjectsPage {
     async netPresentValue() {
         await this.page.locator('.menu.menu-root > div:nth-child(3)').click();
         await this.page.getByRole('link', { name: 'Net present value' }).click();
-        await this.page.getByRole('combobox', { name: 'Annual discount rate' }).click({force: true});
+        await this.page.getByRole('combobox', { name: 'Annual discount rate' }).click({ force: true });
         await this.page.getByRole('option', { name: '6%' }).click();
         await this.page.getByLabel('Cost assumptions').fill('test');
         await this.page.getByLabel('Revenue assumptions').fill('test');
         const inputs = await this.page.$$('input[id^="number-input::r"]');
         for (let i = 0; i < inputs.length; i++) {
-            await inputs[i].fill(((i + 1) * 1000).toString()); 
+            await inputs[i].fill(((i + 1) * 1000).toString());
         }
         await this.page.getByLabel('NPV calculation overview and').fill('npv');
     }
- 
+
     async Npvresult() {
-        
+
         await this.page.locator('input[data-scope="number-input"]').fill();
         await this.page.getByRole('button', { name: 'Save' });
     }
@@ -314,12 +317,14 @@ class ProjectsPage {
     async carbonStockSummary() {
         await this.page.locator('.menu.menu-root > div:nth-child(3)').click();
         await this.page.getByRole('link', { name: 'Carbon stock summary' }).click();
-        await this.page.waitForSelector('input[id^="number-input::r"]:visible');
-        const inputs = await this.page.$$('input[id^="number-input::r"]');
-        for (let i = 0; i < inputs.length; i++) {
-            await inputs[i].fill(((i + 1) * 100).toString()); 
+        await this.page.waitForSelector('.ag-center-cols-container');
+        const cells = await this.page.$$('.ag-center-cols-container .ag-cell');
+        for (let i = 0; i < cells.length; i++) {
+            const value = ((i + 1) * 100).toString();
+            await cells[i].click();
+            await this.page.keyboard.type(value);
         }
-        await this.page.getByRole('combobox', { name: 'Biomass estimation technique' }).click({force:true});
+        await this.page.getByRole('combobox', { name: 'Biomass estimation technique' }).click({ force: true });
         await this.page.getByText('Generalized allometric').click();
         await this.page.getByLabel('Forecasted baseline and').fill(await getprojectdetails('baselineComments', forcastData));
     }
@@ -327,10 +332,10 @@ class ProjectsPage {
     async leakageEstimates() {
         await this.page.locator('.menu.menu-root > div:nth-child(3)').click();
         await this.page.getByRole('link', { name: 'Leakage estimates' }).click();
-        await this.page.locator('.radio-group-options >div:nth-child(1)> .radio > .radio-control').click({force: true});
+        await this.page.locator('.radio-group-options >div:nth-child(1)> .radio > .radio-control').click({ force: true });
         const inputs = await this.page.$$('input[id^="number-input::r"]');
         for (let i = 0; i < inputs.length; i++) {
-            await inputs[i].fill(((i + 1) * 50).toString()); 
+            await inputs[i].fill(((i + 1) * 50).toString());
         }
         await this.page.getByLabel('Leakage sources').fill(await getprojectdetails('leakageDescription', forcastData));
         await this.page.getByLabel('Additional comments on').fill(await getprojectdetails('leakageComments', forcastData));
@@ -342,7 +347,7 @@ class ProjectsPage {
         await this.page.locator('.radio-group-options >div:nth-child(1)> .radio > .radio-control').click();
         const inputs = await this.page.$$('input[id^="number-input::r"]');
         for (let i = 0; i < inputs.length; i++) {
-            await inputs[i].fill(((i + 1) * 60).toString()); 
+            await inputs[i].fill(((i + 1) * 60).toString());
         }
         await this.page.getByLabel('Additional comments on').fill(await getprojectdetails('uncertaintyComments', forcastData));
     }
@@ -353,7 +358,7 @@ class ProjectsPage {
         await this.page.locator('.step > :nth-child(2) > :nth-child(1) > .field-group > .fields > div:nth-child(1) >.radio-group-options >div:nth-child(1)> .radio > .radio-control').click();
         const inputs = await this.page.$$('input[id^="number-input::r"]');
         for (let i = 0; i < inputs.length; i++) {
-            await inputs[i].fill(((i + 1) * 60).toString()); 
+            await inputs[i].fill(((i + 1) * 60).toString());
         }
         await this.page.getByLabel('Project uses an approved risk').locator('label').filter({ hasText: 'Yes' }).locator('div').click();
         await this.page.getByLabel('Additional comments on').fill(await getprojectdetails('bufferComments', forcastData));
@@ -365,17 +370,17 @@ class ProjectsPage {
         await this.page.locator('.menu.menu-root > div:nth-child(3)').click();
         await this.page.getByRole('link', { name: 'Forecasted credits' }).click();
         await this.page.locator('.radio-group-options >div:nth-child(1)> .radio > .radio-control').click();
-        await this.page.getByLabel('Crediting period forecast').fill(await getprojectdetails('projectActivityVerra', forcastData));
+        await this.page.getByLabel('Total credit forecast').fill(await getprojectdetails('projectActivityVerra', forcastData));
         const inputs = await this.page.$$('input[id^="number-input::r"]');
         for (let i = 0; i < inputs.length; i++) {
-            await inputs[i].fill(((i + 1) * 40).toString()); 
+            await inputs[i].fill(((i + 1) * 40).toString());
         }
         await this.page.getByLabel('Additional comments on').fill(await getprojectdetails('forecastComments', forcastData));
     }
 
-    async monitoringApproach() {
+    async monitoringplan() {
         await this.page.locator('.menu.menu-root > div:nth-child(3)').click();
-        await this.page.getByRole('link', { name: 'Monitoring approach' }).click();
+        await this.page.getByRole('link', { name: 'Monitoring plan' }).click();
         await this.page.getByLabel('MRV protocol and monitoring').fill(await getprojectdetails('monitoringPlan', forcastData));
         await this.page.getByLabel('Parameters monitored').fill(await getprojectdetails('dataParameters', forcastData));
         await this.page.getByLabel('Data processing and storage').fill(await getprojectdetails('dataProcess', forcastData));
@@ -390,7 +395,7 @@ class ProjectsPage {
         await this.page.getByText('Drought').click();
         await this.page.getByText('Pest and disease', { exact: true }).click();
         await this.page.getByRole('heading', { name: 'Durability' }).click();
-        await this.page.getByLabel('Additional comments on').fill(await getprojectdetails('reversalRiskOther', forcastData));
+        await this.page.getByLabel('Reversal risk assessment').fill(await getprojectdetails('reversalRiskOther', forcastData));
         await this.page.getByLabel('Risk assessment summary').fill(await getprojectdetails('projectActivityVerra', forcastData));
         await this.page.locator('label').filter({ hasText: 'Yes' }).locator('div').click();
         await this.page.getByLabel('Risk management plan', { exact: true }).fill(await getprojectdetails('riskPlan', forcastData));
@@ -399,7 +404,7 @@ class ProjectsPage {
         await this.page.getByRole('heading', { name: 'Durability' }).click();
         await this.page.getByLabel('Mitigation strategy for intentional/avoidable reversal risk').fill(await getprojectdetails('projectActivityVerra', forcastData));
         await this.page.getByLabel('Mitigation strategy for unintentional/unavoidable reversal risk').fill(await getprojectdetails('projectActivityVerra', forcastData));
-        await this.page.getByLabel('Insurance policy issuer and').fill(await getprojectdetails('insuranceOwner', forcastData));
+        // await this.page.getByLabel('Insurance policy issuer and').fill(await getprojectdetails('insuranceOwner', forcastData));
     }
 
     async Additionality() {
@@ -407,7 +412,7 @@ class ProjectsPage {
         await this.page.getByRole('link', { name: 'Additionality' }).click();
         await this.page.getByRole('combobox', { name: 'Additionality approaches used' }).click();
         await this.page.getByText('Common practice / penetration', { exact: true }).click();
-        await this.page.getByText('Consideration of prior carbon').click();
+        await this.page.getByText('Prior consideration of carbon credits').click();
         await this.page.getByRole('heading', { name: 'Additionality', exact: true }).click();
         await this.page.locator('.step > :nth-child(2) > :nth-child(1) > .field-group > .fields > div:nth-child(2) >.radio-group-options >div:nth-child(1)> .radio > .radio-control').check();
         await this.page.getByLabel('Additionality validation body').click();
@@ -420,7 +425,7 @@ class ProjectsPage {
         await this.page.getByLabel('Carbon credits considered').locator('label').filter({ hasText: 'Yes' }).locator('div').click();
         await this.page.getByLabel('Details of prior').click();
         await this.page.getByLabel('Details of prior').fill(await getprojectdetails('projectActivityVerra', forcastData));
- }
+    }
 
     async Validation() {
         await this.page.locator('.menu.menu-root > div:nth-child(3)').click();
@@ -428,7 +433,7 @@ class ProjectsPage {
         await this.page.locator('.radio-group-options >div:nth-child(1)> .radio > .radio-control').click();
         await this.page.getByLabel('Validation body').fill(await getprojectdetails('validationBody', forcastData));
         await this.page.getByLabel('Last validation date').fill(await getprojectdetails('validationDate', forcastData));
-  }
+    }
 
     async ProjectandMRUpdates() {
         await this.page.locator('.menu.menu-root > div:nth-child(4)').click();
@@ -455,7 +460,7 @@ class ProjectsPage {
         await this.page.getByLabel('Additional details on').fill(await getprojectdetails('reversalEventTypeOther', actualsData));
         await this.page.getByLabel('Reversals reported and').locator('label').filter({ hasText: 'Yes' }).locator('div').click();
         await this.page.locator('label').filter({ hasText: 'In process' }).locator('div').click();
- }
+    }
 
     async actualscarbonStockSummary() {
         await this.page.locator('.menu.menu-root > div:nth-child(4)').click();
@@ -463,10 +468,10 @@ class ProjectsPage {
         await this.page.waitForSelector('input[id^="number-input::r"]:visible');
         const inputs = await this.page.$$('input[id^="number-input::r"]');
         for (let i = 0; i < inputs.length; i++) {
-            await inputs[i].fill(((i + 1) * 40).toString()); 
+            await inputs[i].fill(((i + 1) * 40).toString());
         }
     }
-     
+
     async actualsLeakageactuals() {
         await this.page.locator('.menu.menu-root > div:nth-child(4)').click();
         await this.page.getByRole('link', { name: 'Leakage actuals' }).click();
@@ -475,22 +480,24 @@ class ProjectsPage {
         await this.page.getByRole('option', { name: 'Default values' }).click();
         const inputs = await this.page.$$('input[id^="number-input::r"]');
         for (let i = 0; i < inputs.length; i++) {
-            await inputs[i].fill(((i + 1) * 40).toString()); 
+            await inputs[i].fill(((i + 1) * 40).toString());
         }
         await this.page.getByLabel('Project exhibits activity-').locator('label').filter({ hasText: 'Yes' }).locator('div').click();
         await this.page.getByLabel('Activity-shifting leakage quantification approach').fill(await getprojectdetails('mrvResultsLinks', actualsData));
-}
+    }
 
     async actualsUncertaintyactuals() {
         await this.page.locator('.menu.menu-root > div:nth-child(4)').click();
         await this.page.getByRole('link', { name: 'Uncertainty actuals' }).click();
-        await this.page.waitForSelector('input[id^="number-input::r"]:visible');
-        const inputs = await this.page.$$('input[id^="number-input::r"]');
-        for (let i = 0; i < inputs.length; i++) {
-            await inputs[i].fill(((i + 1) * 50).toString()); 
+        await this.page.waitForSelector('.ag-center-cols-container');
+        const cells = await this.page.$$('.ag-center-cols-container .ag-cell');
+        for (let i = 0; i < cells.length; i++) {
+            const value = ((i + 1) * 100).toString();
+            await cells[i].click();
+            await this.page.keyboard.type(value);
         }
-        await this.page.getByLabel('Additional comments on actual').fill(await getprojectdetails('mrvResultsLinks', actualsData));
-   }
+        await this.page.getByLabel('Overview of uncertainty calculation').fill(await getprojectdetails('mrvResultsLinks', actualsData));
+    }
 
     async Bufferactuals() {
         await this.page.locator('.menu.menu-root > div:nth-child(4)').click();
@@ -498,12 +505,12 @@ class ProjectsPage {
         await this.page.locator('.step > :nth-child(2) > :nth-child(1) > .field-group > .fields > div:nth-child(1) >.radio-group-options >div:nth-child(1)> .radio > .radio-control').click();
         const inputs = await this.page.$$('input[id^="number-input::r"]');
         for (let i = 0; i < inputs.length; i++) {
-            await inputs[i].fill(((i + 1) * 70).toString()); 
+            await inputs[i].fill(((i + 1) * 70).toString());
         }
-        await this.page.getByLabel('Additional comments on buffer').fill(await getprojectdetails('additionalCommentsBuffer', actualsData));
+        await this.page.getByLabel('Overview of buffer determination').fill(await getprojectdetails('additionalCommentsBuffer', actualsData));
         await this.page.getByRole('combobox', { name: 'Buffer and risk category' }).click();
         await this.page.getByText('Version 1').click();
-     }
+    }
 
     async actuals() {
         await this.page.locator('.menu.menu-root > div:nth-child(4)').click();
@@ -511,7 +518,7 @@ class ProjectsPage {
         await this.page.waitForSelector('input[id^="number-input::r"]:visible');
         const inputs = await this.page.$$('input[id^="number-input::r"]');
         for (let i = 0; i < inputs.length; i++) {
-            await inputs[i].fill(((i + 1) * 50).toString()); 
+            await inputs[i].fill(((i + 1) * 50).toString());
         }
     }
 
@@ -529,14 +536,16 @@ class ProjectsPage {
     async actualsCreditsales() {
         await this.page.locator('.menu.menu-root > div:nth-child(4)').click();
         await this.page.getByRole('link', { name: 'Credit sales' }).click();
-        await this.page.waitForSelector('input[id^="number-input::r"]:visible');
-        const inputs = await this.page.$$('input[id^="number-input::r"]');
-        for (let i = 0; i < inputs.length; i++) {
-            await inputs[i].fill(((i + 1) * 60).toString()); // Example value: 1000, 2000, etc.
+        await this.page.waitForSelector('.ag-center-cols-container');
+        const cells = await this.page.$$('.ag-center-cols-container .ag-cell');
+        for (let i = 0; i < cells.length; i++) {
+            const value = ((i + 1) * 100).toString(); 
+            await cells[i].click(); 
+            await this.page.keyboard.type(value); 
         }
         await this.page.getByLabel('Estimated minimum price').fill(await getprojectdetails('estimatedPriceMin', actualsData));
         await this.page.getByLabel('Estimated maximum price').fill(await getprojectdetails('estimatedPriceMax', actualsData));
-        await this.page.getByRole('combobox', { name: 'Credit sales stage' }).click();
+        await this.page.getByRole('combobox', { name: 'Credit sales type' }).click();
         await this.page.getByText('Spot', { exact: true }).click();
         await this.page.getByRole('heading', { name: 'Credit sales' }).click();
         await this.page.getByLabel('Carbon credit buyers').fill(await getprojectdetails('carbonCreditBuyer', actualsData));
@@ -550,16 +559,16 @@ class ProjectsPage {
         await this.page.locator('.step > :nth-child(2) > :nth-child(1) > .field-group > .fields > div:nth-child(3) >.radio-group-options >div:nth-child(1)> .radio > .radio-control').click();
         await this.page.locator('.step > :nth-child(2) > :nth-child(3) > .field-group > .fields > div:nth-child(1) >.radio-group-options >div:nth-child(1)> .radio > .radio-control').click();
         await this.page.getByLabel('Expected physical').fill(await getprojectdetails('physicalDisplacementExplain', projectApproach));
-        await this.page.locator('.step > :nth-child(2) > :nth-child(3) > .field-group > .fields > div:nth-child(3) >.radio-group-options >div:nth-child(1)> .radio > .radio-control').click({force: true});
+        await this.page.locator('.step > :nth-child(2) > :nth-child(3) > .field-group > .fields > div:nth-child(3) >.radio-group-options >div:nth-child(1)> .radio > .radio-control').click({ force: true });
         await this.page.getByLabel('Details of mitigation plan to').fill(await getprojectdetails('physicalMitigationDetails', projectApproach));
     }
 
     async StakeholderIdentification() {
         await this.page.locator('.menu.menu-root > div:nth-child(6)').click();
         await this.page.getByRole('link', { name: 'Stakeholder identification' }).click();
-        await this.page.getByLabel('Communities and other').fill(await getprojectdetails('communityDescription',projectApproach));
+        await this.page.getByLabel('Communities and other').fill(await getprojectdetails('communityDescription', projectApproach));
         await this.page.getByLabel('Stakeholder identification').fill(await getprojectdetails('stakeholderIdentificationProcess', projectApproach));
-        await this.page.getByLabel('Details on expected impacts').fill(await getprojectdetails('communityImpactDetails',projectApproach));
+        await this.page.getByLabel('Details on expected impacts').fill(await getprojectdetails('communityImpactDetails', projectApproach));
     }
 
     async StakeholderConsultation() {
@@ -576,15 +585,15 @@ class ProjectsPage {
     async StakeholderEngagement() {
         await this.page.locator('.menu.menu-root > div:nth-child(6)').click();
         await this.page.getByRole('link', { name: 'Stakeholder engagement' }).click();
-        await this.page.locator('.step > :nth-child(2) > :nth-child(1) > .field-group > .fields > div:nth-child(1) >.radio-group-options >div:nth-child(1)> .radio > .radio-control').click({force: true});
-        await this.page.getByLabel('Stakeholder engagement details').click({force:true});
+        await this.page.locator('.step > :nth-child(2) > :nth-child(1) > .field-group > .fields > div:nth-child(1) >.radio-group-options >div:nth-child(1)> .radio > .radio-control').click({ force: true });
+        await this.page.getByLabel('Stakeholder engagement details').click({ force: true });
         await this.page.getByLabel('Stakeholder engagement details').fill(await getprojectdetails('stakeholderEngagementDetails', projectApproach));
     }
 
     async BenefitSharing() {
         await this.page.locator('.menu.menu-root > div:nth-child(6)').click();
         await this.page.getByRole('link', { name: 'Benefit sharing' }).click();
-        await this.page.locator('.step > :nth-child(2) > :nth-child(1) > .field-group > .fields > div:nth-child(1) >.radio-group-options >div:nth-child(1)> .radio > .radio-control').click({force:true});
+        await this.page.locator('.step > :nth-child(2) > :nth-child(1) > .field-group > .fields > div:nth-child(1) >.radio-group-options >div:nth-child(1)> .radio > .radio-control').click({ force: true });
         await this.page.getByLabel('Benefit sharing model explanation').fill(await getprojectdetails('benefitSharingExplanation', projectApproach));
         await this.page.locator('.step > :nth-child(2) > :nth-child(1) > .field-group > .fields > div:nth-child(3) >.radio-group-options >div:nth-child(1)> .radio > .radio-control').click();
         await this.page.getByLabel('Details on money sharing').fill(await getprojectdetails('moneySharing', projectApproach));
@@ -597,8 +606,8 @@ class ProjectsPage {
     async EquityAndsocialInclusion() {
         await this.page.locator('.menu.menu-root > div:nth-child(6)').click();
         await this.page.getByRole('link', { name: 'Equity and social inclusion' }).click();
-        await this.page.locator('.step > :nth-child(2) > :nth-child(1) > .field-group > .fields > div:nth-child(1) >.radio-group-options >div:nth-child(1)> .radio > .radio-control').click({force:true});
-        await this.page.locator('.step > :nth-child(2) > :nth-child(1) > .field-group > .fields > div:nth-child(2) >.radio-group-options >div:nth-child(1)> .radio > .radio-control').click({force:true});
+        await this.page.locator('.step > :nth-child(2) > :nth-child(1) > .field-group > .fields > div:nth-child(1) >.radio-group-options >div:nth-child(1)> .radio > .radio-control').click({ force: true });
+        await this.page.locator('.step > :nth-child(2) > :nth-child(1) > .field-group > .fields > div:nth-child(2) >.radio-group-options >div:nth-child(1)> .radio > .radio-control').click({ force: true });
         await this.page.getByLabel('Project impacts on the identified social groups').fill(await getprojectdetails('deiDetails', projectApproach));
         await this.page.locator('.step > :nth-child(2) > :nth-child(1) > .field-group > .fields > div:nth-child(4) >.radio-group-options >div:nth-child(1)> .radio > .radio-control').click();
         await this.page.locator('.step > :nth-child(2) > :nth-child(3) > .field-group > .fields > div:nth-child(1) >.radio-group-options >div:nth-child(1)> .radio > .radio-control').click();
@@ -630,7 +639,7 @@ class ProjectsPage {
     async Air() {
         await this.page.locator('.menu.menu-root > div:nth-child(7)').click();
         await this.page.getByRole('link', { name: 'Air' }).click();
-        await this.page.locator('.step > :nth-child(2) > :nth-child(1) > .field-group > .fields > div:nth-child(1) >.radio-group-options >div:nth-child(1)> .radio > .radio-control').click({force:true});
+        await this.page.locator('.step > :nth-child(2) > :nth-child(1) > .field-group > .fields > div:nth-child(1) >.radio-group-options >div:nth-child(1)> .radio > .radio-control').click({ force: true });
         await this.page.getByRole('combobox', { name: 'Domains included in the air' }).click();
         await this.page.getByText('Indoor air pollution', { exact: true }).click();
         await this.page.getByRole('heading', { name: 'Air' }).click();
@@ -646,14 +655,14 @@ class ProjectsPage {
         await this.page.getByLabel('Pollutant monitoring mechanism').fill(await getprojectdetails('airMonitoringMechanism', projectApproach));
         await this.page.getByLabel('Human exposure monitoring').fill(await getprojectdetails('exposureMonitoringMechanism', projectApproach));
         await this.page.getByLabel('Project impacts on indoor air').fill(await getprojectdetails('indoorAirDetails', projectApproach));
-        await this.page.getByLabel('Ambient and indoor air impacts claimed are third-party verified').locator('label').filter({ hasText: 'Yes' }).locator('div').click();
+        await this.page.getByLabel('Ambient and/or indoor air impacts claimed are third-party verified').locator('label').filter({ hasText: 'Yes' }).locator('div').click();
         await this.page.getByLabel('Verification body for claimed').fill(await getprojectdetails('airVerificationBody', projectApproach));
     }
 
     async Biodiversityandsoil() {
         await this.page.locator('.menu.menu-root > div:nth-child(7)').click();
         await this.page.getByRole('link', { name: 'Biodiversity and soil' }).click();
-        await this.page.getByRole('combobox', { name: 'Biome type Information icon' }).click({force:true});
+        await this.page.getByRole('combobox', { name: 'Biome type Information icon' }).click({ force: true });
         await this.page.getByText('Tropical and subtropical moist broadleaf forests').click();
         await this.page.getByRole('heading', { name: 'Biodiversity and soil' }).click();
         await this.page.getByRole('combobox', { name: 'Ecosystem categorization' }).click();
@@ -689,8 +698,8 @@ class ProjectsPage {
     async water() {
         await this.page.locator('.menu.menu-root > div:nth-child(7)').click();
         await this.page.getByRole('link', { name: 'Water' }).click();
-        await this.page.locator('.step > :nth-child(2) > :nth-child(1) > .field-group > .fields > div:nth-child(1) >.radio-group-options >div:nth-child(1)> .radio > .radio-control').click({force: true});
-        await this.page.locator('.step > :nth-child(2) > :nth-child(1) > .field-group > .fields > div:nth-child(2) >.radio-group-options >div:nth-child(1)> .radio > .radio-control').click({force: true});
+        await this.page.locator('.step > :nth-child(2) > :nth-child(1) > .field-group > .fields > div:nth-child(1) >.radio-group-options >div:nth-child(1)> .radio > .radio-control').click({ force: true });
+        await this.page.locator('.step > :nth-child(2) > :nth-child(1) > .field-group > .fields > div:nth-child(2) >.radio-group-options >div:nth-child(1)> .radio > .radio-control').click({ force: true });
         await this.page.getByLabel('Description of water resources monitoring plan').fill(await getprojectdetails('waterMonitorIntention', projectApproach));
         await this.page.getByRole('combobox', { name: 'Expected water impacts as a' }).click();
         await this.page.getByText('Project impacts water quality').click();
@@ -711,16 +720,19 @@ class ProjectsPage {
         await this.page.getByRole('combobox', { name: 'Applicable complimentary' }).click();
         await this.page.getByText('Crop yield - Mass per area').click();
         await this.page.getByRole('heading', { name: 'Water' }).click();
-        await this.page.getByLabel('Rationale for the selected').fill(await getprojectdetails('waterMonitoringIndicatorDetails',projectApproach));
+        await this.page.getByLabel('Rationale for the selected').fill(await getprojectdetails('waterMonitoringIndicatorDetails', projectApproach));
         await this.page.getByLabel('Water benefits claimed are').locator('label').filter({ hasText: 'Yes' }).locator('div').click();
         await this.page.getByLabel('Verification body for claimed').fill(await getprojectdetails('waterVerificationBody', projectApproach));
     }
 
     async saveProjectDetails() {
-        await this.page.getByRole('button', { name: 'Save' }).click({ force: true });
+        const saveButton = this.page.getByRole('button', { name: 'Save' });
+            await expect(saveButton).toBeVisible();
+            await expect(saveButton).toBeEnabled();
+            await saveButton.click({ force: true });
     }
 
-    async Keydifferentiators(){
+    async Keydifferentiators() {
         await this.page.getByText('Tier 3 - Enhancements').click();
         await this.page.getByRole('link', { name: 'Key differentiators' }).click();
         await this.page.getByLabel('First key differentiator title').fill('test');
@@ -731,7 +743,7 @@ class ProjectsPage {
         await this.page.getByLabel('Details about the third').fill('test');
     }
 
-    async Sustainabledevelopmentgoals(){
+    async Sustainabledevelopmentgoals() {
         await this.page.getByText('Tier 3 - Enhancements').click();
         await this.page.getByRole('link', { name: 'Sustainable development goals' }).click();
         await this.page.getByRole('combobox', { name: 'Sustainable development goals' }).click();
@@ -766,10 +778,12 @@ class ProjectsPage {
     async removeRoletype() {
         await this.page.getByLabel('Organization', { exact: true }).locator('div').filter({ hasText: /^Form - Basic$/ }).getByRole('button').click();
         await this.page.getByLabel('Organization', { exact: true }).locator('div').filter({ hasText: /^Form - Creator$/ }).getByRole('button').click();
-        await this.page.getByRole('button', { name: 'Save changes' }).click({force: true});
+        await this.page.getByRole('button', { name: 'Save changes' }).click({ force: true });
     }
-  
 
-} 
+    async resetButton() {
+        return await this.page.getByRole('button', {name: 'Reset'});
+    }
+}
 
 module.exports = { ProjectsPage };

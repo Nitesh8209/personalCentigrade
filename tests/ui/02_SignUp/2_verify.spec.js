@@ -3,6 +3,7 @@ import { SignUpPage } from '../../../pages/signUpPage';
 import { getGmailMessages } from '../../utils/signUpHelper';
 import { inValidTestData, ValidTestData } from '../../data/SignUpData';
 import { getData } from '../../utils/apiHelper';
+import { SettingsPage } from '../../../pages/settingsPage';
 
 test.describe('Verification Code Page UI Tests', () => {
   const { newEmail } = getData('UI');
@@ -44,6 +45,7 @@ test.describe('Verification Code Page UI Tests', () => {
   test('Successful verification with correct code and password and land on the awaiting-approval approval page', async ({ page, baseURL }) => {
 
     const signUpPage = new SignUpPage(page, baseURL);
+    const settingsPage = new SettingsPage(page, baseURL);
 
     // Navigate to the verification page using the provided email
     await signUpPage.navigateVerification(newEmail);
@@ -51,43 +53,20 @@ test.describe('Verification Code Page UI Tests', () => {
     await signUpPage.Password(ValidTestData.Password);
     await signUpPage.createAccount();
 
-    // Wait for the URL to change to the "awaiting-approval" page and verify the URL
-    await page.waitForURL('**/awaiting-approval');
-    expect(page.url()).toContain('/awaiting-approval');
 
-    // Verify the presence and correctness of various UI elements on the awaiting-approval page
-    const awaitingApprovalleft = await signUpPage.awaitingApprovalleft();
-    const logo = await signUpPage.logo();
-    const awaitingApprovalheading = await signUpPage.awaitingApprovalheading();
-    const awaitingApprovalnotificationText = await signUpPage.awaitingApprovalnotificationText();
-    const awaitingApprovalbackToProjectsLink = await signUpPage.awaitingApprovalbackToProjectsLink();
-    const awaitingApprovalcontactSupportLink = await signUpPage.awaitingApprovalcontactSupportLink();
+    await page.waitForURL('**/listings');
+    expect(page.url()).toContain('/listings');
+    
+    const settingButton = await settingsPage.settingButton();
+    await settingButton.click();
 
-    await expect(awaitingApprovalleft).toBeVisible();
-    await expect(logo).toBeVisible();
-    await expect(awaitingApprovalheading).toBeVisible();
-    await expect(awaitingApprovalheading).toHaveText('Awaiting approval');
+    await expect(await settingsPage.tabList()).toBeVisible();
+    await expect(await settingsPage.myAccountTab()).toBeVisible();
+    await expect(await settingsPage.myAccountTab()).toHaveAttribute('aria-selected', 'true');
+    await expect(await settingsPage.organizationTab()).not.toBeVisible();
+    await expect(await settingsPage.teamTab()).not.toBeVisible();
 
-    // Verify the notification text content
-    await expect(awaitingApprovalnotificationText.nth(0)).toBeVisible();
-    await expect(awaitingApprovalnotificationText.nth(0)).toHaveText(
-      `The administrator has been notified about your request to join ${ValidTestData.organizationName} on Centigrade.`
-    );
-    await expect(awaitingApprovalnotificationText.nth(1)).toBeVisible();
-    await expect(awaitingApprovalnotificationText.nth(1)).toHaveText(
-      'You will be notified by email once your request has been approved, after which you will be able to log in and collaborate on projects.'
-    );
-
-    // Verify the "Back to projects" link
-    await expect(awaitingApprovalbackToProjectsLink).toBeVisible();
-    await expect(awaitingApprovalbackToProjectsLink).toHaveText('Back to projects');
-    await expect(awaitingApprovalbackToProjectsLink).toHaveAttribute('href', '/listings');
-
-    // Verify the "Contact support" link
-    await expect(awaitingApprovalcontactSupportLink).toBeVisible();
-    await expect(awaitingApprovalcontactSupportLink).toHaveText('Contact support');
-    await expect(awaitingApprovalcontactSupportLink).toHaveAttribute('href', 'mailto:support@centigrade.earth');
-  })
+   })
 
 
 });

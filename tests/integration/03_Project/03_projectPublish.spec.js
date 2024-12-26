@@ -1,42 +1,32 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../../../pages/loginPage';
-import { ValidTestData } from '../../data/SignUpData';
 import { ProjectsPage } from '../../../pages/projectsPage';
 import { getData } from '../../utils/apiHelper';
-import { Credentials } from '../../data/testData';
 import API_ENDPOINTS from '../../../api/apiEndpoints';
 import { publishProjectData } from '../../data/IntegrationtestData';
+import path from 'path';
 
-
-test.describe('add data for publish the project', () => {
+test.describe('Add data for publishing the project', () => {
   const { newEmail, projectId } = getData('Integration');
+  const authStoragePath = path.join(__dirname, '..', '..', 'data', 'auth-admin.json');
+  test.use({ storageState: authStoragePath });
 
-  test.beforeEach(async ({ page, baseURL }) => {
 
-    // Initialize browser and login
-    const loginPage = new LoginPage(page, baseURL);
+  test.beforeEach(async ({page, baseURL}) => {
+     // Initialize browser and login
+     const loginPage = new LoginPage(page, baseURL);
 
-    await loginPage.navigate();
-    await loginPage.enterEmail(newEmail);
-    await loginPage.enterPassword(ValidTestData.newPassword);
-    await loginPage.submit();
-    await page.waitForLoadState('networkidle');
-  })
+     await loginPage.navigate();
+  });
 
-  test.afterEach(async ({ page, baseURL }) => {
-    // Log out after each test to reset state
-    const loginPage = new LoginPage(page, baseURL);
-    await loginPage.logOut();
-    expect(page).toHaveURL(`${baseURL}/login`);
-  })
 
-  // Iterate over publishProjectData to create tests dynamically
   publishProjectData.forEach(({ description, action, uploadFile }) => {
-    test(`add data in ${description}`, async ({ page, baseURL }) => {
+    test(`Add data in ${description}`, async ({page, baseURL }) => {
+      
       const projectsPage = new ProjectsPage(page, baseURL);
-      await projectsPage.viewProject()
+      await projectsPage.viewProject();
 
-      // Wait for API responses related to project data and modular benefits
+      // Wait for responses related to project and modular benefits
       const [projectResponse, mbpResponse] = await Promise.all([
         page.waitForResponse(response =>
           response.url().includes(`${API_ENDPOINTS.createProject}/${projectId}`) &&
@@ -51,24 +41,22 @@ test.describe('add data for publish the project', () => {
       // Verify responses for project and modular benefit endpoints
       expect(projectResponse.status()).toBe(200);
       expect(mbpResponse.status()).toBe(200);
-
-      expect(page).toHaveURL(`${baseURL}/projects/${projectId}/overview`);
-
-      // Add CSS to disable specific UI elements
+      await expect(page).toHaveURL(`${baseURL}/projects/${projectId}/overview`);
+    
+      const projectTitle = await projectsPage.porjectTitle();
+      expect(projectTitle).toBe('Automationproject3');
+      
+      // Disable specific UI elements
       await page.addStyleTag({
         content: '#zsfeedbackwidgetdiv { pointer-events: none; }'
       });
 
-      const porjectTitle = await projectsPage.porjectTitle();
-      expect(porjectTitle).toBe('Automationproject3');
 
-      await projectsPage[action]();
-
+      await projectsPage[action]();       
 
       if (uploadFile) {
-        // Handle file upload if applicable
+        // Handle file upload
         const filePath = require('path').resolve(__dirname, '../../assets/file2.png');
-
         await projectsPage.uploadfile(filePath);
 
         // Upload the file and verify the upload process
@@ -80,10 +68,9 @@ test.describe('add data for publish the project', () => {
         expect(projectFileResponse.status()).toBe(200);
 
         const fileMessage = await projectsPage.uploadfileSuccessMsg();
-        expect(fileMessage).toBe('file2.png');
+        await expect(fileMessage).toBe('file2.png');
       }
 
-      await page.waitForLoadState('networkidle');
       await projectsPage.saveProjectDetails();
       
       // Verify the API response for saving the project field values 
@@ -102,33 +89,27 @@ test.describe('add data for publish the project', () => {
         response.status() === 200
       );
       expect(pfvGetResponse.status()).toBe(200);
+    });
+  });
 
-    })
-  })
+  test('Publish project', async ({ page, baseURL }) => {
+    const projectsPage = new ProjectsPage(page, baseURL);
+    await projectsPage.viewProject();
 
-  test('Publish project', async ({ page }) => {
-    const projectsPage = new ProjectsPage(page);
-    await projectsPage.viewProject()
     const publishButton = await projectsPage.publishButton();
-
-    // Find the "Publish" button and wait for it to be visible
     await publishButton.waitFor({ state: 'visible' });
     await publishButton.click();
 
-    // Find the "Unpublish" button and check its visibility
     const unpublishButton = await projectsPage.unPublishButton();
     await unpublishButton.waitFor({ state: 'visible' });
-    const isButtonVisible = await unpublishButton.isVisible();
-    expect(isButtonVisible).toBe(true);
+    expect(await unpublishButton.isVisible()).toBe(true);
 
-    // Find the "Share" button and check its visibility
     const shareButton = await projectsPage.shareButton();
-    const isShareButtonVisible = await shareButton.isVisible();
-    expect(isShareButtonVisible).toBe(true);
-  })
+    expect(await shareButton.isVisible()).toBe(true);
+  });
 
-  test('Unpublish project', async ({ page }) => {
-    const projectsPage = new ProjectsPage(page);
+  test('Unpublish project', async ({page, baseURL }) => {
+    const projectsPage = new ProjectsPage(page, baseURL);
     await projectsPage.viewProject();
 
     const unpublishButton = await projectsPage.unPublishButton();
@@ -141,8 +122,6 @@ test.describe('add data for publish the project', () => {
 
     // Find the "Publish" button and check its visibility
     await publishButton.waitFor({ state: 'visible' });
-    const isButtonVisible = await publishButton.isVisible();
-    expect(isButtonVisible).toBe(true);
-  })
-
-})
+    expect(await publishButton.isVisible()).toBe(true);
+  });
+});
