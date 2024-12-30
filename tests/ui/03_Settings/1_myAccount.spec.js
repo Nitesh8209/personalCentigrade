@@ -3,6 +3,8 @@ import { LoginPage } from "../../../pages/loginPage";
 import { SettingsPage } from "../../../pages/settingsPage";
 import { ValidTestData } from '../../data/SignUpData';
 import { getData } from '../../utils/apiHelper';
+import { safeExpect } from '../../utils/authHelper';
+
 
 test.describe('Settings - My Account Page UI Tests', () => {
   const { newEmail } = getData('UI');
@@ -28,91 +30,181 @@ test.describe('Settings - My Account Page UI Tests', () => {
   });
 
   test('Verify Settings - My Account page elements are displayed correctly', async ({ }) => {
-
+    const errors = [];
     const settingButton = await settingsPage.settingButton();
     await settingButton.click();
 
-    // Verify that various elements are displayed correctly on the Settings - My Account page
-    await expect(page).toHaveURL(`${loginPage.baseURL}/settings/account`)
-    await expect(await settingsPage.breadcrumb()).toBeVisible();
-    await expect(await settingsPage.breadcrumb()).toHaveText('Settings');
-    await expect(await settingsPage.settingsHeader()).toBeVisible();
-    await expect(await settingsPage.headerTitle()).toBeVisible();
-    await expect(await settingsPage.headerTitle()).toHaveText('Settings');
-    await expect(await settingsPage.headerDescription()).toBeVisible();
-    await expect(await settingsPage.headerDescription()).toHaveText('Manage account and organizational settings');
+    // Basic page verification
+    await safeExpect('URL is correct',
+      async () => expect(page).toHaveURL(`${loginPage.baseURL}/settings/account`),
+      errors
+    );
 
-    // Verify tabs are visible and selected correctly
-    await expect(await settingsPage.tabList()).toBeVisible();
-    await expect(await settingsPage.myAccountTab()).toBeVisible();
-    await expect(await settingsPage.myAccountTab()).toHaveAttribute('aria-selected', 'true');
-    await expect(await settingsPage.organizationTab()).toBeVisible();
-    await expect(await settingsPage.organizationTab()).toHaveAttribute('aria-selected', 'false');
-    await expect(await settingsPage.teamTab()).toBeVisible();
-    await expect(await settingsPage.teamTab()).toHaveAttribute('aria-selected', 'false');
+    // Breadcrumb verification
+    await safeExpect('Breadcrumb visibility and text',
+      async () => {
+        await expect(await settingsPage.breadcrumb()).toBeVisible();
+        await expect(await settingsPage.breadcrumb()).toHaveText('Settings');
+      },
+      errors
+    );
 
-    // Verify input fields are displayed correctly
-    await expect(await settingsPage.firstName()).toBeVisible();
-    await expect(await settingsPage.firstName()).toHaveText('First name');
-    await expect(await settingsPage.firstNameInput()).toBeVisible();
-    await expect(await settingsPage.lastName()).toBeVisible();
-    await expect(await settingsPage.lastName()).toHaveText('Last name');
-    await expect(await settingsPage.lastNameInput()).toBeVisible();
-    await expect(await settingsPage.email()).toBeVisible();
-    await expect(await settingsPage.email()).toHaveText('Email');
-    await expect(await settingsPage.emailInput()).toBeVisible();
-    await expect(await settingsPage.emailInput()).toHaveValue(newEmail);
-    await expect(await settingsPage.phoneNumber()).toBeVisible();
-    await expect(await settingsPage.phoneNumber()).toHaveText('Phone number');
-    await expect(await settingsPage.phoneNumberInput()).toBeVisible();
-    await expect(await settingsPage.phoneNumberText()).toBeVisible();
-    await expect(await settingsPage.phoneNumberText()).toHaveText('Used for two-factor authentication (2FA). SMS rates may apply.');
-    await expect(await settingsPage.passwordText()).toBeVisible();
-    await expect(await settingsPage.passwordText()).toHaveText('Password');
-    await expect(await settingsPage.passwordButton()).toBeVisible();
-    await expect(await settingsPage.passwordButton()).toBeEnabled();
-    await expect(await settingsPage.cancelButton()).toBeVisible();
-    await expect(await settingsPage.cancelButton()).toBeDisabled();
-    await expect(await settingsPage.saveButton()).toBeVisible();
-    await expect(await settingsPage.saveButton()).toBeDisabled();
+    // Header section verification
+    await safeExpect('Header elements',
+      async () => {
+        await expect(await settingsPage.settingsHeader()).toBeVisible();
+        await expect(await settingsPage.headerTitle()).toBeVisible();
+        await expect(await settingsPage.headerTitle()).toHaveText('Settings');
+        await expect(await settingsPage.headerDescription()).toBeVisible();
+        await expect(await settingsPage.headerDescription()).toHaveText('Manage account and organizational settings');
+      },
+      errors
+    );
+
+    // Tab verification
+    await safeExpect('Tab elements and states',
+      async () => {
+        await expect(await settingsPage.tabList()).toBeVisible();
+        await expect(await settingsPage.myAccountTab()).toBeVisible();
+        await expect(await settingsPage.myAccountTab()).toHaveAttribute('aria-selected', 'true');
+        await expect(await settingsPage.organizationTab()).toBeVisible();
+        await expect(await settingsPage.organizationTab()).toHaveAttribute('aria-selected', 'false');
+        await expect(await settingsPage.teamTab()).toBeVisible();
+        await expect(await settingsPage.teamTab()).toHaveAttribute('aria-selected', 'false');
+      },
+      errors
+    );
+
+    // First Name and Last Name verification
+    await safeExpect('Name fields',
+      async () => {
+        await expect(await settingsPage.firstName()).toBeVisible();
+        await expect(await settingsPage.firstName()).toHaveText('First name');
+        await expect(await settingsPage.firstNameInput()).toBeVisible();
+        await expect(await settingsPage.lastName()).toBeVisible();
+        await expect(await settingsPage.lastName()).toHaveText('Last name');
+        await expect(await settingsPage.lastNameInput()).toBeVisible();
+      },
+      errors
+    );
+
+    // Email verification
+    await safeExpect('Email field',
+      async () => {
+        await expect(await settingsPage.email()).toBeVisible();
+        await expect(await settingsPage.email()).toHaveText('Email');
+        await expect(await settingsPage.emailInput()).toBeVisible();
+        await expect(await settingsPage.emailInput()).toHaveValue(newEmail);
+      },
+      errors
+    );
+
+    // Phone number verification
+    await safeExpect('Phone number field',
+      async () => {
+        await expect(await settingsPage.phoneNumber()).toBeVisible();
+        await expect(await settingsPage.phoneNumber()).toHaveText('Phone number');
+        await expect(await settingsPage.phoneNumberInput()).toBeVisible();
+        await expect(await settingsPage.phoneNumberText()).toBeVisible();
+        await expect(await settingsPage.phoneNumberText()).toHaveText('Used for two-factor authentication (2FA). SMS rates may apply.');
+      },
+      errors
+    );
+
+    // Password verification
+    await safeExpect('Password section',
+      async () => {
+        await expect(await settingsPage.passwordText()).toBeVisible();
+        await expect(await settingsPage.passwordText()).toHaveText('Password');
+        await expect(await settingsPage.passwordButton()).toBeVisible();
+        await expect(await settingsPage.passwordButton()).toBeEnabled();
+      },
+      errors
+    );
+
+    // cancel ans save buttons verification
+    await safeExpect('Action buttons',
+      async () => {
+        await expect(await settingsPage.cancelButton()).toBeVisible();
+        await expect(await settingsPage.cancelButton()).toBeDisabled();
+        await expect(await settingsPage.saveButton()).toBeVisible();
+        await expect(await settingsPage.saveButton()).toBeDisabled();
+      },
+      errors
+    );
+
+    // If there are any errors, fail the test with all collected errors
+    if (errors.length > 0) {
+      throw new Error('Settings - My Account page UI verification failed:\n' + errors.join('\n'));
+    }
   })
 
   test('Verify cancel button functionality on Settings - My Account page', async () => {
-
+    const errors = [];
     const firstName = await settingsPage.firstNameInput()
 
     // Fill in the new first name and check that the cancel button and save button are enabled
     await firstName.fill(ValidTestData.newFirstName);
-    await expect(await settingsPage.cancelButton()).toBeEnabled();
-    await expect(await settingsPage.saveButton()).toBeEnabled();
+    await safeExpect('Initial button states after input', async () => {
+      await expect(await settingsPage.cancelButton()).toBeEnabled();
+      await expect(await settingsPage.saveButton()).toBeEnabled();
+    },
+      errors
+    );
 
     // Click the cancel button and verify that the unsaved changes modal appears
     const cancelButton = await settingsPage.cancelButton();
-    await cancelButton.click();
-    await expect(await settingsPage.unsavedChangeModal()).toBeVisible();
-    await expect(await settingsPage.unsavedChangeheading()).toBeVisible();
-    await expect(await settingsPage.unsavedChangeheading()).toHaveText('Unsaved changes');
-    await expect(await settingsPage.unsavedChangediscription()).toBeVisible();
-    await expect(await settingsPage.unsavedChangediscription()).toHaveText("Are you sure you want to discard the changes you've made?");
-    await expect(await settingsPage.unsavedChangetext()).toBeVisible();
-    await expect(await settingsPage.unsavedChangetext()).toHaveText('You cannot undo this action.');
-    await expect(await settingsPage.cancelButton()).toBeVisible();
-    await expect(await settingsPage.cancelButton()).toBeEnabled();
-    await expect(await settingsPage.discardButton()).toBeVisible();
-    await expect(await settingsPage.discardButton()).toBeEnabled();
+    await safeExpect('Unsaved changes modal content', async () => {
+      await cancelButton.click();
+      await expect(await settingsPage.unsavedChangeModal()).toBeVisible();
+      await expect(await settingsPage.unsavedChangeheading()).toBeVisible();
+      await expect(await settingsPage.unsavedChangeheading()).toHaveText('Unsaved changes');
+      await expect(await settingsPage.unsavedChangediscription()).toBeVisible();
+      await expect(await settingsPage.unsavedChangediscription()).toHaveText("Are you sure you want to discard the changes you've made?");
+      await expect(await settingsPage.unsavedChangetext()).toBeVisible();
+      await expect(await settingsPage.unsavedChangetext()).toHaveText('You cannot undo this action.');
+    },
+      errors
+    );
 
-    // Click cancel button multiple times to go back to the original state
-    await cancelButton.click();
-    expect(firstName).toHaveValue(ValidTestData.newFirstName);
-    await expect(await settingsPage.cancelButton()).toBeEnabled();
-    await expect(await settingsPage.saveButton()).toBeEnabled();
+    // Check that the modal buttons are visible and enabled
+    await safeExpect('Modal button states', async () => {
+      await expect(await settingsPage.cancelButton()).toBeVisible();
+      await expect(await settingsPage.cancelButton()).toBeEnabled();
+      await expect(await settingsPage.discardButton()).toBeVisible();
+      await expect(await settingsPage.discardButton()).toBeEnabled();
+    },
+      errors
+    );
 
+    // First cancel - should keep changes
+    await cancelButton.click();
+    await safeExpect('State after first cancel', async () => {
+      await expect(firstName).toHaveValue(ValidTestData.newFirstName);
+      await expect(await settingsPage.cancelButton()).toBeEnabled();
+      await expect(await settingsPage.saveButton()).toBeEnabled();
+    },
+      errors
+    );
+
+    // Second cancel and discard - should reset to original
     await cancelButton.click();
     const discardButton = await settingsPage.discardButton();
     await discardButton.click();
-    expect(firstName).toHaveValue(ValidTestData.firstName);
-    await expect(await settingsPage.cancelButton()).toBeDisabled();
-    await expect(await settingsPage.saveButton()).toBeDisabled();
+
+    // Check that the first name is reset to the original value and the buttons are disabled
+    await safeExpect('Final state after discard', async () => {
+      await expect(firstName).toHaveValue(ValidTestData.firstName);
+      await expect(await settingsPage.cancelButton()).toBeDisabled();
+      await expect(await settingsPage.saveButton()).toBeDisabled();
+    },
+      errors
+    );
+
+    // If there are any errors, fail the test with all collected errors
+    if (errors.length > 0) {
+      throw new Error('Settings - My Account cancel button verification failed:\n' + errors.join('\n'));
+    }
   })
 
   test('Verify Save changes button on Settings - My Account page functionality', async () => {

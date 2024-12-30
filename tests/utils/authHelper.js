@@ -31,3 +31,11 @@ export async function getTokens(page) {
     const refreshToken = await getTokenFromLocalStorage(page, 'refreshToken');
     return {idToken, accessToken, refreshToken};
   }
+
+export  const safeExpect = async (despriction, assertionFn, errors) => {
+    try {
+      await assertionFn();
+    } catch (error) {
+      errors.push(`${despriction}: ${error.message}`);
+    }
+  };
