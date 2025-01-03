@@ -58,15 +58,18 @@ class ProjectsPage {
     }
 
     async UpdateinAdmin(targetEmail) {
-        const rowLocator = await this.page.locator(`.tabs >div:nth-child(4)> .team-tab >.editable-table >table:nth-child(1) > tbody:nth-child(2) > tr:has(:text("${targetEmail}"))`);
-        await rowLocator.locator('button').nth(0).click({ force: true });
+        const row = this.page.getByRole('row', { name: targetEmail });
+        await row.hover();
+        await row.locator('.ag-action-cell').click();
+        await this.page.getByRole('menuitem', { name: 'Edit' }).click();
         await this.page.getByRole('combobox', { name: 'Member type' }).click();
         await this.page.getByLabel('Edit Member').getByText('Admin').click();
         await this.page.getByRole('button', { name: 'Save' }).click();
     }
 
-    async adminrole() {
-        return await this.page.locator(".settings > div:nth-child(2) > div:nth-child(4) > .team-tab > .editable-table > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(1) > td:nth-child(2) > div:nth-child(1)").innerText();
+    async adminrole(targetEmail) {
+        const row = this.page.getByRole('row', { name: targetEmail });
+        return await row.locator('[col-id="memberType"]').innerText();
     }
 
     async inviteUser(email) {
@@ -539,9 +542,9 @@ class ProjectsPage {
         await this.page.waitForSelector('.ag-center-cols-container');
         const cells = await this.page.$$('.ag-center-cols-container .ag-cell');
         for (let i = 0; i < cells.length; i++) {
-            const value = ((i + 1) * 100).toString(); 
-            await cells[i].click(); 
-            await this.page.keyboard.type(value); 
+            const value = ((i + 1) * 100).toString();
+            await cells[i].click();
+            await this.page.keyboard.type(value);
         }
         await this.page.getByLabel('Estimated minimum price').fill(await getprojectdetails('estimatedPriceMin', actualsData));
         await this.page.getByLabel('Estimated maximum price').fill(await getprojectdetails('estimatedPriceMax', actualsData));
@@ -727,9 +730,9 @@ class ProjectsPage {
 
     async saveProjectDetails() {
         const saveButton = this.page.getByRole('button', { name: 'Save' });
-            await expect(saveButton).toBeVisible();
-            await expect(saveButton).toBeEnabled();
-            await saveButton.click({ force: true });
+        await expect(saveButton).toBeVisible();
+        await expect(saveButton).toBeEnabled();
+        await saveButton.click({ force: true });
     }
 
     async Keydifferentiators() {
@@ -782,7 +785,7 @@ class ProjectsPage {
     }
 
     async resetButton() {
-        return await this.page.getByRole('button', {name: 'Reset'});
+        return await this.page.getByRole('button', { name: 'Reset' });
     }
 }
 

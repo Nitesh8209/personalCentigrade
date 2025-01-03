@@ -22,6 +22,9 @@ test.describe('Settings - My Account Page UI Tests', () => {
     // Navigate to the login page and Login
     await loginPage.navigate();
     await loginPage.login(newEmail, ValidTestData.newPassword);
+
+    const settingButton = await settingsPage.settingButton();
+    await settingButton.click();
   });
 
   // Close the browser page after all tests are complete
@@ -29,12 +32,10 @@ test.describe('Settings - My Account Page UI Tests', () => {
     await page.close();
   });
 
-  test('Verify Settings - My Account page elements are displayed correctly', async ({ }) => {
+  test('Verify navigation, header and Tab UI elements on the Settings - My Account page', async ({ }) => {
     const errors = [];
-    const settingButton = await settingsPage.settingButton();
-    await settingButton.click();
 
-    // Basic page verification
+    // URL verification
     await safeExpect('URL is correct',
       async () => expect(page).toHaveURL(`${loginPage.baseURL}/settings/account`),
       errors
@@ -74,6 +75,16 @@ test.describe('Settings - My Account Page UI Tests', () => {
       },
       errors
     );
+
+    // If there are any errors, fail the test with all collected errors
+    if (errors.length > 0) {
+      throw new Error('Settings - My Account page UI verification failed:\n' + errors.join('\n'));
+    }
+  })
+
+
+  test('Verify Name, Email, Phone Number and Password fields on the Settings - My Account page', async () => {
+    const errors = [];
 
     // First Name and Last Name verification
     await safeExpect('Name fields',
@@ -122,6 +133,15 @@ test.describe('Settings - My Account Page UI Tests', () => {
       errors
     );
 
+    // If there are any errors, fail the test with all collected errors
+    if (errors.length > 0) {
+      throw new Error('Settings - My Account Fields verification failed:\n' + errors.join('\n'));
+    }
+  });
+
+  test('Verify Action buttons and states on Settings - My Account page', async () => {
+    const errors = [];
+
     // cancel ans save buttons verification
     await safeExpect('Action buttons',
       async () => {
@@ -133,14 +153,6 @@ test.describe('Settings - My Account Page UI Tests', () => {
       errors
     );
 
-    // If there are any errors, fail the test with all collected errors
-    if (errors.length > 0) {
-      throw new Error('Settings - My Account page UI verification failed:\n' + errors.join('\n'));
-    }
-  })
-
-  test('Verify cancel button functionality on Settings - My Account page', async () => {
-    const errors = [];
     const firstName = await settingsPage.firstNameInput()
 
     // Fill in the new first name and check that the cancel button and save button are enabled
@@ -151,6 +163,18 @@ test.describe('Settings - My Account Page UI Tests', () => {
     },
       errors
     );
+
+    // If there are any errors, fail the test with all collected errors
+    if (errors.length > 0) {
+      throw new Error('Settings - My Account buttons verification failed:\n' + errors.join('\n'));
+    }
+  });
+
+  test('Verify unsaved changes modal on Settings - My Account page', async () => {
+    const errors = [];
+
+    const firstName = await settingsPage.firstNameInput()
+    await firstName.fill(ValidTestData.newFirstName);
 
     // Click the cancel button and verify that the unsaved changes modal appears
     const cancelButton = await settingsPage.cancelButton();
@@ -173,13 +197,30 @@ test.describe('Settings - My Account Page UI Tests', () => {
       await expect(await settingsPage.cancelButton()).toBeEnabled();
       await expect(await settingsPage.discardButton()).toBeVisible();
       await expect(await settingsPage.discardButton()).toBeEnabled();
+      await cancelButton.click();
     },
       errors
     );
 
-    // First cancel - should keep changes
+    // If there are any errors, fail the test with all collected errors
+    if (errors.length > 0) {
+      throw new Error('Settings - My Account unsaved changes modal verification failed:\n' + errors.join('\n'));
+    }
+  });
+
+  test('Verify cancel and discard functionality in the unsaved changes modal on Settings - My Account page', async () => {
+    const errors = [];
+    const cancelButton = await settingsPage.cancelButton();
+    const firstName = await settingsPage.firstNameInput();
+    await firstName.fill(ValidTestData.newFirstName);
+
+    // click on the cancel button in the My Account page 
     await cancelButton.click();
-    await safeExpect('State after first cancel', async () => {
+
+    // click the button in the unsaved changes modal
+    await cancelButton.click();
+    await safeExpect('State after click on cancel button in the unsaved changes modal', async () => {
+      await expect(await settingsPage.unsavedChangeModal()).not.toBeVisible();
       await expect(firstName).toHaveValue(ValidTestData.newFirstName);
       await expect(await settingsPage.cancelButton()).toBeEnabled();
       await expect(await settingsPage.saveButton()).toBeEnabled();
@@ -187,13 +228,14 @@ test.describe('Settings - My Account Page UI Tests', () => {
       errors
     );
 
-    // Second cancel and discard - should reset to original
+    // Click on the cancel button in the My Account page and click on the Discard button in the unsaved changes modal
     await cancelButton.click();
     const discardButton = await settingsPage.discardButton();
     await discardButton.click();
 
     // Check that the first name is reset to the original value and the buttons are disabled
-    await safeExpect('Final state after discard', async () => {
+    await safeExpect('State after click on discard button in the unsaved changes modal', async () => {
+      await expect(await settingsPage.unsavedChangeModal()).not.toBeVisible();
       await expect(firstName).toHaveValue(ValidTestData.firstName);
       await expect(await settingsPage.cancelButton()).toBeDisabled();
       await expect(await settingsPage.saveButton()).toBeDisabled();
@@ -203,7 +245,7 @@ test.describe('Settings - My Account Page UI Tests', () => {
 
     // If there are any errors, fail the test with all collected errors
     if (errors.length > 0) {
-      throw new Error('Settings - My Account cancel button verification failed:\n' + errors.join('\n'));
+      throw new Error('Settings - My Account cancel and deiscard button on unsaved changes modal verification failed:\n' + errors.join('\n'));
     }
   })
 

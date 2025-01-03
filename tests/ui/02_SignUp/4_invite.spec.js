@@ -42,7 +42,7 @@ test.describe('awaiting-approval Page UI Tests', () => {
     await page.waitForTimeout(2000);
 
     // Verify the member role is updated to Admin
-    await expect(await projectsPage.adminrole()).toBe('Admin');
+    await expect(await projectsPage.adminrole(newEmail)).toBe('Admin');
 
     // Reset the settings
     const resetButton = await projectsPage.resetButton();

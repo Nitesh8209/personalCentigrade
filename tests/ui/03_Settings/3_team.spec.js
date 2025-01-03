@@ -11,10 +11,15 @@ import { safeExpect } from '../../utils/authHelper';
 test.describe('Settings - Team Page UI Tests', () => {
   const { newEmail, InviteEmail } = getData('UI');
 
-  test('Verify Settings - Team page elements are displayed correctly', async ({ page, baseURL }) => {
-    const errors = [];
-    const loginPage = new LoginPage(page, baseURL);
-    const settingsPage = new SettingsPage(page, baseURL);
+  let loginPage;
+  let settingsPage;
+  let page;
+
+  test.beforeAll(async ({ browser, baseURL }) => {
+    const context = await browser.newContext();
+    page = await context.newPage();
+    loginPage = new LoginPage(page, baseURL);
+    settingsPage = new SettingsPage(page, baseURL);
 
     // Navigate to login page and perform login
     await loginPage.navigate();
@@ -25,6 +30,15 @@ test.describe('Settings - Team Page UI Tests', () => {
     await settingButton.click();
     const teamTab = await settingsPage.teamTab();
     await teamTab.click();
+  });
+
+  // Close the browser page after all tests are complete
+  test.afterAll(async () => {
+    await page.close();
+  });
+
+  test('Verify Header, Tab, and Team table elements are displayed correctly in Settings - Team Page', async () => {
+    const errors = [];
 
     // Header section verification
     await safeExpect('Header section elements', async () => {
@@ -56,6 +70,15 @@ test.describe('Settings - Team Page UI Tests', () => {
       await expect(await settingsPage.teamstatuscell()).toBeVisible();
     }, errors);
 
+    // If there are any errors, fail the test with all collected errors
+    if (errors.length > 0) {
+      throw new Error('Settings - Team Page Header, Tab, and Team table elements verification failed:\n' + errors.join('\n'));
+    }
+  })
+
+  test('Verify User details, role, status, and action buttons for admin user in Settings - Team page', async () => {
+    const errors = [];
+
     // User details verification
     await safeExpect('User row content', async () => {
       await expect(await settingsPage.user(newEmail)).toBeVisible();
@@ -78,33 +101,22 @@ test.describe('Settings - Team Page UI Tests', () => {
 
     // Action buttons verification
     await safeExpect('User action buttons', async () => {
-      await expect(await settingsPage.useredit(newEmail)).toBeVisible();
-      await expect(await settingsPage.userdelete(newEmail)).toBeVisible();
+      await expect(await settingsPage.usereditdeletebutton(newEmail)).toBeVisible();
+      const userEditDeleteButton = await settingsPage.usereditdeletebutton(newEmail);
+      await userEditDeleteButton.click();
+      await expect(await settingsPage.useredit()).toBeVisible();
+      await expect(await settingsPage.userdelete()).toBeVisible();
+      await userEditDeleteButton.click();
     }, errors);
 
     // If there are any errors, fail the test with all collected errors
     if (errors.length > 0) {
-      throw new Error('UI verification failed:\n' + errors.join('\n'));
+      throw new Error('Settings - Team page User details, role, status, and action buttons for admin user verification failed:\n' + errors.join('\n'));
     }
-
   })
 
-
-  test('Approve the request for an already-invited user (InviteEmail) during the invite process', async ({ page, baseURL }) => {
+  test('Verify User details, role, status, and action buttons for Invite user in Settings - Team page', async () => {
     const errors = [];
-
-    const loginPage = new LoginPage(page, baseURL);
-    const settingsPage = new SettingsPage(page, baseURL);
-
-    // Navigate to login page and perform login
-    await loginPage.navigate();
-    await loginPage.login(newEmail, ValidTestData.newPassword);
-
-    // Navigate to Settings and Team Tab
-    const settingButton = await settingsPage.settingButton();
-    await settingButton.click();
-    const teamTab = await settingsPage.teamTab();
-    await teamTab.click();
 
     // User details verification
     await safeExpect('Invite User row content', async () => {
@@ -124,112 +136,44 @@ test.describe('Settings - Team Page UI Tests', () => {
       await expect(await settingsPage.rejectButton(InviteEmail)).toHaveText('Reject');
       await expect(await settingsPage.approveButton(InviteEmail)).toBeVisible();
       await expect(await settingsPage.approveButton(InviteEmail)).toHaveText('Approve');
-      await expect(await settingsPage.useredit(InviteEmail)).toBeVisible();
-      await expect(await settingsPage.userdelete(InviteEmail)).toBeVisible();
     }, errors)
 
     // edit and delete buttons verification
     await safeExpect('Edit and Delete button', async () => {
-      await expect(await settingsPage.useredit(InviteEmail)).toBeVisible();
-      await expect(await settingsPage.userdelete(InviteEmail)).toBeVisible();
+      await expect(await settingsPage.usereditdeletebutton(InviteEmail)).toBeVisible();
+      const userEditDeleteButton = await settingsPage.usereditdeletebutton(InviteEmail);
+      await userEditDeleteButton.click();
+      await expect(await settingsPage.useredit()).toBeVisible();
+      await expect(await settingsPage.useredit()).toBeEnabled();
+      await expect(await settingsPage.userdelete()).toBeVisible();
+      await expect(await settingsPage.userdelete()).toBeEnabled();
     }, errors)
 
+    // If there are any errors, fail the test with all collected errors
+    if (errors.length > 0) {
+      throw new Error('Settings - Team page User details, role, status, and action buttons for Invite user verification failed:\n' + errors.join('\n'));
+    }
+  })
+
+
+  test('Approve the request for an already-invited user (InviteEmail) during the invite process', async () => {
+
     // Approve the user request
-    await safeExpect('Invite User row content after approval', async () => {
-      const ApproveButton = await settingsPage.approveButton(InviteEmail);
-      await ApproveButton.click();
-      await expect(await settingsPage.usertype(InviteEmail)).toHaveText('Member');
-      await expect(await settingsPage.userstatus(InviteEmail)).toBeVisible();
-      await expect(await settingsPage.userstatus(InviteEmail)).toHaveText('Active');
-      await expect(await settingsPage.rejectButton(InviteEmail)).not.toBeVisible();
-      await expect(await settingsPage.approveButton(InviteEmail)).not.toBeVisible();
-    }, errors);
+    const ApproveButton = await settingsPage.approveButton(InviteEmail);
+    await ApproveButton.click();
 
-    // If there are any errors, fail the test with all collected errors
-    if (errors.length > 0) {
-      throw new Error('UI verification failed:\n' + errors.join('\n'));
-    }
+    // Verify the user details after approval
+    await expect(await settingsPage.usertype(InviteEmail)).toHaveText('Member');
+    await expect(await settingsPage.userstatus(InviteEmail)).toBeVisible();
+    await expect(await settingsPage.userstatus(InviteEmail)).toHaveText('Active');
+    await expect(await settingsPage.rejectButton(InviteEmail)).not.toBeVisible();
+    await expect(await settingsPage.approveButton(InviteEmail)).not.toBeVisible();
   })
 
-  test('Sign up a new user, reject the request, and verify rejection', async ({ page, baseURL }) => {
+
+
+  test('Verify Invite User modal display and initial elements', async () => {
     const errors = [];
-    const RejectEmail = generateTestEmail();
-    const signUpPage = new SignUpPage(page, baseURL);
-
-    // Sign up a new user and verify verification code
-    await signUpPage.completeSignUpProcess(ValidTestData.firstName, ValidTestData.lastName, ValidTestData.organizationName, RejectEmail);
-
-    const { receivedVerificationCode } = await getGmailMessages(RejectEmail);
-    await signUpPage.codeInput(receivedVerificationCode);
-    await signUpPage.Password(ValidTestData.newPassword);
-    await signUpPage.createAccount();
-    await page.waitForURL('**/awaiting-approval');
-    expect(page.url()).toContain('/awaiting-approval');
-
-    // Log in as an admin and navigate to Settings
-    const loginPage = new LoginPage(page, baseURL);
-    const settingsPage = new SettingsPage(page, baseURL);
-
-    // Navigate to login page and perform login
-    await loginPage.navigate();
-    await loginPage.login(newEmail, ValidTestData.newPassword);
-
-    const settingButton = await settingsPage.settingButton();
-    await settingButton.click();
-    const teamTab = await settingsPage.teamTab();
-    await teamTab.click();
-
-    // Verify user details in the 'Requested' status
-    await safeExpect('Invite User row content', async () => {
-      await expect(await settingsPage.user(RejectEmail)).toBeVisible();
-      await expect(await settingsPage.username(RejectEmail)).toBeVisible();
-      const userName = await settingsPage.username(RejectEmail);
-      await expect(await userName.textContent()).toBe(`${ValidTestData.firstName} ${ValidTestData.lastName}${RejectEmail}`);
-      await expect(await settingsPage.useremail(RejectEmail)).toBeVisible();
-      await expect(await settingsPage.useremail(RejectEmail)).toHaveText(RejectEmail);
-    }, errors);
-
-    // Verify user is in 'Requested' status, reject and approve buttons are visible
-    await safeExpect('Invite User row content', async () => {
-      await expect(await settingsPage.usertype(RejectEmail)).toBeVisible();
-      await expect(await settingsPage.usertype(RejectEmail)).toHaveText('Requested');
-      await expect(await settingsPage.rejectButton(RejectEmail)).toBeVisible();
-      await expect(await settingsPage.rejectButton(RejectEmail)).toHaveText('Reject');
-      await expect(await settingsPage.approveButton(RejectEmail)).toBeVisible();
-      await expect(await settingsPage.approveButton(RejectEmail)).toHaveText('Approve');
-    }, errors);
-
-    await safeExpect('Edit and Delete button', async () => {
-      await expect(await settingsPage.useredit(RejectEmail)).toBeVisible();
-      await expect(await settingsPage.userdelete(RejectEmail)).toBeVisible();
-    }, errors);
-
-    await safeExpect('Invite User row content after rejection', async () => {
-      const RejectButton = await settingsPage.rejectButton(RejectEmail);
-      await RejectButton.click();
-      await expect(await settingsPage.user(RejectEmail)).not.toBeVisible();
-    }, errors);
-
-    // If there are any errors, fail the test with all collected errors
-    if (errors.length > 0) {
-      throw new Error('UI verification failed:\n' + errors.join('\n'));
-    }
-  })
-
-  test('Verify Invite User modal display', async ({ page, baseURL }) => {
-    const errors = [];
-    const loginPage = new LoginPage(page, baseURL);
-    const settingsPage = new SettingsPage(page, baseURL);
-
-    // Navigate to login page and perform login
-    await loginPage.navigate();
-    await loginPage.login(newEmail, ValidTestData.newPassword);
-
-    // Open settings and navigate to the 'Team' tab
-    const settingButton = await settingsPage.settingButton();
-    await settingButton.click();
-    const teamTab = await settingsPage.teamTab();
-    await teamTab.click();
 
     // Open Invite User modal and verify elements
     const inviteButton = await settingsPage.inviteButton();
@@ -257,15 +201,30 @@ test.describe('Settings - Team Page UI Tests', () => {
     );
 
     // Verify the helper text in the modal
+    const cancelButton = await settingsPage.cancelButton();
     await safeExpect('Helper text visibility and content',
       async () => {
         await expect(await settingsPage.invitehelperText()).toBeVisible();
         await expect(await settingsPage.invitehelperText()).toHaveText(
           "Invite team members to your organization. We'll ask new users to enter their details when they sign up."
         );
+        await cancelButton.click();
       },
       errors
     );
+
+    // If there are any errors, fail the test with details
+    if (errors.length > 0) {
+      throw new Error(`Invite User modal display and initial elements Test failures:\n${errors.join('\n')}`);
+    }
+  })
+
+  test('Verify Email input and action buttons in Invite User modal', async () => {
+    const errors = [];
+
+    // Open Invite User modal and verify elements
+    const inviteButton = await settingsPage.inviteButton();
+    await inviteButton.click();
 
     // Verify form elements in the modal
     await safeExpect('Email field visibility and attributes',
@@ -304,151 +263,29 @@ test.describe('Settings - Team Page UI Tests', () => {
     );
 
     // Test removing the second email input field
+    const cancelButton = await settingsPage.cancelButton();
     await safeExpect('Second email input removal',
       async () => {
         const closeSecondInput = await settingsPage.inviteremoveEmailsecondinput();
         await closeSecondInput.click();
         await expect(await settingsPage.inviteEmailsecondinput()).not.toBeVisible();
+        await cancelButton.click();
       },
       errors
     );
 
     // If there are any errors, fail the test with details
     if (errors.length > 0) {
-      throw new Error(`Test failures:\n${errors.join('\n')}`);
+      throw new Error(`Email input and action buttons in Invite User modal Test failures:\n${errors.join('\n')}`);
     }
   })
 
-
-  test('Invite a user to join the organization and auto-approve the invite', async ({ page, baseURL }) => {
+  test('Verify basic edit member details modal elements and Form fields in the Settings - "Team" tab', async () => {
     const errors = [];
-    const Invite1Email = generateTestEmail();
 
-    const loginPage = new LoginPage(page, baseURL);
-    const settingsPage = new SettingsPage(page, baseURL);
-
-    // Navigate to login page and perform login
-    await loginPage.navigate();
-    await loginPage.login(newEmail, ValidTestData.newPassword);
-
-    // Open settings and navigate to the 'Team' tab
-    const settingButton = await settingsPage.settingButton();
-    await settingButton.click();
-    const teamTab = await settingsPage.teamTab();
-    await teamTab.click();
-
-    const inviteButton = await settingsPage.inviteButton();
-    await safeExpect('Invite button visibility',
-      async () => await expect(inviteButton).toBeVisible(),
-      errors
-    );
-
-    // await expect(inviteButton).toBeVisible();
-    await inviteButton.click();
-
-    // Fill in the email input with the generated invite email and send the invite
-    const inputEmail = await settingsPage.inviteEmailInput()
-    await inputEmail.fill(Invite1Email);
-    const sendinvitation = await settingsPage.sendinvitation();
-    await sendinvitation.click();
-
-    // Verify the invite confirmation modal is shown
-    await safeExpect('Invite confirmation modal elements',
-      async () => {
-        await expect(await settingsPage.modal()).toBeVisible();
-        await expect(await settingsPage.modalheading()).toBeVisible();
-        await expect(await settingsPage.modalheading()).toHaveText('Invite sent');
-      },
-      errors
-    );
-
-    // Verify the helper text in the modal
-    await safeExpect('Invite confirmation helper text',
-      async () => {
-        await expect(await settingsPage.invitesenthelperText()).toBeVisible();
-        await expect(await settingsPage.invitesenthelperText()).toHaveText(
-          `An invitation with instructions on how to join ${ValidTestData.organizationName} on Centigrade has been sent to`
-        );
-      },
-      errors
-    );
-
-    // Verify the email address in the modal
-    await safeExpect('Invite email confirmation',
-      async () => {
-        await expect(await settingsPage.checkinviteEmail()).toBeVisible();
-        await expect(await settingsPage.checkinviteEmail()).toHaveText(Invite1Email);
-      },
-      errors
-    );
-
-    // Verify the buttons in the modal
-    await safeExpect('Modal buttons visibility',
-      async () => {
-        await expect(await settingsPage.Donebutton()).toBeVisible();
-        await expect(await settingsPage.modalclose()).toBeVisible();
-      },
-      errors
-    );
-
-    // Click 'Done' to close the modal
-    await safeExpect('Modal should not visible after close',
-      async () => {
-        const Done = await settingsPage.Donebutton()
-        await Done.click();
-        await expect(await settingsPage.modal()).not.toBeVisible();
-      },
-      errors
-    );
-
-    // Navigate to the signup page using the invite link and fill in the required details
-    await safeExpect('Navigate to the signup page using the invite link and fill in the required details',
-      async () => {
-        await page.goto(`${baseURL}/create-account?email=${encodeURIComponent(Invite1Email)}&org=${ValidTestData.organizationName}`)
-        const signUpPage = new SignUpPage(page, baseURL);
-        await signUpPage.firstName(ValidTestData.firstName);
-        await signUpPage.lastName(ValidTestData.lastName);
-        await signUpPage.checkBox();
-        await page.waitForTimeout(3000);
-        await signUpPage.signUp();
-        const { receivedVerificationCode } = await getGmailMessages(Invite1Email);
-        await signUpPage.codeInput(receivedVerificationCode);
-        await signUpPage.Password(ValidTestData.newPassword);
-        await signUpPage.createAccount();
-      }
-    )
-
-    // Verify the successful redirect to the listings page
-    await safeExpect('Successful redirect to listings',
-      async () => {
-        await page.waitForURL('**/listings');
-        expect(page.url()).toContain('/listings');
-      },
-      errors
-    );
-
-    // If there are any errors, fail the test with details
-    if (errors.length > 0) {
-      throw new Error(`Test failures:\n${errors.join('\n')}`);
-    }
-  })
-
-  test('Verify edit member details modal elements on the "Team" tab in Settings', async ({ page, baseURL }) => {
-    const errors = [];
-    const loginPage = new LoginPage(page, baseURL);
-    const settingsPage = new SettingsPage(page, baseURL);
-
-    // Navigate to login page and perform login
-    await loginPage.navigate();
-    await loginPage.login(newEmail, ValidTestData.newPassword);
-
-    // Open settings and navigate to the 'Team' tab
-    const settingButton = await settingsPage.settingButton();
-    await settingButton.click();
-    const teamTab = await settingsPage.teamTab();
-    await teamTab.click();
-
-    const Edituser = await settingsPage.useredit(InviteEmail);
+    const userEditDeleteButton = await settingsPage.usereditdeletebutton(InviteEmail);
+    await userEditDeleteButton.click();
+    const Edituser = await settingsPage.useredit();
     await Edituser.click();
 
     // Verify modal basic elements
@@ -462,7 +299,7 @@ test.describe('Settings - Team Page UI Tests', () => {
     );
 
     // Verify First name field
-    await safeExpect('Last name field elements',
+    await safeExpect('First name field elements',
       async () => {
         await expect(await settingsPage.EditmodalfirstName()).toBeVisible();
         await expect(await settingsPage.EditmodalfirstName()).toHaveText('First name');
@@ -505,9 +342,25 @@ test.describe('Settings - Team Page UI Tests', () => {
         await expect(await settingsPage.Editmodalphonenumberinput()).toHaveValue('+1');
         await expect(await settingsPage.Editmodalphonenumberhelpertext()).toBeVisible();
         await expect(await settingsPage.Editmodalphonenumberhelpertext()).toHaveText('Used for two-factor authentication (2FA). SMS rates may apply.');
+        const modalClose = await settingsPage.modalclose();
+        await modalClose.click();
       },
       errors
     );
+
+    // If there are any errors, fail the test with details
+    if (errors.length > 0) {
+      throw new Error(`Edit member details modal elements and Form fields in the Settings - "Team" tab Test failures:\n${errors.join('\n')}`);
+    }
+  })
+
+  test('Verify member type dropdown and modal actions in edit member details modal on the "Team" tab in Settings', async () => {
+    const errors = [];
+
+    const userEditDeleteButton = await settingsPage.usereditdeletebutton(InviteEmail);
+    await userEditDeleteButton.click();
+    const Edituser = await settingsPage.useredit();
+    await Edituser.click();
 
     // Verify member type field
     await safeExpect('Member type field initial state',
@@ -594,44 +447,47 @@ test.describe('Settings - Team Page UI Tests', () => {
 
     // If there are any errors, fail the test with details
     if (errors.length > 0) {
-      throw new Error(`Test failures:\n${errors.join('\n')}`);
+      throw new Error(`member type dropdown and modal actions in edit member details modal Test failures:\n${errors.join('\n')}`);
     }
   })
 
-  test('Verify cancel and save button functionality while editing member details', async ({ page, baseURL }) => {
+  test('Verify cancel functionality while editing member details', async () => {
 
-
-    const loginPage = new LoginPage(page, baseURL);
-    const settingsPage = new SettingsPage(page, baseURL);
-
-    // Navigate to login page and perform login
-    await loginPage.navigate();
-    await loginPage.login(newEmail, ValidTestData.newPassword);
-
-    // Open settings and navigate to the 'Team' tab
-    const settingButton = await settingsPage.settingButton();
-    await settingButton.click();
-    const teamTab = await settingsPage.teamTab();
-    await teamTab.click();
-
-
+    // Open the edit modal and verify the initial state
+    const userEditDeleteButton = await settingsPage.usereditdeletebutton(InviteEmail);
+    await userEditDeleteButton.click();
     const Edituser = await settingsPage.useredit(InviteEmail);
     await Edituser.click();
 
+    // Edit the first name field
     const firstName = await settingsPage.EditmodalfirstNameinput();
     await firstName.fill(ValidTestData.newFirstName);
 
+    // Edit the member type field
     const membertypedropdown = await settingsPage.Editmodalmembertypedropdown();
     await membertypedropdown.click();
     const selectAdmin = await settingsPage.EditmodalmembertypeAdmin();
     await selectAdmin.click();
     await expect(await settingsPage.Editmodalmembertypeselected()).toHaveText('Admin');
 
+    // Cancel the edit modal and verify the changes are not saved
     const cancelButton = await settingsPage.cancelButton();
     await cancelButton.click();
     await expect(await settingsPage.modal()).not.toBeVisible();
     await expect(await settingsPage.usertype(InviteEmail)).toHaveText('Member');
+  })
 
+  test('Verify save button functionality while editing member details', async () => {
+
+    // Open the edit modal and verify the initial state
+    const userEditDeleteButton = await settingsPage.usereditdeletebutton(InviteEmail);
+    await userEditDeleteButton.click();
+    const Edituser = await settingsPage.useredit();
+    const firstName = await settingsPage.EditmodalfirstNameinput();
+    const membertypedropdown = await settingsPage.Editmodalmembertypedropdown();
+    const selectAdmin = await settingsPage.EditmodalmembertypeAdmin();
+
+    // Edit the first name field
     const user = await settingsPage.user(InviteEmail);
     await user.hover();
     await Edituser.click();
@@ -639,31 +495,23 @@ test.describe('Settings - Team Page UI Tests', () => {
     await membertypedropdown.click();
     await selectAdmin.click();
 
+    // Save the changes and verify the updated details
     const saveButton = await settingsPage.Editsave();
     await saveButton.click();
 
+    // Verify the updated first name and member type
     await page.waitForTimeout(5000);
     const userName = await settingsPage.username(InviteEmail);
     await expect(await userName.textContent()).toBe(`${ValidTestData.newFirstName} ${ValidTestData.lastName}${InviteEmail}`);
   })
 
-  test('Verify Remove Member modal elements on the "Team" tab in Settings', async ({ page, baseURL }) => {
+  test('Verify Remove Member modal elements on the "Team" tab in Settings', async () => {
     const errors = [];
-    const loginPage = new LoginPage(page, baseURL);
-    const settingsPage = new SettingsPage(page, baseURL);
 
-    // Navigate to login page and perform login
-    await loginPage.navigate();
-    await loginPage.login(newEmail, ValidTestData.newPassword);
-
-    // Open settings and navigate to the 'Team' tab
-    const settingButton = await settingsPage.settingButton();
-    await settingButton.click();
-    const teamTab = await settingsPage.teamTab();
-    await teamTab.click();
-
-
-    const removeUser = await settingsPage.userdelete(InviteEmail);
+    // Open the remove member modal and verify the initial state
+    const usereditdeletebutton = await settingsPage.usereditdeletebutton(InviteEmail);
+    await usereditdeletebutton.click();
+    const removeUser = await settingsPage.userdelete();
     await removeUser.click();
 
     // Verify modal basic elements
@@ -701,6 +549,7 @@ test.describe('Settings - Team Page UI Tests', () => {
       errors
     );
 
+    // Verify modal close
     const closeModal = await settingsPage.modalclose();
     await safeExpect('Modal close',
       async () => {
@@ -712,12 +561,159 @@ test.describe('Settings - Team Page UI Tests', () => {
 
     // If there are any errors, fail the test with details
     if (errors.length > 0) {
-      throw new Error(`Test failures:\n${errors.join('\n')}`);
+      throw new Error(`Remove Member modal elements on the "Team" tab in Settings Test failures:\n${errors.join('\n')}`);
     }
 
   })
 
-  test('Verify cancel and remove button functionality on the Remove Member modal', async ({ page, baseURL }) => {
+  test('Verify cancel and remove button functionality on the Remove Member modal', async () => {
+    await page.setViewportSize({ width: 1280, height: 750 });
+
+    // Open the remove member modal and verify the initial state
+    const usereditdeletebutton = await settingsPage.usereditdeletebutton(InviteEmail);
+    await usereditdeletebutton.click();
+    const removeUser = await settingsPage.userdelete();
+    await removeUser.click();
+
+    // Cancel the remove member modal and verify the modal is closed
+    const cancelButton = await settingsPage.cancelButton()
+    await cancelButton.click();
+    await expect(await settingsPage.modal()).not.toBeVisible();
+
+    // Open the remove member modal again 
+    const user = await settingsPage.user(InviteEmail);
+    await user.hover();
+    await usereditdeletebutton.click();
+    await removeUser.click();
+
+    // Remove the member and verify the user is removed from the team list
+    const removeButton = await settingsPage.removeButton();
+    await removeButton.click();
+    await page.waitForTimeout(2000);
+    await expect(await settingsPage.user(InviteEmail)).not.toBeVisible();
+  })
+
+  test('Invite a user to join the organization and auto-approve the invite', async ({ page, baseURL }) => {
+    const errors = [];
+    const Invite1Email = generateTestEmail();
+
+    // Verify Invite button visible
+    const inviteButton = await settingsPage.inviteButton();
+    await safeExpect('Invite button visibility',
+      async () => await expect(inviteButton).toBeVisible(),
+      errors
+    );
+
+    await inviteButton.click();
+
+    // Fill in the email input with the generated invite email and send the invite
+    const inputEmail = await settingsPage.inviteEmailInput()
+    await inputEmail.fill(Invite1Email);
+    const sendinvitation = await settingsPage.sendinvitation();
+    await sendinvitation.click();
+
+    // Verify the invite confirmation modal is shown
+    await safeExpect('Invite confirmation modal elements',
+      async () => {
+        await expect(await settingsPage.modal()).toBeVisible();
+        await expect(await settingsPage.modalheading()).toBeVisible();
+        await expect(await settingsPage.modalheading()).toHaveText('Invite sent');
+      },
+      errors
+    );
+
+    // Verify the helper text in the modal
+    await safeExpect('Invite confirmation helper text',
+      async () => {
+        await expect(await settingsPage.invitesenthelperText()).toBeVisible();
+        await expect(await settingsPage.invitesenthelperText()).toHaveText(
+          `An invitation with instructions on how to join ${ValidTestData.organizationName} on Centigrade has been sent to`
+        );
+      },
+      errors
+    );
+
+    // Verify the email address in the modal
+    await safeExpect('Invite email confirmation',
+      async () => {
+        await expect(await settingsPage.checkinviteEmail()).toBeVisible();
+        await expect(await settingsPage.checkinviteEmail()).toHaveText(Invite1Email);
+      },
+      errors
+    );
+
+    // Verify the buttons in the modal
+    await safeExpect('Modal buttons visibility',
+      async () => {
+        await expect(await settingsPage.Donebutton()).toBeVisible();
+        await expect(await settingsPage.modalclose()).toBeVisible();
+      },
+      errors
+    );
+
+    // Click 'Done' to close the modal
+    await safeExpect('Modal should not visible after close',
+      async () => {
+        const Done = await settingsPage.Donebutton()
+        await Done.click();
+        await expect(await settingsPage.modal()).not.toBeVisible();
+      },
+      errors
+    );
+
+    // Navigate to the signup page using the invite link and fill in the required details
+    await safeExpect('Navigate to the signup page using the invite link and fill in the required details',
+      async () => {
+        await page.goto(`${baseURL}/create-account?email=${encodeURIComponent(Invite1Email)}&org=${ValidTestData.organizationName}`)
+        const signUpPage = new SignUpPage(page, baseURL);
+        await signUpPage.firstName(ValidTestData.firstName);
+        await signUpPage.lastName(ValidTestData.lastName);
+        await signUpPage.checkBox();
+        await page.waitForTimeout(3000);
+        await signUpPage.signUp();
+        const { receivedVerificationCode } = await getGmailMessages(Invite1Email);
+        await signUpPage.codeInput(receivedVerificationCode);
+        await signUpPage.Password(ValidTestData.newPassword);
+        await signUpPage.createAccount();
+      }
+    )
+
+    // Verify the successful redirect to the listings page
+    await safeExpect('Successful redirect to listings',
+      async () => {
+        await page.waitForURL('**/listings');
+        expect(page.url()).toContain('/listings');
+      },
+      errors
+    );
+
+    // If there are any errors, fail the test with details
+    if (errors.length > 0) {
+      throw new Error(`Invite a user to join the organization and auto-approve the invite Test failures:\n${errors.join('\n')}`);
+    }
+  })
+
+});
+
+test.describe('Settings - Team Page Functional Tests for Reject', () => {
+  const { newEmail } = getData('UI');
+
+  test('Sign up a new user, reject the request, and verify rejection', async ({ page, baseURL }) => {
+    const errors = [];
+    const RejectEmail = generateTestEmail();
+    const signUpPage = new SignUpPage(page, baseURL);
+
+    // Sign up a new user and verify verification code
+    await signUpPage.completeSignUpProcess(ValidTestData.firstName, ValidTestData.lastName, ValidTestData.organizationName, RejectEmail);
+
+    const { receivedVerificationCode } = await getGmailMessages(RejectEmail);
+    await signUpPage.codeInput(receivedVerificationCode);
+    await signUpPage.Password(ValidTestData.newPassword);
+    await signUpPage.createAccount();
+    await page.waitForURL('**/awaiting-approval');
+    expect(page.url()).toContain('/awaiting-approval');
+
+    // Log in as an admin and navigate to Settings
     const loginPage = new LoginPage(page, baseURL);
     const settingsPage = new SettingsPage(page, baseURL);
 
@@ -725,26 +721,49 @@ test.describe('Settings - Team Page UI Tests', () => {
     await loginPage.navigate();
     await loginPage.login(newEmail, ValidTestData.newPassword);
 
-    // Open settings and navigate to the 'Team' tab
     const settingButton = await settingsPage.settingButton();
     await settingButton.click();
     const teamTab = await settingsPage.teamTab();
     await teamTab.click();
 
-    const removeUser = await settingsPage.userdelete(InviteEmail);
-    await removeUser.click();
+    // Verify user details in the 'Requested' status
+    await safeExpect('Invite User row content', async () => {
+      await expect(await settingsPage.user(RejectEmail)).toBeVisible();
+      await expect(await settingsPage.username(RejectEmail)).toBeVisible();
+      const userName = await settingsPage.username(RejectEmail);
+      await expect(await userName.textContent()).toBe(`${ValidTestData.firstName} ${ValidTestData.lastName}${RejectEmail}`);
+      await expect(await settingsPage.useremail(RejectEmail)).toBeVisible();
+      await expect(await settingsPage.useremail(RejectEmail)).toHaveText(RejectEmail);
+    }, errors);
 
-    const cancelButton = await settingsPage.cancelButton()
-    await cancelButton.click();
-    await expect(await settingsPage.modal()).not.toBeVisible();
+    // Verify user is in 'Requested' status, reject and approve buttons are visible
+    await safeExpect('Invite User row content', async () => {
+      await expect(await settingsPage.usertype(RejectEmail)).toBeVisible();
+      await expect(await settingsPage.usertype(RejectEmail)).toHaveText('Requested');
+      await expect(await settingsPage.rejectButton(RejectEmail)).toBeVisible();
+      await expect(await settingsPage.rejectButton(RejectEmail)).toHaveText('Reject');
+      await expect(await settingsPage.approveButton(RejectEmail)).toBeVisible();
+      await expect(await settingsPage.approveButton(RejectEmail)).toHaveText('Approve');
+    }, errors);
 
-    const user = await settingsPage.user(InviteEmail);
-    await user.hover();
-    await removeUser.click();
-    const removeButton = await settingsPage.removeButton();
-    await removeButton.click();
-    await page.waitForTimeout(2000);
-    await expect(await settingsPage.user(InviteEmail)).not.toBeVisible();
+    await safeExpect('Edit and Delete button', async () => {
+      await expect(await settingsPage.usereditdeletebutton(RejectEmail)).toBeVisible();
+      const userEditDeleteButton = await settingsPage.usereditdeletebutton(RejectEmail);
+      await userEditDeleteButton.click();
+      await expect(await settingsPage.useredit()).toBeVisible();
+      await expect(await settingsPage.userdelete()).toBeVisible();
+    }, errors);
+
+    await safeExpect('Invite User row content after rejection', async () => {
+      const RejectButton = await settingsPage.rejectButton(RejectEmail);
+      await RejectButton.click();
+      await expect(await settingsPage.user(RejectEmail)).not.toBeVisible();
+    }, errors);
+
+    // If there are any errors, fail the test with all collected errors
+    if (errors.length > 0) {
+      throw new Error('Sign up a new user, reject the request, and verify rejection UI verification failed:\n' + errors.join('\n'));
+    }
   })
 
 });

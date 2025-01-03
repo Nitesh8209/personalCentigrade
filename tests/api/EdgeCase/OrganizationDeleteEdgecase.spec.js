@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { generateTestEmail } from '../../utils/signUpHelper';
-import { postRequest, deleteRequest, getData } from '../../utils/apiHelper';
+import { postRequest, deleteRequest, getData, saveData } from '../../utils/apiHelper';
 import API_ENDPOINTS from '../../../api/apiEndpoints';
 import { ValidTestData } from '../../data/SignUpData';
 
@@ -15,6 +15,10 @@ test.describe.serial('Edge Cases and Organization Deletion Scenarios', () => {
     headers = {
       'Content-Type': 'application/x-www-form-urlencoded',
     };
+  });
+
+  test.afterAll(async () => {
+    await saveData({InviteaccessToken: "", admin_access_token: "" }, 'Api');
   });
 
   // Test case for inviting a user to an organization

@@ -41,7 +41,7 @@ test.describe('Member Invitation and Approval Flow', () => {
     );
     await page.waitForTimeout(2000);
 
-    const admin = await projectsPage.adminrole();
+    const admin = await projectsPage.adminrole(newEmail);
     expect(admin).toBe('Admin');
 
     const resetButton = await projectsPage.resetButton();

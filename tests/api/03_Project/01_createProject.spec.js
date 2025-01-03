@@ -7,7 +7,7 @@ import { organizationtypeData, project } from '../../data/projectData';
 test.describe('Project API Tests', () => {
   // Extract necessary data from the shared data store
   const { organizationId, InviteaccessToken } = getData('Api');
-  const { admin_access_token } = getData();
+  const { admin_access_token } = getData('Api');
   let projectId;
   let headers;
 

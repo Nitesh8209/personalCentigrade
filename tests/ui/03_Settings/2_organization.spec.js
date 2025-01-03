@@ -35,9 +35,9 @@ test.describe('Settings - organization Page UI Tests', () => {
     await page.close();
   });
 
-  test('Verify Settings - organization page elements are displayed correctly', async () => {
+  test('Verify Settings - Header and Tabs are displayed correctly', async () => {
     const errors = [];
-
+  
     // Header section verification
     await safeExpect('Header section elements', async () => {
       await expect(await settingsPage.breadcrumb()).toBeVisible();
@@ -48,7 +48,7 @@ test.describe('Settings - organization Page UI Tests', () => {
       await expect(await settingsPage.headerDescription()).toBeVisible();
       await expect(await settingsPage.headerDescription()).toHaveText('Manage account and organizational settings');
     }, errors);
-
+  
     // Tab verification
     await safeExpect('Tab elements and states', async () => {
       await expect(await settingsPage.tabList()).toBeVisible();
@@ -59,9 +59,19 @@ test.describe('Settings - organization Page UI Tests', () => {
       await expect(await settingsPage.teamTab()).toBeVisible();
       await expect(await settingsPage.teamTab()).toHaveAttribute('aria-selected', 'false');
     }, errors);
+  
+    // If there are any errors, fail the test with all collected errors
+    if (errors.length > 0) {
+      throw new Error('Settings - Header and Tabs UI verification failed:\n' + errors.join('\n'));
+    }
+  });
+  
 
-    // Organization functions section
-    await safeExpect('Organization functions section', async () => {
+  test('Verify Settings - Organization Details and Action Buttons are displayed correctly', async () => {
+    const errors = [];
+
+     // Organization functions section
+     await safeExpect('Organization functions section', async () => {
       await expect(await settingsPage.orgfunctions()).toBeVisible();
       await expect(await settingsPage.orgfunctions()).toHaveText('Organization functions');
       await expect(await settingsPage.orgfunctiondropdown()).toBeVisible();
@@ -104,68 +114,92 @@ test.describe('Settings - organization Page UI Tests', () => {
 
     // If there are any errors, fail the test with all collected errors
     if (errors.length > 0) {
-      throw new Error('Settings - organization page UI verification failed:\n' + errors.join('\n'));
+      throw new Error('Settings - organization Details and Action Buttons UI verification failed:\n' + errors.join('\n'));
     }
 
   })
 
+  test('Verify organization functions dropdown selection functionality', async () => {
 
-  test('Verify cancel button functionality on Settings - Organization page', async () => {
-
-    const errors = [];
-
-    // open and Select organization functions
-    const orgfunctionDropdown = await settingsPage.orgfunctiondropdown();
-    await orgfunctionDropdown.click();
-    await page.getByLabel('Organization', { exact: true }).getByText('Sponsor').click();
-    await page.getByLabel('Organization', { exact: true }).getByText('Registry').click();
-    await page.getByLabel('Organization', { exact: true }).getByText('Auditor').click();
-
+    // Open dropdown and select organization functions
+    const optionsToSelect = ['Sponsor'];
+    await settingsPage.selectOrganizationFunctions(optionsToSelect);
+    
     // Verify selected values
     const selectedValues = await settingsPage.orgfunctiondropdownsaelected();
-    await safeExpect('Initial dropdown selection', async () => {
-      await expect(selectedValues).toContainText(['Sponsor', 'Registry', 'Auditor']);
-      await orgfunctionDropdown.locator('div.select-indicator').click();
-    }, errors);
+    await expect(selectedValues).toContainText(['Sponsor']);
+
+    // close dropdown
+    const orgfunctionDropdown = await settingsPage.orgfunctiondropdown();
+    await orgfunctionDropdown.locator('div.select-indicator').click();
+    
+    // Remove one selected option and verify
+    const removeOption = await settingsPage.orgfunctionremoveoption();
+    await removeOption.nth(0).click();
+    await expect(selectedValues).toContainText([]);
+});
 
 
-    // Verify button states after selection
-    await safeExpect('Button states after selection', async () => {
-      await expect(await settingsPage.cancelButton()).toBeEnabled();
-      await expect(await settingsPage.saveButton()).toBeEnabled();
-    }, errors);
+test('Verify unsaved changes modal on Settings - Organization page', async () => {
+  const errors = [];
+    const optionsToSelect = ['Sponsor', 'Registry', 'Auditor'];
+    await settingsPage.selectOrganizationFunctions(optionsToSelect);
 
-    // Click the cancel button and verify that the unsaved changes modal appears
+   // Verify button states after selection
+   await safeExpect('Button states after selection', async () => {
+    await expect(await settingsPage.cancelButton()).toBeEnabled();
+    await expect(await settingsPage.saveButton()).toBeEnabled();
+  }, errors);
+
+  // Click the cancel button on the org page and verify that the unsaved changes modal appears
+  const cancelButton = await settingsPage.cancelButton();
+  await safeExpect('Unsaved changes modal content', async () => {
+    await cancelButton.click();
+    await expect(await settingsPage.unsavedChangeModal()).toBeVisible();
+    await expect(await settingsPage.unsavedChangeheading()).toBeVisible();
+    await expect(await settingsPage.unsavedChangeheading()).toHaveText('Unsaved changes');
+    await expect(await settingsPage.unsavedChangediscription()).toBeVisible();
+    await expect(await settingsPage.unsavedChangediscription()).toHaveText("Are you sure you want to discard the changes you've made?");
+    await expect(await settingsPage.unsavedChangetext()).toBeVisible();
+    await expect(await settingsPage.unsavedChangetext()).toHaveText('You cannot undo this action.');
+  }, errors);
+
+  // Verify button states after modal appears
+  await safeExpect('Modal button states', async () => {
+    await expect(await settingsPage.cancelButton()).toBeVisible();
+    await expect(await settingsPage.cancelButton()).toBeEnabled();
+    await expect(await settingsPage.discardButton()).toBeVisible();
+    await expect(await settingsPage.discardButton()).toBeEnabled();
+    await cancelButton.click();
+  }, errors);
+
+
+  // If there are any errors, fail the test with all collected errors
+  if (errors.length > 0) {
+    throw new Error('Settings - organization unsaved changes modal verification failed:\n' + errors.join('\n'));
+  }
+});
+
+
+  test('Verify cancel and discard functionality in the unsaved changes modal on Settings - Organization page', async () => {
+
+    const errors = [];
     const cancelButton = await settingsPage.cancelButton();
-    await safeExpect('Unsaved changes modal content', async () => {
-      await cancelButton.click();
-      await expect(await settingsPage.unsavedChangeModal()).toBeVisible();
-      await expect(await settingsPage.unsavedChangeheading()).toBeVisible();
-      await expect(await settingsPage.unsavedChangeheading()).toHaveText('Unsaved changes');
-      await expect(await settingsPage.unsavedChangediscription()).toBeVisible();
-      await expect(await settingsPage.unsavedChangediscription()).toHaveText("Are you sure you want to discard the changes you've made?");
-      await expect(await settingsPage.unsavedChangetext()).toBeVisible();
-      await expect(await settingsPage.unsavedChangetext()).toHaveText('You cannot undo this action.');
-    }, errors);
+    const selectedValues = await settingsPage.orgfunctiondropdownsaelected();
 
-    // Verify button states after modal appears
-    await safeExpect('Modal button states', async () => {
-      await expect(await settingsPage.cancelButton()).toBeVisible();
-      await expect(await settingsPage.cancelButton()).toBeEnabled();
-      await expect(await settingsPage.discardButton()).toBeVisible();
-      await expect(await settingsPage.discardButton()).toBeEnabled();
-    }, errors);
+    // Click the cancel button on the org page 
+    await cancelButton.click();
 
-    // First cancel - should keep changes
-    await safeExpect('State after first cancel', async () => {
+    // click the cancel button in the unsaved changes modal
+    await safeExpect('State after click on cancel button in the unsaved changes modal', async () => {
       await cancelButton.click();
       await expect(selectedValues).toContainText(['Sponsor', 'Registry', 'Auditor']);
       await expect(await settingsPage.cancelButton()).toBeEnabled();
       await expect(await settingsPage.saveButton()).toBeEnabled();
     }, errors);
 
-    // Second cancel and discard - should reset to original
-    await safeExpect('Final state after discard', async () => {
+    // Click on the cancel button in the org page and click on the Discard button in the unsaved changes modal
+    await safeExpect('State after click on Discard button in the unsaved changes modal', async () => {
       await cancelButton.click();
       const discardButton = await settingsPage.discardButton();
       await discardButton.click();
@@ -176,7 +210,7 @@ test.describe('Settings - organization Page UI Tests', () => {
 
     // If there are any errors, fail the test with all collected errors
     if (errors.length > 0) {
-      throw new Error('Settings - Organization page cancel button verification failed:\n' + errors.join('\n'));
+      throw new Error('Settings - Organization page cancel and discard functionality in the unsaved changes modal verification failed:\n' + errors.join('\n'));
     }
 
   })
@@ -184,11 +218,13 @@ test.describe('Settings - organization Page UI Tests', () => {
   test('Verify Save changes button on Settings - organization page functionality', async () => {
 
     // Select an organization function and click the save button
+    const optionsToSelect = ['Sponsor'];
+    await settingsPage.selectOrganizationFunctions(optionsToSelect);
+
     const orgfunctionDropdown = await settingsPage.orgfunctiondropdown();
-    await orgfunctionDropdown.click();
-    await page.getByLabel('Organization', { exact: true }).getByText('Sponsor').click();
     await orgfunctionDropdown.locator('div.select-indicator').click();
 
+    // Click the save button 
     const saveButton = await settingsPage.saveButton();
     await saveButton.click();
     const saveMessage = await settingsPage.saveMessage();

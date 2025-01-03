@@ -129,6 +129,15 @@ export class SettingsPage {
     return await this.page.getByRole('combobox', { name: 'Organization functions' });
   }
 
+  async selectOrganizationFunctions(options) {
+    const dropdown = await this.orgfunctiondropdown();
+    await dropdown.click();
+
+    for (const option of options) {
+        await this.page.getByLabel('Organization', { exact: true }).getByText(option).click();
+    }
+}
+
   async orgfunctiondropdownoption() {
     return await this.page.locator('div.select-option');
   }
@@ -191,15 +200,15 @@ export class SettingsPage {
   }
 
   async teamNamecell() {
-    return await this.page.getByRole('cell', { name: 'Name' });
+    return await this.page.getByRole('columnheader', { name: 'Name' });
   }
 
   async teammembertypecell() {
-    return await this.page.getByRole('cell', { name: 'Member type' });
+    return await this.page.getByRole('columnheader', { name: 'Member type' });
   }
 
   async teamstatuscell() {
-    return await this.page.getByRole('cell', { name: 'Status' });
+    return await this.page.getByRole('columnheader', { name: 'Status' });
   }
   
    async user(newEmail) {
@@ -207,32 +216,34 @@ export class SettingsPage {
    }
    
    async username(newEmail) {
-    return await this.page.getByRole('row', { name: newEmail }).locator('.first-column div').nth(0);
+    return await this.page.getByRole('gridcell', { name: newEmail }).nth(0);
    }
 
    async useremail(newEmail) {
-    return await this.page.getByRole('row', { name: newEmail }).locator('.first-column .substring');
+    return await this.page.getByRole('gridcell', { name: newEmail }).locator('.body-sm.text-secondary');
    }
 
    async usertype(newEmail) {
-    return await this.page.getByRole('row', { name: newEmail }).locator('.middle-columns div').nth(0);
+    return await this.page.getByRole('row', { name: newEmail }).locator('[col-id="memberType"]');
    }
 
    async userstatus(newEmail) {
-    return await this.page.getByRole('row', { name: newEmail }).locator('.middle-columns .badge-success');
+    return await this.page.getByRole('row', { name: newEmail }).locator('[col-id="status"]');
    }
 
-   async useredit(newEmail) {
+   async usereditdeletebutton(newEmail) {
     const row = this.page.getByRole('row', { name: newEmail });
     await row.hover();
-    return row.locator('.actions-column button').nth(0);
-   }
+    return row.locator('.ag-action-cell');
+     }
 
-   async userdelete(newEmail) {
-    const row = this.page.getByRole('row', { name: newEmail });
-    await row.hover();
-    return row.locator('.actions-column button').nth(1); 
-   }
+   async useredit() {
+    return await this.page.getByRole('menuitem', { name: 'Edit' });
+  }
+
+   async userdelete() {
+    return await this.page.getByRole('menuitem', { name: 'Remove' });
+    }
 
    async rejectButton(Email) {
     return await this.page.getByRole('row', { name: Email }).locator('.approve-request .btn-outline.btn-primary.btn-sm');

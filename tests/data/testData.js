@@ -1,6 +1,6 @@
 export const Credentials = {
   username: 'bidipta.paul@kreeti.com',
-  password: 'Centigrade@2024',
+  password: 'Centigrade@2025',
   invalidPassword: 'InvalidPassword'
 };
 
@@ -8,7 +8,7 @@ export const InvalidCreadentials = [
   {
     description: 'Invalid username',
     username: 'InvalidUser@gmail.com',
-    password: 'Centigrade@2024',
+    password: 'Centigrade@2025',
     expectedStatusCode: 401,
     expectedMessage: 'Invalid username or password'
   },
