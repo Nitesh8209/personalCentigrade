@@ -24,12 +24,69 @@ docker build -t playwright-tests .
 ```bash
 docker run --rm \
   -e PLATFORM=local \
-  -v "$(pwd -W)/test-results:/app/test-results" \
-  -v "$(pwd -W)/playwright-report:/app/playwright-report" \
+  -e BASE_URL_LOCAL=<your-url> \
+  -e API_BASE_URL_LOCAL=<your-api-url> \
+  -v "$(pwd)/test-results:/app/test-results" \
+  -v "$(pwd)/playwright-report:/app/playwright-report" \
   playwright-tests
 
 ```
 ### For Dev
+
+```bash
+docker run --rm \
+  -e PLATFORM=dev \
+  -v "$(pwd)/test-results:/app/test-results" \
+  -v "$(pwd)/playwright-report:/app/playwright-report" \
+  playwright-tests
+
+```
+### For Prod
+
+```bash
+docker run --rm \
+  -e PLATFORM=prod \
+  -v "$(pwd)/test-results:/app/test-results" \
+  -v "$(pwd)/playwright-report:/app/playwright-report" \
+  playwright-tests
+
+```
+### 3. Run Specific Test Folders
+
+### Run API Tests
+
+```bash
+docker run --rm \
+  -e PLATFORM=<your-environment> \
+  -v "$(pwd)/test-results:/app/test-results" \
+  -v "$(pwd)/playwright-report:/app/playwright-report" \
+  playwright-tests npx playwright test ./tests/api
+
+```
+### Run SMOKE Tests
+
+```bash
+docker run --rm \
+  -e PLATFORM=<your-environment> \
+  -v "$(pwd)/test-results:/app/test-results" \
+  -v "$(pwd)/playwright-report:/app/playwright-report" \
+  playwright-tests npx playwright test ./tests/smoke
+
+```
+
+### Run UI Tests
+
+```bash
+docker run --rm \
+  -e PLATFORM=<your-environment> \
+  -v "$(pwd)/test-results:/app/test-results" \
+  -v "$(pwd)/playwright-report:/app/playwright-report" \
+  playwright-tests npx playwright test ./tests/ui
+
+```
+### For Windows
+
+If you are running the Docker command on Windows, you need to replace $(pwd) with $(pwd -W)
 
 ```bash
 docker run --rm \
@@ -39,18 +96,8 @@ docker run --rm \
   playwright-tests
 
 ```
-### For Prod
 
-```bash
-docker run --rm \
-  -e PLATFORM=prod \
-  -v "$(pwd -W)/test-results:/app/test-results" \
-  -v "$(pwd -W)/playwright-report:/app/playwright-report" \
-  playwright-tests
-
-```
-
-### 3. See the report
+### 4. See the report
 
 ```bash
 npx playwright show-report
