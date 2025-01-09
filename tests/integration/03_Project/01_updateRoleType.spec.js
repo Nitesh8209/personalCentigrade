@@ -60,6 +60,11 @@ test.describe('Update Role Type of the organization', () => {
     // Assertions to ensure the role types are correctly updated
     expect(formBasicExists).toBeTruthy();
     expect(formCreatorExists).toBeTruthy();
+
+    const resetButton = await projectsPage.resetButton();
+    await resetButton.click();
+    await projectsPage.setting();
+
   })
 
 })
