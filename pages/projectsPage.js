@@ -44,9 +44,9 @@ class ProjectsPage {
     }
 
     async updateroleType() {
-        await this.page.locator('.tabs > div:nth-child(3) > .organization-tab > :nth-child(1) > div:nth-child(1) > div:nth-child(2) > .select-control > .select-trigger').click();
-        await this.page.locator('.tabs > div:nth-child(3) > .organization-tab > :nth-child(1) > div:nth-child(1) > .select-menu-positioner > .select-menu > div:nth-child(2)').click();
-        await this.page.locator('.tabs > div:nth-child(3) > .organization-tab > :nth-child(1) > div:nth-child(1) > .select-menu-positioner > .select-menu > div:nth-child(3)').click();
+        await this.page.getByRole('combobox', { name: 'Organization role' }).click();
+        await this.page.getByText('Form - Basic').click();
+        await this.page.getByText('Form - Creator').click();
         await this.page.getByRole('button', { name: 'Save changes' }).click();
     }
 
@@ -84,8 +84,11 @@ class ProjectsPage {
     }
 
     async rejectApproveButton(name, email) {
-        const row = await this.page.locator(`.settings > div:nth-child(2) > div:nth-child(4) > .team-tab > .editable-table > table > tbody > tr:has(div.substring:has-text("${email}"))`);
-        await row.locator(`button:has-text("${name}")`).click();
+        if (name == "Approve") {
+            return await this.page.getByRole('row', { name: email }).locator('.approve-request .btn-solid.btn-primary.btn-sm').click();
+        } else {
+            return await this.page.getByRole('row', { name: email }).locator('.approve-request .btn-outline.btn-primary.btn-sm').click();
+        }
     }
 
     async createProject(ProjectName) {
@@ -103,7 +106,7 @@ class ProjectsPage {
     }
 
     async porjectTitle() {
-        return await this.page.locator('.project-title').innerText();
+        return await this.page.locator('.overview-title').innerText();
     }
 
     async proveneceStartGuide() {

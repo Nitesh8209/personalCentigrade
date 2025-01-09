@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import API_ENDPOINTS from '../../../api/apiEndpoints';
 import { getData, getRequest, postRequest, putRequest } from '../../utils/apiHelper';
 import { FileType, projectApproach } from '../../data/projectData';
+import { validateProjectFieldValues } from '../../utils/projectHelper';
 const fs = require('fs');
 
 // Load the file to be used for upload tests
@@ -34,11 +35,8 @@ test.describe('TIER0 Project Management Tests for Publish', () => {
     expect(response.status).toBe(201);
     expect(Array.isArray(responseBody)).toBe(true);
 
-    // Ensure all returned fields match the sent data
-    responseBody.forEach((item, index) => {
-      expect(item).toHaveProperty('keyName', projectApproach.items[index].keyName);
-      expect(item).toHaveProperty('value', projectApproach.items[index].value);
-    })
+    // Validate the response data
+    validateProjectFieldValues(projectApproach.items, responseBody);
   })
 
   // Test to retrieve project field values
@@ -54,11 +52,8 @@ test.describe('TIER0 Project Management Tests for Publish', () => {
     const responseBody = await response.json();
     expect(Array.isArray(responseBody)).toBe(true);
 
-    // Ensure all retrieved fields match the previously created data
-    responseBody.forEach((item, index) => {
-      expect(item).toHaveProperty('keyName', projectApproach.items[index].keyName);
-      expect(item).toHaveProperty('value', projectApproach.items[index].value);
-    })
+    // Validate the response data
+    validateProjectFieldValues(projectApproach.items, responseBody);
   })
 
   // Test to retrieve specific project fields based on a search query

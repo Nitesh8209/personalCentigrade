@@ -23,4 +23,4 @@ RUN npx playwright install-deps
 VOLUME ["/app/test-results", "/app/playwright-report"]
 
 # Default command to run tests
-CMD ["npx", "playwright", "test", "--reporter=html"]
+CMD ["npx", "playwright", "test", "--reporter=html,list"]

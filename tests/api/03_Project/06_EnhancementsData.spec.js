@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import API_ENDPOINTS from '../../../api/apiEndpoints';
 import { getData, getRequest, postRequest, putRequest, saveData } from '../../utils/apiHelper';
 import { actualsData, EnhancementsData, EnhancementsFileType, forcastData, projectApproach } from '../../data/projectData';
+import { validateProjectFieldValues } from '../../utils/projectHelper';
 const fs = require('fs');
 
 // Read the file from the specified path into a buffer
@@ -33,10 +34,9 @@ test.describe('TIER3 Enhancements Data Upload Tests', () => {
     expect(response.status).toBe(201);
     expect(Array.isArray(responseBody)).toBe(true);
 
-    responseBody.forEach((item, index) => {
-      expect(item).toHaveProperty('keyName', EnhancementsData.items[index].keyName);
-      expect(item).toHaveProperty('value', EnhancementsData.items[index].value);
-    })
+    // Validate the response data
+    validateProjectFieldValues(EnhancementsData.items, responseBody );
+
   })
 
   // Test to retrieve project field values and validate them
@@ -53,12 +53,10 @@ test.describe('TIER3 Enhancements Data Upload Tests', () => {
     expect(Array.isArray(responseBody)).toBe(true);
 
     // Combine multiple datasets to form the expected data
-    // const expectedData = [...projectApproach.items, ...forcastData.items, ...actualsData.items, ...EnhancementsData.items];
+    const expectedData = [...projectApproach.items, ...forcastData.items, ...actualsData.items, ...EnhancementsData.items];
 
-    // responseBody.forEach((item, index) => {
-    //   expect(item).toHaveProperty('keyName', expectedData[index].keyName);
-    //   expect(item).toHaveProperty('value', expectedData[index].value);
-    // })
+    // Validate the response data
+    validateProjectFieldValues(expectedData, responseBody);
   })
 
   // test block for file uploads

@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import API_ENDPOINTS from '../../../api/apiEndpoints';
 import { getData, getRequest, postRequest } from '../../utils/apiHelper';
 import { forcastData, forcastFileType, forcastSeries, projectApproach } from '../../data/projectData';
+import { validateProjectFieldValues } from '../../utils/projectHelper';
 const fs = require('fs');
 
 // Read the test file into a buffer for upload
@@ -34,11 +35,8 @@ test.describe('TIER1 Forecast Data Upload Tests', () => {
     expect(response.status).toBe(201);
     expect(Array.isArray(responseBody)).toBe(true);
 
-    // Validate each field value
-    responseBody.forEach((item, index) => {
-      expect(item).toHaveProperty('keyName', forcastData.items[index].keyName);
-      expect(item).toHaveProperty('value', forcastData.items[index].value);
-    })
+    // Validate the response data
+    validateProjectFieldValues(forcastData.items, responseBody);
   })
 
   // Test to fetch project field values
@@ -51,13 +49,10 @@ test.describe('TIER1 Forecast Data Upload Tests', () => {
 
     expect(response.status).toBe(200);
     expect(Array.isArray(responseBody)).toBe(true);
+    const expectedData = [...projectApproach.items, ...forcastData.items];
 
-    // Combine and validate expected data
-    // const expectedData = [...projectApproach.items, ...forcastData.items];
-    // responseBody.forEach((item, index) => {
-    //   expect(item).toHaveProperty('keyName', expectedData[index].keyName);
-    //   expect(item).toHaveProperty('value', expectedData[index].value);
-    // })
+    // Validate the response data
+    validateProjectFieldValues(expectedData, responseBody);
 
   })
 

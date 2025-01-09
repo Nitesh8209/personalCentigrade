@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import API_ENDPOINTS from '../../../api/apiEndpoints';
 import { getData, getRequest, postRequest } from '../../utils/apiHelper';
 import { actualsData, actualsFileType, acutalSeriesData, forcastData, projectApproach } from '../../data/projectData';
+import { validateProjectFieldValues } from '../../utils/projectHelper';
 const fs = require('fs');
 
 // Reading the test file (image) for upload
@@ -33,11 +34,9 @@ test.describe('TIER2 Actuals Data Upload Tests', () => {
     expect(response.status).toBe(201);
     expect(Array.isArray(responseBody)).toBe(true);
 
-    // Validating each item in the response
-    responseBody.forEach((item, index) => {
-      expect(item).toHaveProperty('keyName', actualsData.items[index].keyName);
-      expect(item).toHaveProperty('value', actualsData.items[index].value);
-    })
+    // Validating the response data
+    validateProjectFieldValues( actualsData.items, responseBody);
+
   })
 
   // Test: Fetching project field values
@@ -52,14 +51,11 @@ test.describe('TIER2 Actuals Data Upload Tests', () => {
     expect(response.status).toBe(200);
     expect(Array.isArray(responseBody)).toBe(true);
 
-  //   // Merging all expected data for validation
-  //   const expectedData = [...projectApproach.items, ...forcastData.items, ...actualsData.items];
+    // Merging all expected data for validation
+    const expectedData = [...projectApproach.items, ...forcastData.items, ...actualsData.items];
 
-  //   // Validating each item in the response
-  //   responseBody.forEach((item, index) => {
-  //     expect(item).toHaveProperty('keyName', expectedData[index].keyName);
-  //     expect(item).toHaveProperty('value', expectedData[index].value);
-  //   })
+    // Validating the response data
+    validateProjectFieldValues(expectedData, responseBody);
   })
 
   // Parallel Test Suite: Uploading files for different types

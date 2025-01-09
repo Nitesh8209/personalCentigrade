@@ -93,6 +93,7 @@ test.describe('Login Page UI Tests', () => {
     await loginPage.login(Credentials.username, Credentials.password)
 
     // Validate that the URL is redirected to the projects page after a successful login
+    await page.waitForURL('**/projects');
     await expect(page).toHaveURL(`${loginPage.baseURL}/projects`);
   })
 

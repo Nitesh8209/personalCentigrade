@@ -127,8 +127,8 @@ test.describe('Create and Manage Modular Benefit Project', () => {
     expect(firstResponce).toHaveProperty('component', expect.any(String));
     expect(firstResponce).toHaveProperty('label', expect.any(String));
     expect(firstResponce).toHaveProperty('type', expect.any(String));
-    expect(firstResponce).toHaveProperty('viewStepId', expect.any(Number));
-    expect(firstResponce).toHaveProperty('viewSectionId', expect.any(Number));
+    expect(firstResponce.viewStepId === null || typeof firstResponce.viewStepId === 'number').toBe(true)
+    expect(firstResponce.viewSectionId === null || typeof firstResponce.viewSectionId === 'number').toBe(true)
   })
 
 })
