@@ -47,7 +47,7 @@ class SignUpPage {
   }
 
   async Password(password) {
-    await this.page.locator('.input').fill(password);
+    await this.page.locator('.input-wrapper > input').fill(password);
   }
 
   async createAccount() {
@@ -75,7 +75,7 @@ class SignUpPage {
   }
 
   async forgotPasswordEmail(email) {
-    await this.page.locator('.input').fill(email);
+    await this.page.locator('.input > .input-control > input').fill(email);
   }
 
   async forgotPasswordSend() {
