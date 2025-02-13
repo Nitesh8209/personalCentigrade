@@ -98,7 +98,7 @@ export class FieldHandler {
     return this.page.locator('.nav-menu').getByRole('link', { name: step, exact: true });
   }
 
-  async BreadCrumps() {
+  async breadCrumps() {
     return this.page.locator('ol.breadcrumbs > li.breadcrumb');
   }
 
@@ -106,9 +106,20 @@ export class FieldHandler {
     return this.page.locator('ol.breadcrumbs > li.breadcrumb-separator');
   }
 
-  async BreadCrumpDetail(number) {
-    const breadCrumbsLocator = await this.BreadCrumps();
+  async breadCrumpDetail(number) {
+    const breadCrumbsLocator = await this.breadCrumps();
     return breadCrumbsLocator.nth(number).locator('a');
+  }
+
+
+  async validateBreadcrumb(index, expectedHref, expectedText) {
+    const breadcrumb = await this.breadCrumpDetail(index);
+    if (expectedHref) {
+      await expect(breadcrumb).toHaveAttribute('href', expectedHref);
+    } else {
+      await expect(breadcrumb).toHaveText(expectedText);
+    }
+
   }
 
   async section(label) {
@@ -139,15 +150,15 @@ export class FieldHandler {
     return await this.page.getByLabel('Unsaved changes');
   }
 
-  async unsavedChangeheading() {
+  async unsavedChangeHeading() {
     return await this.page.getByRole('heading', { name: 'Unsaved changes' });
   }
 
-  async unsavedChangediscription() {
+  async unsavedChangeDiscription() {
     return await this.page.getByText('Are you sure you want to');
   }
 
-  async unsavedChangetext() {
+  async unsavedChangeText() {
     return await this.page.getByText('You cannot undo this action.');
   }
 
@@ -204,9 +215,13 @@ export class FieldHandler {
         break;
 
       case COMPONENT_TYPES.RADIO:
-      case COMPONENT_TYPES.RADIOIDK:
         await expect(locator).toHaveAttribute('data-scope', 'radio-group');
         await this.validateRadioField(locator, field.component);
+        break;
+
+      case COMPONENT_TYPES.RADIOIDK:
+        await expect(locator).toHaveAttribute('data-scope', 'radio-group');
+        await this.validateRadioIDKField(locator, field.component);
         break;
 
       case COMPONENT_TYPES.CHECKBOX:
@@ -226,11 +241,11 @@ export class FieldHandler {
 
 
       case COMPONENT_TYPES.DATA_GRID:
-        await this.ValidateDataGridFields(locator, field);
+        await this.validateDataGridFields(locator, field);
         break;
 
       case COMPONENT_TYPES.DATA_TABLE:
-        await this.ValidateDataTableFields(locator, field);
+        await this.validateDataTableFields(locator, field);
         break;
     }
   }
@@ -288,7 +303,7 @@ export class FieldHandler {
   }
 
   // Validating hte Data Table Fields 
-  async ValidateDataTableFields(locator, field) {
+  async validateDataTableFields(locator, field) {
     const firstRow = await locator.locator('[row-id="0"]');
     await expect(firstRow).toBeVisible();
 
@@ -316,7 +331,7 @@ export class FieldHandler {
   }
 
   // Validating the Data Grid Fields 
-  async ValidateDataGridFields(locator, field) {
+  async validateDataGridFields(locator, field) {
     const header = await locator.locator('.ag-pinned-left-header');
     await expect(header).toBeVisible();
     await expect(header).toHaveText('Vintage');
@@ -375,9 +390,7 @@ export class FieldHandler {
     const listBox = await this.listBox(label);
     await expect(listBox).toBeVisible();
 
-    const optionsText = await listBox.innerText();
-    const options = optionsText.split('\n').map(option => option.trim());
-
+    const options = await listBox.getByRole('option').allInnerTexts();
     const normalizedExpectedOptions = expectedOptions.map(option =>
       option.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
     );
@@ -414,6 +427,26 @@ export class FieldHandler {
     await expect(radiolocator).toBeChecked();
     await radiolocator.uncheck();
     await expect(radiolocator).not.toBeChecked();
+    await radiolocator.check();
+  }
+
+
+  async validateRadioIDKField(locator, component){
+    const options = ["Yes", "No", "I don't know"];
+
+    for (const option of options) {
+      const radioLocator = locator.getByText(option, {exact: true});
+      await radioLocator.check();
+      await expect(radioLocator).toBeChecked();
+    }
+
+  // Uncheck "I don't know" and validate
+  const radiolocatorIDK = locator.getByText("I don't know");
+  await radiolocatorIDK.uncheck();
+  await expect(radiolocatorIDK).not.toBeChecked();
+
+    // Recheck "Yes" to ensure behavior
+    await locator.getByText("Yes").check();
   }
 
   /**
@@ -649,6 +682,12 @@ export class FieldHandler {
     if (!isChecked) {
       await radiolocator.check();
       await expect(radiolocator).toBeChecked();
+    }
+  }
+
+  async checkStepVisibility(stepElement, step, test) {
+    if (! await stepElement.isVisible()) {
+        test.skip(true, `Step '${step.label}' is not visible - skipping validation`);
     }
   }
 

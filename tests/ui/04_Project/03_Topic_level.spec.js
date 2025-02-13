@@ -39,13 +39,13 @@ test.describe('Verify Topic and Step Visibility in Project Workflow', () => {
     await page.waitForURL(`**/overview`);
 
     // Validate project title
-    const projectTitle = await projectsPage.porjectTitle();
+    const projectTitle = await projectsPage.projectTitle();
     await expect(projectTitle).toBe(project.uiProjectName);
   });
 
 
   // Validate visibility of each topic
-  formData.topics.forEach((topic) => {
+  for(const topic of formData.topics){
     test(`Ensure topic '${topic.label}' is visible and enabled`, async () => {
       const errors = [];
 
@@ -63,21 +63,17 @@ test.describe('Verify Topic and Step Visibility in Project Workflow', () => {
         throw new Error(`Validation errors found:\n${errors.join('\n')}`);
       }
     });
-  });
+  };
 
 
   // Validate steps within each topic
-  formData.topics.forEach(async (topic) => {
+  for(const topic of formData.topics){
     test(`Verify steps inside topic '${topic.label}'`, async ({ }, testInfo) => {
       const topicLabel = await fieldHandler.findLabel(topic.label);
 
       // Skip the Test if the Topic is not visible
       if (!await topicLabel.isVisible()) {
-        testInfo.annotations.push({
-          type: "skip Reason",
-          description: `Topic '${topic.label}' is not visible - skipping validation`
-        })
-        test.skip();
+        test.skip(true, `Skipping all tests for topic '${topic.label}' as it's not visible`);
       }
 
       const errors = [];
@@ -115,7 +111,7 @@ test.describe('Verify Topic and Step Visibility in Project Workflow', () => {
       }
 
     });
-  });
+  };
 
 });
 
