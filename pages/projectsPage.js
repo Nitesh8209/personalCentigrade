@@ -111,7 +111,7 @@ class ProjectsPage {
         await this.page.getByRole('button', { name: 'Create' }).click();
     }
 
-    async porjectTitle() {
+    async projectTitle() {
         return await this.page.locator('.project-name').innerText();
     }
 

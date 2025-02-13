@@ -27,11 +27,11 @@ test.describe('Project Overview Page', () => {
     await page.waitForURL('**/projects/**/overview');
 
     // Validate project title
-    const projectTitle = await projectsPage.porjectTitle();
+    const projectTitle = await projectsPage.projectTitle();
     await expect(projectTitle).toBe(project.uiProjectName);
   });
 
-  test('Verify left sidebar and project overview sections on the project overview page', async ({ page, baseURL }) => {
+  test('Verify left sidebar and project overview sections on the project overview page', async () => {
     const errors = [];
 
     // project overview
@@ -70,7 +70,7 @@ test.describe('Project Overview Page', () => {
 
   });
 
-  test('Verify project overview page layout, breadcrumbs, and content header', async ({ page, baseURL }) => {
+  test('Verify project overview page layout, breadcrumbs, and content header', async () => {
     const errors = [];
 
     await safeExpect('Project overview page breadcrumbs',
@@ -120,7 +120,7 @@ test.describe('Project Overview Page', () => {
 
   })
 
-  test('Verify functionality of Learn More accordion (Expansion and Collapse)', async ({ page, baseURL }) => {
+  test('Verify functionality of Learn More accordion (Expansion and Collapse)', async () => {
     const errors = [];
 
     await safeExpect('Project overview page Accordian label and indicator',
@@ -135,10 +135,9 @@ test.describe('Project Overview Page', () => {
       errors
     );
 
-    const Accordianindicator = await projectsPage.projectOverviewAccordionIndicator();
     await safeExpect('Verify accordion expands',
       async () => {
-        await Accordianindicator.click();
+        await (await projectsPage.projectOverviewAccordionIndicator()).click();
         await expect(await projectsPage.projectOverviewAccordionItemContent()).toBeVisible();
         await expect(await projectsPage.projectOverviewAccordion()).toBeVisible();
         await expect(await projectsPage.projectOverviewAccordionLabel()).toBeVisible();
@@ -151,7 +150,7 @@ test.describe('Project Overview Page', () => {
 
     await safeExpect('Again click on Accordian label and indicator and collapses accordion',
       async () => {
-        await Accordianindicator.click();
+        await (await projectsPage.projectOverviewAccordionIndicator()).click();
         await expect(await projectsPage.projectOverviewAccordionItemContent()).not.toBeVisible();
         await expect(await projectsPage.projectOverviewAccordion()).toBeVisible();
         await expect(await projectsPage.projectOverviewAccordionLabel()).toBeVisible();
@@ -169,13 +168,12 @@ test.describe('Project Overview Page', () => {
   });
 
 
-  test('Verify content inside Learn More accordion on Project Overview page', async ({ page, baseURL }) => {
+  test('Verify content inside Learn More accordion on Project Overview page', async () => {
     const errors = [];
 
-    const Accordianindicator = await projectsPage.projectOverviewAccordionIndicator();
     await safeExpect('Verify the content of the accordion after expansion - guide header',
       async () => {
-        await Accordianindicator.click();
+        await (await projectsPage.projectOverviewAccordionIndicator()).click();
         await expect(await projectsPage.projectOverviewguideheader()).toBeVisible();
         await expect(await projectsPage.projectOverviewguideheaderHeading()).toBeVisible();
         await expect(await projectsPage.projectOverviewguideheaderHeading()).toHaveText('How it works');
@@ -232,7 +230,7 @@ test.describe('Project Overview Page', () => {
 
   });
 
-  test('Verify tier progress and visibility of cards on Project Overview page', async ({ page, baseURL }) => {
+  test('Verify tier progress and visibility of cards on Project Overview page', async () => {
     const errors = [];
 
     await safeExpect('Verify tier progress section on Project Overview page',
@@ -261,7 +259,7 @@ test.describe('Project Overview Page', () => {
 
   })
 
-  test('Verify Tier 0 - Provenance data progress card content', async ({ page, baseURL }) => {
+  test('Verify Tier 0 - Provenance data progress card content', async () => {
     const errors = [];
 
     await safeExpect('Verify Tier 0 card title and description',
@@ -292,7 +290,7 @@ test.describe('Project Overview Page', () => {
 
   })
 
-  test('Verify Tier 1 - Forecast data progress card content', async ({ page, baseURL }) => {
+  test('Verify Tier 1 - Forecast data progress card content', async () => {
     const errors = [];
 
     await safeExpect('Verify Tier 1 card title and description',
@@ -323,7 +321,7 @@ test.describe('Project Overview Page', () => {
 
   })
 
-  test('Verify Tier 2 - Actuals data progress card content', async ({ page, baseURL }) => {
+  test('Verify Tier 2 - Actuals data progress card content', async () => {
     const errors = [];
 
     await safeExpect('Verify Tier 2 card title and description',
@@ -354,7 +352,7 @@ test.describe('Project Overview Page', () => {
 
   })
 
-  test('Verify Tier 3 - Differentiators data progress card content', async ({ page, baseURL }) => {
+  test('Verify Tier 3 - Differentiators data progress card content', async () => {
     const errors = [];
 
     await safeExpect('Verify Tier 3 card title and description',
@@ -385,7 +383,7 @@ test.describe('Project Overview Page', () => {
 
   })
 
-  test('Verify Help & Support section visibility and content', async ({ page, baseURL }) => {
+  test('Verify Help & Support section visibility and content', async () => {
     const errors = [];
 
     // Verify the support section is visible
