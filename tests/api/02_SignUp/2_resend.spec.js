@@ -26,11 +26,9 @@ test.describe.serial('Verification Code Flow', () => {
 
     expect(response.status).toBe(200);
     const { receivedVerificationCode } = await getGmailMessages(newEmail);  // Fetch Gmail message for verification code
-
-    expect(responseBody).toHaveProperty('verificationCode', receivedVerificationCode);
+   
     expect(responseBody).toHaveProperty('email', newEmail);
     expect(responseBody).toMatchObject({
-      verificationCode: receivedVerificationCode,
       email: newEmail,
     });
 

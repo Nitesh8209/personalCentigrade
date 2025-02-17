@@ -115,8 +115,7 @@ test.describe.serial(`Member Invitation and Approval Flow`, () => {
       });
       const inviteSignUpResponse = await postRequest(API_ENDPOINTS.onboardSignup, inviteSignUpData, headers);
       expect(inviteSignUpResponse.status).toBe(200);
-      const inviteSignUpBody = await inviteSignUpResponse.json();
-      const inviteVerificationCode = inviteSignUpBody.verificationCode;
+      const { receivedVerificationCode : inviteVerificationCode } = await getGmailMessages(InviteEmail);  // Fetch Gmail message for verification code
 
       // Verify invitee account
       const verifyInviteeData = new URLSearchParams({
@@ -171,8 +170,7 @@ test.describe.serial(`Member Invitation and Approval Flow`, () => {
       });
       const inviteSignUpResponse = await postRequest(API_ENDPOINTS.onboardSignup, inviteSignUpData, headers);
       expect(inviteSignUpResponse.status).toBe(200);
-      const inviteSignUpBody = await inviteSignUpResponse.json();
-      const inviteVerificationCode = inviteSignUpBody.verificationCode;
+      const { receivedVerificationCode : inviteVerificationCode } = await getGmailMessages(InviteEmail);  // Fetch Gmail message for verification code
 
       // Verify invitee account using the verification code
       const verifyInviteeData = new URLSearchParams({
