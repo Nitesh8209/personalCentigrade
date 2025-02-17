@@ -14,17 +14,20 @@ const FIELD_TYPES = {
 // Component type constants remain the same
 const COMPONENT_TYPES = {
   TEXT_INPUT: 'text-input',
+  TEXT_INPUT_MULTIPLE: 'text-input-multiple',
   TEXTAREA: 'textarea',
   SELECT: 'select',
   SELECT_MULTIPLE: 'select-multiple',
   METHODOLOGY_SELECT: 'methodology-select',
   COUNTRY_SELECT: 'country-select',
-  RADIO: 'radio-y-n',
+  RADIO: 'radio',
+  RADIOYN: 'radio-y-n',
   RADIOIDK: 'radio-y-n-idk',
   CHECKBOX: 'checkbox',
   YEAR_INPUT: 'year-input',
   MEDIA_CAROUSEL: 'media-carousel',
-  FILE_UPLOAD: 'file-upload-multiple',
+  FILE_UPLOAD_MULTIPLE: 'file-upload-multiple',
+  FILE_UPLOAD: 'file-upload',
   DATE_PICKER: 'date-picker',
   DATA_GRID: 'data-grid',
   DATA_TABLE: 'data-table',
@@ -48,7 +51,7 @@ export class FieldHandler {
     }
 
     // Handle special input types
-    if (component === COMPONENT_TYPES.MEDIA_CAROUSEL) {
+    if (component === COMPONENT_TYPES.MEDIA_CAROUSEL || component === COMPONENT_TYPES.FILE_UPLOAD_MULTIPLE || component === COMPONENT_TYPES.FILE_UPLOAD) {
       return this.page.locator(`input[name="${fieldName}"][type="file"]`);
     }
 
@@ -72,7 +75,19 @@ export class FieldHandler {
       return this.page.getByText(fieldLabel, { exact: true }).locator('..').locator('..').locator('.ag-theme-quartz');
     }
 
-    if (component === COMPONENT_TYPES.RADIO) {
+    if (component === COMPONENT_TYPES.RADIOYN || component === COMPONENT_TYPES.RADIO || component === COMPONENT_TYPES.RADIOIDK) {
+      return this.page.getByRole('radiogroup', { name: fieldLabel });
+    }
+
+    if (component === COMPONENT_TYPES.TEXT_INPUT_MULTIPLE) {
+      return this.page.locator('label').getByText(fieldLabel, { exact: true }).locator('..').locator('..');
+    }
+
+    if (component === COMPONENT_TYPES.TEXT_INPUT) {
+      return this.page.locator('.input').getByLabel(fieldLabel, { exact: true });;
+    }
+
+    if (component === COMPONENT_TYPES.TEXTAREA) {
       return this.page.getByLabel(fieldLabel, { exact: true });
     }
 
@@ -83,7 +98,7 @@ export class FieldHandler {
         return this.page.locator(`[name='${fieldName}']`);
 
       case FIELD_TYPES.BOOLEAN:
-        return this.page.getByLabel(fieldLabel, { exact: true })
+        return this.page.getByLabel(fieldLabel)
 
       default:
         return this.page.getByLabel(fieldLabel, { exact: true });
@@ -143,7 +158,7 @@ export class FieldHandler {
   }
 
   async saveButton() {
-    return this.page.getByRole('button', { name: 'Save' });
+    return this.page.getByRole('button', { name: 'Save' , exact: true });
   }
 
   async unsavedChangeModal() {
@@ -204,20 +219,39 @@ export class FieldHandler {
         break;
 
       case COMPONENT_TYPES.SELECT_MULTIPLE:
-        const normalizedExpectedMultipleOptions = field.options[0].replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-        await this.fillSelectField(locator, field.label, normalizedExpectedMultipleOptions);
         const indicator = await locator.locator('.select-indicator');
+        const listbox = await this.listBox(field.label);
+        if (!(await listbox.isVisible())) {
         await indicator.click();
+        }
+        for (const option of field.options) {
+          const selectedValuesText = await locator.textContent();
+          if (selectedValuesText.includes(option)) continue;
+          const optionLocator = listbox.locator(`text="${option}"`);
+          await expect(optionLocator).toBeVisible();
+          await optionLocator.click();
+        }
+        await indicator.click();
+        const finalSelectedValuesText = await locator.textContent();
+        for (const option of field.options) {
+          expect(finalSelectedValuesText).toContain(option);
+        }
         break;
 
       case COMPONENT_TYPES.METHODOLOGY_SELECT:
         await this.validateMethodologySelectField(locator);
         break;
 
+      case COMPONENT_TYPES.RADIOYN:
+        await expect(locator).toHaveAttribute('data-scope', 'radio-group');
+        await this.validateRadioYNField(locator, field.component);
+        break;
+
       case COMPONENT_TYPES.RADIO:
         await expect(locator).toHaveAttribute('data-scope', 'radio-group');
-        await this.validateRadioField(locator, field.component);
+        await this.validateRadioField(locator, field.options);
         break;
+
 
       case COMPONENT_TYPES.RADIOIDK:
         await expect(locator).toHaveAttribute('data-scope', 'radio-group');
@@ -241,13 +275,24 @@ export class FieldHandler {
 
 
       case COMPONENT_TYPES.DATA_GRID:
-        await this.validateDataGridFields(locator, field);
+        await this.validateDataGridWarningBanner(locator);
         break;
 
       case COMPONENT_TYPES.DATA_TABLE:
         await this.validateDataTableFields(locator, field);
         break;
+
+      case COMPONENT_TYPES.TEXT_INPUT_MULTIPLE:
+        await this.ValidateTextInputMultipleField(locator, field.name);
     }
+  }
+
+  async ValidateTextInputMultipleField(locator, fieldName) {
+    const addButton = await locator.getByRole('button', { name: '+ Add field' });
+    await expect(addButton).toBeVisible();
+    await addButton.click();
+    const inputFiled = await locator.locator('.input');
+    await expect(inputFiled).toBeVisible();
   }
 
   // Data Table validation Function
@@ -330,6 +375,25 @@ export class FieldHandler {
     }
   }
 
+  //Validate the Warning Banner in Data Grid 
+  async validateDataGridWarningBanner(locator) {
+    const banner = await locator.locator('..').locator('..').locator('.banner');
+    await expect(banner).toBeVisible();
+
+    const bannerHeading = await banner.getByRole('heading', { name: 'Period not defined' });
+    expect(bannerHeading).toBeVisible();
+    expect(bannerHeading).toHaveText('Period not defined');
+
+    const bannerContent = await banner.locator('.banner-content > div');
+    await expect(bannerContent).toBeVisible();
+    await expect(bannerContent).toHaveText('To enter data, use "Crediting start year" and "Crediting end year" in Tier 0 - Project details to define the period');
+
+    const bannerLink = await banner.getByRole('link', { name: 'Go to Project details' });
+    await expect(bannerLink).toBeVisible();
+    await expect(bannerLink).toHaveAttribute('href', /\/projects\/\d+\/project-details/);
+
+  }
+
   // Validating the Data Grid Fields 
   async validateDataGridFields(locator, field) {
     const header = await locator.locator('.ag-pinned-left-header');
@@ -386,8 +450,14 @@ export class FieldHandler {
  * Validates select fields
  */
   async validateSelectField(locator, label, expectedOptions) {
+    // Click to open dropdown
     await locator.click();
     const listBox = await this.listBox(label);
+
+    // If dropdown isn't visible after first click, try clicking again
+    if (!(await listBox.isVisible())) {
+      await locator.click();
+    }
     await expect(listBox).toBeVisible();
 
     const options = await listBox.getByRole('option').allInnerTexts();
@@ -397,12 +467,15 @@ export class FieldHandler {
 
     expect(options.length).toBeGreaterThan(0);
     expect(options).toEqual(normalizedExpectedOptions);
-    await locator.click();
+
     for (const expectedOption of normalizedExpectedOptions) {
-      if (expectedOption === 'Other') {
-        continue;
-      }
+      if (expectedOption === 'Other') continue;
+
+      // Reopen dropdown before selecting each option if dropdown closed
+      if (!(await listBox.isVisible())) {
       await locator.click();
+      }
+
       const optionLocator = listBox.locator(`text="${expectedOption}"`);
 
       // Ensure the option exists and matches the expected text
@@ -421,7 +494,7 @@ export class FieldHandler {
   /**
  * Validates boolean fields (radio/checkbox)
  */
-  async validateRadioField(locator, component) {
+  async validateRadioYNField(locator, component) {
     const radiolocator = locator.getByText('Yes');
     await radiolocator.check();
     await expect(radiolocator).toBeChecked();
@@ -430,12 +503,20 @@ export class FieldHandler {
     await radiolocator.check();
   }
 
+  async validateRadioField(locator, options) {
+    for (const option of options) {
+      const radioLocator = locator.getByText(option, { exact: true });
+      await radioLocator.check();
+      await expect(radioLocator).toBeChecked();
+    }
+  }
 
-  async validateRadioIDKField(locator, component){
+
+  async validateRadioIDKField(locator, component) {
     const options = ["Yes", "No", "I don't know"];
 
     for (const option of options) {
-      const radioLocator = locator.getByText(option, {exact: true});
+      const radioLocator = locator.getByText(option, { exact: true });
       await radioLocator.check();
       await expect(radioLocator).toBeChecked();
     }
@@ -501,8 +582,21 @@ export class FieldHandler {
   /**
   * Validates label presence
   */
-  async validateLabel(label) {
-    return this.page.locator('label').getByText(label, { exact: true });
+
+  async validateLabel(field) {
+
+    // Validate field attributes
+    switch (field.component) {
+      case COMPONENT_TYPES.TEXT_INPUT:
+        return this.page.locator('.input').locator('label').getByText(field.label, { exact: true });
+
+      case COMPONENT_TYPES.SELECT:
+        return this.page.locator('.select').locator('label').getByText(field.label, { exact: true });
+
+      default:
+        return this.page.locator('label').getByText(field.label, { exact: true });
+
+    }
   }
 
 
@@ -608,7 +702,7 @@ export class FieldHandler {
   /**
    * Fill display dependency field 
    */
-  async FilldisplayDependenciesField(locator, displayDependencyField, field) {
+  async FillDisplayDependenciesField(locator, displayDependencyField, field) {
 
     switch (displayDependencyField.component) {
 
@@ -623,8 +717,8 @@ export class FieldHandler {
         }
         break;
 
-
       case COMPONENT_TYPES.RADIO:
+      case COMPONENT_TYPES.RADIOYN:
       case COMPONENT_TYPES.RADIOIDK:
         await this.fillRadioField(locator, field.display_dependencies[0]?.pattern, displayDependencyField.label);
         break;
@@ -638,12 +732,8 @@ export class FieldHandler {
   // Fill Multi Select Field
   async fillMultiSelectField(locator, label, value) {
     const selectedValuesText = await locator.textContent();
-    const selectedValues = selectedValuesText.split(',').map((val) => val.trim());
 
-    console.log('value', value);
-    console.log('selectedValue', selectedValues);
-
-    if (selectedValues.includes(value)) {
+    if (selectedValuesText.includes(value)) {
       console.log(`Value "${value}" is already selected. Skipping.`);
       return;
     }
@@ -656,7 +746,7 @@ export class FieldHandler {
     await expect(optionLocator).toBeVisible();
     await optionLocator.click();
     const selectedValue = await locator.textContent();
-    expect(selectedValue).toBe(value);
+    expect(selectedValue).toContain(value);
     const indicator = await locator.locator('.select-indicator');
     await indicator.click();
   }
@@ -691,8 +781,134 @@ export class FieldHandler {
     }
   }
 
-  async fillCheckboxField(locator, displayDependencylabel, value) {
+  async checkValidateField(step, testInfo, test) {
+    const hasValidField = await step.sections?.some(section =>
+      section.field_groups?.some(fieldGroup =>
+        fieldGroup.fields?.some(field =>
+          field.display_dependencies == null &&
+          field.component !== 'file-upload-multiple' &&
+          field.component !== 'media-carousel' &&
+          field.component !== 'data-table' &&
+          field.component !== 'data-grid'
+        )
+      )
+    );
 
+    if (!hasValidField) {
+      testInfo.annotations.push({
+        type: "skip Reason",
+        description: `In this Step ${step.label} not filed available other than file-upload - skipping validation`
+      }),
+        test.skip('Skipping this test as the Step is not visible');
+    }
+  }
+
+
+  async handleDisplayDependencies(step, field, formData, selectedFields, topic) {
+    let isNewlyVisible = false;
+
+    if (!field?.display_dependencies) {
+      return; // Exit if there are no display dependencies
+    }
+
+    const fieldExists = selectedFields.some(
+      item =>
+        item.name === field.display_dependencies[0]?.field &&
+        item.value === field.display_dependencies[0]?.pattern
+    );
+
+    if (fieldExists) {
+      return; // Exit if the dependent field is already handled
+    }
+
+    let dependencyField = await this.findDependencyField(step, field.display_dependencies[0]?.field);
+
+    if (!dependencyField) {
+      const dependentFieldDetails = await this.findDependencyFieldInTopics(formData, field.display_dependencies[0]?.field);
+      const topicLabelElement = await this.findLabel(dependentFieldDetails.topicLabel);
+      await topicLabelElement.click();
+
+      const stepLabelElement = await this.findLabel(dependentFieldDetails.stepLabel);
+      await stepLabelElement.click();
+
+     dependencyField = await dependentFieldDetails?.field;
+     isNewlyVisible = true;
+    }
+
+    const dependencyFieldLocator = await this.getLocator(dependencyField.name, dependencyField.label, dependencyField.type, dependencyField.component);
+    await expect(dependencyFieldLocator).toBeVisible();
+
+    // Fill the display dependencies field
+    await this.FillDisplayDependenciesField(inputLocator, dependencyField, field);
+
+    if(isNewlyVisible){
+      await this.navigateToFieldContext(topic, step);
+    }
+
+    selectedFields.push({
+      name: field.display_dependencies[0]?.field,
+      value: field.display_dependencies[0]?.pattern,
+    })
+
+    await this.handleDisplayDependencies(
+      step,
+      dependencyField,
+      formData,
+      selectedFields,
+      topic
+    );
+
+  }
+
+  async findDependencyField(step, dependencyName) {
+    return step.sections
+      ?.flatMap(sec => sec?.field_groups ?? [])
+      .flatMap(group => group?.fields ?? [])
+      .find(field => field?.name === dependencyName);
+  }
+
+  async findDependencyFieldInTopics(formData, dependencyName) {
+    for (const topic of formData.topics) {
+      for (const stepGroup of topic.step_groups || []) {
+        for (const step of stepGroup.steps || []) {
+          for (const section of step.sections || []) {
+            for (const fieldGroup of section.field_groups || []) {
+              const field = fieldGroup.fields?.find(f => f.name === dependencyName);
+              if (field) {
+                return {
+                  topicLabel: topic?.label,
+                  stepLabel: step?.label,
+                  field
+                };
+              }
+            }
+          }
+        }
+      }
+    }
+    return null;
+  }
+
+  async navigateToFieldContext(topic, step) {
+    const topicElement = await this.findLabel(topic.label)
+    const dataState = await topicElement.locator('..').getAttribute('data-state');
+
+    if (dataState != 'open') {
+      const saveButton = await this.saveButton();
+      if (await saveButton.isEnabled()) {
+        await saveButton.click();
+        await expect(await this.successMessageHeader()).toBeVisible();
+        await expect(saveButton).toBeDisabled();
+      }
+      
+      await topicElement.click();
+    };
+
+    const stepElement = await this.findStep(step.label);
+    const stepState = await stepElement.getAttribute('class');
+    if (!stepState?.includes('active')) {
+      await stepElement.click();
+    }
   }
 
 }
