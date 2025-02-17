@@ -1,6 +1,46 @@
 export const project = {
-    projectName: 'Automation Project1'
+    projectName: 'Automation Project',
+    uiProjectName: 'Automation Ui Project',
 }
+
+export const methodologyOptions = [
+    'ACR Improved Forest Management (IFM) on Non-Federal U.S. Forestlands v1.3',
+    'ACR Improved Forest Management (IFM) on Non-Federal U.S. Forestlands v2.0',
+    'Biochar methodology agnostic',
+    'CLEAR Methodology for Cooking Energy Transitions',
+    'DAC methodology agnostic',
+    'Gold standard Methodology for Metered and Measured Energy Cooking Devices v1.2',
+    'Gold standard Technologies and Practices to Displace Decentralized Thermal Energy Consumption (TPDDTEC)',
+    'Leak detection and repair in gas production, processing, transmission, storage and distribution systems and in refinery facilities Version 4.0.0',
+    'Puro Geologically Stored Carbon Edition 2024',
+    'Puro Standard Biochar Methodology Edition 2022 v3',
+    'Puro Standard Enhanced Rock Weathering v2',
+    'QA use only frozen ACR 1.3 test methodology',
+    'VM0045 Methodology for Improved Forest Management v1.1',
+    'VM0047 Afforestation, Reforestation, and Revegetation, v1.0',
+    'Other methodology agnostic'
+  ];
+
+  export const projectScaleOptions = [
+    'Micro (less than 1000 tCO2e)',
+    'Small (1000 - 10000 tCO2e)',
+    'Medium (10000 - 100000 tCO2e)',
+    'Large (100000+ tCO2e)',
+    'Unknown'
+  ];
+
+  export const classificationCategoryOptions = [
+    'Carbon avoidance',
+    'Carbon reduction',
+    'Carbon removal',
+    'Undefined'
+  ];
+
+  export const classificationMethodOptions = [
+    'Natural - The activity claim uses natural methods (e.g. IFM)',
+    'Technological - The activity claim uses technology (e.g. DAC)',
+    'Both: Natural and Technological - The activity claim uses both natural and technology methods (e.g. BECCS)'
+  ];
 
 export const projectApproach = {
     items: [
@@ -41,11 +81,11 @@ export const projectApproach = {
         { keyName: "carbonRegistrationYes", value: "test" },
         { keyName: "carbonRejection", value: "Yes" },
         { keyName: "carbonRejectionYes", value: "test" },
-        { keyName: "localDisplacementAttestation", value: "Yes" },
-        { keyName: "communityIdentificationAttestation", value: "Yes" },
-        { keyName: "communityConsultAttestation", value: "Yes" },
-        { keyName: "communityEngagementAttestation", value: "No" },
-        { keyName: "benefitSharingAttestation", value: "Yes" },
+        // { keyName: "localDisplacementAttestation", value: "Yes" },
+        // { keyName: "communityIdentificationAttestation", value: "Yes" },
+        // { keyName: "communityConsultAttestation", value: "Yes" },
+        // { keyName: "communityEngagementAttestation", value: "No" },
+        // { keyName: "benefitSharingAttestation", value: "Yes" },
         { keyName: "womenAttestation", value: "Yes" },
         { keyName: "biodiversityAttestation", value: "Yes" },
         { keyName: "waterAttestation", value: "Yes" },
@@ -68,10 +108,10 @@ export const projectApproach = {
         // { keyName: "projectCapital", value: "test" },
         { keyName: "fundingSource", value: '["Banks and financial institutions"]' },
         { keyName: "projectRevBreakdown", value: "50 lac" },
-        { keyName: "economicDisplacement", value: "Yes" },
+        // { keyName: "economicDisplacement", value: "Yes" },
         { keyName: "economicDisplacementExplain", value: "test" },
         { keyName: "economicDisplacementPlan", value: "Yes" },
-        { keyName: "physicalDisplacement", value: "Yes" },
+        // { keyName: "physicalDisplacement", value: "Yes" },
         { keyName: "physicalDisplacementExplain", value: "test" },
         { keyName: "physicalMitigation", value: "Yes" },
         { keyName: "physicalMitigationDetails", value: "test" },
@@ -94,15 +134,15 @@ export const projectApproach = {
         { keyName: "paymentsMethod", value: "cash" },
         { keyName: "fairTradeMinimumPrice", value: "200000" },
         { keyName: "smartContracts", value: "No" },
-        { keyName: "deiIssue", value: "Yes" },
+        // { keyName: "deiIssue", value: "Yes" },
         { keyName: "deiConsult", value: "Yes" },
-        { keyName: "deiDetails", value: "test" },
-        { keyName: "health", value: "Yes" },
+        // { keyName: "deiDetails", value: "test" },
+        // { keyName: "health", value: "Yes" },
         { keyName: "deiBenefitSharing", value: "test" },
         { keyName: "womenEmpowerment", value: "Yes" },
         { keyName: "deiMonitoringPlan", value: "test" },
         { keyName: "exploitation", value: "Yes" },
-        { keyName: "deiExploitationDetails", value: "test" },
+        // { keyName: "deiExploitationDetails", value: "test" },
         { keyName: "womenRights", value: "Yes" },
         { keyName: "deiWomen", value: "Yes" },
         { keyName: "womenConsultation", value: "Yes" },
@@ -141,7 +181,7 @@ export const projectApproach = {
         { keyName: "biodiversityMonitoringProcess", value: "test" },
         { keyName: "biodiversityImpactDrivers", value: "test" },
         { keyName: "soilEffects", value: "test" },
-        { keyName: "speciesNumber", value: "12" },
+        // { keyName: "speciesNumber", value: "12" },
         { keyName: "threatenedSpecies", value: "test" },
         { keyName: "biodiversityLegal", value: "test" },
         { keyName: "biodiversitySpecies", value: "Yes" },
