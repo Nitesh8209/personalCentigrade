@@ -1,4 +1,6 @@
 import { expect } from '@playwright/test';
+import { project } from '../data/projectData';
+
 
 // Field type constants remain the same
 const FIELD_TYPES = {
@@ -158,7 +160,7 @@ export class FieldHandler {
   }
 
   async saveButton() {
-    return this.page.getByRole('button', { name: 'Save' , exact: true });
+    return this.page.getByRole('button', { name: 'Save', exact: true });
   }
 
   async unsavedChangeModal() {
@@ -775,13 +777,156 @@ export class FieldHandler {
     }
   }
 
+  /**
+   * Validates field attributes and behavior
+   */
+  async validateFieldAfterCancel(locator, field) {
+
+    // Validate field attributes
+    switch (field.component) {
+      case COMPONENT_TYPES.TEXT_INPUT:
+        const testValue = field.type === FIELD_TYPES.STRING ? 'Test Input' : '123';
+        const inputText = await locator.inputValue();
+        expect(inputText).toBe(testValue);
+        break;
+
+      case COMPONENT_TYPES.TEXTAREA:
+        const testareaValue = field.type === FIELD_TYPES.STRING ? 'Test Input' : '123';
+        const textarea = await locator.textContent();
+        expect(textarea).toBe(testareaValue)
+        break;
+
+      case COMPONENT_TYPES.SELECT:
+        const selectedValuesText = await locator.textContent();
+        let expectedValue;
+        if (field.options[field.options.length - 1] == 'Other') {
+          expectedValue = field.options[field.options.length - 2]
+        } else {
+          expectedValue = field.options[field.options.length - 1]
+        }
+        await expect(selectedValuesText).toBe(expectedValue);
+        break;
+
+      case COMPONENT_TYPES.SELECT_MULTIPLE:
+        const selectedmultiValuesText = await locator.textContent();
+        for (const option of field.options) {
+          await expect(selectedmultiValuesText).toContain(option);
+        }
+        break;
+
+      case COMPONENT_TYPES.METHODOLOGY_SELECT:
+        const MethodologyselectedValuesText = await locator.textContent();
+        await expect(MethodologyselectedValuesText).toBe('QA use only frozen ACR 1.3 test methodology');
+        console.log('select', MethodologyselectedValuesText)
+
+        break;
+
+      case COMPONENT_TYPES.RADIOYN:
+      case COMPONENT_TYPES.RADIOIDK:
+        const radiolocator = await locator.getByText('Yes');
+        const isChecked = await radiolocator.isChecked();
+        expect(isChecked).toBe(true);
+        break;
+
+      case COMPONENT_TYPES.CHECKBOX:
+        for (const option of field.options) {
+          const checkBoxlocator = await locator.getByText(option);
+          const isChecked = await checkBoxlocator.isChecked();
+          expect(isChecked).toBe(true);
+        }
+        break;
+
+      case COMPONENT_TYPES.YEAR_INPUT:
+        const yearText = await locator.inputValue();
+        expect(yearText).toBe('');
+        break;
+
+    }
+  }
+
+
+  async validateFieldAfterDiscard(locator, field) {
+
+    // Validate field attributes
+    switch (field.component) {
+      case COMPONENT_TYPES.TEXT_INPUT:
+        const inputText = await locator.inputValue();
+        if (field.label == "Project name") {
+          expect(inputText).toBe(project.uiProjectName);
+          break;
+        }
+        expect(inputText).toBe('');
+        break;
+
+      case COMPONENT_TYPES.TEXTAREA:
+        const textarea = await locator.textContent();
+        expect(textarea).toBe('')
+        break;
+
+      case COMPONENT_TYPES.SELECT:
+        const selectedValuesText = await locator.textContent();
+        if (field.label == 'Classification method') {
+          await expect(selectedValuesText).toBe("Natural - The activity claim uses natural methods (e.g. IFM)");
+          break;
+        }
+        if (field.label == 'Project type') {
+          await expect(selectedValuesText).toBe("Improved Forest Management (IFM)");
+          break;
+        }
+        if (field.label == 'Project scale') {
+          await expect(selectedValuesText).toBe("Micro (fewer than 1,000 tCO2e)");
+          break;
+        }
+        await expect(selectedValuesText).toBe('');
+        break;
+
+      case COMPONENT_TYPES.SELECT_MULTIPLE:
+        const selectedmultiValuesText = await locator.textContent();
+        if (field.label == 'Classification category') {
+          await expect(selectedmultiValuesText).toBe("Carbon avoidance");
+          break;
+        }
+        await expect(selectedmultiValuesText).toBe('');
+        break;
+
+      case COMPONENT_TYPES.METHODOLOGY_SELECT:
+        const MethodologyselectedValuesText = await locator.textContent();
+        await expect(MethodologyselectedValuesText).toBe('QA use only frozen ACR 1.3 test methodology');
+        console.log('select', MethodologyselectedValuesText)
+
+        break;
+
+      case COMPONENT_TYPES.RADIOYN:
+      case COMPONENT_TYPES.RADIOIDK:
+        const radiolocator = await locator.getByText('Yes');
+        const isChecked = await radiolocator.isChecked();
+        expect(isChecked).toBe(false);
+        break;
+
+      case COMPONENT_TYPES.CHECKBOX:
+        for (const option of field.options) {
+          const checkBoxlocator = await locator.getByText(option);
+          const isChecked = await checkBoxlocator.isChecked();
+          expect(isChecked).toBe(false);
+        }
+        break;
+
+      case COMPONENT_TYPES.YEAR_INPUT:
+        const yearText = await locator.inputValue();
+        expect(yearText).toBe('');
+        break;
+
+    }
+  }
+
+
   async checkStepVisibility(stepElement, step, test) {
     if (! await stepElement.isVisible()) {
         test.skip(true, `Step '${step.label}' is not visible - skipping validation`);
     }
   }
 
-  async checkValidateField(step, testInfo, test) {
+  async checkValidateField(step, test) {
     const hasValidField = await step.sections?.some(section =>
       section.field_groups?.some(fieldGroup =>
         fieldGroup.fields?.some(field =>
@@ -795,11 +940,7 @@ export class FieldHandler {
     );
 
     if (!hasValidField) {
-      testInfo.annotations.push({
-        type: "skip Reason",
-        description: `In this Step ${step.label} not filed available other than file-upload - skipping validation`
-      }),
-        test.skip('Skipping this test as the Step is not visible');
+      test.skip(true, `In this Step ${step.label} not filed available other than file-upload - skipping validation`);
     }
   }
 
@@ -841,7 +982,7 @@ export class FieldHandler {
     // Fill the display dependencies field
     await this.FillDisplayDependenciesField(inputLocator, dependencyField, field);
 
-    if(isNewlyVisible){
+    if (isNewlyVisible) {
       await this.navigateToFieldContext(topic, step);
     }
 
