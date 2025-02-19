@@ -771,15 +771,19 @@ class ProjectsPage {
     }
 
     async publishButton() {
-        return await this.page.getByRole('button', { name: 'Publish' });
+        return await this.page.getByRole('button', { name: 'Publish', exact: true });
     }
 
     async shareButton() {
         return await this.page.getByRole('button', { name: 'Share' });
     }
 
+    async unpublishTrigger(){
+        return await this.page.locator("button.dropdown-trigger")
+    }
+
     async unPublishButton() {
-        return await this.page.getByRole('button', { name: 'Unpublish' });
+        return await this.page.getByRole('menuitem', { name: 'Unpublish' });
     }
 
     async confirmButton() {
