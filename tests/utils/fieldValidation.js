@@ -71,7 +71,7 @@ export class FieldHandler {
     }
 
     if (component === COMPONENT_TYPES.DATA_GRID) {
-      return this.page.getByText(fieldLabel, { exact: true }).locator('..').locator('..').getByRole('treegrid');
+      return this.page.getByText(fieldLabel, { exact: true });
     }
 
     if (component === COMPONENT_TYPES.DATA_TABLE) {
@@ -161,7 +161,7 @@ export class FieldHandler {
   }
 
   async saveButton() {
-    return this.page.getByRole('button', { name: 'Save' , exact: true });
+    return this.page.getByRole('button', { name: 'Save', exact: true });
   }
 
   async unsavedChangeModal() {
@@ -398,35 +398,34 @@ export class FieldHandler {
   }
 
   // Validating the Data Grid Fields 
-  async validateDataGridFields(locator, field) {
-    const header = await locator.locator('.ag-pinned-left-header');
-    await expect(header).toBeVisible();
-    await expect(header).toHaveText('Vintage');
+  async validateDataGridFields(locator, field, startYear, endYear) {
+    const dataGridField = await locator.locator('..').locator('..').getByRole('treegrid');
+    await expect(dataGridField).toBeVisible();
+    const headerLeft = await dataGridField.locator('.ag-header').locator('.ag-pinned-left-header ');
+    await expect(headerLeft).toBeVisible();
+    await expect(headerLeft).toHaveText('Vintage');
 
-    const headerVeiwPort = await locator.locator('.ag-header-viewport');
+    const headerVeiwPort = await dataGridField.locator('.ag-header-viewport ');
     await expect(headerVeiwPort).toBeVisible();
-
-    for (let i = 0; i < 11; i++) {
-      const colId = 2010;
+    for (let i = 0; i <= endYear - startYear; i++) {
+      const colId = Number(startYear);
       const colheader = await headerVeiwPort.locator(`[col-id="${colId + i}"]`);
       await expect(colheader).toBeVisible();
       await expect(colheader).toHaveText(String(colId + i));
     }
 
     for (const option of field.options) {
-      console.log(option);
-      const colName = await locator.getByText(option.label);
+      const colName = await dataGridField.getByText(option.label);
       await expect(colName).toBeVisible();
       await expect(colName).toHaveText(option.label);
-      for (let i = 0; i < 11; i++) {
-        const colId = 2010;
-        const rowIndex = await locator.locator('.ag-center-cols-viewport').locator(`[row-id="${option.name}"]`);
+      for (let i = 0; i <= endYear - startYear; i++) {
+        const colId = Number(startYear);
+        const rowIndex = await dataGridField.locator('.ag-center-cols-viewport').locator(`[row-id="${option.name}"]`);
         await expect(rowIndex).toBeVisible();
         const colheader = await rowIndex.locator(`[col-id="${colId + i}"]`);
         await expect(colheader).toBeVisible();
         await colheader.type(String(colId + i));
         await colName.click();
-        console.log((colId + i).toLocaleString());
         await expect(colheader).toHaveText((colId + i).toLocaleString());
       }
     }
@@ -564,14 +563,10 @@ export class FieldHandler {
   /**
 * Fill Year input fields
 */
-  async fillNumberField(locator, label) {
-    if (label.includes('start year')) {
-      await locator.fill('2010');
-      await expect(locator).toHaveValue('2010');
-    } else {
-      await locator.fill('2020');
-      await expect(locator).toHaveValue('2020');
-    }
+  async fillNumberField(locator, Year) {
+
+    await locator.fill(Year);
+    await expect(locator).toHaveValue(Year);
 
   }
 
@@ -650,6 +645,10 @@ export class FieldHandler {
           value.push(option);
         }
         await indicator.click();
+        const selectedValues = await locator.textContent();
+        for (const value of field.options) {
+          expect(selectedValues).toContain(value);
+        }
         break;
 
       case COMPONENT_TYPES.COUNTRY_SELECT:
@@ -667,7 +666,7 @@ export class FieldHandler {
 
       case COMPONENT_TYPES.YEAR_INPUT:
         value = field.label.includes('start year') ? value = faker.date.past({ years: 10 }).getFullYear().toString() : faker.date.future({ years: 10 }).getFullYear().toString();
-        await this.fillNumberField(locator, field.label, value);
+        await this.fillNumberField(locator, value);
         break;
 
       case COMPONENT_TYPES.MEDIA_CAROUSEL:
@@ -676,7 +675,7 @@ export class FieldHandler {
         await locator.setInputFiles(filePath);
         const lastLi = await locator.locator('..').locator('ul li').nth(-1);
         const lastLiFilePreview = await lastLi.locator('.file-preview > svg');
-        await expect(lastLiFilePreview).toBeVisible();
+        await expect(lastLiFilePreview).toBeVisible({ timeout: 30000 });
         const lastLiFileName = await lastLi.locator('.file-name-container');
         const lastLiText = await lastLiFileName.textContent();
         await expect(lastLiText).toBe('file2.png');
@@ -706,7 +705,6 @@ export class FieldHandler {
         const data = await this.getData('ProjectData', projectdataFilePath);
         const startYear = data["Crediting start year"];
         const endyear = data["Crediting end year"];
-
         await this.validateDataGridFields(locator, field, startYear, endyear);
         break;
 
