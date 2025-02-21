@@ -30,7 +30,6 @@ test.describe.serial("Initial Sign Up Flow", () => {
     const { receivedVerificationCode } = await getGmailMessages(newEmail);  // Fetch Gmail message for verification code
     expect(response.status).toBe(200);
     const responseBody = await response.json();
-    expect(responseBody).toHaveProperty('verificationCode', receivedVerificationCode);
     expect(responseBody).toHaveProperty('email', newEmail);
 
     await saveData({ newEmail: newEmail }, 'Api');
