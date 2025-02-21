@@ -1,5 +1,7 @@
 import { expect } from '@playwright/test';
+import { faker } from '@faker-js/faker';
 import { project } from '../data/projectData';
+const fs = require('fs');
 
 
 // Field type constants remain the same
@@ -70,7 +72,7 @@ export class FieldHandler {
     }
 
     if (component === COMPONENT_TYPES.DATA_GRID) {
-      return this.page.getByText(fieldLabel, { exact: true }).locator('..').locator('..').getByRole('treegrid');
+      return this.page.getByText(fieldLabel, { exact: true });
     }
 
     if (component === COMPONENT_TYPES.DATA_TABLE) {
@@ -397,35 +399,34 @@ export class FieldHandler {
   }
 
   // Validating the Data Grid Fields 
-  async validateDataGridFields(locator, field) {
-    const header = await locator.locator('.ag-pinned-left-header');
-    await expect(header).toBeVisible();
-    await expect(header).toHaveText('Vintage');
+  async validateDataGridFields(locator, field, startYear, endYear) {
+    const dataGridField = await locator.locator('..').locator('..').getByRole('treegrid');
+    await expect(dataGridField).toBeVisible();
+    const headerLeft = await dataGridField.locator('.ag-header').locator('.ag-pinned-left-header ');
+    await expect(headerLeft).toBeVisible();
+    await expect(headerLeft).toHaveText('Vintage');
 
-    const headerVeiwPort = await locator.locator('.ag-header-viewport');
+    const headerVeiwPort = await dataGridField.locator('.ag-header-viewport ');
     await expect(headerVeiwPort).toBeVisible();
-
-    for (let i = 0; i < 11; i++) {
-      const colId = 2010;
+    for (let i = 0; i <= endYear - startYear; i++) {
+      const colId = Number(startYear);
       const colheader = await headerVeiwPort.locator(`[col-id="${colId + i}"]`);
       await expect(colheader).toBeVisible();
       await expect(colheader).toHaveText(String(colId + i));
     }
 
     for (const option of field.options) {
-      console.log(option);
-      const colName = await locator.getByText(option.label);
+      const colName = await dataGridField.getByText(option.label);
       await expect(colName).toBeVisible();
       await expect(colName).toHaveText(option.label);
-      for (let i = 0; i < 11; i++) {
-        const colId = 2010;
-        const rowIndex = await locator.locator('.ag-center-cols-viewport').locator(`[row-id="${option.name}"]`);
+      for (let i = 0; i <= endYear - startYear; i++) {
+        const colId = Number(startYear);
+        const rowIndex = await dataGridField.locator('.ag-center-cols-viewport').locator(`[row-id="${option.name}"]`);
         await expect(rowIndex).toBeVisible();
         const colheader = await rowIndex.locator(`[col-id="${colId + i}"]`);
         await expect(colheader).toBeVisible();
         await colheader.type(String(colId + i));
         await colName.click();
-        console.log((colId + i).toLocaleString());
         await expect(colheader).toHaveText((colId + i).toLocaleString());
       }
     }
@@ -563,14 +564,10 @@ export class FieldHandler {
   /**
 * Fill Year input fields
 */
-  async fillNumberField(locator, label) {
-    if (label.includes('start year')) {
-      await locator.fill('2010');
-      await expect(locator).toHaveValue('2010');
-    } else {
-      await locator.fill('2020');
-      await expect(locator).toHaveValue('2020');
-    }
+  async fillNumberField(locator, Year) {
+
+    await locator.fill(Year);
+    await expect(locator).toHaveValue(Year);
 
   }
 
@@ -613,44 +610,52 @@ export class FieldHandler {
 * Fills field with test data
 */
   async fillField(locator, filePath, field) {
+    let value;
     switch (field.component) {
 
       case COMPONENT_TYPES.TEXT_INPUT:
       case COMPONENT_TYPES.TEXTAREA:
         if (FIELD_TYPES.NUMBER === field.type || FIELD_TYPES.INTEGER === field.type) {
-          await locator.fill('80');
+          value = faker.number.int(100).toString();
+          await locator.fill(value);
         } else {
-          await locator.fill('Test Input');
+          value = faker.lorem.words(3);
+          await locator.fill(value);
         }
         break;
 
       case COMPONENT_TYPES.SELECT:
-        const normalizedExpectedOptions = field.options[0].replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+        value = await field.options[0];
+        const normalizedExpectedOptions = value.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
         await this.fillSelectField(locator, field.label, normalizedExpectedOptions);
         break;
 
       case COMPONENT_TYPES.SELECT_MULTIPLE:
+        value = [];
+        const indicator = await locator.locator('.select-indicator');
+        const listbox = await this.listBox(field.label);
+        if (!(await listbox.isVisible())) {
+          await indicator.click();
+        }
         for (const option of field.options) {
+          const selectedValuesText = await locator.textContent();
+          if (selectedValuesText.includes(option)) continue;
           const optionLocator = listbox.locator(`text="${option}"`);
           await expect(optionLocator).toBeVisible();
           await optionLocator.click();
-          console.log(`Selected value: ${option}`);
+          value.push(option);
         }
-        const indicator = await locator.locator('.select-indicator');
         await indicator.click();
         const selectedValues = await locator.textContent();
         for (const value of field.options) {
           expect(selectedValues).toContain(value);
         }
-        // const normalizedExpectedMultipleOptions = field.options[0].replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-        // await this.fillMultiSelectField(locator, field.label, normalizedExpectedMultipleOptions);
-        // const indicator = await locator.locator('.select-indicator');
-        // await indicator.click();
         break;
 
       case COMPONENT_TYPES.COUNTRY_SELECT:
+        value = 'United States of America';
         await locator.click();
-        await locator.fill('United States of America');
+        await locator.fill(value);
         await expect(await this.listBox(field.label)).toBeVisible();
         await this.page.locator('.autocomplete-option').click();
         await this.page.locator('.step-title').click();
@@ -661,43 +666,91 @@ export class FieldHandler {
         break;
 
       case COMPONENT_TYPES.YEAR_INPUT:
-        await this.fillNumberField(locator, field.label);
+        value = field.label.includes('start year') ? value = faker.date.past({ years: 10 }).getFullYear().toString() : faker.date.future({ years: 10 }).getFullYear().toString();
+        await this.fillNumberField(locator, value);
         break;
 
       case COMPONENT_TYPES.MEDIA_CAROUSEL:
+      case COMPONENT_TYPES.FILE_UPLOAD_MULTIPLE:
       case COMPONENT_TYPES.FILE_UPLOAD:
-        await this.page.waitForTimeout(3000);
         await locator.setInputFiles(filePath);
         const lastLi = await locator.locator('..').locator('ul li').nth(-1);
         const lastLiFilePreview = await lastLi.locator('.file-preview > svg');
-        await expect(lastLiFilePreview).toBeVisible();
+        await expect(lastLiFilePreview).toBeVisible({ timeout: 30000 });
         const lastLiFileName = await lastLi.locator('.file-name-container');
         const lastLiText = await lastLiFileName.textContent();
         await expect(lastLiText).toBe('file2.png');
-
+        value = "file2.png";
         break;
 
       case COMPONENT_TYPES.CHECKBOX:
         await this.validateCheckboxField(locator, field.component);
+        value = true;
+        break;
+
+      case COMPONENT_TYPES.RADIOYN:
+      case COMPONENT_TYPES.RADIOIDK:
+        const radiolocator = await locator.getByText('Yes');
+        await radiolocator.check();
+        value = true;
         break;
 
       case COMPONENT_TYPES.RADIO:
-      case COMPONENT_TYPES.RADIOIDK:
-        const radiolocator = locator.getByText('Yes');
-        await radiolocator.check();
+        value = field.options[0];
+        const radioOption = await locator.getByText(value);
+        await radioOption.check();
         break;
 
       case COMPONENT_TYPES.DATA_GRID:
-        await this.ValidateDataGridFields(locator, field);
+        const projectdataFilePath = './tests/data/Project-data.json';
+        const data = await this.getData('ProjectData', projectdataFilePath);
+        const startYear = data["Crediting start year"];
+        const endyear = data["Crediting end year"];
+        await this.validateDataGridFields(locator, field, startYear, endyear);
         break;
 
       case COMPONENT_TYPES.DATA_TABLE:
-        await this.ValidateDataTableFields(locator, field);
+        await this.validateDataTableFields(locator, field);
+        break;
+
+      case COMPONENT_TYPES.DATE_PICKER:
+        const date = faker.date.past();
+        value = date.toLocaleDateString('en-US');
+        await locator.fill(value);
+        break;
+      
+      case COMPONENT_TYPES.TEXT_INPUT_MULTIPLE:
+        const latitude = faker.location.latitude();
+        const longitude = faker.location.longitude();
+         value = `${latitude}, ${longitude}`;
+        await locator.locator('input').fill(value);
         break;
 
       default:
-        await locator.fill('Test Input');
+        value = faker.lorem.words(2);
+        await locator.fill(value);
     }
+
+    const projectdataFilePath = './tests/data/Project-data.json';
+    await this.saveData({ [field.label]: value }, 'ProjectData', projectdataFilePath);
+  }
+
+
+  // Function to save new data to the JSON file by merging it with existing data
+  async saveData(newData, section, dataFilePath) {
+    let data = {};
+    const rawData = fs.readFileSync(dataFilePath, 'utf8');
+    data = JSON.parse(rawData);
+    data[section] = { ...data[section], ...newData };
+    fs.writeFileSync(dataFilePath, JSON.stringify(data, null, 2));
+  }
+
+  // Function to retrieve data from the JSON file
+  async getData(section, dataFilePath) {
+    let data = {};
+    const rawData = fs.readFileSync(dataFilePath, 'utf8');
+    data = JSON.parse(rawData);
+    return data[section] || {};
   }
 
 
