@@ -68,13 +68,13 @@ test.describe.serial('Edge Cases and Organization Deletion Scenarios', () => {
     expect(response.status).toBe(500);
     expect(responseBody).toHaveProperty('statusCode', 500);
     expect(responseBody).toHaveProperty('errorType', 'HTTP_ERROR');
-    expect(responseBody).toHaveProperty('errorMessage', 'DataDomainError: MODEL_NOT_FOUND');
+    expect(responseBody).toHaveProperty('errorMessage', 'Member Organization not found');
     expect(responseBody).toMatchObject({
       statusCode: 500,
       errorType: "HTTP_ERROR",
-      errorMessage: "DataDomainError: MODEL_NOT_FOUND",
+      errorMessage: "Member Organization not found",
       context: {
-        exception: "500: DataDomainError: MODEL_NOT_FOUND"
+        exception: "500: Member Organization not found"
       },
       timestamp: expect.any(String),
       requestId: expect.any(String),
