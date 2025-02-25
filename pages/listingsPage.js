@@ -6,11 +6,11 @@ export class ListingPage {
   }
 
   async navigation(){
-    return await this.page.getByRole('navigation');
+    return await this.page.locator('.navbar-header');
   }
 
   async logo(){
-    return await this.page.getByRole('navigation').getByRole('img');
+    return await (await this.navigation()).getByRole('img');
   }
 
   async login(){
@@ -82,7 +82,7 @@ export class ListingPage {
   }
 
   async projectItemCardContentMainTitle(){
-    return (await this.projectItemCardContentMain()).locator('h2');
+    return (await this.projectItemCardContentMain()).locator('h2 > a');
   }
 
   async projectItemCardContentMainText(){
