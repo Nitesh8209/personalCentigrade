@@ -35,7 +35,7 @@ test.describe('Settings - organization Page UI Tests', () => {
     await page.close();
   });
 
-  test('Verify Settings - Header and Tabs are displayed correctly', async () => {
+  test('Verify Settings - Organization Header and Tabs are displayed correctly', async () => {
     const errors = [];
   
     // Header section verification
@@ -153,6 +153,7 @@ test('Verify unsaved changes modal on Settings - Organization page', async () =>
 
   // Click the cancel button on the org page and verify that the unsaved changes modal appears
   const cancelButton = await settingsPage.cancelButton();
+  const modalCancelButton = await settingsPage.modalCancelButton();
   await safeExpect('Unsaved changes modal content', async () => {
     await cancelButton.click();
     await expect(await settingsPage.unsavedChangeModal()).toBeVisible();
@@ -166,11 +167,11 @@ test('Verify unsaved changes modal on Settings - Organization page', async () =>
 
   // Verify button states after modal appears
   await safeExpect('Modal button states', async () => {
-    await expect(await settingsPage.cancelButton()).toBeVisible();
-    await expect(await settingsPage.cancelButton()).toBeEnabled();
+    await expect(await settingsPage.modalCancelButton()).toBeVisible();
+    await expect(await settingsPage.modalCancelButton()).toBeEnabled();
     await expect(await settingsPage.discardButton()).toBeVisible();
     await expect(await settingsPage.discardButton()).toBeEnabled();
-    await cancelButton.click();
+    await modalCancelButton.click();
   }, errors);
 
 
@@ -187,13 +188,20 @@ test('Verify unsaved changes modal on Settings - Organization page', async () =>
     const cancelButton = await settingsPage.cancelButton();
     const selectedValues = await settingsPage.orgfunctiondropdownsaelected();
 
+    const visibleCancel = await cancelButton.isEnabled();
+    if(!visibleCancel){
+      const optionsToSelect = ['Sponsor', 'Registry', 'Auditor'];
+      await settingsPage.selectOrganizationFunctions(optionsToSelect);
+    }
+
     // Click the cancel button on the org page 
     await cancelButton.click();
 
-    // click the cancel button in the unsaved changes modal
+    // click the cancel button in the unsaved changes modal4
+    const modalCancelButton = await settingsPage.modalCancelButton();
     await safeExpect('State after click on cancel button in the unsaved changes modal', async () => {
-      await cancelButton.click();
-      await expect(selectedValues).toContainText(['Sponsor', 'Registry', 'Auditor']);
+      await modalCancelButton.click();
+      await expect(selectedValues).toContainText(['Sponsor', 'Registry', 'Auditor'].sort());
       await expect(await settingsPage.cancelButton()).toBeEnabled();
       await expect(await settingsPage.saveButton()).toBeEnabled();
     }, errors);

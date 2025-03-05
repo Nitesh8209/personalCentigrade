@@ -5,8 +5,8 @@ export class SettingsPage {
   }
 
   async settingButton() {
-   return await this.page.locator(".nav-items > a:last-child");
-}
+    return await this.page.locator(".nav-items > a:last-child");
+  }
 
   async breadcrumb() {
     return await this.page.locator('li.breadcrumb > a');
@@ -113,6 +113,11 @@ export class SettingsPage {
     return await this.page.getByText('You cannot undo this action.');
   }
 
+  async modalCancelButton() {
+    const modal = await this.unsavedChangeModal();
+    return await modal.getByRole('Button', { name: 'Cancel' });
+  }
+
   async discardButton() {
     return await this.page.getByRole('button', { name: 'Discard' });
   }
@@ -129,14 +134,26 @@ export class SettingsPage {
     return await this.page.getByRole('combobox', { name: 'Organization functions' });
   }
 
+  async orgfunctiondropdownIndecator() {
+    return await (await this.orgfunctiondropdown()).locator('.select-indicator');
+  }
+
   async selectOrganizationFunctions(options) {
-    const dropdown = await this.orgfunctiondropdown();
-    await dropdown.click();
+    const dropdown = await this.orgfunctiondropdownIndecator();
+    const dropdownOptions = await this.page.getByRole("listbox", { name: 'Organization functions' });
+    let visibleOptions = await dropdownOptions.isVisible();
+    if (!visibleOptions) {
+      await dropdown.click();
+    }
 
     for (const option of options) {
-        await this.page.getByLabel('Organization', { exact: true }).getByText(option).click();
+      await this.page.getByLabel('Organization', { exact: true }).getByText(option).click();
     }
-}
+    visibleOptions = await dropdownOptions.isVisible();
+    if (visibleOptions) {
+      await dropdown.click();
+    }
+  }
 
   async orgfunctiondropdownoption() {
     return await this.page.locator('div.select-option');
@@ -149,7 +166,7 @@ export class SettingsPage {
   async orgfunctionremoveoption() {
     return await this.page.getByLabel('Organization', { exact: true }).locator('.badge-delete-btn');
   }
-  
+
 
   async orgfunctionhelperText() {
     return await this.page.getByLabel('Organization', { exact: true }).getByText('Your organization can be');
@@ -210,196 +227,196 @@ export class SettingsPage {
   async teamstatuscell() {
     return await this.page.getByRole('columnheader', { name: 'Status' });
   }
-  
-   async user(newEmail) {
+
+  async user(newEmail) {
     return await this.page.getByRole('row', { name: newEmail });
-   }
-   
-   async username(newEmail) {
+  }
+
+  async username(newEmail) {
     return await this.page.getByRole('gridcell', { name: newEmail }).nth(0);
-   }
+  }
 
-   async useremail(newEmail) {
+  async useremail(newEmail) {
     return await this.page.getByRole('gridcell', { name: newEmail }).locator('.body-sm.text-secondary');
-   }
+  }
 
-   async usertype(newEmail) {
+  async usertype(newEmail) {
     return await this.page.getByRole('row', { name: newEmail }).locator('[col-id="memberType"]');
-   }
+  }
 
-   async userstatus(newEmail) {
+  async userstatus(newEmail) {
     return await this.page.getByRole('row', { name: newEmail }).locator('[col-id="status"]');
-   }
+  }
 
-   async usereditdeletebutton(newEmail) {
-    const row = this.page.getByRole('row', { name: newEmail });
+  async usereditdeletebutton(newEmail) {
+    const row = await this.user(newEmail);
     await row.hover();
     return row.locator('.ag-action-cell');
-     }
+  }
 
-   async useredit() {
+  async useredit() {
     return await this.page.getByRole('menuitem', { name: 'Edit' });
   }
 
-   async userdelete() {
+  async userdelete() {
     return await this.page.getByRole('menuitem', { name: 'Remove' });
-    }
+  }
 
-   async rejectButton(Email) {
+  async rejectButton(Email) {
     return await this.page.getByRole('row', { name: Email }).locator('.approve-request .btn-outline.btn-primary.btn-sm');
-   }
+  }
 
-   async approveButton(Email) {
+  async approveButton(Email) {
     return await this.page.getByRole('row', { name: Email }).locator('.approve-request .btn-solid.btn-primary.btn-sm');
-   }
+  }
 
-   async inviteButton() {
+  async inviteButton() {
     return await this.page.getByRole('button', { name: '+ Invite user' });
-   }
+  }
 
-   async inviteUserModal() {
+  async inviteUserModal() {
     return await this.page.getByLabel('Invite users');
-   }
+  }
 
-   async inviteheading() {
+  async inviteheading() {
     return await this.page.getByRole('heading', { name: 'Invite users' });
-   }
+  }
 
-   async invitehelperText() {
+  async invitehelperText() {
     return await this.page.getByText('Invite team members to your');
-   }
+  }
 
-   async inviteEmail() {
+  async inviteEmail() {
     return await this.page.getByText('Email', { exact: true });
-   }
+  }
 
-   async inviteEmailInput() {
+  async inviteEmailInput() {
     return await this.page.getByPlaceholder('Enter email');
-   }
+  }
 
-   async inviteAdduserbutton() {
+  async inviteAdduserbutton() {
     return await this.page.getByRole('button', { name: '+ Add user' });
-   }
+  }
 
-   async inviteEmailsecondinput() {
+  async inviteEmailsecondinput() {
     return await this.page.locator('input[name="users\\.1\\.email"]');
-   }
+  }
 
-   async inviteremoveEmailsecondinput() {
+  async inviteremoveEmailsecondinput() {
     return await this.page.getByLabel('Invite users').locator('form').getByRole('button').nth(1);
-   }
+  }
 
-   async modalclose() {
+  async modalclose() {
     return await this.page.locator('.modal-header > button');
-   }
+  }
 
-   async sendinvitation() {
-    return await this.page.getByRole('button', {name: 'Send invitation'});
-   }
+  async sendinvitation() {
+    return await this.page.getByRole('button', { name: 'Send invitation' });
+  }
 
-   async modal() {
+  async modal() {
     return await this.page.locator('.modal');
-   }
+  }
 
-   async modalheading() {
+  async modalheading() {
     return await this.page.locator('.modal-title');
-   }
+  }
 
-   async invitesenthelperText() {
+  async invitesenthelperText() {
     return await this.page.locator('.flex.flex-col.gap-sm > p');
-   }
+  }
 
-   async checkinviteEmail() {
+  async checkinviteEmail() {
     return await this.page.locator('.unordered-list > li');
-   }
+  }
 
-   async Donebutton() {
-    return await this.page.getByRole('button', {name: 'Done'});
-   }
+  async Donebutton() {
+    return await this.page.getByRole('button', { name: 'Done' });
+  }
 
-   async EditmodalfirstName() {
+  async EditmodalfirstName() {
     return await this.page.getByText('First name');
-   }
+  }
 
-   async EditmodalfirstNameinput() {
+  async EditmodalfirstNameinput() {
     return await this.page.getByLabel('First name');
-   }
+  }
 
-   async EditmodallastName() {
+  async EditmodallastName() {
     return await this.page.getByText('Last name');
-   }
+  }
 
-   async EditmodallastNameInput() {
+  async EditmodallastNameInput() {
     return await this.page.getByLabel('Last name');
-   }
+  }
 
-   async EditmodalEmail() {
-    return await this.page.getByText('Email', {exact: true});
-   }
+  async EditmodalEmail() {
+    return await this.page.getByText('Email', { exact: true });
+  }
 
-   async EditmodalEmailinput() {
+  async EditmodalEmailinput() {
     return await this.page.getByLabel('Email');
-   }
+  }
 
-   async EditmodalEmailhelpertext() {
+  async EditmodalEmailhelpertext() {
     return await this.page.getByText('This is the email they will');
-   }
+  }
 
-   async Editmodalphonenumber() {
+  async Editmodalphonenumber() {
     return await this.page.getByText('Phone number');
-   }
+  }
 
-   async Editmodalphonenumberinput() {
+  async Editmodalphonenumberinput() {
     return await this.page.getByTestId('phone-number-input');
-   }
+  }
 
-   async Editmodalphonenumberhelpertext() {
+  async Editmodalphonenumberhelpertext() {
     return await this.page.getByText('Used for two-factor');
-   }
+  }
 
-   async Editmodalmembertype() {
+  async Editmodalmembertype() {
     return await this.page.locator('.label.select-label');
-   }
+  }
 
-   async Editmodalmembertypedropdown() {
+  async Editmodalmembertypedropdown() {
     return await this.page.locator('.select-trigger');
-   }
+  }
 
-   async Editmodalmembertypemenu() {
+  async Editmodalmembertypemenu() {
     return await this.page.locator('.select-menu');
-   }
-   
-   async EditmodalmembertypeAdmin() {
+  }
+
+  async EditmodalmembertypeAdmin() {
     return await this.page.getByRole('listbox').getByText('Admin');
-   }
+  }
 
-   async EditmodalmembertypeAdminText() {
+  async EditmodalmembertypeAdminText() {
     return await this.page.getByText('Can invite, edit, and remove');
-   }
+  }
 
-   async EditmodalmembertypeMember() {
+  async EditmodalmembertypeMember() {
     return await this.page.locator('.select-menu').getByText('Member', { exact: true });
-   }
+  }
 
-   async EditmodalmembertypeMemberText() {
+  async EditmodalmembertypeMemberText() {
     return await this.page.getByText('Can create, edit, and delete');
-   }
+  }
 
-   async Editmodalmembertypeselected() {
+  async Editmodalmembertypeselected() {
     return await this.page.locator('.select-value');
-   }
+  }
 
-   async Editsave() {
-    return await this.page.getByRole('button', {name: 'save'});
-   }
+  async Editsave() {
+    return await this.page.getByRole('button', { name: 'save' });
+  }
 
-   async modalcontent() {
+  async modalcontent() {
     return await this.page.locator('.modal-content > :first-child > :first-child');
-   }
+  }
 
-   async removeButton() {
+  async removeButton() {
     return await this.page.getByRole('Button', { name: 'Remove' });
   }
-  
+
 }
 
