@@ -66,3 +66,27 @@ export const validateGetInTouchModal = async (projectHeader, errors) => {
   }, errors);
 
 }
+
+export const validateTopicVisiblity = async (projectListings, topic, errors) => {
+
+  await safeExpect(`Topic '${topic.label}' visibility`, async () => {
+    await expect(await projectListings.topicName(topic.label)).toBeVisible({ timeout: 20 * 1000 });
+    await expect(await projectListings.topicName(topic.label)).toBeEnabled();
+  }, errors);
+
+  await safeExpect(`validate Topic Active class`, async () => {
+    const topicLabel = await projectListings.topicName(topic.label);
+    await topicLabel.click();
+    await expect(topicLabel).toHaveClass(/active/);
+  }, errors);
+
+}
+
+export const validateStepGroupVisiblity = async (projectListings, stepGroup, errors) => {
+  await safeExpect(`Step Group '${stepGroup.label}' visibility`, async () => {
+    await expect(await projectListings.stepGroup(stepGroup.label)).toBeVisible();
+    await expect(await projectListings.stepGroup(stepGroup.label)).toBeEnabled();
+  }, errors);
+
+}
+
