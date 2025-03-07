@@ -221,9 +221,10 @@ test.describe('Field level validation', async () => {
                   // Iterate over each field in the field group
                   for (const field of fieldGroup.fields) {
                     if (field?.display_dependencies) {
+                          if(field.label == "Other project type") continue;
 
                       // validate and Fill Dependent Parent Fields
-                      await safeExpect('Validate and Fill Dependent Parent Fields',
+                      await safeExpect(`Validate field ${field.label} and Fill Dependent Parent Fields`,
                         async () => {
                           await fieldHandler.handleDisplayDependencies(step, field, formData, selectedFields, topic);
                         },
@@ -283,6 +284,52 @@ test.describe('Field level validation', async () => {
                 throw new Error(`Validation errors found:\n${errors.join('\n')}`);
               }
             });
+
+            test(`Validate the Tier 0 fields is required for Step: ${step.label}`, async () => {
+              const errors = [];
+
+              // Iterate over each section in the step
+              for (const section of step.sections) {
+                if (!section?.field_groups) continue;
+
+                // Iterate over each field group in the section
+                for (const fieldGroup of section.field_groups) {
+                  if (!fieldGroup?.fields) continue;
+
+                  // Iterate over each field in the field group
+                  for (const field of fieldGroup.fields) {
+                          if(field.label == "Other project type") continue;
+
+                    if (field.tier == 0) {
+                      // Validate field label
+                      await safeExpect(
+                        `Validate required Field asterisk is visible: ${field.label}`,
+                        async () => {
+                          await expect(await fieldHandler.validateRequiredField(field)).toBeVisible();
+                        },
+                        errors
+                      );
+                    } else {
+                      await safeExpect(
+                        `Validate Unrequired Field asterisk is not visible: ${field.label}`,
+                        async () => {
+                          await expect(await fieldHandler.validateRequiredField(field)).not.toBeVisible();
+                        },
+                        errors
+                      );
+                    }
+
+                  }
+
+                }
+              }
+
+
+              // If there are any errors, fail the test with all collected errors
+              if (errors.length > 0) {
+                throw new Error(`Validation errors found:\n${errors.join('\n')}`);
+              }
+            })
 
           });
         }

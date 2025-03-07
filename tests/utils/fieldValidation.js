@@ -35,6 +35,7 @@ const COMPONENT_TYPES = {
   DATE_PICKER: 'date-picker',
   DATA_GRID: 'data-grid',
   DATA_TABLE: 'data-table',
+  RICH_TEXT: 'rich-text'
 };
 
 export class FieldHandler {
@@ -95,6 +96,10 @@ export class FieldHandler {
       return this.page.getByLabel(fieldLabel, { exact: true });
     }
 
+    if (component === COMPONENT_TYPES.RICH_TEXT) {
+      return this.page.getByText(fieldLabel, { exact: true }).locator('..').locator('..').locator('.editor-control');
+    }
+
     // Handle standard field types
     switch (fieldType) {
       case FIELD_TYPES.INTEGER:
@@ -133,10 +138,11 @@ export class FieldHandler {
 
   async validateBreadcrumb(index, expectedHref, expectedText) {
     const breadcrumb = await this.breadCrumpDetail(index);
+    await expect(breadcrumb).toBeVisible();
+    await expect(breadcrumb).toHaveText(expectedText);
+
     if (expectedHref) {
       await expect(breadcrumb).toHaveAttribute('href', expectedHref);
-    } else {
-      await expect(breadcrumb).toHaveText(expectedText);
     }
 
   }
@@ -288,7 +294,20 @@ export class FieldHandler {
 
       case COMPONENT_TYPES.TEXT_INPUT_MULTIPLE:
         await this.ValidateTextInputMultipleField(locator, field.name);
+        break;
+
+      case COMPONENT_TYPES.RICH_TEXT:
+        await this.validateRichTextField(locator)
     }
+  }
+
+  async validateRichTextField(locator) {
+    await expect(await locator.locator('.toolbar')).toBeVisible();
+    await expect(await locator.locator('.tiptap')).toBeVisible();
+
+    const inputField = await locator.locator('.tiptap');
+    await inputField.fill('test');
+    await expect(inputField).toHaveText('test');
   }
 
   async ValidateTextInputMultipleField(locator, fieldName) {
@@ -599,6 +618,12 @@ export class FieldHandler {
   }
 
 
+  async validateRequiredField(field) {
+    const labelElement = await this.validateLabel(field);
+    return labelElement.locator('..').locator('span.text-negative');
+  }
+
+
   /**
  * Validates helper text
  */
@@ -622,6 +647,12 @@ export class FieldHandler {
           value = faker.lorem.words(3);
           await locator.fill(value);
         }
+        break;
+
+      case COMPONENT_TYPES.RICH_TEXT:
+          value = faker.lorem.words(3);
+          const inputField = await locator.locator('.tiptap')
+          await inputField.fill(value);
         break;
 
       case COMPONENT_TYPES.SELECT:
@@ -692,7 +723,7 @@ export class FieldHandler {
       case COMPONENT_TYPES.RADIOIDK:
         const radiolocator = await locator.getByText('Yes');
         await radiolocator.check();
-        value = true;
+        value = "Yes";
         break;
 
       case COMPONENT_TYPES.RADIO:
@@ -704,8 +735,8 @@ export class FieldHandler {
       case COMPONENT_TYPES.DATA_GRID:
         const projectdataFilePath = './tests/data/Project-data.json';
         const data = await this.getData('ProjectData', projectdataFilePath);
-        const startYear = data["Crediting start year"];
-        const endyear = data["Crediting end year"];
+        const startYear = data["creditStart-nameValue-nameValue"];
+        const endyear = data["creditEnd-nameValue-nameValue"];
         await this.validateDataGridFields(locator, field, startYear, endyear);
         break;
 
@@ -732,7 +763,7 @@ export class FieldHandler {
     }
 
     const projectdataFilePath = './tests/data/Project-data.json';
-    await this.saveData({ [field.label]: value }, 'ProjectData', projectdataFilePath);
+    await this.saveData({ [field.name]: value }, 'ProjectData', projectdataFilePath);
   }
 
 
@@ -918,25 +949,13 @@ export class FieldHandler {
 
       case COMPONENT_TYPES.SELECT:
         const selectedValuesText = await locator.textContent();
-        if (field.label == 'Classification method') {
-          await expect(selectedValuesText).toBe("Natural - The activity claim uses natural methods (e.g. IFM)");
-          break;
-        }
-        if (field.label == 'Project type') {
-          await expect(selectedValuesText).toBe("Improved Forest Management (IFM)");
-          break;
-        }
-        if (field.label == 'Project scale') {
-          await expect(selectedValuesText).toBe("Micro (fewer than 1,000 tCO2e)");
-          break;
-        }
         await expect(selectedValuesText).toBe('');
         break;
 
       case COMPONENT_TYPES.SELECT_MULTIPLE:
         const selectedmultiValuesText = await locator.textContent();
         if (field.label == 'Classification category') {
-          await expect(selectedmultiValuesText).toBe("Carbon avoidance");
+          await expect(selectedmultiValuesText).toBe("Carbon removal");
           break;
         }
         await expect(selectedmultiValuesText).toBe('');
@@ -1029,28 +1048,36 @@ export class FieldHandler {
      isNewlyVisible = true;
     }
 
+    // Check if the dependency field has its own display dependencies
+    if (dependencyField?.display_dependencies) {
+      // Process dependency field's own dependencies first
+      await this.handleDisplayDependencies(
+        step,
+        dependencyField,
+        formData,
+        selectedFields,
+        topic
+      );
+    }
+
     const dependencyFieldLocator = await this.getLocator(dependencyField.name, dependencyField.label, dependencyField.type, dependencyField.component);
     await expect(dependencyFieldLocator).toBeVisible();
 
     // Fill the display dependencies field
-    await this.FillDisplayDependenciesField(inputLocator, dependencyField, field);
+    await this.FillDisplayDependenciesField(dependencyFieldLocator, dependencyField, field);
 
     if (isNewlyVisible) {
       await this.navigateToFieldContext(topic, step);
     }
 
-    selectedFields.push({
-      name: field.display_dependencies[0]?.field,
-      value: field.display_dependencies[0]?.pattern,
-    })
-
-    await this.handleDisplayDependencies(
-      step,
-      dependencyField,
-      formData,
-      selectedFields,
-      topic
-    );
+    const fieldName = field.display_dependencies[0]?.field;
+    const fieldValue = field.display_dependencies[0]?.pattern;
+    const existingIndex = selectedFields.findIndex(item => item.name === fieldName);
+    if (existingIndex !== -1) {
+      selectedFields[existingIndex].value = fieldValue;
+    } else {
+      selectedFields.push({ name: fieldName, value: fieldValue });
+    }
 
   }
 

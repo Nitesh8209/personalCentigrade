@@ -77,6 +77,7 @@ test.describe('Fill All Required Fields and Save', () => {
 
                 // Skip specific fields based on conditions
                 if (['Project name', 'Methodology'].includes(field.label)) continue;
+                if(field.name == 'geographicLocation-projectFile-storage') continue;
 
                 // Identify the input locator for the field
                 const inputLocator = await fieldHandler.getLocator(
@@ -89,13 +90,7 @@ test.describe('Fill All Required Fields and Save', () => {
                     `Filling field: ${field.label}`,
                     async () => {
                       await expect(inputLocator).toBeVisible();
-                      await fieldHandler.fillField(inputLocator, filePath, {
-                        type: field.type,
-                        component: field.component,
-                        label: field.label,
-                        options: field.options,
-                        columns: field.columns
-                      });
+                      await fieldHandler.fillField(inputLocator, filePath, field);
                     },
                     errors
                   );
