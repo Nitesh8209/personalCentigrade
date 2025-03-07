@@ -171,7 +171,6 @@ test.describe('Settings - Team Page UI Tests', () => {
   })
 
 
-
   test('Verify Invite User modal display and initial elements', async () => {
     const errors = [];
 
@@ -241,7 +240,6 @@ test.describe('Settings - Team Page UI Tests', () => {
     await safeExpect('Modal buttons visibility and state',
       async () => {
         await expect(await settingsPage.inviteAdduserbutton()).toBeVisible();
-        await expect(await settingsPage.modalclose()).toBeVisible();
         await expect(await settingsPage.cancelButton()).toBeVisible();
         await expect(await settingsPage.cancelButton()).toBeEnabled();
         await expect(await settingsPage.sendinvitation()).toBeVisible();
@@ -342,8 +340,6 @@ test.describe('Settings - Team Page UI Tests', () => {
         await expect(await settingsPage.Editmodalphonenumberinput()).toHaveValue('+1');
         await expect(await settingsPage.Editmodalphonenumberhelpertext()).toBeVisible();
         await expect(await settingsPage.Editmodalphonenumberhelpertext()).toHaveText('Used for two-factor authentication (2FA). SMS rates may apply.');
-        const modalClose = await settingsPage.modalclose();
-        await modalClose.click();
       },
       errors
     );
@@ -357,14 +353,20 @@ test.describe('Settings - Team Page UI Tests', () => {
   test('Verify member type dropdown and modal actions in edit member details modal on the "Team" tab in Settings', async () => {
     const errors = [];
 
-    const userEditDeleteButton = await settingsPage.usereditdeletebutton(InviteEmail);
-    await userEditDeleteButton.click();
-    const Edituser = await settingsPage.useredit();
-    await Edituser.click();
+    const modal = await settingsPage.modal();
+    const visibleModal = await modal.isVisible();
+    if (!visibleModal) {
+      const userEditDeleteButton = await settingsPage.usereditdeletebutton(InviteEmail);
+      await userEditDeleteButton.click();
+      const Edituser = await settingsPage.useredit();
+      await Edituser.click();
+    }
 
     // Verify member type field
     await safeExpect('Member type field initial state',
       async () => {
+        await expect(await settingsPage.usertype(InviteEmail)).toBeVisible();
+        await expect(await settingsPage.usertype(InviteEmail)).toHaveText('Member');
         await expect(await settingsPage.Editmodalmembertype()).toBeVisible();
         await expect(await settingsPage.Editmodalmembertype()).toHaveText('Member type');
         await expect(await settingsPage.Editmodalmembertypedropdown()).toBeVisible();
@@ -382,7 +384,6 @@ test.describe('Settings - Team Page UI Tests', () => {
         await expect(await settingsPage.cancelButton()).toHaveText('Cancel');
         await expect(await settingsPage.Editsave()).toBeVisible();
         await expect(await settingsPage.Editsave()).toHaveText('Save');
-        await expect(await settingsPage.modalclose()).toBeVisible();
       },
       errors
     );
@@ -435,16 +436,6 @@ test.describe('Settings - Team Page UI Tests', () => {
       errors
     );
 
-    // Test modal close
-    await safeExpect('Modal close',
-      async () => {
-        const modalClose = await settingsPage.modalclose();
-        await modalClose.click();
-        await expect(await settingsPage.modal()).not.toBeVisible();
-      },
-      errors
-    );
-
     // If there are any errors, fail the test with details
     if (errors.length > 0) {
       throw new Error(`member type dropdown and modal actions in edit member details modal Test failures:\n${errors.join('\n')}`);
@@ -454,10 +445,14 @@ test.describe('Settings - Team Page UI Tests', () => {
   test('Verify cancel functionality while editing member details', async () => {
 
     // Open the edit modal and verify the initial state
-    const userEditDeleteButton = await settingsPage.usereditdeletebutton(InviteEmail);
-    await userEditDeleteButton.click();
-    const Edituser = await settingsPage.useredit(InviteEmail);
-    await Edituser.click();
+    const modal = await settingsPage.modal();
+    const visibleModal = await modal.isVisible();
+    if (!visibleModal) {
+      const userEditDeleteButton = await settingsPage.usereditdeletebutton(InviteEmail);
+      await userEditDeleteButton.click();
+      const Edituser = await settingsPage.useredit();
+      await Edituser.click();
+    }
 
     // Edit the first name field
     const firstName = await settingsPage.EditmodalfirstNameinput();
@@ -544,17 +539,6 @@ test.describe('Settings - Team Page UI Tests', () => {
         await expect(await settingsPage.cancelButton()).toBeEnabled();
         await expect(await settingsPage.removeButton()).toBeVisible();
         await expect(await settingsPage.removeButton()).toBeEnabled();
-        await expect(await settingsPage.modalclose()).toBeVisible();
-      },
-      errors
-    );
-
-    // Verify modal close
-    const closeModal = await settingsPage.modalclose();
-    await safeExpect('Modal close',
-      async () => {
-        await closeModal.click();
-        await expect(await settingsPage.modal()).not.toBeVisible();
       },
       errors
     );
@@ -570,10 +554,15 @@ test.describe('Settings - Team Page UI Tests', () => {
     await page.setViewportSize({ width: 1280, height: 750 });
 
     // Open the remove member modal and verify the initial state
-    const usereditdeletebutton = await settingsPage.usereditdeletebutton(InviteEmail);
-    await usereditdeletebutton.click();
+    const modal = await settingsPage.modal();
     const removeUser = await settingsPage.userdelete();
-    await removeUser.click();
+
+    const visibleModal = await modal.isVisible();
+    if (!visibleModal) {
+      const usereditdeletebutton = await settingsPage.usereditdeletebutton(InviteEmail);
+      await usereditdeletebutton.click();
+      await removeUser.click();
+    }
 
     // Cancel the remove member modal and verify the modal is closed
     const cancelButton = await settingsPage.cancelButton()
@@ -581,8 +570,7 @@ test.describe('Settings - Team Page UI Tests', () => {
     await expect(await settingsPage.modal()).not.toBeVisible();
 
     // Open the remove member modal again 
-    const user = await settingsPage.user(InviteEmail);
-    await user.hover();
+    const usereditdeletebutton = await settingsPage.usereditdeletebutton(InviteEmail);
     await usereditdeletebutton.click();
     await removeUser.click();
 

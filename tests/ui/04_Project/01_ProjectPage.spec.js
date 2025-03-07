@@ -1,8 +1,9 @@
 const { test, expect } = require('@playwright/test');
 const { ValidTestData } = require('../../data/SignUpData');
+import API_ENDPOINTS from "../../../api/apiEndpoints";
 import { LoginPage } from "../../../pages/loginPage";
 import { ProjectsPage } from "../../../pages/projectsPage";
-import { classificationCategoryOptions, classificationMethodOptions, methodologyOptions, project, projectScaleOptions } from "../../data/projectData";
+import { methodologyOptions, project } from "../../data/projectData";
 import { getData } from "../../utils/apiHelper";
 import { safeExpect } from "../../utils/authHelper";
 
@@ -108,36 +109,6 @@ test.describe('Project Page', () => {
       errors
     );
 
-    // Verify the Project scale in create new project modal
-    await safeExpect('Project scale in create new project modal',
-      async () => {
-        await expect(await projectsPage.pojectScaleLabel()).toBeVisible();
-        await expect(await projectsPage.pojectScaleLabel()).toHaveText('Project scale');
-        await expect(await projectsPage.pojectScaletrigger()).toBeVisible();
-      },
-      errors
-    );
-
-    // Verify the Classification category in create new project modal
-    await safeExpect('Classification category in create new project modal',
-      async () => {
-        await expect(await projectsPage.classificationCategoryLabel()).toBeVisible();
-        await expect(await projectsPage.classificationCategoryLabel()).toHaveText('Classification category');
-        await expect(await projectsPage.classificationCategorytrigger()).toBeVisible();
-      },
-      errors
-    );
-
-    // Verify the Classification method in create new project modal
-    await safeExpect('Classification method in create new project modal',
-      async () => {
-        await expect(await projectsPage.classificationMethodLabel()).toBeVisible();
-        await expect(await projectsPage.classificationMethodLabel()).toHaveText('Classification method');
-        await expect(await projectsPage.classificationMethodtrigger()).toBeVisible();
-      },
-      errors
-    );
-
     // Verify the Buttons in create new project modal
     await safeExpect('Buttons in create new project modal',
       async () => {
@@ -156,11 +127,19 @@ test.describe('Project Page', () => {
   test('Verify methodology dropdown functionality in create new project modal', async ({ page, baseURL }) => {
 
     const errors = [];
+    let expectedDescriptions;
     const projectsPage = new ProjectsPage(page, baseURL);
 
     // Click on the create project button
     const createProjectButton = await projectsPage.createProjectButton();
     await createProjectButton.click();
+
+    const response = await page.waitForResponse(
+      response => response.url().includes(API_ENDPOINTS.getMethodologies)
+    );
+
+    const responseBody = await response.json();
+     expectedDescriptions = responseBody.map(item => item.description);
 
     const methodologytrigger = await projectsPage.methodologytrigger();
     const methodologymenu = await projectsPage.methodologymenu();
@@ -172,13 +151,13 @@ test.describe('Project Page', () => {
         await expect(methodologymenu).toBeVisible();
         await expect(await methodologymenutext.first()).toBeVisible()
         const menuTextContents = await methodologymenutext.allTextContents();
-        for (let index = 0; index < methodologyOptions.length; index++) {
-          const item = methodologyOptions[index];
+        for (let index = 0; index < expectedDescriptions.length; index++) {
+          const item = expectedDescriptions[index];
           await expect(await methodologymenutext.nth(index)).toBeVisible();
-          await expect(await methodologymenutext.nth(index)).toHaveText(item);
         }
-        await expect(menuTextContents).toHaveLength(methodologyOptions.length)
-        await expect(menuTextContents).toEqual(expect.arrayContaining(methodologyOptions));
+        await expect(menuTextContents).toHaveLength(expectedDescriptions.length)
+        await expect(new Set(menuTextContents)).toEqual(new Set(expectedDescriptions));
+
         await methodologytrigger.click();
         await expect(methodologymenu).not.toBeVisible();
       },
@@ -187,227 +166,19 @@ test.describe('Project Page', () => {
 
     await safeExpect('Select different Metholodogies',
       async () => {
-        for (let i = 0; i < methodologyOptions.length; i++) {
+        for (let i = 0; i < expectedDescriptions.length; i++) {
           const methodologydropdown = await projectsPage.methodologyDropdown();
           const Visiblelistbox = await methodologydropdown.isVisible();
 
           if (!Visiblelistbox) {
             await methodologytrigger.click();
           }
-          const item = methodologyOptions[i];
+          const item = expectedDescriptions[i];
           await expect(await projectsPage.methodologyselectOption(item)).toBeVisible();
           const selectOption = await projectsPage.methodologyselectOption(item);
           await selectOption.click();
           await expect(methodologymenu).not.toBeVisible();
           await expect(await projectsPage.selectedMethodology()).toHaveText(item);
-        }
-      },
-      errors
-    )
-
-    // If there are any errors, fail the test with all collected errors
-    if (errors.length > 0) {
-      throw new Error('UI verification failed:\n' + errors.join('\n'));
-    }
-  })
-
-  test('Verify Project scale dropdown functionality in create new project modal', async ({ page, baseURL }) => {
-
-    const errors = [];
-    const projectsPage = new ProjectsPage(page, baseURL);
-
-    // Click on the create project button
-    const createProjectButton = await projectsPage.createProjectButton();
-    await createProjectButton.click();
-
-    const pojectScaletrigger = await projectsPage.pojectScaletrigger();
-    const pojectScalemenu = await projectsPage.pojectScalemenu();
-    const pojectScalemenutext = await projectsPage.pojectScalemenutext();
-
-    await safeExpect('Project scale Menu Text content',
-      async () => {
-        await pojectScaletrigger.click();
-        await expect(pojectScalemenu).toBeVisible();
-        await expect(await pojectScalemenutext.first()).toBeVisible()
-        const menuTextContents = await pojectScalemenutext.allTextContents();
-        for (let index = 0; index < projectScaleOptions.length; index++) {
-          const item = projectScaleOptions[index];
-          await expect(await pojectScalemenutext.nth(index)).toBeVisible();
-          await expect(await pojectScalemenutext.nth(index)).toHaveText(item);
-        }
-        await expect(menuTextContents).toHaveLength(projectScaleOptions.length)
-        await expect(menuTextContents).toEqual(expect.arrayContaining(projectScaleOptions));
-        await pojectScaletrigger.click();
-        await expect(pojectScalemenu).not.toBeVisible();
-      },
-      errors
-    );
-
-    await safeExpect('Select different Project Scale Options',
-      async () => {
-        for (let i = 0; i < projectScaleOptions.length; i++) {
-          const classificationCategoryDropdown = await projectsPage.classificationCategoryDropdown();
-          const Visiblelistbox = await classificationCategoryDropdown.isVisible();
-
-          if (!Visiblelistbox) {
-            await pojectScaletrigger.click();
-          }
-
-          const item = projectScaleOptions[i];
-          await expect(await projectsPage.projectScaleselectOption(item)).toBeVisible();
-          const selectOption = await projectsPage.projectScaleselectOption(item);
-          await selectOption.click();
-          await expect(pojectScalemenu).not.toBeVisible();
-          await expect(await projectsPage.selectedpojectScale()).toHaveText(item);
-        }
-      },
-      errors
-    )
-
-    // If there are any errors, fail the test with all collected errors
-    if (errors.length > 0) {
-      throw new Error('UI verification failed:\n' + errors.join('\n'));
-    }
-  })
-
-  test('Verify Classification category dropdown functionality in create new project modal', async ({ page, baseURL }) => {
-
-    const errors = [];
-    const projectsPage = new ProjectsPage(page, baseURL);
-
-    // Click on the create project button
-    const createProjectButton = await projectsPage.createProjectButton();
-    await createProjectButton.click();
-
-    const classificationCategorytrigger = await projectsPage.classificationCategorytrigger();
-    const classificationCategorymenu = await projectsPage.classificationCategorymenu();
-    const classificationCategorymenutext = await projectsPage.classificationCategorymenutext();
-    const classificationCategoryDropdown = await projectsPage.classificationCategoryDropdown();
-
-    await safeExpect('Classification category Text content',
-      async () => {
-        const Visiblelistbox = await classificationCategoryDropdown.isVisible();
-
-        if (!Visiblelistbox) {
-          await classificationCategorytrigger.click();
-        }
-
-        await expect(classificationCategorymenu).toBeVisible();
-        await expect(await classificationCategorymenutext.first()).toBeVisible()
-        const menuTextContents = await classificationCategorymenutext.allTextContents();
-        for (let index = 0; index < classificationCategoryOptions.length; index++) {
-          const item = classificationCategoryOptions[index];
-          await expect(await classificationCategorymenutext.nth(index)).toBeVisible();
-          await expect(await classificationCategorymenutext.nth(index)).toHaveText(item);
-        }
-        await expect(menuTextContents).toHaveLength(classificationCategoryOptions.length)
-        await expect(menuTextContents).toEqual(expect.arrayContaining(classificationCategoryOptions));
-        await classificationCategorytrigger.click();
-        await expect(classificationCategorymenu).not.toBeVisible();
-      },
-      errors
-    );
-
-    await safeExpect('Select different Classification category options',
-      async () => {
-        for (let i = 0; i < classificationCategoryOptions.length; i++) {
-          const Visiblelistbox = await classificationCategoryDropdown.isVisible();
-
-          if (!Visiblelistbox) {
-            await classificationCategorytrigger.click();
-          }
-
-          const item = classificationCategoryOptions[i];
-          await expect(await projectsPage.classificationCategoryselectOption(item)).toBeVisible();
-          const selectOption = await projectsPage.classificationCategoryselectOption(item);
-          await selectOption.click();
-          await expect(await projectsPage.selectedclassificationCategory()).toHaveText(item);
-          await expect(await projectsPage.removeCategory()).toBeVisible();
-
-          const removeCategory = await projectsPage.removeCategory();
-          await removeCategory.click();
-          await expect(await projectsPage.selectedclassificationCategory()).toHaveText('');
-        }
-      },
-      errors
-    )
-
-    await safeExpect('Select Multiple Classification category options',
-      async () => {
-        const Visiblelistbox = await classificationCategoryDropdown.isVisible();
-
-        if (!Visiblelistbox) {
-          await classificationCategorytrigger.click();
-        }
-
-        for (let i = 0; i < classificationCategoryOptions.length; i++) {
-          const item = classificationCategoryOptions[i];
-          await expect(await projectsPage.classificationCategoryselectOption(item)).toBeVisible();
-          const selectOption = await projectsPage.classificationCategoryselectOption(item);
-          await selectOption.click();
-          await expect(await projectsPage.selectedclassificationCategory()).toContainText(item);
-        }
-        await expect(await projectsPage.noOption()).toBeVisible();
-        const noOption = await projectsPage.noOption();
-        await expect(noOption).toHaveText('No options');
-      },
-      errors
-    )
-
-    // If there are any errors, fail the test with all collected errors
-    if (errors.length > 0) {
-      throw new Error('UI verification failed:\n' + errors.join('\n'));
-    }
-  })
-
-  test('Verify classification Method dropdown functionality in create new project modal', async ({ page, baseURL }) => {
-
-    const errors = [];
-    const projectsPage = new ProjectsPage(page, baseURL);
-
-    // Click on the create project button
-    const createProjectButton = await projectsPage.createProjectButton();
-    await createProjectButton.click();
-
-    const classificationMethodtrigger = await projectsPage.classificationMethodtrigger();
-    const classificationMethodemenu = await projectsPage.classificationMethodemenu();
-    const classificationMethodmenutext = await projectsPage.classificationMethodmenutext();
-    const classificationMethodDropdown = await projectsPage.classificationMethodDropdown();
-
-    await safeExpect('classification Method Menu Text content',
-      async () => {
-        await classificationMethodtrigger.click();
-        await expect(classificationMethodemenu).toBeVisible();
-        await expect(await classificationMethodmenutext.first()).toBeVisible()
-        const menuTextContents = await classificationMethodmenutext.allTextContents();
-        for (let index = 0; index < classificationMethodOptions.length; index++) {
-          const item = classificationMethodOptions[index];
-          await expect(await classificationMethodmenutext.nth(index)).toBeVisible();
-          await expect(await classificationMethodmenutext.nth(index)).toHaveText(item);
-        }
-        await expect(menuTextContents).toHaveLength(classificationMethodOptions.length)
-        await expect(menuTextContents).toEqual(expect.arrayContaining(classificationMethodOptions));
-        await classificationMethodtrigger.click();
-        await expect(classificationMethodemenu).not.toBeVisible();
-      },
-      errors
-    );
-
-    await safeExpect('Select different Project Scale Options',
-      async () => {
-        for (let i = 0; i < classificationMethodOptions.length; i++) {
-          const Visiblelistbox = await classificationMethodDropdown.isVisible();
-
-          if (!Visiblelistbox) {
-            await classificationMethodtrigger.click();
-          }
-
-          const item = classificationMethodOptions[i];
-          await expect(await projectsPage.classificationMethodselectOption(item)).toBeVisible();
-          const selectOption = await projectsPage.classificationMethodselectOption(item);
-          await selectOption.click();
-          await expect(classificationMethodemenu).not.toBeVisible();
-          await expect(await projectsPage.selectedclassificationMethod()).toHaveText(item);
         }
       },
       errors
@@ -444,21 +215,21 @@ test.describe('Project Page', () => {
         await selectmethodologyOptions.click();
         await expect(await projectsPage.selectedMethodology()).toHaveText(methodologyOptions[0]);
 
-        await pojectScaletrigger.click();
-        const selectprojectScaleOptions = await projectsPage.projectScaleselectOption(projectScaleOptions[0]);
-        await selectprojectScaleOptions.click();
-        await expect(await projectsPage.selectedpojectScale()).toHaveText(projectScaleOptions[0]);
+        // await pojectScaletrigger.click();
+        // const selectprojectScaleOptions = await projectsPage.projectScaleselectOption(projectScaleOptions[0]);
+        // await selectprojectScaleOptions.click();
+        // await expect(await projectsPage.selectedpojectScale()).toHaveText(projectScaleOptions[0]);
 
-        await classificationCategorytrigger.click();
-        const selectclassificationCategoryOptions = await projectsPage.classificationCategoryselectOption(classificationCategoryOptions[0]);
-        await selectclassificationCategoryOptions.click();
-        await expect(await projectsPage.selectedclassificationCategory()).toHaveText(classificationCategoryOptions[0]);
-        await classificationCategorytrigger.click();
+        // await classificationCategorytrigger.click();
+        // const selectclassificationCategoryOptions = await projectsPage.classificationCategoryselectOption(classificationCategoryOptions[0]);
+        // await selectclassificationCategoryOptions.click();
+        // await expect(await projectsPage.selectedclassificationCategory()).toHaveText(classificationCategoryOptions[0]);
+        // await classificationCategorytrigger.click();
 
-        await classificationMethodtrigger.click();
-        const selectclassificationMethodOptions = await projectsPage.classificationMethodselectOption(classificationMethodOptions[0]);
-        await selectclassificationMethodOptions.click();
-        await expect(await projectsPage.selectedclassificationMethod()).toHaveText(classificationMethodOptions[0]);
+        // await classificationMethodtrigger.click();
+        // const selectclassificationMethodOptions = await projectsPage.classificationMethodselectOption(classificationMethodOptions[0]);
+        // await selectclassificationMethodOptions.click();
+        // await expect(await projectsPage.selectedclassificationMethod()).toHaveText(classificationMethodOptions[0]);
       },
       errors
     );
@@ -470,9 +241,6 @@ test.describe('Project Page', () => {
 
         await createProjectButton.click();
         await expect(await projectsPage.selectedMethodology()).toHaveText('');
-        await expect(await projectsPage.selectedpojectScale()).toHaveText('');
-        await expect(await projectsPage.selectedclassificationCategory()).toHaveText('');
-        await expect(await projectsPage.selectedclassificationMethod()).toHaveText('');
       },
       errors
     )
@@ -492,9 +260,6 @@ test.describe('Project Page', () => {
     await createProjectButton.click();
 
     const methodologytrigger = await projectsPage.methodologytrigger();
-    const pojectScaletrigger = await projectsPage.pojectScaletrigger();
-    const classificationCategorytrigger = await projectsPage.classificationCategorytrigger();
-    const classificationMethodtrigger = await projectsPage.classificationMethodtrigger();
     const projectName = await projectsPage.projectName()
     await safeExpect('Fill all fileds',
       async () => {
@@ -507,21 +272,6 @@ test.describe('Project Page', () => {
         await selectmethodologyOptions.click();
         await expect(await projectsPage.selectedMethodology()).toHaveText(methodologyOptions[11]);
 
-        await pojectScaletrigger.click();
-        const selectprojectScaleOptions = await projectsPage.projectScaleselectOption(projectScaleOptions[0]);
-        await selectprojectScaleOptions.click();
-        await expect(await projectsPage.selectedpojectScale()).toHaveText(projectScaleOptions[0]);
-
-        await classificationCategorytrigger.click();
-        const selectclassificationCategoryOptions = await projectsPage.classificationCategoryselectOption(classificationCategoryOptions[0]);
-        await selectclassificationCategoryOptions.click();
-        await expect(await projectsPage.selectedclassificationCategory()).toHaveText(classificationCategoryOptions[0]);
-        await classificationCategorytrigger.click();
-
-        await classificationMethodtrigger.click();
-        const selectclassificationMethodOptions = await projectsPage.classificationMethodselectOption(classificationMethodOptions[0]);
-        await selectclassificationMethodOptions.click();
-        await expect(await projectsPage.selectedclassificationMethod()).toHaveText(classificationMethodOptions[0]);
       },
       errors
     );

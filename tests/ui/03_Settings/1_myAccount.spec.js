@@ -193,11 +193,12 @@ test.describe('Settings - My Account Page UI Tests', () => {
 
     // Check that the modal buttons are visible and enabled
     await safeExpect('Modal button states', async () => {
-      await expect(await settingsPage.cancelButton()).toBeVisible();
-      await expect(await settingsPage.cancelButton()).toBeEnabled();
+      await expect(await settingsPage.modalCancelButton()).toBeVisible();
+      await expect(await settingsPage.modalCancelButton()).toBeEnabled();
       await expect(await settingsPage.discardButton()).toBeVisible();
       await expect(await settingsPage.discardButton()).toBeEnabled();
-      await cancelButton.click();
+      const modalCancelButton = await settingsPage.modalCancelButton();
+      await modalCancelButton.click();
     },
       errors
     );
@@ -218,7 +219,8 @@ test.describe('Settings - My Account Page UI Tests', () => {
     await cancelButton.click();
 
     // click the button in the unsaved changes modal
-    await cancelButton.click();
+    const modalCancelButton = await settingsPage.modalCancelButton();
+    await modalCancelButton.click();
     await safeExpect('State after click on cancel button in the unsaved changes modal', async () => {
       await expect(await settingsPage.unsavedChangeModal()).not.toBeVisible();
       await expect(firstName).toHaveValue(ValidTestData.newFirstName);
