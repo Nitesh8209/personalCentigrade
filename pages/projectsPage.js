@@ -917,7 +917,7 @@ class ProjectsPage {
     }
 
     async modalHeading() {
-        return await this.page.locator('.modal-header > h1');
+        return await this.page.getByRole('heading', { name: 'Create new project' });
     }
 
     async modalClose() {
@@ -949,11 +949,11 @@ class ProjectsPage {
     }
 
     async methodologyLabel() {
-        return await this.page.locator('.create-project-form > form > :nth-child(2) > .select-label')
+        return await this.page.locator('.label').getByText('Methodology');
     }
 
     async methodologytrigger() {
-        return await this.page.locator('.create-project-form > form > :nth-child(2)').locator('.select-trigger');
+        return await this.page.getByRole('combobox', { name: 'Methodology' }).locator('.select-indicator');
     }
 
     async methodologymenu() {
