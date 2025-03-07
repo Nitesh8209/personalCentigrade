@@ -93,13 +93,7 @@ test.describe('After Topic 1 - Fill Remaining Required Fields and Save', () => {
                         `Filling field: ${field.label}`,
                         async () => {
                           await expect(inputLocator).toBeVisible();
-                          await fieldHandler.fillField(inputLocator, filePath, {
-                            type: field.type,
-                            component: field.component,
-                            label: field.label,
-                            options: field.options,
-                            columns: field.columns
-                          });
+                          await fieldHandler.fillField(inputLocator, filePath, field);
                         },
                         errors
                       );
@@ -144,3 +138,105 @@ test.describe('After Topic 1 - Fill Remaining Required Fields and Save', () => {
   }
 
 })
+
+
+
+test.describe('Publish the Project after completed the Tier 1, Tier 2, Tier 3 topic', () => {
+  let projectsPage;
+  let fieldHandler;
+  let page;
+
+  // Test configuration and setup
+  const { newEmail } = getData('UI');
+
+  // Fixture to handle common setup
+  test.beforeAll(async ({ browser, baseURL }) => {
+    // Initialize page objects
+    const context = await browser.newContext();
+    page = await context.newPage();
+    const loginPage = new LoginPage(page, baseURL);
+    projectsPage = new ProjectsPage(page, baseURL);
+    fieldHandler = new FieldHandler(page);
+
+    // Navigate and setup initial state
+    await loginPage.navigate();
+    await loginPage.login(newEmail, ValidTestData.newPassword);
+    await projectsPage.viewProject();
+    await page.waitForURL(`**/overview`);
+
+    const projectTitle = await projectsPage.projectTitle();
+    await expect(projectTitle).toBe(project.uiProjectName);
+  });
+
+  test('Verify Publish button is visible and enabled after filling all other fields ', async () => {
+    const errors = [];
+
+    // Verify Publish Button Visibility and Enablement
+    await safeExpect('Publish Button should be visible and enabled',
+      async () => {
+        const publishButton = await projectsPage.publishButton();
+        await expect(publishButton).toBeVisible();
+        await expect(publishButton).toBeEnabled();
+      },
+      errors
+    )
+
+    if (errors.length > 0) {
+      throw new Error(`Validation errors found:\n${errors.join('\n')}`);
+    }
+
+  })
+
+
+  test('Publish the project after Filled another remaining fields', async () => {
+    const errors = [];
+
+    // Click on Publish Button
+    await safeExpect('Click on Publish button',
+      async () => {
+        const publishButton = await projectsPage.publishButton();
+        await expect(publishButton).toBeVisible();
+        await expect(publishButton).toBeEnabled();
+        await publishButton.click();
+      },
+      errors
+    );
+
+    // Verify Success Message after Publishing
+    await safeExpect('Check success message after publishing',
+      async () => {
+        const success = await fieldHandler.successMessagediv();
+        const successMessage = await success.innerText();
+        await expect(success).toBeVisible();
+        await expect(successMessage).toBe('Your project has been published');
+      },
+      errors
+    );
+
+    if (errors.length > 0) {
+      throw new Error(`Validation errors found:\n${errors.join('\n')}`);
+    }
+
+  });
+
+  test('Verify Publish button is disabled after publishing', async () => {
+    const errors = [];
+
+    await safeExpect('Publish Button should be disabled after publishing',
+      async () => {
+        const publishButton = await projectsPage.publishButton();
+        await expect(publishButton).toBeVisible();
+        await expect(publishButton).toBeDisabled();
+      },
+      errors
+    );
+
+    if (errors.length > 0) {
+      throw new Error(`Validation errors found:\n${errors.join('\n')}`);
+    }
+
+  });
+
+
+});
+
