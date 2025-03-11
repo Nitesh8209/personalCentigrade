@@ -19,13 +19,6 @@ jobs:
               playwright-tests
 
 workflows:
-  nightly-build-and-test:
-    triggers:
-      - schedule:
-          cron: "0 0 * * *"
-          filters:
-            branches:
-              only:
-                - main
+  run-build-and-test:
     jobs:
       - build-and-test
