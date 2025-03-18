@@ -3,6 +3,11 @@ export const project = {
     uiProjectName: 'Automation Ui Project',
 }
 
+export const authStates = [
+    { isAuthenticated: false, name: "Unauthenticated" },
+    { isAuthenticated: true, name: "Authenticated" }
+  ];
+
 export const methodologyOptions = [
     'ACR Improved Forest Management (IFM) on Non-Federal U.S. Forestlands v1.3',
     'ACR Improved Forest Management (IFM) on Non-Federal U.S. Forestlands v2.0',

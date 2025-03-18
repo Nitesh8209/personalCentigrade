@@ -1,3 +1,4 @@
+import { expect } from '@playwright/test';
 import { project } from '../tests/data/projectData';
 
 export class ListingPage {
@@ -58,7 +59,7 @@ export class ListingPage {
   }
 
   async projectListItem(){
-    return (await this.projectList()).locator('.card.buyer-projects__card');
+    return (await this.projectList()).locator('.card.listing-card');
   }
 
   async firstprojectListItem(){
@@ -70,19 +71,19 @@ export class ListingPage {
   }
 
   async projectItemCardContent(){
-    return (await this.firstprojectListItem()).locator('.buyer-projects__card-content');
+    return (await this.firstprojectListItem()).locator('.listing-card__content');
   }
 
   async projectItemCardContentMain(){
-    return (await this.projectItemCardContent()).locator('.buyer-projects__card-content-main');
+    return (await this.projectItemCardContent()).locator('.listing-card__content-main');
   }
 
   async projectItemCardContentMainOrg(){
-    return (await this.projectItemCardContentMain()).locator('.buyer-projects__card-content-main-organization');
+    return (await this.projectItemCardContentMain()).locator('.listing-card__content-main-organization');
   }
 
   async projectItemCardContentMainTitle(){
-    return (await this.projectItemCardContentMain()).locator('h2 > a');
+    return (await this.projectItemCardContentMain()).locator('h3 > a');
   }
 
   async projectItemCardContentMainText(){
@@ -90,7 +91,7 @@ export class ListingPage {
   }
 
   async projectItemCardContentFooter(){
-    return (await this.projectItemCardContent()).locator('.buyer-projects__card-content-footer');
+    return (await this.projectItemCardContent()).locator('.listing-card__content-footer');
   }
 
   async projectItemCardContentFooterStatus(){
@@ -106,7 +107,7 @@ export class ListingPage {
   }
 
   async projectItemCardDetails(){
-    return (await this.firstprojectListItem()).locator('.buyer-projects__card-details');
+    return (await this.firstprojectListItem()).locator('.listing-card__details');
   }
 
   async projectItemCardDetailsProjectScale(){
@@ -127,6 +128,21 @@ export class ListingPage {
 
   async ProjectBreadcrumb(){
     return await this.page.getByRole('link', {name: 'Projects'});
+  }
+
+  async navigateToListings(){
+    const ListingsButton = await this.listings();
+    await expect(ListingsButton).toBeVisible();
+    await ListingsButton.click();
+    await this.page.waitForURL('**/listings');
+  }
+
+  async navigateToListingsProject(baseURL){
+    await this.page.goto(`${baseURL}/listings`);
+    const projectTitle = await this.projectItemCardContentMainTitle();
+    await expect(projectTitle).toBeVisible();
+    await projectTitle.click();
+    await this.page.waitForURL('**/overview'); 
   }
 
 }
