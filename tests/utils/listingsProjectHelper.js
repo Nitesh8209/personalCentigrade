@@ -1,5 +1,6 @@
 import { expect } from "@playwright/test";
 import { safeExpect } from "./authHelper";
+import * as fs from "fs";
 
 export const validateListingProjectHeader = async (projectHeader, errors) => {
 
@@ -88,5 +89,62 @@ export const validateStepGroupVisiblity = async (projectListings, stepGroup, err
     await expect(await projectListings.stepGroup(stepGroup.label)).toBeEnabled();
   }, errors);
 
+}
+
+export const hasValidStepFields = async (step) => {
+  return step.sections?.some(section =>
+    section?.field_groups?.some(fieldGroup =>
+      fieldGroup?.fields &&
+      fieldGroup.fields.length > 0 &&
+      fieldGroup.fields.some(field => field !== null)
+    )
+  );
+}
+
+export const navigateToStep = async (step, projectListings,errors) => {
+  await safeExpect(`Step ${step.label} should be visible and click`, async () => {
+    const stepElement = await projectListings.stepLabel(step.label);
+    await expect(stepElement).toBeVisible();
+    await stepElement.click();
+  }, errors);
+}
+
+export const validateSectionLabelVisibility = async (section, projectListings, errors) => {
+  await safeExpect(`Section '${section.label}' visibility`, async () => {
+    const sectionElement = await projectListings.sectionLabel(section.id);
+    await expect(sectionElement).toBeVisible();
+    await expect(sectionElement).toHaveText(section.label);
+  }, errors);
+
+  await safeExpect(`Section '${section.label}' visibility in main Content`, async () => {
+    await expect(await projectListings.contentSectionLabel(section.id)).toBeVisible();
+    await expect(await projectListings.contentSectionLabel(section.id)).toHaveText(section.label);
+  }, errors);
+}
+
+export const validateFieldGroupVisibility = async (fieldGroup, projectListings, errors) => {
+  await safeExpect(`Field Group '${fieldGroup.label}' visibility`, async () => {
+    await expect(await projectListings.fieldGroupLabel(fieldGroup.id)).toBeVisible();
+    await expect(await projectListings.fieldGroupLabel(fieldGroup.id)).toHaveText(fieldGroup.label);
+  }, errors);
+
+  await safeExpect(`Field Group '${fieldGroup.label}' visibility in main content`, async () => {
+    await expect(await projectListings.contentFieldGroupLabel(fieldGroup.label)).toBeVisible();
+    await expect(await projectListings.contentFieldGroupLabel(fieldGroup.label)).toHaveText(fieldGroup.label);
+  }, errors);
+}
+
+
+
+
+export const setupPage = async (page, loginPage = null, credentials = null, listingPage, baseURL) => {  
+  
+  if (loginPage && credentials) {
+    await loginPage.navigate();
+    await page.waitForURL('**/projects');
+    await listingPage.navigateToListings();
+  }
+  
+  await listingPage.navigateToListingsProject(baseURL);
 }
 

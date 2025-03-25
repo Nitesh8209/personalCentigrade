@@ -69,6 +69,31 @@ export class ProjectListings {
     return await this.page.locator('.tab-list > li').getByText(label);
   }
 
+  async stepLabel(label){
+    return await this.page.locator('.left-nav').locator('.nav-accordion-content').getByText(label);
+  }
+
+  async contentStepLabel(label){
+    return await this.page.locator('.content').locator('.step-header').getByRole('heading', { name: label , exact: true});
+  }
+
+  async sectionLabel(id){
+    return await this.page.locator(`#nav-${id}`);
+  }
+
+  
+  async contentSectionLabel(id){
+    return await this.page.locator(`#accordion\\:${id}`);
+  }
+
+  async fieldGroupLabel(id){
+    return await this.page.locator('.right-nav > .right-nav-list').locator(`#nav-${id}`);
+  }
+
+  async contentFieldGroupLabel(label){
+    return await this.page.locator('.content').getByRole('button', { name: label , exact: true});
+  }
+
   async stepGroup(label){
     return await this.page.locator('.left-nav').locator('.nav-accordion-header ').getByText(label);
   }
