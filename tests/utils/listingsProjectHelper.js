@@ -141,7 +141,6 @@ export const setupPage = async (page, loginPage = null, credentials = null, list
   
   if (loginPage && credentials) {
     await loginPage.navigate();
-    await loginPage.login(credentials.email, credentials.password);
     await page.waitForURL('**/projects');
     await listingPage.navigateToListings();
   }
