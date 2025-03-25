@@ -9,8 +9,20 @@ import API_ENDPOINTS from '../../../api/apiEndpoints';
 test.describe('Forgot password Page UI Tests', () => {
   const { newEmail } = getData('UI');
   let temporaryPassword;
+  let page;
 
-  test('Should display Forgot Password page elements and validate functionality', async ({ page, baseURL }) => {
+  // Setup: Generate a new email before all tests
+  test.beforeAll(async ({ browser }) => {
+    const context = await browser.newContext();
+    page = await context.newPage();
+    });
+
+   // Close the browser page after all tests are complete
+   test.afterAll(async () => {
+    await page.close();
+  });
+
+  test('Should display Forgot Password page elements and validate functionality', async ({ baseURL }) => {
     const loginPage = new LoginPage(page, baseURL);
 
     // Navigate to the login page
@@ -53,7 +65,7 @@ test.describe('Forgot password Page UI Tests', () => {
   })
 
   // Test for requesting a password reset with a valid registered email
-  test('Request password reset with a valid registered email', async ({ page, baseURL }) => {
+  test('Request password reset with a valid registered email', async ({ baseURL }) => {
 
     const loginPage = new LoginPage(page, baseURL);
     const signUpPage = new SignUpPage(page, baseURL);
@@ -91,7 +103,7 @@ test.describe('Forgot password Page UI Tests', () => {
   })
 
   // Test for requesting a password reset with an invalid email format
-  test('Request Password Reset with Invalid Email Format', async ({ page, baseURL }) => {
+  test('Request Password Reset with Invalid Email Format', async ({ baseURL }) => {
 
     const loginPage = new LoginPage(page, baseURL);
     const signUpPage = new SignUpPage(page, baseURL);
@@ -120,7 +132,7 @@ test.describe('Forgot password Page UI Tests', () => {
   })
 
 
-  test('Successful Password Reset with Mandatory Fields', async ({ page, baseURL }) => {
+  test('Successful Password Reset with Mandatory Fields', async ({ baseURL }) => {
     const signUpPage = new SignUpPage(page, baseURL);
 
     // Navigate to reset password page
@@ -181,12 +193,12 @@ test.describe('Forgot password Page UI Tests', () => {
   })
 
   // Test for password reset with an invalid temporary password
-  test('Password Reset with Invalid Temporary Password', async ({ page, baseURL }) => {
+  test('Password Reset with Invalid Temporary Password', async ({ baseURL }) => {
 
     const signUpPage = new SignUpPage(page, baseURL);
 
     // Navigate to reset password page with invalid email
-    await signUpPage.navigateResetPassword(inValidTestData.InvalidEmail);
+    await signUpPage.navigateResetPassword(newEmail);
 
     // Fill in the invalid temporary password and submit
     const resetPasswordtempPassword = await signUpPage.resetPasswordtempPassword();

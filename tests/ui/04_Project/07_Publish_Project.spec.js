@@ -18,6 +18,10 @@ test.describe('Fill All Required Fields and Save', () => {
   const { newEmail } = getData('UI');
   let page;
   let fieldHandler;
+
+  const authStoragePath = path.join(__dirname, '..', '..', 'data', 'auth-admin.json');
+  test.use({ storageState: authStoragePath });
+
   const topic = formData.topics[0];
 
   test.beforeAll(async ({ browser, baseURL }) => {
@@ -30,7 +34,6 @@ test.describe('Fill All Required Fields and Save', () => {
 
     // Navigate to the application and log in
     await loginPage.navigate();
-    await loginPage.login(newEmail, ValidTestData.newPassword);
     await projectsPage.viewProject();
     await page.waitForURL(`**/overview`);
 

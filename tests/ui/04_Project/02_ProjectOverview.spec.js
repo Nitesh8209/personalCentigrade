@@ -1,5 +1,6 @@
 const { test, expect } = require('@playwright/test');
 const { ValidTestData } = require('../../data/SignUpData');
+import path from "path";
 import { LoginPage } from "../../../pages/loginPage";
 import { ProjectsPage } from "../../../pages/projectsPage";
 import { project } from "../../data/projectData";
@@ -11,6 +12,9 @@ test.describe('Project Overview Page', () => {
   let page;
   let projectsPage;
 
+  const authStoragePath = path.join(__dirname, '..', '..', 'data', 'auth-admin.json');
+  test.use({ storageState: authStoragePath });
+
   test.beforeAll(async ({ browser, baseURL }) => {
 
     // Initialize browser context and page objects
@@ -21,7 +25,7 @@ test.describe('Project Overview Page', () => {
 
     // Perform login and navigate to the project
     await loginPage.navigate();
-    await loginPage.login(newEmail, ValidTestData.newPassword);
+    // await loginPage.login(newEmail, ValidTestData.newPassword);
     await page.waitForURL('**/projects');
     await projectsPage.viewProject();
     await page.waitForURL('**/projects/**/overview');
@@ -205,7 +209,7 @@ test.describe('Project Overview Page', () => {
         await expect(await projectsPage.projectOverviewguidecontentstep2heading()).toBeVisible();
         await expect(await projectsPage.projectOverviewguidecontentstep2heading()).toHaveText('Make your project public');
         await expect(await projectsPage.projectOverviewguidecontentstep2content()).toBeVisible();
-        await expect(await projectsPage.projectOverviewguidecontentstep2content()).toHaveText('Complete at least Tier 0 to publish your project on Centigrade’s platform and share it with others');
+        await expect(await projectsPage.projectOverviewguidecontentstep2content()).toHaveText('Complete the required Tier 0 fields (indicated by a red *) to publish your project on Centigrade’s platform and share it with others');
       },
       errors
     )
@@ -268,7 +272,7 @@ test.describe('Project Overview Page', () => {
         await expect(await projectsPage.projectOverviewTier0Cardheading()).toBeVisible();
         await expect(await projectsPage.projectOverviewTier0Cardheading()).toHaveText('Tier 0 - Provenance data');
         await expect(await projectsPage.projectOverviewTier0Cardheadercontent()).toBeVisible();
-        await expect(await projectsPage.projectOverviewTier0Cardheadercontent()).toHaveText('Complete all items in Tier 0 - Provenance to publish your project');
+        await expect(await projectsPage.projectOverviewTier0Cardheadercontent()).toHaveText('Complete all fields with red * in Tier 0 to publish your project');
       },
       errors
     )

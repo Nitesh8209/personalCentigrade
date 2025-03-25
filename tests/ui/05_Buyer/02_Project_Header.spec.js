@@ -8,23 +8,30 @@ import { project } from '../../data/projectData';
 import { ProjectListings } from '../../../pages/projectListingPage';
 import { safeExpect } from '../../utils/authHelper';
 import { validateGetInTouchModal, validateListingProjectHeader } from '../../utils/listingsProjectHelper';
+import path from 'path';
 
 
 test.describe('Project Header - UI and Navigation for Unauthenticated Users', async () => {
 
-  test.beforeEach(async ({ page, baseURL }) => {
+  let page;
+
+  test.beforeAll(async ({ browser, baseURL }) => {
+    // Initialize page objects
+    const context = await browser.newContext();
+    page = await context.newPage();
+
     const listingPage = new ListingPage(page);
     await page.goto(`${baseURL}/listings`);
 
-    // Click on first project to navigate to project details
-    const projectTitle = await listingPage.projectItemCardContentMainTitle();
-    await expect(projectTitle).toBeVisible();
-    await projectTitle.click();
-    await page.waitForURL('**/overview');
+     // Click on first project to navigate to project details
+     const projectTitle = await listingPage.projectItemCardContentMainTitle();
+     await expect(projectTitle).toBeVisible();
+     await projectTitle.click();
+     await page.waitForURL('**/overview');
   });
 
   // Test case for verifying navigation elements for unauthenticated users
-  test('Verify Navbar header should be visible for Unauthenticated Users', async ({ page, baseURL }) => {
+  test('Verify Navbar header should be visible for Unauthenticated Users', async ({ baseURL }) => {
     const errors = [];
     const listingPage = new ListingPage(page);
 
@@ -49,6 +56,7 @@ test.describe('Project Header - UI and Navigation for Unauthenticated Users', as
       await expect(await listingPage.createAccount()).toBeVisible();
       await createAccount.click();
       await expect(await page.url()).toContain(`${baseURL}/create-account?from=%2Flistings`);
+      await page.goBack();
     }, errors);
 
     if (errors.length > 0) {
@@ -58,20 +66,20 @@ test.describe('Project Header - UI and Navigation for Unauthenticated Users', as
   })
 
   // Test case for verifying project information display
-  test('Verify should display Project Information on the Header for Unauthenticated Users', async ({ page }) => {
+  test('Verify should display Project Information on the Header for Unauthenticated Users', async () => {
     const errors = [];
     const projectHeader = new ProjectListings(page);
 
     await validateListingProjectHeader(projectHeader, errors);
 
-    if (errors > 0) {
+    if (errors.length > 0) {
       throw new Error(`Validation errors found:\n${errors.join('\n')}`);
     }
 
   })
 
   // Test case for verifying Get In Touch modal functionality
-  test('Verify should display and function Get In Touch Modal for Unauthenticated Users', async ({ page }) => {
+  test('Verify should display and function Get In Touch Modal for Unauthenticated Users', async () => {
     const errors = [];
     const projectHeader = new ProjectListings(page);
     const getInTouch = await projectHeader.getInTouch();
@@ -96,31 +104,35 @@ test.describe('Project Header - UI and Navigation for Unauthenticated Users', as
 // after Login 
 test.describe('Project Header - UI and Navigation for Authenticated Users', async () => {
   const { newEmail } = getData('UI');
+  const authStoragePath = path.join(__dirname, '..', '..', 'data', 'auth-admin.json');
+  test.use({ storageState: authStoragePath });
 
-  test.beforeEach(async ({ page, baseURL }) => {
+  let page;
+
+  test.beforeAll(async ({ browser, baseURL }) => {
+    // Initialize page objects
+    const context = await browser.newContext();
+    page = await context.newPage();
+
     const loginPage = new LoginPage(page, baseURL);
     const listingPage = new ListingPage(page);
 
-    // Navigate to the login page and Login
+    // Navigate to the login page and perform login
     await loginPage.navigate();
-    await loginPage.login(newEmail, ValidTestData.newPassword);
     await page.waitForURL('**/projects');
-
-    // Navigate to listings page
     const ListingsButton = await listingPage.listings();
     await expect(ListingsButton).toBeVisible();
     await ListingsButton.click();
     await page.waitForURL('**/listings');
 
-    // Navigate to specific project details
     const projectTitle = await listingPage.projectItemCardContentMainTitle();
-    await expect(projectTitle).toBeVisible();
-    await projectTitle.click();
-    await page.waitForURL('**/overview');
+      await expect(projectTitle).toBeVisible();
+      await projectTitle.click();
+      await page.waitForURL('**/overview');
   });
 
   // Test case for verifying navigation elements are hidden for authenticated users
-  test('Verify Navbar header should not be visible for authenticated users', async ({ page }) => {
+  test('Verify Navbar header should not be visible for authenticated users', async () => {
     const errors = [];
     const listingPage = new ListingPage(page);
 
@@ -144,7 +156,7 @@ test.describe('Project Header - UI and Navigation for Authenticated Users', asyn
   });
 
   // Test case for verifying breadcrumb navigation for authenticated users
-  test('Verify should display Breadcurmps for authenticated users', async ({ page }) => {
+  test('Verify should display Breadcurmps for authenticated users', async () => {
     const errors = [];
     const fieldHandler = new FieldHandler(page);
 
@@ -180,7 +192,7 @@ test.describe('Project Header - UI and Navigation for Authenticated Users', asyn
   })
 
   // Test case for verifying project information display for authenticated users
-  test('Verify should display Project Information on the Header for authenticated users', async ({ page }) => {
+  test('Verify should display Project Information on the Header for authenticated users', async () => {
     const errors = [];
     const projectHeader = new ProjectListings(page);
 
@@ -193,7 +205,7 @@ test.describe('Project Header - UI and Navigation for Authenticated Users', asyn
   })
 
   // Test case for verifying Get In Touch modal functionality for authenticated users
-  test('Verify should display and functional Get In Touch Modal for authenticated users', async ({ page }) => {
+  test('Verify should display and functional Get In Touch Modal for authenticated users', async () => {
     const errors = [];
     const projectHeader = new ProjectListings(page);
     const getInTouch = await projectHeader.getInTouch();

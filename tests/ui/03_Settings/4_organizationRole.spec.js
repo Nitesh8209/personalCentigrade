@@ -5,24 +5,39 @@ import { Credentials } from "../../data/testData";
 import { safeExpect } from "../../utils/authHelper";
 import { getData } from "../../utils/apiHelper";
 import { ValidTestData } from "../../data/SignUpData";
+import path from "path";
 
 const { newEmail } = getData('UI');
 test.describe('View Basic Test cases', () => {
 
-  test.afterEach(async ({ page, baseURL }) => {
+    let page;
+  
+    test.beforeAll(async ({ browser, baseURL }) => {
+      const context = await browser.newContext();
+      page = await context.newPage();
+
+      const loginPage = new LoginPage(page, baseURL);
+      await loginPage.navigate();
+    });
+  
+    // Close the browser page after all tests are complete
+    test.afterAll(async () => {
+      await page.close();
+    });
+
+  test.afterEach(async ({ baseURL }) => {
     const loginPage = new LoginPage(page, baseURL);
     await loginPage.logOut();
     expect(page.url()).toBe(`${baseURL}/login`);
   })
 
-  test('Verify that the "Listed Projects" button is visible on the left Sidebar', async ({ page, baseURL }) => {
+  test('Verify that the "Listed Projects" button is visible on the left Sidebar', async ({ baseURL }) => {
 
     const loginPage = new LoginPage(page, baseURL);
     const projectsPage = new ProjectsPage(page, baseURL);
     const errors = [];
 
     // Navigate to login page and perform login
-    await loginPage.navigate();
     await loginPage.login(newEmail, ValidTestData.newPassword);
 
     // Ensure that the page navigates to the expected URL
@@ -46,14 +61,13 @@ test.describe('View Basic Test cases', () => {
 
   })
 
-  test('Verify access control and error handling for project page without the necessary role', async ({ page, baseURL }) => {
+  test('Verify access control and error handling for project page without the necessary role', async ({ baseURL }) => {
     const errors = [];
 
     const loginPage = new LoginPage(page, baseURL);
     const projectsPage = new ProjectsPage(page, baseURL);
 
     // Navigate to the login page and Login
-    await loginPage.navigate();
     await loginPage.login(newEmail, ValidTestData.newPassword);
     await page.waitForURL('**/listings');
 
@@ -96,14 +110,13 @@ test.describe('View Basic Test cases', () => {
 
   });
 
-  test('Update role type to Form basic', async ({ page, baseURL }) => {
+  test('Update role type to Form basic', async ({ baseURL }) => {
 
     const loginPage = new LoginPage(page, baseURL);
     const projectsPage = new ProjectsPage(page, baseURL);
 
     // Navigate to the login page and Login
     const errors = [];
-    await loginPage.navigate();
     await loginPage.login(Credentials.username, Credentials.password);
     await page.waitForLoadState('networkidle');
 
@@ -152,14 +165,13 @@ test.describe('View Basic Test cases', () => {
 
   });
 
-  test('Verify that the "My Projects" button is visible on the left Sidebar', async ({ page, baseURL }) => {
+  test('Verify that the "My Projects" button is visible on the left Sidebar', async ({ baseURL }) => {
 
     const loginPage = new LoginPage(page, baseURL);
     const projectsPage = new ProjectsPage(page, baseURL);
 
     // Navigate to login page and perform login
     const errors = [];
-    await loginPage.navigate();
     await loginPage.login(newEmail, ValidTestData.newPassword);
 
     // Ensure that the page navigates to the expected URL
@@ -181,14 +193,13 @@ test.describe('View Basic Test cases', () => {
 
   })
 
-  test('Add role type to Form Creator', async ({ page, baseURL }) => {
+  test('Add role type to Form Creator', async ({ baseURL }) => {
 
     const loginPage = new LoginPage(page, baseURL);
     const projectsPage = new ProjectsPage(page, baseURL);
 
     // Navigate to the login page and Login
     const errors = [];
-    await loginPage.navigate();
     await loginPage.login(Credentials.username, Credentials.password);
     await page.waitForLoadState('networkidle');
 
@@ -230,14 +241,13 @@ test.describe('View Basic Test cases', () => {
 
   });
 
-  test('Verify that the "Create Projects" button is visible', async ({ page, baseURL }) => {
+  test('Verify that the "Create Projects" button is visible', async ({ baseURL }) => {
 
     const loginPage = new LoginPage(page, baseURL);
     const projectsPage = new ProjectsPage(page, baseURL);
 
     // Navigate to login page and perform login
     const errors = [];
-    await loginPage.navigate();
     await loginPage.login(newEmail, ValidTestData.newPassword);
 
     // Ensure that the page navigates to the expected URL
@@ -259,14 +269,13 @@ test.describe('View Basic Test cases', () => {
 
   })
 
-  test('Add role type View Basic', async ({ page, baseURL }) => {
+  test('Add role type View Basic', async ({ baseURL }) => {
 
     const loginPage = new LoginPage(page, baseURL);
     const projectsPage = new ProjectsPage(page, baseURL);
 
     // Navigate to the login page and Login
     const errors = [];
-    await loginPage.navigate();
     await loginPage.login(Credentials.username, Credentials.password);
     await page.waitForLoadState('networkidle');
 

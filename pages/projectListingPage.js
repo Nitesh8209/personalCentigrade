@@ -11,11 +11,11 @@ export class ProjectListings {
   }
 
   async projectTag() {
-    return await this.page.locator('.project-tags');
+    return await this.page.locator('.project-organization');
   }
 
   async projectTitle() {
-    return await this.page.locator('.project-title > h1');
+    return await this.page.locator('.content-header > h1');
   }
 
   async getInTouch() {

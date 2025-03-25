@@ -19,6 +19,9 @@ test.describe('After Topic 1 - Fill Remaining Required Fields and Save', () => {
   let page;
   let fieldHandler;
 
+    const authStoragePath = path.join(__dirname, '..', '..', 'data', 'auth-admin.json');
+    test.use({ storageState: authStoragePath });
+
   test.beforeAll(async ({ browser, baseURL }) => {
     // Initialize page objects
     const context = await browser.newContext();
@@ -29,7 +32,6 @@ test.describe('After Topic 1 - Fill Remaining Required Fields and Save', () => {
 
     // Navigate to the application and log in
     await loginPage.navigate();
-    await loginPage.login(newEmail, ValidTestData.newPassword);
     await projectsPage.viewProject();
     await page.waitForURL(`**/overview`);
 
@@ -149,6 +151,9 @@ test.describe('Publish the Project after completed the Tier 1, Tier 2, Tier 3 to
   // Test configuration and setup
   const { newEmail } = getData('UI');
 
+      const authStoragePath = path.join(__dirname, '..', '..', 'data', 'auth-admin.json');
+    test.use({ storageState: authStoragePath });
+
   // Fixture to handle common setup
   test.beforeAll(async ({ browser, baseURL }) => {
     // Initialize page objects
@@ -160,7 +165,6 @@ test.describe('Publish the Project after completed the Tier 1, Tier 2, Tier 3 to
 
     // Navigate and setup initial state
     await loginPage.navigate();
-    await loginPage.login(newEmail, ValidTestData.newPassword);
     await projectsPage.viewProject();
     await page.waitForURL(`**/overview`);
 
@@ -202,13 +206,26 @@ test.describe('Publish the Project after completed the Tier 1, Tier 2, Tier 3 to
       errors
     );
 
+    // Click on Publish Button
+    await safeExpect('Click on Publish button after fill summary of Updates',
+      async () => {
+        const summaryOfUpdates = await projectsPage.summaryOfUpdates();
+        await summaryOfUpdates.fill('Test');
+        const draftPublishButton = await projectsPage.draftPublishButton();
+        await expect(draftPublishButton).toBeVisible();
+        await expect(draftPublishButton).toBeEnabled();
+        await draftPublishButton.click();
+      },
+      errors
+    );
+
     // Verify Success Message after Publishing
     await safeExpect('Check success message after publishing',
       async () => {
         const success = await fieldHandler.successMessagediv();
         const successMessage = await success.innerText();
         await expect(success).toBeVisible();
-        await expect(successMessage).toBe('Your project has been published');
+        await expect(successMessage).toBe('Your updates have been published!');
       },
       errors
     );

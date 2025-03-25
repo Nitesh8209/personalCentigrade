@@ -115,7 +115,7 @@ export class FieldHandler {
   }
 
   async findLabel(label) {
-    return this.page.getByText(label, { exact: true });
+    return this.page.locator('.nav-menu').getByText(label, { exact: true });
   }
 
   async findStep(step) {
@@ -232,7 +232,7 @@ export class FieldHandler {
         const indicator = await locator.locator('.select-indicator');
         const listbox = await this.listBox(field.label);
         if (!(await listbox.isVisible())) {
-        await indicator.click();
+          await indicator.click();
         }
         for (const option of field.options) {
           const selectedValuesText = await locator.textContent();
@@ -495,7 +495,7 @@ export class FieldHandler {
 
       // Reopen dropdown before selecting each option if dropdown closed
       if (!(await listBox.isVisible())) {
-      await locator.click();
+        await locator.click();
       }
 
       const optionLocator = listBox.locator(`text="${expectedOption}"`);
@@ -543,10 +543,10 @@ export class FieldHandler {
       await expect(radioLocator).toBeChecked();
     }
 
-  // Uncheck "I don't know" and validate
-  const radiolocatorIDK = locator.getByText("I don't know");
-  await radiolocatorIDK.uncheck();
-  await expect(radiolocatorIDK).not.toBeChecked();
+    // Uncheck "I don't know" and validate
+    const radiolocatorIDK = locator.getByText("I don't know");
+    await radiolocatorIDK.uncheck();
+    await expect(radiolocatorIDK).not.toBeChecked();
 
     // Recheck "Yes" to ensure behavior
     await locator.getByText("Yes").check();
@@ -716,7 +716,7 @@ export class FieldHandler {
 
       case COMPONENT_TYPES.CHECKBOX:
         await this.validateCheckboxField(locator, field.component);
-        value = true;
+        value = field.options;
         break;
 
       case COMPONENT_TYPES.RADIOYN:
@@ -749,11 +749,11 @@ export class FieldHandler {
         value = date.toLocaleDateString('en-US');
         await locator.fill(value);
         break;
-      
+
       case COMPONENT_TYPES.TEXT_INPUT_MULTIPLE:
         const latitude = faker.location.latitude();
         const longitude = faker.location.longitude();
-         value = `${latitude}, ${longitude}`;
+        value = `${latitude}, ${longitude}`;
         await locator.locator('input').fill(value);
         break;
 
@@ -859,6 +859,10 @@ export class FieldHandler {
       await radiolocator.check();
       await expect(radiolocator).toBeChecked();
     }
+  }
+
+  async fillCheckboxField(locator, displayDependencylabel, value) {
+
   }
 
   /**
@@ -994,7 +998,7 @@ export class FieldHandler {
 
   async checkStepVisibility(stepElement, step, test) {
     if (! await stepElement.isVisible()) {
-        test.skip(true, `Step '${step.label}' is not visible - skipping validation`);
+      test.skip(true, `Step '${step.label}' is not visible - skipping validation`);
     }
   }
 
@@ -1044,8 +1048,8 @@ export class FieldHandler {
       const stepLabelElement = await this.findLabel(dependentFieldDetails.stepLabel);
       await stepLabelElement.click();
 
-     dependencyField = await dependentFieldDetails?.field;
-     isNewlyVisible = true;
+      dependencyField = await dependentFieldDetails?.field;
+      isNewlyVisible = true;
     }
 
     // Check if the dependency field has its own display dependencies
@@ -1121,7 +1125,7 @@ export class FieldHandler {
         await expect(await this.successMessageHeader()).toBeVisible();
         await expect(saveButton).toBeDisabled();
       }
-      
+
       await topicElement.click();
     };
 

@@ -27,15 +27,15 @@ export class ListingPage {
   }
 
   async buyerProjectHeader(){
-    return await this.page.locator('.buyer-projects__header-content');
+    return await this.page.locator('.buyer-projects__header');
   }
 
   async heading(){
-    return (await this.buyerProjectHeader()).locator('.heading-1');
+    return (await this.buyerProjectHeader()).locator('.content-header > h1');
   }
 
   async headingBase(){
-    return (await this.buyerProjectHeader()).locator('.text-base');
+    return (await this.buyerProjectHeader()).locator('.content-header-description');
   }
 
   async buyerProjectHeaderNotice(){
@@ -43,11 +43,11 @@ export class ListingPage {
   }
 
   async buyerProjectHeaderNoticeText(){
-    return (await this.buyerProjectHeaderNotice()).locator('span');
+    return await (await this.buyerProjectHeaderNotice()).locator('span');
   }
 
   async buyerProjectHeaderNoticeRMIIcon(){
-    return (await this.buyerProjectHeaderNotice()).locator('.buyer-projects__header-notice-rmi-icon');
+    return await (await this.buyerProjectHeaderNotice()).locator('.buyer-projects__header-notice-logo');
   }
 
   async buyerProjectHeaderNoticeRMIIconText(){
@@ -63,7 +63,7 @@ export class ListingPage {
   }
 
   async firstprojectListItem(){
-    return (await this.projectListItem()).filter({hasText: project.uiProjectName});
+    return (await this.projectListItem()).filter({hasText: project.uiProjectName}).first();
   }
 
   async projectItemImg(){

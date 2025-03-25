@@ -8,14 +8,23 @@ import { saveData } from '../../utils/apiHelper';
 
 test.describe('Create Account Page UI Tests', () => {
   let newEmail;
+  let page;
 
   // Setup: Generate a new email before all tests
-  test.beforeAll(async () => {
+  test.beforeAll(async ({ browser }) => {
+    const context = await browser.newContext();
+    page = await context.newPage();
+
     newEmail = generateTestEmail();
   });
 
+   // Close the browser page after all tests are complete
+   test.afterAll(async () => {
+    await page.close();
+  });
+
   // Test 1: Verify UI elements and functionality of the Create Account page
-  test('Should display Create Account page elements and validate functionality', async ({ page, baseURL }) => {
+  test('Should display Create Account page elements and validate functionality', async ({ baseURL }) => {
     const loginPage = new LoginPage(page, baseURL);
     await page.setViewportSize({ width: 1280, height: 884 });
 
@@ -136,7 +145,7 @@ test.describe('Create Account Page UI Tests', () => {
   })
 
   // Test 2: Create a new account with a non-existing user
-  test('Create an Account with a Non existing user', async ({ page, baseURL }) => {
+  test('Create an Account with a Non existing user', async ({ baseURL }) => {
 
     const signUpPage = new SignUpPage(page, baseURL);
 
@@ -182,7 +191,7 @@ test.describe('Create Account Page UI Tests', () => {
   })
 
   // Test 3: Attempt to create an account with an already existing user
-  test('Create an account with an already existing user', async ({ page, baseURL }) => {
+  test('Create an account with an already existing user', async ({ baseURL }) => {
 
     const signUpPage = new SignUpPage(page, baseURL);
 
