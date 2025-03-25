@@ -21,6 +21,9 @@ test.describe('Field level validation', async () => {
   let page;
   let fieldHandler;
 
+    const authStoragePath = path.join(__dirname, '..', '..', 'data', 'auth-admin.json');
+    test.use({ storageState: authStoragePath });
+
   test.beforeAll(async ({ browser, baseURL }) => {
     // Initialize page objects
     const context = await browser.newContext();
@@ -31,7 +34,6 @@ test.describe('Field level validation', async () => {
 
     // Navigate and setup initial state
     await loginPage.navigate();
-    await loginPage.login(newEmail, ValidTestData.newPassword);
     await projectsPage.viewProject();
     await page.waitForURL(`**/overview`);
 

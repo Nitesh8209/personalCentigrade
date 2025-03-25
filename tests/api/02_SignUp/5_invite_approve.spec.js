@@ -149,7 +149,7 @@ test.describe.serial(`Member Invitation and Approval Flow`, () => {
 
       // Fetch Gmail approval email  
       const { subject } = await getGmailMessages();
-      // expect(subject).toBe(expectedSubject);
+      expect(subject).toBe(expectedSubject);
     })
 
   })

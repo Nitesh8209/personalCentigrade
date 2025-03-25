@@ -5,15 +5,22 @@ import { ValidTestData } from '../../data/SignUpData';
 import { getData } from '../../utils/apiHelper';
 import { validateListingsProject, validatePageHeader } from '../../utils/listingsHelper';
 import { safeExpect } from '../../utils/authHelper';
+import path from 'path';
 
 test.describe('Listings Page - UI and Navigation', () => {
 
-  test.beforeEach(async ({ page, baseURL }) => {
+  let page;
+
+  test.beforeAll(async ({ browser, baseURL }) => {
+    // Initialize page objects
+    const context = await browser.newContext();
+    page = await context.newPage();
+
     await page.goto(`${baseURL}/listings`);
   });
 
   // Test case for verifying navigation elements and authentication buttons
-  test('should display navigation elements and functional authentication buttons', async ({ page, baseURL }) => {
+  test('should display navigation elements and functional authentication buttons', async ({ baseURL }) => {
     const errors = [];
     const listingPage = new ListingPage(page);
 
@@ -46,9 +53,10 @@ test.describe('Listings Page - UI and Navigation', () => {
   });
 
   // Test case for verifying page content structure and layout
-  test('should display proper page header and content structure', async ({ page }) => {
+  test('should display proper page header and content structure', async ({ baseURL }) => {
     const errors = [];
     const listingPage = new ListingPage(page);
+    await page.goto(`${baseURL}/listings`);
 
     await validatePageHeader(listingPage, errors);
 
@@ -59,7 +67,7 @@ test.describe('Listings Page - UI and Navigation', () => {
   });
 
   // Test case for verifying projects are visible for unauthenticated users
-  test('should display projects on listings page for unauthenticated users', async ({ page }) => {
+  test('should display projects on listings page for unauthenticated users', async () => {
     const errors = [];
     const listingPage = new ListingPage(page);
 
@@ -75,13 +83,21 @@ test.describe('Listings Page - UI and Navigation', () => {
 test.describe('Listings Page - After Login', () => {
   const { newEmail } = getData('UI');
 
-  test.beforeEach(async ({ page, baseURL }) => {
+  const authStoragePath = path.join(__dirname, '..', '..', 'data', 'auth-admin.json');
+  test.use({ storageState: authStoragePath });
+
+  let page;
+
+  test.beforeAll(async ({ browser, baseURL }) => {
+    // Initialize page objects
+    const context = await browser.newContext();
+    page = await context.newPage();
+
     const loginPage = new LoginPage(page, baseURL);
     const listingPage = new ListingPage(page);
 
     // Navigate to the login page and perform login
     await loginPage.navigate();
-    await loginPage.login(newEmail, ValidTestData.newPassword);
     await page.waitForURL('**/projects');
     const ListingsButton = await listingPage.listings();
     await expect(ListingsButton).toBeVisible();
@@ -90,7 +106,7 @@ test.describe('Listings Page - After Login', () => {
   });
 
   // Test case for verifying Navigation Header after authentication
-  test('Verify navigation header is hidden after login', async ({ page, baseURL }) => {
+  test('Verify navigation header is hidden after login', async ({ baseURL }) => {
     const errors = [];
     const listingPage = new ListingPage(page);
 
@@ -112,7 +128,7 @@ test.describe('Listings Page - After Login', () => {
   });
 
   // Test case for verifying page content structure for authenticated users
-  test('should display Page content on the listings page', async ({ page }) => {
+  test('should display Page content on the listings page', async () => {
     const errors = [];
     const listingPage = new ListingPage(page);
 
@@ -125,7 +141,7 @@ test.describe('Listings Page - After Login', () => {
   });
 
   // Test case for verifying project listings and help button for authenticated users
-  test('should display Project on the listings page', async ({ page }) => {
+  test('should display Project on the listings page', async () => {
     const errors = [];
     const listingPage = new ListingPage(page);
 

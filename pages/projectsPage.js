@@ -116,7 +116,7 @@ class ProjectsPage {
     }
 
     async listingprojectTitle() {
-        return await this.page.locator('.project-title > h1');
+        return await this.page.locator('.content-header-title');
     }
 
     async proveneceStartGuide() {
@@ -772,6 +772,10 @@ class ProjectsPage {
 
     async publishButton() {
         return await this.page.getByRole('button', { name: 'Publish', exact: true });
+    }
+
+    async draftPublishButton() {
+        return await this.page.getByLabel('Current draft').getByRole('button', { name: 'Publish' });
     }
 
     async shareButton() {
@@ -1703,6 +1707,10 @@ class ProjectsPage {
 
     async projectOverviewhelpButton() {
         return await this.page.getByRole('button', { name: 'Help & Support' });
+    }
+
+    async summaryOfUpdates(){
+        return await this.page.getByLabel('Summary of updates');
     }
 }
 

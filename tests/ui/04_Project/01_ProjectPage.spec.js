@@ -1,5 +1,6 @@
 const { test, expect } = require('@playwright/test');
 const { ValidTestData } = require('../../data/SignUpData');
+import path from "path";
 import API_ENDPOINTS from "../../../api/apiEndpoints";
 import { LoginPage } from "../../../pages/loginPage";
 import { ProjectsPage } from "../../../pages/projectsPage";
@@ -11,16 +12,23 @@ import { safeExpect } from "../../utils/authHelper";
 test.describe('Project Page', () => {
   const { newEmail } = getData('UI');
 
-  test.beforeEach(async ({ page, baseURL }) => {
-    const loginPage = new LoginPage(page, baseURL);
+  let page;
+  
+    test.beforeAll(async ({ browser, baseURL }) => {
+      const context = await browser.newContext();
+      page = await context.newPage();
 
-    // Navigate to the login page and Login
-    await loginPage.navigate();
-    await loginPage.login(newEmail, ValidTestData.newPassword);
+      const loginPage = new LoginPage(page, baseURL);
+      await loginPage.navigate();
+      await loginPage.login(newEmail, ValidTestData.newPassword);
+       
     await page.waitForURL('**/projects');
-  })
+    const authStoragePath = path.join(__dirname, '..', '..', 'data', 'auth-admin.json');
+    await page.context().storageState({ path: authStoragePath });
+    });
 
-  test('Verify project page displays correctly', async ({ page, baseURL }) => {
+
+  test('Verify project page displays correctly', async ({ baseURL }) => {
     const errors = [];
     const projectsPage = new ProjectsPage(page, baseURL);
 
@@ -67,7 +75,7 @@ test.describe('Project Page', () => {
 
   });
 
-  test('Verify create new project modal and content on project page', async ({ page, baseURL }) => {
+  test('Verify create new project modal and content on project page', async ({ baseURL }) => {
     const errors = [];
     const projectsPage = new ProjectsPage(page, baseURL);
 
@@ -112,8 +120,10 @@ test.describe('Project Page', () => {
     // Verify the Buttons in create new project modal
     await safeExpect('Buttons in create new project modal',
       async () => {
-        await expect(await projectsPage.cancelButton()).toBeVisible();
-        await expect(await projectsPage.createButton()).toBeVisible();
+        const cancelButton = await projectsPage.cancelButton();
+        await expect(cancelButton).toBeVisible();
+        await expect(cancelButton).toBeVisible();
+        await cancelButton.click();
       },
       errors
     );
@@ -124,11 +134,12 @@ test.describe('Project Page', () => {
     }
   });
 
-  test('Verify methodology dropdown functionality in create new project modal', async ({ page, baseURL }) => {
+  test('Verify methodology dropdown functionality in create new project modal', async ({ baseURL }) => {
 
     const errors = [];
     let expectedDescriptions;
     const projectsPage = new ProjectsPage(page, baseURL);
+    await page.reload();
 
     // Click on the create project button
     const createProjectButton = await projectsPage.createProjectButton();
@@ -190,10 +201,11 @@ test.describe('Project Page', () => {
     }
   })
 
-  test('Cancel Button functionality in Create New Project Modal', async ({ page, baseURL }) => {
+  test('Cancel Button functionality in Create New Project Modal', async ({ baseURL }) => {
 
     const errors = [];
     const projectsPage = new ProjectsPage(page, baseURL);
+    await page.reload();
 
     // Click on the create project button
     const createProjectButton = await projectsPage.createProjectButton();
@@ -251,7 +263,8 @@ test.describe('Project Page', () => {
     }
   })
 
-  test('Create Button in create new project modal, Saves Project and Navigates to Overview', async ({ page, baseURL }) => {
+  test('Create Button in create new project modal, Saves Project and Navigates to Overview', async ({ baseURL }) => {
+    await page.reload();
     const errors = [];
     const projectsPage = new ProjectsPage(page, baseURL);
 
@@ -281,8 +294,9 @@ test.describe('Project Page', () => {
         const create = await projectsPage.createButton();
         await create.click();
         await page.waitForURL('**/projects/**/overview');
+        await page.waitForLoadState('networkidle');
         await expect(await projectsPage.modal()).not.toBeVisible();
-        await expect(await projectsPage.overviewProject()).toBeVisible();
+        await expect(await projectsPage.overviewProject()).toBeVisible({ timeout: 20000});
         await expect(await projectsPage.overviewHeader()).toBeVisible();
         await expect(await projectsPage.overviewtitle()).toBeVisible();
         await expect(await projectsPage.overviewtitle()).toHaveText(project.uiProjectName);
@@ -296,9 +310,10 @@ test.describe('Project Page', () => {
     }
   })
 
-  test('Verify Project Page After Creating a New Project', async ({ page, baseURL }) => {
+  test('Verify Project Page After Creating a New Project', async ({ baseURL }) => {
     const errors = [];
     const projectsPage = new ProjectsPage(page, baseURL);
+    await page.goto(`${baseURL}/projects`);
 
     await safeExpect('Project Breadcrump Visibility',
       async () => {

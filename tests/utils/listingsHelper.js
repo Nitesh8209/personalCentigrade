@@ -30,7 +30,7 @@ export const validatePageHeader = async (listingPage, errors) => {
   await safeExpect(`Listings page Header Notice should be visible`, async () => {
     await expect(await listingPage.buyerProjectHeaderNotice()).toBeVisible();
     await expect(await listingPage.buyerProjectHeaderNoticeText()).toBeVisible();
-    await expect(await listingPage.buyerProjectHeaderNoticeText()).toHaveText('Did you know? Our open source data frameworks are co-developed with');
+    await expect(await listingPage.buyerProjectHeaderNotice()).toHaveText('Did you know? Our open source data frameworks are co-developed with');
     await expect(await listingPage.buyerProjectHeaderNoticeRMIIcon()).toBeVisible();
     await expect(await listingPage.buyerProjectHeaderNoticeRMIIconText()).toBeVisible();
   }, errors);

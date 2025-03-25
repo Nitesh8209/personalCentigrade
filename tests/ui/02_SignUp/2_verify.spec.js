@@ -8,9 +8,21 @@ import { SettingsPage } from '../../../pages/settingsPage';
 test.describe('Verification Code Page UI Tests', () => {
   const { newEmail } = getData('UI');
   let receivedVerificationCode;
+  let page;
+
+    // Setup: Generate a new email before all tests
+    test.beforeAll(async ({ browser }) => {
+      const context = await browser.newContext();
+      page = await context.newPage();
+      });
+  
+     // Close the browser page after all tests are complete
+     test.afterAll(async () => {
+      await page.close();
+    });
 
   // Test case: Successful resend of the verification code
-  test('Successful resend verification code', async ({ page, baseURL }) => {
+  test('Successful resend verification code', async ({ baseURL }) => {
     const signUpPage = new SignUpPage(page, baseURL);
 
     // Navigate to the verification page using the provided email
@@ -26,7 +38,7 @@ test.describe('Verification Code Page UI Tests', () => {
   })
 
   // Test case: Resend verification code to an invalid user
-  test('resend verification code to invalid user', async ({ page, baseURL }) => {
+  test('resend verification code to invalid user', async ({ baseURL }) => {
     const signUpPage = new SignUpPage(page, baseURL);
 
     // Navigate to the verification page using an invalid email
@@ -42,7 +54,7 @@ test.describe('Verification Code Page UI Tests', () => {
 
   // Test case: Successful verification with correct code and password
   // and landing on the "awaiting-approval" page
-  test('Successful verification with correct code and password and land on the awaiting-approval approval page', async ({ page, baseURL }) => {
+  test('Successful verification with correct code and password and land on the awaiting-approval approval page', async ({ baseURL }) => {
 
     const signUpPage = new SignUpPage(page, baseURL);
     const settingsPage = new SettingsPage(page, baseURL);
@@ -58,6 +70,7 @@ test.describe('Verification Code Page UI Tests', () => {
     expect(page.url()).toContain('/listings');
     
     const settingButton = await settingsPage.settingButton();
+    await expect(settingButton).toBeVisible();
     await settingButton.click();
 
     await expect(await settingsPage.tabList()).toBeVisible();

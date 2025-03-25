@@ -15,16 +15,21 @@ const viewData = JSON.parse(fs.readFileSync(ViewDataPath, 'utf-8'));
 // Validate the visibility of the topic and step group for unauthenticated users
 test.describe('Topic and Step Group Visibility for Unauthenticated Users', () => {
 
-  test.beforeEach(async ({ page, baseURL }) => {
-  
+  let page;
+
+  test.beforeAll(async ({ browser, baseURL }) => {
+    // Initialize page objects
+    const context = await browser.newContext();
+    page = await context.newPage();
+
     const listingPage = new ListingPage(page);
     await page.goto(`${baseURL}/listings`);
 
-    // Click on first project to navigate to project details
-    const projectTitle = await listingPage.projectItemCardContentMainTitle();
-    await expect(projectTitle).toBeVisible();
-    await projectTitle.click();
-    await page.waitForURL('**/overview');
+     // Click on first project to navigate to project details
+     const projectTitle = await listingPage.projectItemCardContentMainTitle();
+     await expect(projectTitle).toBeVisible();
+     await projectTitle.click();
+     await page.waitForURL('**/overview');
   });
 
   // Loop through each topic and validate visibility
@@ -32,7 +37,7 @@ test.describe('Topic and Step Group Visibility for Unauthenticated Users', () =>
 
     if(topic.label == 'Updates') continue;
     // Validate topic visibility
-    test(`Verify Topic is Visible: ${topic.label} for Unauthenticated Users`, async ({ page }) => {
+    test(`Verify Topic is Visible: ${topic.label} for Unauthenticated Users`, async () => {
       const errors = [];
       const projectListings = new ProjectListings(page);
      
@@ -51,7 +56,7 @@ test.describe('Topic and Step Group Visibility for Unauthenticated Users', () =>
       const hasField = topic.step_groups.some(group => group.label !== '');
 
       // Validate step group visibility
-      test(`Verify Step Groups in Topic: ${topic.label} for Unauthenticated Users`, async ({ page }) => {
+      test(`Verify Step Groups in Topic: ${topic.label} for Unauthenticated Users`, async () => {
         
         // Skip the test if no step group label is found
         test.skip(!hasField, `No Step Group Label found in ${topic.label}`);
@@ -81,31 +86,38 @@ test.describe('Topic and StepGroup Visibility for Authenticated Users', () => {
 
   const { newEmail } = getData('UI');
 
-  test.beforeEach(async ({ page, baseURL }) => {
-    const loginPage = new LoginPage(page, baseURL);
-     const listingPage = new ListingPage(page);
+    const authStoragePath = path.join(__dirname, '..', '..', 'data', 'auth-admin.json');
+    test.use({ storageState: authStoragePath });
 
-    // Navigate to the login page and Login
+    let page;
+
+  test.beforeAll(async ({ browser, baseURL }) => {
+    // Initialize page objects
+    const context = await browser.newContext();
+    page = await context.newPage();
+
+    const loginPage = new LoginPage(page, baseURL);
+    const listingPage = new ListingPage(page);
+
+    // Navigate to the login page and perform login
     await loginPage.navigate();
-    await loginPage.login(newEmail, ValidTestData.newPassword);
     await page.waitForURL('**/projects');
     const ListingsButton = await listingPage.listings();
     await expect(ListingsButton).toBeVisible();
     await ListingsButton.click();
     await page.waitForURL('**/listings');
 
-    // Click on project to navigate to project details
     const projectTitle = await listingPage.projectItemCardContentMainTitle();
-    await expect(projectTitle).toBeVisible();
-    await projectTitle.click();
-    await page.waitForURL('**/overview');
+      await expect(projectTitle).toBeVisible();
+      await projectTitle.click();
+      await page.waitForURL('**/overview');
   });
-
+  
   // Loop through each topic and validate visibility
   for (const topic of viewData.topics) {
 
     // Validate topic visibility
-    test(`Verify Topic is Visible: ${topic.label} for Authenticated Users`, async ({ page }) => {
+    test(`Verify Topic is Visible: ${topic.label} for Authenticated Users`, async () => {
       const errors = [];
       const projectListings = new ProjectListings(page);
       
@@ -124,7 +136,7 @@ test.describe('Topic and StepGroup Visibility for Authenticated Users', () => {
       const hasField = topic.step_groups.some(group => group.label !== '');
 
       // Validate step group visibility
-      test(`Verify Step Groups in Topic: ${topic.label} for Authenticated Users`, async ({ page }) => {
+      test(`Verify Step Groups in Topic: ${topic.label} for Authenticated Users`, async () => {
         
         // Skip the test if no step group label is found
         test.skip(!hasField, `No Step Group Label found in ${topic.label}`);
