@@ -805,7 +805,7 @@ class ProjectsPage {
     }
 
     async organizationrole() {
-        return await this.page.getByRole('combobox', { name: 'Organization role' });
+        return await this.page.getByRole('combobox', { name: 'Organization role' }).locator('.select-indicator');
     }
 
     async ViewBasicrole() {
