@@ -1,6 +1,8 @@
 import { expect } from "@playwright/test";
 import { safeExpect } from "./authHelper";
 import * as fs from "fs";
+import { ValidTestData } from "../data/SignUpData";
+import { project } from "../data/projectData";
 
 export const validateListingProjectHeader = async (projectHeader, errors) => {
 
@@ -148,3 +150,81 @@ export const setupPage = async (page, loginPage = null, credentials = null, list
   await listingPage.navigateToListingsProject(baseURL);
 }
 
+
+export const hasValidTopic = async (topic, test) => {
+  if (!topic.step_groups || topic.step_groups.length === 0) {
+    test.skip(true, `Topic ${topic.label} has no step groups`);
+  }
+}
+
+export const hasValidStepGroup = async (topic, test) => {
+  const hasStepGroups = topic?.step_groups?.some(group => group.label !== '');
+  if (!hasStepGroups) {
+    test.skip(true, `No Step Group Label found in ${topic.label}`);
+  }
+}
+
+
+export const convertToTitleCase = async (str) => {
+  const text = str.replace(/([A-Z])/g, ' $1').toLowerCase();
+  return text.replace(/\b\w/g, char => char.toUpperCase());
+};
+
+
+async function getData(section, dataFilePath) {
+  let data = {};
+  const rawData = fs.readFileSync(dataFilePath, 'utf8');
+  data = JSON.parse(rawData);
+  return data[section] || {};
+}
+
+const projectdataFilePath = './tests/data/Project-data.json';
+let data;
+(async () => {
+  data = await getData('ProjectData', projectdataFilePath);
+})();
+
+export const checkDisplayDependencyField = async (field) => {
+  console.log('dependency', field.label)
+  if (!field?.display_dependencies?.length) return false; // Ensure dependency exists
+
+  const dependencyField = field.display_dependencies[0].field;
+  const expectedPattern = field.display_dependencies[0].pattern;
+  const actualValue = data[dependencyField];
+
+  const expectedValues = expectedPattern.split('|').map(value => value.trim());
+
+  console.log(expectedValues);
+
+  if (Array.isArray(actualValue)) {
+    return expectedValues.every(value => actualValue.includes(value));
+  }
+
+  return actualValue === expectedPattern;
+};
+
+
+export const getFieldValue = async (field) =>{
+  const value = data[field];
+  return value;
+}
+
+// Helper function to validate breadcrumbs
+export const validateBreadcrumbs = async (fieldHandler, errors, { expectedCount, separatorCount, breadcrumbs }) => {
+  await safeExpect('Breadcrumbs visible with correct count',
+    async () => await expect(await fieldHandler.breadCrumps()).toHaveCount(expectedCount), 
+  errors);
+
+  await safeExpect('Breadcrumb separators visible', async () => {
+    const separators = await fieldHandler.separators();
+    await expect(separators).toHaveCount(separatorCount);
+    for (const separator of await separators.all()) {
+      await expect(separator).toBeVisible();
+    }
+  }, errors);
+
+  for (const { index, href, text } of breadcrumbs) {
+    await safeExpect(`Breadcrumb ${text} visible`,
+      () => fieldHandler.validateBreadcrumb(index, href, text), errors);
+  }
+}

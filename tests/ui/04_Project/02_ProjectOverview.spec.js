@@ -25,7 +25,6 @@ test.describe('Project Overview Page', () => {
 
     // Perform login and navigate to the project
     await loginPage.navigate();
-    // await loginPage.login(newEmail, ValidTestData.newPassword);
     await page.waitForURL('**/projects');
     await projectsPage.viewProject();
     await page.waitForURL('**/projects/**/overview');

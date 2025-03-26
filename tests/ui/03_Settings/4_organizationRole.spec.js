@@ -292,6 +292,7 @@ test.describe('View Basic Test cases', () => {
       await expect(organizationrole).toBeVisible();
       await organizationrole.click();
       const ViewBasicrole = await projectsPage.ViewBasicrole();
+      await expect(ViewBasicrole).toBeVisible();
       await ViewBasicrole.click();
       const SaveChanges = await projectsPage.SaveChanges();
       await SaveChanges.click();
