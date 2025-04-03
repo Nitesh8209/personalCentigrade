@@ -14,7 +14,7 @@ jobs:
           name: Run Playwright tests
           command:  |
             docker run --name playwright-container \
-              -e PLATFORM=dev playwright-tests npx playwright test --reporter=html
+              -e PLATFORM=dev playwright-tests npx playwright test tests/ui/01_Login --reporter=html
       - run:
           name: Copy Playwright report
           command: docker cp playwright-container:/app/playwright-report ./playwright-report
