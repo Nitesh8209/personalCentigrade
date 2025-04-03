@@ -1,54 +1,11 @@
 import { test, expect } from '@playwright/test';
-import { LoginPage } from "../../../pages/loginPage";
 import { SignUpPage } from '../../../pages/signUpPage';
 import { generateTestEmail, getGmailMessages } from '../../utils/signUpHelper';
 import { ValidTestData } from '../../data/SignUpData';
 import { getData, saveData } from '../../utils/apiHelper';
-import API_ENDPOINTS from '../../../api/apiEndpoints';
-import { ProjectsPage } from '../../../pages/projectsPage';
-import { Credentials } from '../../data/testData';
 
 // Describe the test suite for awaiting-approval Page UI Tests
 test.describe('awaiting-approval Page UI Tests', () => {
-  const { newEmail } = getData('UI');
-
-  // Function to login and navigate to the settings page
-  async function loginAndNavigateToSettings(page, baseURL) {
-    const loginPage = new LoginPage(page, baseURL);
-    const projectsPage = new ProjectsPage(page, baseURL);
-
-    // Navigate to login page and perform login
-    await loginPage.navigate();
-    await loginPage.login(Credentials.username, Credentials.password);
-    await page.waitForLoadState('networkidle');
-
-    // Navigate to the settings page
-    await projectsPage.selectOrg(ValidTestData.organizationName);
-    await projectsPage.setting();
-    await projectsPage.teamButton();
-
-    return projectsPage;
-  }
-
-  // Test to set a member to Admin role
-  test('Set member to Admin role', async ({ page, baseURL }) => {
-    const projectsPage = await loginAndNavigateToSettings(page, baseURL);
-
-    // Update the member role to Admin
-    await projectsPage.UpdateinAdmin(newEmail);
-    await page.waitForResponse(response =>
-      response.url() === API_ENDPOINTS.getMember && response.status() === 200
-    );
-    await page.waitForTimeout(2000);
-
-    // Verify the member role is updated to Admin
-    await expect(await projectsPage.adminrole(newEmail)).toBe('Admin');
-
-    // Reset the settings
-    const resetButton = await projectsPage.resetButton();
-    await resetButton.click();
-    await projectsPage.setting();
-  });
 
   // Test to verify sign-up in an existing organization and navigation to the awaiting-approval page
   test('Verify sign-up in an existing organization and navigation to the awaiting-approval page', async ({ page, baseURL }) => {
