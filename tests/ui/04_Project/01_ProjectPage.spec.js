@@ -7,6 +7,7 @@ import { ProjectsPage } from "../../../pages/projectsPage";
 import { methodologyOptions, project } from "../../data/projectData";
 import { getData } from "../../utils/apiHelper";
 import { safeExpect } from "../../utils/authHelper";
+import { projectValidationCredentials } from "../../data/testData";
 
 
 test.describe('Project Page', () => {
@@ -20,10 +21,10 @@ test.describe('Project Page', () => {
 
       const loginPage = new LoginPage(page, baseURL);
       await loginPage.navigate();
-      await loginPage.login(newEmail, ValidTestData.newPassword);
+      await loginPage.login(projectValidationCredentials.email, projectValidationCredentials.password);
        
     await page.waitForURL('**/projects');
-    const authStoragePath = path.join(__dirname, '..', '..', 'data', 'auth-admin.json');
+    const authStoragePath = path.join(__dirname, '..', '..', 'data', 'project-auth-admin.json');
     await page.context().storageState({ path: authStoragePath });
     });
 
@@ -281,9 +282,12 @@ test.describe('Project Page', () => {
         await expect(projectName).toHaveValue(project.uiProjectName);
 
         await methodologytrigger.click();
-        const selectmethodologyOptions = await projectsPage.methodologyselectOption(methodologyOptions[11]);
+
+        const selectedMethodology = process.env.METHODOLOGY || methodologyOptions[11];
+
+        const selectmethodologyOptions = await projectsPage.methodologyselectOption(selectedMethodology);
         await selectmethodologyOptions.click();
-        await expect(await projectsPage.selectedMethodology()).toHaveText(methodologyOptions[11]);
+        await expect(await projectsPage.selectedMethodology()).toHaveText(selectedMethodology);
 
       },
       errors

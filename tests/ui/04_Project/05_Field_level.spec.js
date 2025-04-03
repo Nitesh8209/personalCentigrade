@@ -21,7 +21,7 @@ test.describe('Field level validation', async () => {
   let page;
   let fieldHandler;
 
-    const authStoragePath = path.join(__dirname, '..', '..', 'data', 'auth-admin.json');
+    const authStoragePath = path.join(__dirname, '..', '..', 'data', 'project-auth-admin.json');
     test.use({ storageState: authStoragePath });
 
   test.beforeAll(async ({ browser, baseURL }) => {
