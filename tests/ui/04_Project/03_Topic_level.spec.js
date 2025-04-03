@@ -22,7 +22,7 @@ test.describe('Verify Topic and Step Visibility in Project Workflow', () => {
   let page;
   let fieldHandler;
 
-    const authStoragePath = path.join(__dirname, '..', '..', 'data', 'auth-admin.json');
+    const authStoragePath = path.join(__dirname, '..', '..', 'data', 'project-auth-admin.json');
     test.use({ storageState: authStoragePath });
 
   // Setup: Navigate to the project overview page before each test
