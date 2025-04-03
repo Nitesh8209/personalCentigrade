@@ -13,12 +13,16 @@ jobs:
       - run:
           name: Run Playwright tests
           command: |
-            docker run --rm \
-              -e PLATFORM=dev \
-              -v "$(pwd)/test-results:/app/test-results" \
-              -v "$(pwd)/playwright-report:/app/playwright-report" \
-              playwright-tests
+            docker run --name playwright-container \
+              -e PLATFORM=dev playwright-tests npx playwright test --reporter=html
+      - run:
+          name: Copy Playwright report
+          command: docker cp playwright-container:/app/playwright-report ./playwright-report
 
+      - store_artifacts:
+          path: playwright-report
+          destination: playwright-report
+          
 workflows:
   run-build-and-test:
     jobs:

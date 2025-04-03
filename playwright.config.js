@@ -43,8 +43,8 @@ module.exports = defineConfig({
     actionTimeout: 60000,
     navigationTimeout: 60000,
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on',
-    screenshot: 'on'
+    trace: 'on-first-retry',
+    screenshot: 'only-on-failure'
   },
   expect: {
     timeout: 10000, // Global timeout for assertions (10 seconds)

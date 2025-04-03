@@ -147,7 +147,7 @@ export class SettingsPage {
     }
 
     for (const option of options) {
-      await this.page.getByLabel('Organization', { exact: true }).getByText(option).click();
+      await this.page.getByRole('listbox', { name: 'Organization functions' }).getByRole('option', { name: option }).click();
     }
     visibleOptions = await dropdownOptions.isVisible();
     if (visibleOptions) {

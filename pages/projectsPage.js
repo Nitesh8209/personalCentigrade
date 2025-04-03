@@ -48,8 +48,8 @@ class ProjectsPage {
 
     async updateroleType() {
         await this.page.getByRole('combobox', { name: 'Organization role' }).click();
-        await this.page.getByText('Form - Basic').click();
-        await this.page.getByText('Form - Creator').click();
+        await this.page.getByRole('listbox', { name: 'Organization role' }).getByRole('option', { name: 'Form - Basic' }).click();
+        await this.page.getByRole('listbox', { name: 'Organization role' }).getByRole('option', { name: 'Form - Creator' }).click();
         await this.page.getByRole('button', { name: 'Save changes' }).click();
     }
 
@@ -63,7 +63,7 @@ class ProjectsPage {
         await row.locator('.ag-action-cell').click();
         await this.page.getByRole('menuitem', { name: 'Edit' }).click();
         await this.page.getByRole('combobox', { name: 'Member type' }).click();
-        await this.page.getByLabel('Edit Member').getByText('Admin').click();
+        await this.page.getByRole('listbox').getByText('Admin').click();
         await this.page.getByRole('button', { name: 'Save' }).click();
     }
 
@@ -774,6 +774,18 @@ class ProjectsPage {
         return await this.page.getByRole('button', { name: 'Publish', exact: true });
     }
 
+    async approveProject() {
+        return await this.page.getByRole('button', { name: 'Approve project' });
+    }
+
+    async approveModal() {
+        return await this.page.locator('.modal.modal-sm');
+    }
+
+    async approveButton() {
+        return await this.page.getByRole('button', { name: 'Approve' , expect: true});
+    }
+
     async draftPublishButton() {
         return await this.page.getByLabel('Current draft').getByRole('button', { name: 'Publish' });
     }
@@ -809,7 +821,7 @@ class ProjectsPage {
     }
 
     async ViewBasicrole() {
-        return await this.page.getByText('View - Basic'); 
+        return await this.page.getByRole('listbox', { name: 'Organization role' }).getByRole('option', { name: 'View - Basic' }); 
     }
 
    async removeViewBasicrole() {
@@ -825,7 +837,7 @@ class ProjectsPage {
     }
 
     async FormBasicrole() {
-        return await this.page.getByText('Form - Basic'); 
+        return await this.page.getByRole('listbox', { name: 'Organization role' }).getByRole('option', { name: 'Form - Basic' }); 
     }
 
    async removeFormBasicrole() {
@@ -841,7 +853,7 @@ class ProjectsPage {
     }
 
     async FromCreateorrole() {
-        return await this.page.getByText('Form - Creator');
+        return await this.page.getByRole('listbox', { name: 'Organization role' }).getByRole('option', { name: 'Form - Creator' });
     }
 
     async removefromCreateorrole() {
