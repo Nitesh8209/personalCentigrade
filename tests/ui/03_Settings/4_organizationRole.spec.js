@@ -8,7 +8,7 @@ import { ValidTestData } from "../../data/SignUpData";
 import path from "path";
 
 const { newEmail } = getData('UI');
-test.describe('View Basic Test cases', () => {
+test.describe('View Basic Test cases', {tag: '@UI'}, () => {
 
     let page;
   
@@ -206,6 +206,7 @@ test.describe('View Basic Test cases', () => {
     // change the organization and navigate to the settings - organization page
     await safeExpect('Change the organization and Navigate to the settings organization', async () => {
       await projectsPage.selectOrg(ValidTestData.organizationName);
+      await page.waitForTimeout(2000);
       await projectsPage.setting();
       await projectsPage.organizationButton();
     }, errors);
@@ -282,6 +283,7 @@ test.describe('View Basic Test cases', () => {
     // change the organization and navigate to the settings - organization page
     await safeExpect('Change the organization and Navigate to the settings organization', async () => {
       await projectsPage.selectOrg(ValidTestData.organizationName);
+      await page.waitForTimeout(2000);
       await projectsPage.setting();
       await projectsPage.organizationButton();
     }, errors);
@@ -319,4 +321,3 @@ test.describe('View Basic Test cases', () => {
   });
 
 });
-

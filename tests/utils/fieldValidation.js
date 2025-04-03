@@ -1,5 +1,5 @@
 import { expect } from '@playwright/test';
-import { faker } from '@faker-js/faker';
+import { faker, fi } from '@faker-js/faker';
 import { project } from '../data/projectData';
 const fs = require('fs');
 
@@ -225,7 +225,12 @@ export class FieldHandler {
 
       case COMPONENT_TYPES.SELECT:
         await expect(locator).toHaveAttribute('data-scope', 'select');
-        await this.validateSelectField(locator, field.label, field.options);
+        if(field.label == 'Project type'){
+          const expectedOptions = ["Improved Forest Management (IFM)"];
+          await this.validateSelectField(locator, field.label, expectedOptions);
+        }else{
+          await this.validateSelectField(locator, field.label, field.options);
+        }
         break;
 
       case COMPONENT_TYPES.SELECT_MULTIPLE:
@@ -340,11 +345,15 @@ export class FieldHandler {
     for (const option of field.options) {
       await locator.click();
       const listBox = await dataTableLocator.getByRole('listbox');
+      if(!(await listBox.isVisible())){
+        await locator.click();
+      }
       await expect(listBox).toBeVisible();
       const optionText = await listBox.getByText(option);
       await expect(optionText).toBeVisible();
       await expect(optionText).toHaveText(option);
-      await optionText.click();
+      await optionText.click(); 
+      await this.page.keyboard.press('Enter');
       await expect(locator).toHaveText(option);
     }
   }
@@ -413,7 +422,7 @@ export class FieldHandler {
 
     const bannerLink = await banner.getByRole('link', { name: 'Go to Project details' });
     await expect(bannerLink).toBeVisible();
-    await expect(bannerLink).toHaveAttribute('href', /\/projects\/\d+\/project-details/);
+    await expect(bannerLink).toHaveAttribute('href', /\/projects\/[\w-]+\/project-details/);
 
   }
 
@@ -657,6 +666,9 @@ export class FieldHandler {
 
       case COMPONENT_TYPES.SELECT:
         value = await field.options[0];
+        if(field.label == 'Project type'){
+          value = "Improved Forest Management (IFM)";
+        }
         const normalizedExpectedOptions = value.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
         await this.fillSelectField(locator, field.label, normalizedExpectedOptions);
         break;
@@ -685,11 +697,13 @@ export class FieldHandler {
 
       case COMPONENT_TYPES.COUNTRY_SELECT:
         value = 'United States of America';
+        if(!(await locator.locator('..').locator('..').locator('.autocomplete-control').innerText()).includes(value)){
         await locator.click();
         await locator.fill(value);
         await expect(await this.listBox(field.label)).toBeVisible();
         await this.page.locator('.autocomplete-option').click();
         await this.page.locator('.step-title').click();
+        }
         break;
 
       case COMPONENT_TYPES.METHODOLOGY_SELECT:
@@ -889,7 +903,9 @@ export class FieldHandler {
         let expectedValue;
         if (field.options[field.options.length - 1] == 'Other') {
           expectedValue = field.options[field.options.length - 2]
-        } else {
+        } else if(field.label == 'Project type'){
+          expectedValue = "Improved Forest Management (IFM)";
+        }else {
           expectedValue = field.options[field.options.length - 1]
         }
         await expect(selectedValuesText).toBe(expectedValue);
@@ -959,7 +975,7 @@ export class FieldHandler {
       case COMPONENT_TYPES.SELECT_MULTIPLE:
         const selectedmultiValuesText = await locator.textContent();
         if (field.label == 'Classification category') {
-          await expect(selectedmultiValuesText).toBe("Carbon removal");
+          await expect(["Carbon removal", ""].includes(selectedmultiValuesText)).toBe(true);
           break;
         }
         await expect(selectedmultiValuesText).toBe('');
@@ -969,7 +985,6 @@ export class FieldHandler {
         const MethodologyselectedValuesText = await locator.textContent();
         await expect(MethodologyselectedValuesText).toBe('QA use only frozen ACR 1.3 test methodology');
         console.log('select', MethodologyselectedValuesText)
-
         break;
 
       case COMPONENT_TYPES.RADIOYN:

@@ -6,20 +6,86 @@ import { FieldHandler } from '../../utils/fieldValidation';
 import { getData } from '../../utils/apiHelper';
 import * as fs from 'fs';
 import { safeExpect } from "../../utils/authHelper";
-import { project } from '../../data/projectData';
+import { methodologyOptions, project } from '../../data/projectData';
 import { ValidTestData } from '../../data/SignUpData';
+import { projectPublishCredentials } from '../../data/testData';
 
 // Load form data from JSON file
 const formDataPath = path.join(__dirname, '..', '..', 'data', 'form-data.json');
 const formData = JSON.parse(fs.readFileSync(formDataPath, 'utf-8'));
 const filePath = require('path').resolve(__dirname, '../../assets/file2.png');
 
+test.describe('project creation', () => {
+
+   test.beforeEach(async ({ page, baseURL }) => {
+        const loginPage = new LoginPage(page, baseURL);
+        await loginPage.navigate();
+        await loginPage.login(projectPublishCredentials.email, projectPublishCredentials.password);
+         
+      await page.waitForURL('**/projects');
+      const authStoragePath = path.join(__dirname, '..', '..', 'data', 'auth-Projectadmin.json');
+      await page.context().storageState({ path: authStoragePath });
+      });
+
+ test('Create Button in create new project modal, Saves Project and Navigates to Overview', async ({page, baseURL }) => {
+    const errors = [];
+    const loginPage = new LoginPage(page, baseURL);
+    const projectsPage = new ProjectsPage(page, baseURL);
+
+    // await loginPage.navigate();
+
+    // Click on the create project button
+    const createProjectButton = await projectsPage.createProjectButton();
+    await createProjectButton.click();
+
+    const methodologytrigger = await projectsPage.methodologytrigger();
+    const projectName = await projectsPage.projectName()
+    await safeExpect('Fill all fileds',
+      async () => {
+        await expect(projectName).toBeVisible();
+        await projectName.fill(project.uiProjectName);
+        await expect(projectName).toHaveValue(project.uiProjectName);
+
+        await methodologytrigger.click();
+
+        const selectedMethodology = process.env.METHODOLOGY || methodologyOptions[11];
+
+        const selectmethodologyOptions = await projectsPage.methodologyselectOption(selectedMethodology);
+        await selectmethodologyOptions.click();
+        await expect(await projectsPage.selectedMethodology()).toHaveText(selectedMethodology);
+
+      },
+      errors
+    );
+
+    await safeExpect('click on save and verify the project is display',
+      async () => {
+        const create = await projectsPage.createButton();
+        await create.click();
+        await page.waitForURL('**/projects/**/overview');
+        await page.waitForLoadState('networkidle');
+        await expect(await projectsPage.modal()).not.toBeVisible();
+        await expect(await projectsPage.overviewProject()).toBeVisible({ timeout: 20000});
+        await expect(await projectsPage.overviewHeader()).toBeVisible();
+        await expect(await projectsPage.overviewtitle()).toBeVisible();
+        await expect(await projectsPage.overviewtitle()).toHaveText(project.uiProjectName);
+      },
+      errors
+    )
+
+    // If there are any errors, fail the test with all collected errors
+    if (errors.length > 0) {
+      throw new Error('UI verification failed:\n' + errors.join('\n'));
+    }
+  })
+})
+
 test.describe('Fill All Required Fields and Save', () => {
   const { newEmail } = getData('UI');
   let page;
   let fieldHandler;
 
-  const authStoragePath = path.join(__dirname, '..', '..', 'data', 'auth-admin.json');
+  const authStoragePath = path.join(__dirname, '..', '..', 'data', 'auth-Projectadmin.json');
   test.use({ storageState: authStoragePath });
 
   const topic = formData.topics[0];
@@ -219,7 +285,7 @@ test.describe('Publish the Project after completed the Tier 0 topic', () => {
         const success = await fieldHandler.successMessagediv();
         const successMessage = await success.innerText();
         await expect(success).toBeVisible();
-        await expect(successMessage).toBe('Your project has been published');
+        await expect(successMessage).toBe('Your project has been submitted for review');
       },
       errors
     );
@@ -229,6 +295,36 @@ test.describe('Publish the Project after completed the Tier 0 topic', () => {
     }
 
   });
+
+  test('Verify Approve project button is visible and Approve', async () => {
+    
+    const errors = [];
+
+    await safeExpect('Verify Approve project Button should be visible and enabled and click',
+      async () => {
+        const approveButton = await projectsPage.approveProject();
+        await expect(approveButton).toBeVisible();
+        await expect(approveButton).toBeEnabled();
+        await approveButton.click();
+      },
+      errors
+    );
+
+    await safeExpect('Approve project modal should be visible and Click on the Approve Button', async () => {
+      const approveModal = await projectsPage.approveModal();
+      await expect(approveModal).toBeVisible();
+
+      const approveButton = await projectsPage.approveButton();
+      await expect(approveButton).toBeVisible();
+      await approveButton.click();
+    },
+      errors
+    );
+
+    if (errors.length > 0) {
+      throw new Error(`Validation errors found:\n${errors.join('\n')}`);
+    }
+  })
 
   test('Verify Publish button is disabled after publishing', async () => {
     const errors = [];

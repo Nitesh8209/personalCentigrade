@@ -83,7 +83,7 @@ test.describe('Listings Page - UI and Navigation', () => {
 test.describe('Listings Page - After Login', () => {
   const { newEmail } = getData('UI');
 
-  const authStoragePath = path.join(__dirname, '..', '..', 'data', 'auth-admin.json');
+  const authStoragePath = path.join(__dirname, '..', '..', 'data', 'auth-Projectadmin.json');
   test.use({ storageState: authStoragePath });
 
   let page;

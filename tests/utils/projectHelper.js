@@ -1,3 +1,4 @@
+import { expect } from "@playwright/test";
 
 export const validateProjectFieldValues = (sentItems, responseBody) => {
    // Create a map of received items for easier lookup

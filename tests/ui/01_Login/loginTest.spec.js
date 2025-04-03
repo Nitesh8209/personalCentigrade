@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { Credentials } from '../../data/testData';
 import { LoginPage } from "../../../pages/loginPage";
 
-test.describe('Login Page UI Tests', () => {
+test.describe('Login Page UI Tests', {tag: '@UI'}, () => {
 
   let loginPage;
   let page;

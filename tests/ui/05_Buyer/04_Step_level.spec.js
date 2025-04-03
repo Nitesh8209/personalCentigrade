@@ -26,7 +26,7 @@ test.describe("Step Level Validation", () => {
       } : null;
 
       if(authState.isAuthenticated){
-            const authStoragePath = path.join(__dirname, '..', '..', 'data', 'auth-admin.json');
+            const authStoragePath = path.join(__dirname, '..', '..', 'data', 'auth-Projectadmin.json');
             test.use({ storageState: authStoragePath });
       }
   let page;

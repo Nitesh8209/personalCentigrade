@@ -157,7 +157,7 @@ class LoginPage {
     }
 
     async createAccountcheckboxInput() {
-       return await this.page.locator('input[name="agreeToTerms"]');
+       return await this.page.locator('.checkbox-control');
     }
 
     async createAccountcheckboxLabel() {

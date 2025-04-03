@@ -104,7 +104,7 @@ test.describe('Project Header - UI and Navigation for Unauthenticated Users', as
 // after Login 
 test.describe('Project Header - UI and Navigation for Authenticated Users', async () => {
   const { newEmail } = getData('UI');
-  const authStoragePath = path.join(__dirname, '..', '..', 'data', 'auth-admin.json');
+  const authStoragePath = path.join(__dirname, '..', '..', 'data', 'auth-Projectadmin.json');
   test.use({ storageState: authStoragePath });
 
   let page;

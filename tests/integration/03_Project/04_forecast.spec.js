@@ -37,8 +37,8 @@ test.describe('add data for TIER-1 forecast fields', () => {
       await projectsPage.viewProject()
 
       // Verify the project title and page URL
-      const porjectTitle = await projectsPage.porjectTitle();
-      expect(porjectTitle).toBe('Automationproject3');
+      const projectTitle = await projectsPage.projectTitle();
+      expect(projectTitle).toBe('Automationproject3');
       expect(page).toHaveURL(`${baseURL}/projects/${projectId}/overview`);
 
       await page.addStyleTag({

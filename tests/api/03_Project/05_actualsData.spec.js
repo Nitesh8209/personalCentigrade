@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import API_ENDPOINTS from '../../../api/apiEndpoints';
 import { getData, getRequest, postRequest } from '../../utils/apiHelper';
 import { actualsData, actualsFileType, acutalSeriesData, forcastData, projectApproach } from '../../data/projectData';
-import { validateProjectFieldValues } from '../../utils/projectHelper';
+import  validateProjectFieldValues  from '../../utils/projectHelper';
 const fs = require('fs');
 
 // Reading the test file (image) for upload

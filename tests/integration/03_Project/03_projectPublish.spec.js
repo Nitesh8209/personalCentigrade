@@ -43,7 +43,7 @@ test.describe('Add data for publishing the project', () => {
       expect(mbpResponse.status()).toBe(200);
       await expect(page).toHaveURL(`${baseURL}/projects/${projectId}/overview`);
     
-      const projectTitle = await projectsPage.porjectTitle();
+      const projectTitle = await projectsPage.projectTitle();
       expect(projectTitle).toBe('Automationproject3');
       
       // Disable specific UI elements

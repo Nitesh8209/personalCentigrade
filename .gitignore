@@ -3,4 +3,8 @@ node_modules/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
-.vscode/
+/tests/data/retool-auth.json
+/report-account/
+/report-project/
+/test-results-account/
+/test-results-project/

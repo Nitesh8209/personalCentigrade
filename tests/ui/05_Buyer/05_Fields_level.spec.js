@@ -22,7 +22,7 @@ test.describe("Fields Level Validation - after Login", () => {
     password: ValidTestData.newPassword
   };
 
-  const authStoragePath = path.join(__dirname, '..', '..', 'data', 'auth-admin.json');
+  const authStoragePath = path.join(__dirname, '..', '..', 'data', 'auth-Projectadmin.json');
   test.use({ storageState: authStoragePath });
 
   let page;

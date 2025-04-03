@@ -4,6 +4,18 @@ export const Credentials = {
   invalidPassword: 'InvalidPassword'
 };
 
+export const projectPublishCredentials = {
+  email: 'nitesh.agarwal+test1743665610357@kreeti.com',
+  password: 'Centigrade@12345',
+  organizationName: 'automationProject2',
+}
+
+export const projectValidationCredentials = {
+  email:'nitesh.agarwal+test1743664097066@kreeti.com',
+  password: 'Centigrade@12345',
+  organizationName: 'automationProject1',
+}
+
 export const InvalidCreadentials = [
   {
     description: 'Invalid username',

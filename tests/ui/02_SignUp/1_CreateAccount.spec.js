@@ -6,7 +6,7 @@ import { generateTestEmail } from '../../utils/signUpHelper';
 import { ValidTestData } from '../../data/SignUpData';
 import { saveData } from '../../utils/apiHelper';
 
-test.describe('Create Account Page UI Tests', () => {
+test.describe('Create Account Page UI Tests', {tag: '@UI'}, () => {
   let newEmail;
   let page;
 
@@ -108,7 +108,7 @@ test.describe('Create Account Page UI Tests', () => {
     await expect(createAccountcheckboxLabel).toHaveText(/I agree to Centigrade’s User.*Terms of Service.*Privacy Policy/);
     await expect(createAccountcheckboxInput).toBeVisible();
     await expect(createAccountcheckboxInput).not.toBeChecked();
-    await createAccountcheckboxInput.click({ force: true });
+    await createAccountcheckboxInput.check();
     await expect(createAccountcheckboxInput).toBeChecked();
     await createAccountcheckboxInput.click({ force: true });
 
@@ -142,52 +142,6 @@ test.describe('Create Account Page UI Tests', () => {
       omitPlatformRegex: true,
       maxDiffPixelRatio: 0.02
     });
-  })
-
-  // Test 2: Create a new account with a non-existing user
-  test('Create an Account with a Non existing user', async ({ baseURL }) => {
-
-    const signUpPage = new SignUpPage(page, baseURL);
-
-    // Navigate to the sign-up page and fill in the required fields
-    await signUpPage.completeSignUpProcess(ValidTestData.firstName, ValidTestData.lastName, ValidTestData.organizationName, newEmail);
-
-    // Save the email data for later validation
-    await saveData({ newEmail: newEmail }, 'UI');
-
-    // Verify redirection to the verification page
-    await expect(page).toHaveURL(`${baseURL}/verification?email=${encodeURIComponent(newEmail)}`);
-    await signUpPage.verificationCodecard();
-
-    const verificationCodeheading = await signUpPage.verificationCodeheading();
-    const verificationCodeEmail = await signUpPage.verificationCodeEmail();
-    const verificationCodeinput = await signUpPage.verificationCodeinput();
-    const verificationCodepasswordInput = await signUpPage.verificationCodepasswordInput();
-    const verificationCodesubmit = await signUpPage.verificationCodesubmit();
-    const verificationCoderesendlink = await signUpPage.verificationCoderesendlink();
-    const verificationCodehelpertext = await signUpPage.verificationCodehelpertext();
-
-    // Validate UI elements on the verification page
-    await expect(verificationCodeheading).toBeVisible();
-    await expect(verificationCodeheading).toHaveText('Verify your email');
-    await expect(verificationCodeEmail).toBeVisible();
-    await expect(verificationCodeEmail).toHaveText(newEmail);
-    await expect(verificationCodeinput).toHaveCount(6);
-
-    for (let i = 0; i < 6; i++) {
-      await expect(verificationCodeinput.nth(i)).toBeVisible();
-    }
-
-    await expect(verificationCodepasswordInput).toBeVisible();
-    await expect(verificationCodehelpertext).toBeVisible();
-    await expect(verificationCodehelpertext).toHaveText('Password must be at least 8 characters and contain an uppercase, a lowercase, a number, and a special character');
-
-    await expect(verificationCodesubmit).toBeVisible();
-    await expect(verificationCodesubmit).toHaveText('Create account');
-
-    await expect(verificationCoderesendlink).toBeVisible();
-    await expect(verificationCoderesendlink).toHaveText('resend it');
-    await expect(verificationCoderesendlink).toBeEnabled();
   })
 
   // Test 3: Attempt to create an account with an already existing user

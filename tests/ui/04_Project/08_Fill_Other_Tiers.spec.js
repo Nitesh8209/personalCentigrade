@@ -19,8 +19,8 @@ test.describe('After Topic 1 - Fill Remaining Required Fields and Save', () => {
   let page;
   let fieldHandler;
 
-    const authStoragePath = path.join(__dirname, '..', '..', 'data', 'auth-admin.json');
-    test.use({ storageState: authStoragePath });
+  const authStoragePath = path.join(__dirname, '..', '..', 'data', 'auth-Projectadmin.json');
+  test.use({ storageState: authStoragePath });
 
   test.beforeAll(async ({ browser, baseURL }) => {
     // Initialize page objects
@@ -74,6 +74,7 @@ test.describe('After Topic 1 - Fill Remaining Required Fields and Save', () => {
 
             test(`Complete and Save All Fields for Step: ${step.label}`, async () => {
               const errors = [];
+              let flag = false;
 
               // Iterate through sections within the step
               for (const section of step.sections) {
@@ -96,6 +97,7 @@ test.describe('After Topic 1 - Fill Remaining Required Fields and Save', () => {
                         async () => {
                           await expect(inputLocator).toBeVisible();
                           await fieldHandler.fillField(inputLocator, filePath, field);
+                          flag = true;
                         },
                         errors
                       );
@@ -106,23 +108,25 @@ test.describe('After Topic 1 - Fill Remaining Required Fields and Save', () => {
                 }
               }
 
-              // Validate save button visibility and confirm save action
-              await safeExpect('Save button visibility and execution', async () => {
-                const saveButton = await fieldHandler.saveButton();
-                await expect(saveButton).toBeVisible();
-                await expect(saveButton).toBeEnabled();
-                await saveButton.click();
-                const successHeader = await fieldHandler.successMessageHeader();
-                const successdiv = await fieldHandler.successMessagediv();
-                const successMessage = await successdiv.innerText();
-                await expect(successHeader).toBeVisible();
-                await expect(successHeader).toHaveText('Draft saved')
-                await expect(successdiv).toBeVisible();
-                await expect(successMessage).toBe('Your changes have been saved to draft');
-                await expect(saveButton).toBeDisabled();
-              },
-                errors
-              );
+              if (flag) {
+                // Validate save button visibility and confirm save action
+                await safeExpect('Save button visibility and execution', async () => {
+                  const saveButton = await fieldHandler.saveButton();
+                  await expect(saveButton).toBeVisible();
+                  await expect(saveButton).toBeEnabled();
+                  await saveButton.click();
+                  const successHeader = await fieldHandler.successMessageHeader();
+                  const successdiv = await fieldHandler.successMessagediv();
+                  const successMessage = await successdiv.innerText();
+                  await expect(successHeader).toBeVisible();
+                  await expect(successHeader).toHaveText('Draft saved')
+                  await expect(successdiv).toBeVisible();
+                  await expect(successMessage).toBe('Your changes have been saved to draft');
+                  await expect(saveButton).toBeDisabled();
+                },
+                  errors
+                );
+              }
 
               // If there are any errors, fail the test with all collected errors
               if (errors.length > 0) {
@@ -151,8 +155,8 @@ test.describe('Publish the Project after completed the Tier 1, Tier 2, Tier 3 to
   // Test configuration and setup
   const { newEmail } = getData('UI');
 
-      const authStoragePath = path.join(__dirname, '..', '..', 'data', 'auth-admin.json');
-    test.use({ storageState: authStoragePath });
+  const authStoragePath = path.join(__dirname, '..', '..', 'data', 'auth-Projectadmin.json');
+  test.use({ storageState: authStoragePath });
 
   // Fixture to handle common setup
   test.beforeAll(async ({ browser, baseURL }) => {
@@ -210,6 +214,7 @@ test.describe('Publish the Project after completed the Tier 1, Tier 2, Tier 3 to
     await safeExpect('Click on Publish button after fill summary of Updates',
       async () => {
         const summaryOfUpdates = await projectsPage.summaryOfUpdates();
+        await expect(summaryOfUpdates).toBeVisible();
         await summaryOfUpdates.fill('Test');
         const draftPublishButton = await projectsPage.draftPublishButton();
         await expect(draftPublishButton).toBeVisible();

@@ -57,7 +57,9 @@ docker run --rm \
 
 ```bash
 docker run --rm \
-  -e PLATFORM=<your-environment> \
+  -e PLATFORM=local \
+  -e BASE_URL_LOCAL=<your-url> \
+  -e API_BASE_URL_LOCAL=<your-api-url> \
   -v "$(pwd)/test-results:/app/test-results" \
   -v "$(pwd)/playwright-report:/app/playwright-report" \
   playwright-tests npx playwright test ./tests/api

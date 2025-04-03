@@ -2,14 +2,26 @@
   "name": "foundrytest-suite",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "build": "docker build -t playwright-tests .",
+    "test:dev": "docker run --rm -e PLATFORM=dev -v %cd%/test-results:/app/test-results -v %cd%/playwright-report:/app/playwright-report playwright-tests",
+    "test:dev:path": "docker run --rm -e PLATFORM=dev -v %cd%/test-results:/app/test-results -v %cd%/playwright-report:/app/playwright-report playwright-tests npx playwright test ./tests/%npm_config_path%",
+    "test:local": "docker run --rm -e PLATFORM=local -e BASE_URL_LOCAL=%npm_config_baseurl% -e API_BASE_URL_LOCAL=%npm_config_apiurl% -v %cd%/test-results:/app/test-results -v %cd%/playwright-report:/app/playwright-report playwright-tests",
+    "test:local:path": "docker run --rm -e PLATFORM=local -e BASE_URL_LOCAL=%npm_config_baseurl% -e API_BASE_URL_LOCAL=%npm_config_apiurl% -v %cd%/test-results:/app/test-results -v %cd%/playwright-report:/app/playwright-report playwright-tests npx playwright test ./tests/%npm_config_path%",
+    "test:prod": "docker run --rm -e PLATFORM=prod -v %cd%/test-results:/app/test-results -v %cd%/playwright-report:/app/playwright-report playwright-tests",
+    "test:prod:path": "docker run --rm -e PLATFORM=prod -v %cd%/test-results:/app/test-results -v %cd%/playwright-report:/app/playwright-report playwright-tests npx playwright test ./tests/%npm_config_path%",
+"test": "cross-env REPORT_DIR=report-account npx playwright test --project=Account --workers=1 & cross-env REPORT_DIR=report-project npx playwright test --project=Project --workers=1 & wait",
+    "report-account": "npx playwright show-report report-account",
+    "report-project": "npx playwright show-report report-project"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
     "@playwright/test": "^1.49.1",
-    "@types/node": "^22.7.4"
+    "@types/node": "^22.7.4",
+    "cross-env": "^7.0.3"
   },
   "dependencies": {
     "@faker-js/faker": "^9.0.3",
