@@ -12,13 +12,20 @@ jobs:
           command: docker build -t playwright-tests .
       - run:
           name: Run Playwright tests
-          command: |
-            docker run --rm \
-              -e PLATFORM=dev \
-              -v "$(pwd)/test-results:/app/test-results" \
-              -v "$(pwd)/playwright-report:/app/playwright-report" \
-              playwright-tests
+          command: npx playwright test tests/ui/01_Login
 
+      # Store test artifacts (e.g., screenshots, videos, traces)
+      - store_artifacts:
+          path: test-results/
+          destination: playwright-test-results
+          when: on_fail
+
+      # Store Playwright HTML report
+      - store_artifacts:
+          path: playwright-report/
+          destination: playwright-report
+          when: always
+          
 workflows:
   run-build-and-test:
     jobs:
