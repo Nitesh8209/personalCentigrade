@@ -86,7 +86,7 @@ test.describe('Topic and StepGroup Visibility for Authenticated Users', () => {
 
   const { newEmail } = getData('UI');
 
-    const authStoragePath = path.join(__dirname, '..', '..', 'data', 'auth-admin.json');
+    const authStoragePath = path.join(__dirname, '..', '..', 'data', 'project-Publish-auth.json');
     test.use({ storageState: authStoragePath });
 
     let page;

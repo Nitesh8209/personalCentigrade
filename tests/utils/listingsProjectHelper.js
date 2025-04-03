@@ -3,6 +3,7 @@ import { safeExpect } from "./authHelper";
 import * as fs from "fs";
 import { ValidTestData } from "../data/SignUpData";
 import { project } from "../data/projectData";
+import { projectPublishCredentials } from "../data/testData";
 
 export const validateListingProjectHeader = async (projectHeader, errors) => {
 
@@ -12,7 +13,7 @@ export const validateListingProjectHeader = async (projectHeader, errors) => {
 
   await safeExpect(`Project Tag should be visible`, async () => {
     await expect(await projectHeader.projectTag()).toBeVisible();
-    await expect(await projectHeader.projectTag()).toHaveText(ValidTestData.organizationName);
+    await expect(await projectHeader.projectTag()).toHaveText(projectPublishCredentials.organizationName);
   }, errors);
 
   await safeExpect(`Project Title should be visible`, async () => {
