@@ -19,8 +19,15 @@ jobs:
           name: Copy Playwright report
           command: docker cp playwright-container:/app/playwright-report ./playwright-report
       - store_artifacts:
-          path: playwright-report
+          path: test-results/
+          destination: playwright-test-results
+          when: on_fail
+
+      # Store Playwright HTML report
+      - store_artifacts:
+          path: playwright-report/
           destination: playwright-report
+          when: always
           
 workflows:
   run-build-and-test:
