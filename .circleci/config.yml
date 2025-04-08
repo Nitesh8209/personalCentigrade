@@ -1,17 +1,53 @@
-version: 2.1
+# version: 2.1
 
-parameters:
-  test_tag:
-    type: string
-    default: ""
+# parameters:
+#   test_tag:
+#     type: string
+#     default: ""
+
+# jobs:
+#   build-and-test:
+#     docker:
+#       - image: cimg/node:23.9.0
+#     parameters:
+#       test_tag:
+#         type: string
+#     steps:
+#       - checkout
+#       - setup_remote_docker
+#       - run:
+#           name: Build Docker image
+#           command: docker build -t playwright-tests .
+#       - run:
+#           name: Run Playwright tests
+#           command: |
+#               docker run --name playwright-container \
+#                 -e PLATFORM=dev \
+#                 -e TEST_TAG=<< parameters.test_tag >> \
+#                 playwright-tests \
+#                 sh -c "npx playwright test tests/ui/01_Login $( [ '<< parameters.test_tag >>' != '' ] && echo \"--grep <%= parameters.test_tag %>\" ) --reporter=html"
+#       - run:
+#           name: Copy Playwright report
+#           command: docker cp playwright-container:/app/playwright-report ./playwright-report
+
+#       - store_artifacts:
+#           path: playwright-report
+#           destination: playwright-report
+
+# workflows:
+#   run-build-and-test:
+#     jobs:
+#       - build-and-test:
+#           test_tag: << pipeline.parameters.test_tag >>
+
+
+
+version: 2.1
 
 jobs:
   build-and-test:
     docker:
       - image: cimg/node:23.9.0
-    parameters:
-      test_tag:
-        type: string
     steps:
       - checkout
       - setup_remote_docker
@@ -21,11 +57,8 @@ jobs:
       - run:
           name: Run Playwright tests
           command: |
-              docker run --name playwright-container \
-                -e PLATFORM=dev \
-                -e TEST_TAG=<< parameters.test_tag >> \
-                playwright-tests \
-                sh -c "npx playwright test tests/ui/01_Login $( [ '<< parameters.test_tag >>' != '' ] && echo \"--grep <%= parameters.test_tag %>\" ) --reporter=html"
+            docker run --name playwright-container \
+              -e PLATFORM=dev playwright-tests npx playwright test tests/ui/01_Login --grep @UI --reporter=html
       - run:
           name: Copy Playwright report
           command: docker cp playwright-container:/app/playwright-report ./playwright-report
@@ -33,9 +66,9 @@ jobs:
       - store_artifacts:
           path: playwright-report
           destination: playwright-report
-
+          
 workflows:
   run-build-and-test:
     jobs:
-      - build-and-test:
-          test_tag: << pipeline.parameters.test_tag >>
+      - build-and-test
+
