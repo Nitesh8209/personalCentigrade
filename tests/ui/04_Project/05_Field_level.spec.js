@@ -14,7 +14,7 @@ const formDataPath = path.join(__dirname, '..', '..', 'data', 'form-data.json');
 const formData = JSON.parse(fs.readFileSync(formDataPath, 'utf-8'));
 
 
-test.describe('Field level validation', async () => {
+test.describe('Field level validation', { tag: '@UI' }, async () => {
 
   const { newEmail } = getData('UI');
 

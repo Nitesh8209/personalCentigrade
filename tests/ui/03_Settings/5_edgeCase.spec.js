@@ -4,7 +4,7 @@ const { deleteRequest, postRequest, getRequest } = require('../../utils/apiHelpe
 const { API_BASE_URL, Credentials } = require('../../data/testData');
 const { ValidTestData } = require('../../data/SignUpData');
 
-test.describe('Edge Case Testing for Settings Page', () => {
+test.describe('Edge Case Testing for Settings Page', { tag: '@UI' }, () => {
 
   test('Delete the Organization', async () => {
     const url = `${API_BASE_URL}/auth/token`;

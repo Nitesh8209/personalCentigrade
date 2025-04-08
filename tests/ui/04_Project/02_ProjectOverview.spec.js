@@ -7,7 +7,7 @@ import { project } from "../../data/projectData";
 import { getData } from "../../utils/apiHelper";
 import { safeExpect } from "../../utils/authHelper";
 
-test.describe('Project Overview Page', () => {
+test.describe('Project Overview Page', { tag: '@UI' }, () => {
   const { newEmail } = getData('UI');
   let page;
   let projectsPage;

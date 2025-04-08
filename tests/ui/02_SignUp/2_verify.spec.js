@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { SignUpPage } from '../../../pages/signUpPage';
 import { inValidTestData } from '../../data/SignUpData';
 
-test.describe('Verification Code Page UI Tests', () => {
+test.describe('Verification Code Page UI Tests', { tag: '@UI' }, () => {
 
   let page;
 

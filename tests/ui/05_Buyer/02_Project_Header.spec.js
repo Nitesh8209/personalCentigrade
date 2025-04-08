@@ -11,7 +11,7 @@ import { validateGetInTouchModal, validateListingProjectHeader } from '../../uti
 import path from 'path';
 
 
-test.describe('Project Header - UI and Navigation for Unauthenticated Users', async () => {
+test.describe('Project Header - UI and Navigation for Unauthenticated Users', { tag: '@UI' }, async () => {
 
   let page;
 
@@ -102,7 +102,7 @@ test.describe('Project Header - UI and Navigation for Unauthenticated Users', as
 
 
 // after Login 
-test.describe('Project Header - UI and Navigation for Authenticated Users', async () => {
+test.describe('Project Header - UI and Navigation for Authenticated Users', { tag: '@UI' }, async () => {
   const { newEmail } = getData('UI');
   const authStoragePath = path.join(__dirname, '..', '..', 'data', 'project-Publish-auth.json');
   test.use({ storageState: authStoragePath });

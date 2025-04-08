@@ -8,7 +8,7 @@ import { ValidTestData } from "../../data/SignUpData";
 import path from "path";
 
 const { newEmail } = getData('UI');
-test.describe('View Basic Test cases', () => {
+test.describe('View Basic Test cases', { tag: '@UI' }, () => {
 
     let page;
   
