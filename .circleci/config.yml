@@ -21,12 +21,16 @@ jobs:
       - run:
           name: Run Playwright tests
           command: |
-              docker run --name playwright-container \
-              -e PLATFORM=<< parameters.environment >> \
-              -e TEST_SUITE=<< parameters.test_suite >> \
-              playwright-tests npx playwright test tests/ui/01_Login \
-              $([ "<< parameters.test_suite >>" != "all" ] && echo "--grep=\"<< parameters.test_suite >>\"") \
-              --reporter=html
+           if [ "<< parameters.test_tag >>" = "" ]; then
+              TEST_CMD="npx playwright test tests/ui/01_Login --reporter=html"
+            else
+              TEST_CMD="npx playwright test tests/ui/01_Login --grep=\"<< parameters.test_tag >>\" --reporter=html"
+            fi
+             
+            docker run --name playwright-container \
+            -e PLATFORM=dev \
+            -e TEST_SUITE=<< parameters.test_tag >> \
+            playwright-tests $TEST_CMD
       - run:
           name: Copy Playwright report
           command: docker cp playwright-container:/app/playwright-report ./playwright-report
