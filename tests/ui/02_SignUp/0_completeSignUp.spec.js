@@ -10,7 +10,7 @@ import { getGmailMessages } from '../../utils/signUpHelper';
 import API_ENDPOINTS from '../../../api/apiEndpoints';
 import { ProjectsPage } from '../../../pages/projectsPage';
 
-test.describe('Create Account Page UI Tests', () => {
+test.describe('Create Account Page UI Tests', { tag: '@UI' }, () => {
   let newEmail;
   let page;
   let receivedVerificationCode;
@@ -245,7 +245,7 @@ test.describe('Create Account Page UI Tests', () => {
 
 });
 
-test.describe('Set Member to Admin', () => {
+test.describe('Set Member to Admin', { tag: '@UI' }, () => {
   const data = getData('UI');
 
   // Function to login and navigate to the settings page

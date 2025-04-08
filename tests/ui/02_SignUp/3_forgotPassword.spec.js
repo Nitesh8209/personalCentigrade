@@ -4,7 +4,7 @@ import { SignUpPage } from '../../../pages/signUpPage';
 import { inValidTestData } from '../../data/SignUpData';
 import API_ENDPOINTS from '../../../api/apiEndpoints';
  
-test.describe('Forgot password Page UI Tests', () => {
+test.describe('Forgot password Page UI Tests', { tag: '@UI' }, () => {
   let page;
 
   // Setup: Generate a new email before all tests

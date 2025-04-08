@@ -15,7 +15,7 @@ const formDataPath = path.join(__dirname, '..', '..', 'data', 'form-data.json');
 const formData = JSON.parse(fs.readFileSync(formDataPath, 'utf-8'));
 const filePath = require('path').resolve(__dirname, '../../assets/file2.png');
 
-test.describe('project creation', () => {
+test.describe('project creation', { tag: '@UI' }, () => {
 
    test.beforeEach(async ({ page, baseURL }) => {
         const loginPage = new LoginPage(page, baseURL);
@@ -80,7 +80,7 @@ test.describe('project creation', () => {
   })
 })
 
-test.describe('Fill All Required Fields and Save', () => {
+test.describe('Fill All Required Fields and Save', { tag: '@UI' }, () => {
   const { newEmail } = getData('UI');
   let page;
   let fieldHandler;
@@ -201,7 +201,7 @@ test.describe('Fill All Required Fields and Save', () => {
 })
 
 
-test.describe('Publish the Project after completed the Tier 0 topic', () => {
+test.describe('Publish the Project after completed the Tier 0 topic', { tag: '@UI' }, () => {
   let projectsPage;
   let fieldHandler;
   let page;

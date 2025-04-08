@@ -6,7 +6,7 @@ import { generateTestEmail } from '../../utils/signUpHelper';
 import { ValidTestData } from '../../data/SignUpData';
 import { saveData } from '../../utils/apiHelper';
 
-test.describe('Create Account Page UI Tests', () => {
+test.describe('Create Account Page UI Tests', { tag: '@UI' }, () => {
   let newEmail;
   let page;
 

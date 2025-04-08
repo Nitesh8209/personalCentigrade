@@ -14,7 +14,7 @@ const viewDatapath = path.join(__dirname, '..', '..', 'data', 'view-data.json');
 export const viewData = JSON.parse(fs.readFileSync(viewDatapath, 'utf-8'));
 
 
-test.describe("Step Level Validation", () => {
+test.describe("Step Level Validation", { tag: '@UI' }, () => {
 
   // Iterate over different authentication states
   for (const authState of authStates) {

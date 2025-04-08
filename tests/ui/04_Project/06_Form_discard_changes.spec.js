@@ -12,7 +12,7 @@ import { ValidTestData } from '../../data/SignUpData';
 const formDataPath = path.join(__dirname, '..', '..', 'data', 'form-data.json');
 const formData = JSON.parse(fs.readFileSync(formDataPath, 'utf-8'));
 
-test.describe('Button Level Validations', () => {
+test.describe('Button Level Validations', { tag: '@UI' }, () => {
   const { newEmail } = getData('UI');
 
   let page;

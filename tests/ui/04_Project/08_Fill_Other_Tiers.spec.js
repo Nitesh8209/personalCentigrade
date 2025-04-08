@@ -14,7 +14,7 @@ const formDataPath = path.join(__dirname, '..', '..', 'data', 'form-data.json');
 const formData = JSON.parse(fs.readFileSync(formDataPath, 'utf-8'));
 const filePath = require('path').resolve(__dirname, '../../assets/file2.png');
 
-test.describe('After Topic 1 - Fill Remaining Required Fields and Save', () => {
+test.describe('After Topic 1 - Fill Remaining Required Fields and Save', { tag: '@UI' }, () => {
   const { newEmail } = getData('UI');
   let page;
   let fieldHandler;
@@ -147,7 +147,7 @@ test.describe('After Topic 1 - Fill Remaining Required Fields and Save', () => {
 
 
 
-test.describe('Publish the Project after completed the Tier 1, Tier 2, Tier 3 topic', () => {
+test.describe('Publish the Project after completed the Tier 1, Tier 2, Tier 3 topic', { tag: '@UI' }, () => {
   let projectsPage;
   let fieldHandler;
   let page;

@@ -7,7 +7,7 @@ import { validateListingsProject, validatePageHeader } from '../../utils/listing
 import { safeExpect } from '../../utils/authHelper';
 import path from 'path';
 
-test.describe('Listings Page - UI and Navigation', () => {
+test.describe('Listings Page - UI and Navigation', { tag: '@UI' }, () => {
 
   let page;
 
@@ -80,7 +80,7 @@ test.describe('Listings Page - UI and Navigation', () => {
 
 });
 
-test.describe('Listings Page - After Login', () => {
+test.describe('Listings Page - After Login', { tag: '@UI' }, () => {
   const { newEmail } = getData('UI');
 
   const authStoragePath = path.join(__dirname, '..', '..', 'data', 'project-Publish-auth.json');

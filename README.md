@@ -60,7 +60,7 @@ docker run --rm \
   -e PLATFORM=<your-environment> \
   -v "$(pwd)/test-results:/app/test-results" \
   -v "$(pwd)/playwright-report:/app/playwright-report" \
-  playwright-tests npx playwright test ./tests/api
+  playwright-tests npx playwright test --grep @API
 
 ```
 ### Run SMOKE Tests
@@ -70,7 +70,7 @@ docker run --rm \
   -e PLATFORM=<your-environment> \
   -v "$(pwd)/test-results:/app/test-results" \
   -v "$(pwd)/playwright-report:/app/playwright-report" \
-  playwright-tests npx playwright test ./tests/smoke
+  playwright-tests npx playwright test --grep @SMOKE
 
 ```
 
@@ -81,7 +81,7 @@ docker run --rm \
   -e PLATFORM=<your-environment> \
   -v "$(pwd)/test-results:/app/test-results" \
   -v "$(pwd)/playwright-report:/app/playwright-report" \
-  playwright-tests npx playwright test ./tests/ui
+  playwright-tests npx playwright test --grep @UI
 
 ```
 ### For Windows
