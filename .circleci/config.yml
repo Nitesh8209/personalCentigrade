@@ -25,7 +25,7 @@ jobs:
               -e PLATFORM=dev \
               -e TEST_TAG=<< parameters.test_tag >> \
               playwright-tests \
-              sh -c "npx playwright test tests/ui/01_Login $( [ '<< parameters.test_tag >>' != '' ] && echo \"--grep '<< parameters.test_tag >>'\" ) --reporter=html"
+              sh -c "npx playwright test tests/ui/01_Login $( [ '<< parameters.test_tag >>' != '' ] && echo '--grep' && echo '<< parameters.test_tag >>' ) --reporter=html"
       - run:
           name: Copy Playwright report
           command: docker cp playwright-container:/app/playwright-report ./playwright-report
