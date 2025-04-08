@@ -24,7 +24,7 @@ jobs:
            if [ "<< parameters.test_tag >>" = "" ]; then
               TEST_CMD="npx playwright test tests/ui/01_Login --reporter=html"
             else
-              TEST_CMD="npx playwright test tests/ui/01_Login --grep=\"<< parameters.test_tag >>\" --reporter=html"
+              TEST_CMD="npx playwright test tests/ui/01_Login --grep "<< parameters.test_tag >>" --reporter=html"
             fi
              
             docker run --name playwright-container \
