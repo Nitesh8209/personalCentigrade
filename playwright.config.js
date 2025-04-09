@@ -68,46 +68,51 @@ module.exports = defineConfig({
     // },
     {
       name: 'login',
-      testMatch: [ 'ui/01_Login/loginTest.spec.js' ],
-       use: { ...devices['Desktop Chrome'] ,
+      testMatch: ['ui/01_Login/loginTest.spec.js'],
+      use: {
+        ...devices['Desktop Chrome'],
         viewport: { width: 1366, height: 768 },
       },
       fullyParallel: false,
     },
     {
       name: 'CompleteSignUp',
-      testMatch: [ 'ui/02_SignUp/0_completeSignUp.spec.js'],
-      use: { ...devices['Desktop Chrome'] ,
+      testMatch: ['ui/02_SignUp/0_completeSignUp.spec.js'],
+      use: {
+        ...devices['Desktop Chrome'],
         viewport: { width: 1366, height: 768 },
       },
       fullyParallel: false,
     },
     {
       name: 'CreateAccount',
-      testMatch: [ 'ui/02_SignUp/1_CreateAccount.spec.js'],
+      testMatch: ['ui/02_SignUp/1_CreateAccount.spec.js'],
       use: { ...devices['Desktop Chrome'] },
       fullyParallel: false,
     },
     {
       name: 'verify',
-      testMatch: [ 'ui/02_SignUp/2_verify.spec.js'],
-      use: { ...devices['Desktop Chrome'] ,
+      testMatch: ['ui/02_SignUp/2_verify.spec.js'],
+      use: {
+        ...devices['Desktop Chrome'],
         viewport: { width: 1366, height: 768 },
       },
       fullyParallel: false,
     },
     {
       name: 'forgotPassword',
-      testMatch: [ 'ui/02_SignUp/3_forgotPassword.spec.js' ],
-      use: { ...devices['Desktop Chrome'] ,
+      testMatch: ['ui/02_SignUp/3_forgotPassword.spec.js'],
+      use: {
+        ...devices['Desktop Chrome'],
         viewport: { width: 1366, height: 768 },
       },
       fullyParallel: false,
     },
     {
       name: 'invite',
-      testMatch: [ 'ui/02_SignUp/4_invite.spec.js'],
-      use: { ...devices['Desktop Chrome'],
+      testMatch: ['ui/02_SignUp/4_invite.spec.js'],
+      use: {
+        ...devices['Desktop Chrome'],
         viewport: { width: 1366, height: 768 },
       },
       fullyParallel: false,
@@ -115,10 +120,11 @@ module.exports = defineConfig({
     },
     {
       name: 'Settings',
-      testMatch: [ 'ui/03_Settings/1_myAccount.spec.js',
-         'ui/03_Settings/2_organization.spec.js', 'ui/03_Settings/3_team.spec.js'
-        ],
-      use: { ...devices['Desktop Chrome'],
+      testMatch: ['ui/03_Settings/1_myAccount.spec.js',
+        'ui/03_Settings/2_organization.spec.js', 'ui/03_Settings/3_team.spec.js'
+      ],
+      use: {
+        ...devices['Desktop Chrome'],
         viewport: { width: 1366, height: 768 },
       },
       fullyParallel: false,
@@ -126,8 +132,9 @@ module.exports = defineConfig({
     },
     {
       name: 'organizationRole',
-      testMatch: ['ui/03_Settings/4_organizationRole.spec.js' ],
-      use: { ...devices['Desktop Chrome'],
+      testMatch: ['ui/03_Settings/4_organizationRole.spec.js'],
+      use: {
+        ...devices['Desktop Chrome'],
         viewport: { width: 1366, height: 768 },
       },
       fullyParallel: false,
@@ -136,7 +143,8 @@ module.exports = defineConfig({
     {
       name: 'organizationEdgeCase',
       testMatch: ['ui/03_Settings/5_edgeCase.spec.js'],
-      use: { ...devices['Desktop Chrome'],
+      use: {
+        ...devices['Desktop Chrome'],
         viewport: { width: 1366, height: 768 },
       },
       fullyParallel: false,
@@ -144,16 +152,18 @@ module.exports = defineConfig({
     },
     {
       name: 'ProjectPage',
-      testMatch: [ 'ui/04_Project/01_ProjectPage.spec.js'],
-      use: { ...devices['Desktop Chrome'],
+      testMatch: ['ui/04_Project/01_ProjectPage.spec.js'],
+      use: {
+        ...devices['Desktop Chrome'],
         viewport: { width: 1366, height: 768 },
       },
       fullyParallel: false,
     },
     {
       name: 'ProjectOverview',
-      testMatch: [ 'ui/04_Project/02_ProjectOverview.spec.js'],
-      use: { ...devices['Desktop Chrome'],
+      testMatch: ['ui/04_Project/02_ProjectOverview.spec.js'],
+      use: {
+        ...devices['Desktop Chrome'],
         viewport: { width: 1366, height: 768 },
       },
       fullyParallel: false,
@@ -161,8 +171,9 @@ module.exports = defineConfig({
     },
     {
       name: 'ProjectTopics',
-      testMatch: [ 'ui/04_Project/03_Topic_level.spec.js'],
-      use: { ...devices['Desktop Chrome'],
+      testMatch: ['ui/04_Project/03_Topic_level.spec.js'],
+      use: {
+        ...devices['Desktop Chrome'],
         viewport: { width: 1366, height: 768 },
       },
       fullyParallel: false,
@@ -170,8 +181,9 @@ module.exports = defineConfig({
     },
     {
       name: 'Projectsteps',
-      testMatch: [ 'ui/04_Project/04_Step_level.spec.js'],
-      use: { ...devices['Desktop Chrome'],
+      testMatch: ['ui/04_Project/04_Step_level.spec.js'],
+      use: {
+        ...devices['Desktop Chrome'],
         viewport: { width: 1366, height: 768 },
       },
       fullyParallel: false,
@@ -179,8 +191,9 @@ module.exports = defineConfig({
     },
     {
       name: 'ProjectFields',
-      testMatch: [ 'ui/04_Project/05_Field_level.spec.js'],
-      use: { ...devices['Desktop Chrome'],
+      testMatch: ['ui/04_Project/05_Field_level.spec.js'],
+      use: {
+        ...devices['Desktop Chrome'],
         viewport: { width: 1366, height: 768 },
       },
       fullyParallel: false,
@@ -188,44 +201,48 @@ module.exports = defineConfig({
     },
     {
       name: 'ProjectButtons',
-      testMatch: [ 'ui/04_Project/06_Form_discard_changes.spec.js'],
-      use: { ...devices['Desktop Chrome'],
+      testMatch: ['ui/04_Project/06_Form_discard_changes.spec.js'],
+      use: {
+        ...devices['Desktop Chrome'],
         viewport: { width: 1366, height: 768 },
       },
       fullyParallel: false,
       dependencies: ['ProjectPage'],
     },
     {
-        name: 'PublishProject',
-        testMatch: [ 'ui/04_Project/07_Publish_project.spec.js'],
-        use: { ...devices['Desktop Chrome'],
-          viewport: { width: 1366, height: 768 },
-        },
-        fullyParallel: false,
+      name: 'PublishProject',
+      testMatch: ['ui/04_Project/07_Publish_project.spec.js'],
+      use: {
+        ...devices['Desktop Chrome'],
+        viewport: { width: 1366, height: 768 },
+      },
+      fullyParallel: false,
     },
     {
       name: 'FillRemainingTopics',
-      testMatch: [ 'ui/04_Project/08_Fill_Other_Tiers.spec.js'],
+      testMatch: ['ui/04_Project/08_Fill_Other_Tiers.spec.js'],
       use: { ...devices['Desktop Chrome'] },
       fullyParallel: false,
       dependencies: ['PublishProject'],
     },
-      {
+    {
       name: 'ListingsPage',
-      testMatch: [ 'ui/05_Buyer/*.spec.js'],
-      use: { ...devices['Desktop Chrome'],
+      testMatch: ['ui/05_Buyer/*.spec.js'],
+      use: {
+        ...devices['Desktop Chrome'],
         viewport: { width: 1366, height: 768 },
-       },
+      },
       fullyParallel: true,
       dependencies: ['FillRemainingTopics'],
     },
     {
-        name: 'LoginApi',
-        testMatch: [ 'api/01_Login/*.spec.js'],
-        use: { ...devices['Desktop Chrome'],
-          viewport: { width: 1366, height: 768 },
-         },
-        fullyParallel: false,
+      name: 'LoginApi',
+      testMatch: ['api/01_Login/*.spec.js'],
+      use: {
+        ...devices['Desktop Chrome'],
+        viewport: { width: 1366, height: 768 },
+      },
+      fullyParallel: false,
     },
       {
         name: 'SignUpApi',
@@ -323,6 +340,15 @@ module.exports = defineConfig({
          },
         fullyParallel: false,
         dependencies: ['publishAPiProject'],
+      },
+      {
+        name: 'DataRoomAPI',
+        testMatch: [ 'api/03_Project/08_Data_Room.spec.js'],
+        use: { ...devices['Desktop Chrome'],
+          viewport: { width: 1366, height: 768 },
+         },
+        fullyParallel: false,
+        dependencies: ['modularBenefitProject'],
       },
     // {
     //   name: 'firefox',
