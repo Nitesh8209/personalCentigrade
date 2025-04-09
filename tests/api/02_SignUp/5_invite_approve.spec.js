@@ -4,7 +4,7 @@ import { generateTestEmail, getGmailMessages } from '../../utils/signUpHelper';
 import { postRequest, getRequest, putRequest, getData, saveData } from '../../utils/apiHelper';
 import API_ENDPOINTS from '../../../api/apiEndpoints';
 
-test.describe.serial(`Member Invitation and Approval Flow`, () => {
+test.describe(`Member Invitation and Approval Flow`, { tag: '@API' }, () => {
   const { newEmail, admin_access_token } = getData('Api');
 
   let headers;
@@ -83,6 +83,7 @@ test.describe.serial(`Member Invitation and Approval Flow`, () => {
       InviteEmail = generateTestEmail();
       if (reject === false) {
         memberEmail = InviteEmail;
+        await saveData({ memberEmail: memberEmail }, 'Api');
       }
       const inviteData = {
         organizationId: organizationId,
@@ -100,7 +101,7 @@ test.describe.serial(`Member Invitation and Approval Flow`, () => {
 
       // Fetch Gmail invite email
       const { subject, body } = await getGmailMessages();
-      expect(subject).toBe(`${ValidTestData.organizationName} has invited you to Centigrade`);
+      expect(subject).toBe(`${ValidTestData.apiOrganizationName} has invited you to Centigrade`);
       const expectedLinkPattern = /Accept invitation \[(https?:\/\/[^\]]+)\]/;
       const invitationLink = body.match(expectedLinkPattern)[1];
       expect(invitationLink).toContain(`${baseURL}/create-account`);
@@ -109,7 +110,7 @@ test.describe.serial(`Member Invitation and Approval Flow`, () => {
       const inviteSignUpData = new URLSearchParams({
         firstName: ValidTestData.Invite.firstName,
         lastName: ValidTestData.Invite.lastName,
-        organizationName: ValidTestData.Invite.organizationName,
+        organizationName: ValidTestData.Invite.apiOrganizationName,
         email: InviteEmail,
         reason: '',
       });
@@ -154,23 +155,28 @@ test.describe.serial(`Member Invitation and Approval Flow`, () => {
 
   })
 
-  test.describe.serial('Invalid Approval Cases', () => {
+  test.describe('Invalid Approval Cases', () => {
     // Test: Attempt to approve as a non-admin member
     test('Member Approve by non-admin privileges', async () => {
       approveEmail = generateTestEmail();
       await saveData({ approveEmail: approveEmail }, 'Api')
 
+      if(!memberEmail){
+        const data  = getData('Api');
+        memberEmail = data.memberEmail; // Retrieve the member email from the saved data
+      }
+
       // Invitee signs up and verifies their account
       const inviteSignUpData = new URLSearchParams({
         firstName: ValidTestData.Invite.firstName,
         lastName: ValidTestData.Invite.lastName,
-        organizationName: ValidTestData.Invite.organizationName,
+        organizationName: ValidTestData.Invite.apiOrganizationName,
         email: approveEmail,
         reason: '',
       });
       const inviteSignUpResponse = await postRequest(API_ENDPOINTS.onboardSignup, inviteSignUpData, headers);
       expect(inviteSignUpResponse.status).toBe(200);
-      const { receivedVerificationCode : inviteVerificationCode } = await getGmailMessages(InviteEmail);  // Fetch Gmail message for verification code
+      const { receivedVerificationCode : inviteVerificationCode } = await getGmailMessages(approveEmail);  // Fetch Gmail message for verification code
 
       // Verify invitee account using the verification code
       const verifyInviteeData = new URLSearchParams({
@@ -211,10 +217,15 @@ test.describe.serial(`Member Invitation and Approval Flow`, () => {
 
     // Test: Approving a non-existent member
     test('Approve non-existent member', async () => {
+
+      if(!accessToken){
+        const data  = getData('Api');
+        accessToken = data.admin_access_token; // Retrieve the access token from the saved data
+      }
       const approveInviteData = new URLSearchParams({
         email: inValidTestData.InvalidEmail,
       });
-
+      
       const approveInviteHeaders = {
         'Content-Type': 'application/x-www-form-urlencoded',
         'Authorization': `Bearer ${accessToken}`

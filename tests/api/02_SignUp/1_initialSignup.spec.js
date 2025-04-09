@@ -4,7 +4,7 @@ import API_ENDPOINTS from '../../../api/apiEndpoints';
 import { ValidTestData } from '../../data/SignUpData';
 import { postRequest, saveData } from '../../utils/apiHelper';
 
-test.describe.serial("Initial Sign Up Flow", () => {
+test.describe("Initial Sign Up Flow" , { tag: '@API' }, () => {
   let headers;
   let newEmail;
 
@@ -22,7 +22,7 @@ test.describe.serial("Initial Sign Up Flow", () => {
     const data = new URLSearchParams({
       firstName: ValidTestData.firstName,
       lastName: ValidTestData.lastName,
-      organizationName: ValidTestData.organizationName,
+      organizationName: ValidTestData.apiOrganizationName,
       email: newEmail,
     });
     const response = await postRequest(API_ENDPOINTS.onboardSignup, data, headers);
