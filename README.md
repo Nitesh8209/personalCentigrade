@@ -104,3 +104,18 @@ npx playwright show-report
 
 ```
 
+### 5. Run Specific Tests in CircleCI
+
+You can trigger tests with specific tags via **CircleCI Parameters**.
+
+- To run **UI tests** only:
+    Add Parameter - test_tag: @UI
+
+- To run **API tests** only:
+    Add Parameter - test_tag: @API
+
+- To run **SMOKE tests** only:
+    Add Parameter - test_tag: @SMOKE
+
+- To run **ALL tests**:
+    - No Need to add any parameter               

@@ -1,9 +1,17 @@
 version: 2.1
 
+parameters:
+  test_tag:
+    type: string
+    default: ""
+
 jobs:
   build-and-test:
     docker:
       - image: cimg/node:23.9.0
+    parameters:
+      test_tag:
+        type: string 
     steps:
       - checkout
       - setup_remote_docker
@@ -13,8 +21,15 @@ jobs:
       - run:
           name: Run Playwright tests
           command: |
+            if [ "<< parameters.test_tag >>" = "" ]; then
+              TEST_CMD="npx playwright test --reporter=html"
+            else
+              TEST_CMD="npx playwright test --grep "<< parameters.test_tag >>" --reporter=html"
+            fi
+             
             docker run --name playwright-container \
-              -e PLATFORM=dev playwright-tests npx playwright test --reporter=html
+            -e PLATFORM=dev \
+            playwright-tests $TEST_CMD
       - run:
           name: Copy Playwright report
           command: docker cp playwright-container:/app/playwright-report ./playwright-report
@@ -26,4 +41,5 @@ jobs:
 workflows:
   run-build-and-test:
     jobs:
-      - build-and-test
+      - build-and-test:
+          test_tag: << pipeline.parameters.test_tag >> 
