@@ -16,7 +16,8 @@ export const API_ENDPOINTS = {
   modularbenefitproject: `${API_BASE_URL}/modular-benefit-project`,
   organizationtype: `${API_BASE_URL}/organization-types`,
   publicProject: `${API_BASE_URL}/public/projects`,
-  getMethodologies: `${API_BASE_URL}/methodologies`
+  getMethodologies: `${API_BASE_URL}/methodologies`,
+  getPublic:`${API_BASE_URL}/public/project`
 }
 
 export default API_ENDPOINTS;

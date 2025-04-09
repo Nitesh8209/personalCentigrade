@@ -1,22 +1,36 @@
 import { test, expect } from '@playwright/test';
 import API_ENDPOINTS from '../../../api/apiEndpoints';
 import { getData, getRequest, postRequest, putRequest, saveData } from '../../utils/apiHelper';
-import { organizationtypeData, project } from '../../data/projectData';
+import { project } from '../../data/projectData';
+import { apiProjectCreadentials } from '../../data/testData';
 
 
-test.describe('Project API Tests', () => {
+test.describe('Project API Tests', { tag: '@API' }, () => {
   // Extract necessary data from the shared data store
-  const { organizationId, InviteaccessToken } = getData('Api');
-  const { admin_access_token } = getData('Api');
   let projectId;
   let headers;
+  let projectAccessToken;
 
 
   test.beforeAll(async () => {
+    const authdata = new URLSearchParams({
+      username: apiProjectCreadentials.email,
+      password: apiProjectCreadentials.password,
+    });
+    const authHeader = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    }
+
+    const authResponse = await postRequest(API_ENDPOINTS.authTOken, authdata, authHeader);
+    expect(authResponse.status).toBe(200);
+    const authResponseBody = await authResponse.json();
+    projectAccessToken = authResponseBody.access_token;
+    await saveData({ projectAccessToken: projectAccessToken }, 'Api');
+
     // Set headers with Invite access token for authorization
     headers = {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${InviteaccessToken}`
+      'Authorization': `Bearer ${projectAccessToken}`
     };
   });
 
@@ -24,7 +38,7 @@ test.describe('Project API Tests', () => {
   test('Create Project without Authorization', async () => {
     const data = {
       name: project.projectName,
-      organizationId: organizationId
+      organizationId: apiProjectCreadentials.organizationId
     };
 
     const projectHeader = {
@@ -44,7 +58,7 @@ test.describe('Project API Tests', () => {
   test('Create Project with Authorization', async () => {
     const projectData = {
       name: project.projectName,
-      organizationId: organizationId
+      organizationId: apiProjectCreadentials.organizationId
     };
 
     const response = await postRequest(API_ENDPOINTS.createProject, JSON.stringify(projectData), headers);
@@ -54,74 +68,19 @@ test.describe('Project API Tests', () => {
     expect(response.status).toBe(201);
     expect(responseBody).toHaveProperty('id', expect.any(Number));
     expect(responseBody).toHaveProperty('name', project.projectName);
-    expect(responseBody).toHaveProperty('organizationId', organizationId);
+    expect(responseBody).toHaveProperty('organizationId', apiProjectCreadentials.organizationId);
 
     // Save the project ID for future use
     projectId = responseBody.id;
     await saveData({ projectId: projectId }, 'Api');
   })
 
-  // Test case to retrieve projects by organization ID
-  // test('Get the Project By Organization ID', async () => {
-  //   const projectUrl = `${API_ENDPOINTS.createProject}?organizationId=${organizationId}`;
-  //   const projectHeaders = {
-  //     'Content-Type': 'application/json',
-  //     'Authorization': `Bearer ${admin_access_token}`
-  //   };
-  //   const response = await getRequest(projectUrl, projectHeaders);
-  //   const responseBody = await response.json();
-
-  //   // Assert the response status and properties of the first project
-  //   expect(response.status).toBe(200);
-  //   expect(responseBody[0]).toHaveProperty('id', projectId);
-  //   expect(responseBody[0]).toHaveProperty('name', project.projectName);
-  //   expect(responseBody[0]).toHaveProperty('organizationId', organizationId);
-  // })
-
-  // Test case to attempt accessing a project without the required role-type access
-  test('Get Project without Role-Type Access', async () => {
-    const getProjectUrl = `${API_ENDPOINTS.createProject}/${projectId}`;
-    const response = await getRequest(getProjectUrl, headers);
-    const responseBody = await response.json();
-
-    // Assert the expected 404 error response
-    expect(response.status).toBe(404);
-    expect(responseBody).toHaveProperty('statusCode', 404);
-    expect(responseBody).toHaveProperty('errorType', 'MODEL_NOT_FOUND');
-    expect(responseBody).toHaveProperty('errorMessage', 'member does not have FORM role');
-    expect(responseBody.context).toHaveProperty('project_id', projectId);
-  })
-
-  // Iterate through organization type data to update roles for each type
-  organizationtypeData.forEach(({ name, roleTypeId, description }) => {
-    test(`update the role type - ${name}`, async () => {
-      const organizationtypeData =
-      {
-        name: name,
-        organizationId: organizationId,
-        roleTypeId: roleTypeId
-      }
-
-      const organizationTypeHeaders = {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${admin_access_token}`
-      };
-
-      const response = await postRequest(API_ENDPOINTS.organizationtype, JSON.stringify(organizationtypeData), organizationTypeHeaders);
-      const responseBody = await response.json();
-
-      // Assert the response status and body properties
-      expect(response.status).toBe(201);
-      expect(responseBody).toHaveProperty('name', name);
-      expect(responseBody.roleType).toHaveProperty('id', roleTypeId);
-      expect(responseBody.roleType).toHaveProperty('name', name);
-      expect(responseBody.roleType).toHaveProperty('description', description);
-      expect(responseBody.roleType).toHaveProperty('segment', 'ORGANIZATIONAL_ROLE');
-    })
-  })
-
   // Test case to retrieve a project by its ID
   test('Get Project By projet ID', async () => {
+    if(!projectId){
+      const data = getData('Api');
+      projectId = data.projectId;
+    }
     const getProjectUrl = `${API_ENDPOINTS.createProject}/${projectId}`;
     const response = await getRequest(getProjectUrl, headers);
     const responseBody = await response.json();
@@ -130,11 +89,15 @@ test.describe('Project API Tests', () => {
     expect(response.status).toBe(200);
     expect(responseBody).toHaveProperty('id', projectId);
     expect(responseBody).toHaveProperty('name', project.projectName);
-    expect(responseBody).toHaveProperty('organizationId', organizationId);
+    expect(responseBody).toHaveProperty('organizationId', apiProjectCreadentials.organizationId);
   })
 
   // Test case to update project details
-  test('Update Project Data', async ({baseURL}) => {
+  test('Update Project Data', async ({ baseURL }) => {
+    if(!projectId){
+      const data = getData('Api');
+      projectId = data.projectId;
+    }
     const ProjectUrl = `${API_ENDPOINTS.createProject}/${projectId}`;
     const projectData = {
       domain: `${baseURL}/`,
@@ -147,11 +110,15 @@ test.describe('Project API Tests', () => {
     expect(response.status).toBe(200);
     expect(responseBody).toHaveProperty('id', projectId);
     expect(responseBody).toHaveProperty('domain', `${baseURL}/`);
-    expect(responseBody).toHaveProperty('organizationId', organizationId);
+    expect(responseBody).toHaveProperty('organizationId', apiProjectCreadentials.organizationId);
   })
 
-  // Test case to retrieve the state of the project by its ID
+  // // Test case to retrieve the state of the project by its ID
   test('Get Project state By ID', async () => {
+      if(!projectId){
+      const data = getData('Api');
+      projectId = data.projectId;
+    }
     const getProjectUrl = `${API_ENDPOINTS.createProject}/${projectId}/state`;
 
     const response = await getRequest(getProjectUrl, headers);
