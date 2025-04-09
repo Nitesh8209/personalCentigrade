@@ -29,7 +29,6 @@ jobs:
              
             docker run --name playwright-container \
             -e PLATFORM=dev \
-            -e TEST_SUITE=<< parameters.test_tag >> \
             playwright-tests $TEST_CMD
       - run:
           name: Copy Playwright report
