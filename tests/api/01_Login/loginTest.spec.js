@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { Credentials, API_BASE_URL, InvalidCreadentials } from '../../data/testData';
 import { postRequest, validateErrorResponse, saveData } from '../../utils/apiHelper'
 
-test.describe('Login Api Tests', () => {
+test.describe('Login Api Tests', { tag: '@API' }, () => {
     let url;
     let headers;
 

@@ -3,7 +3,7 @@ import { getData, postRequest } from '../../utils/apiHelper';
 import { inValidTestData, ValidTestData } from '../../data/SignUpData';
 import API_ENDPOINTS from '../../../api/apiEndpoints';
 
-test.describe.serial('Account Verification Flow', () => {
+test.describe('Account Verification Flow', { tag: '@API' }, () => {
   const { newEmail, verificationCode } = getData('Api');
 
   let headers;

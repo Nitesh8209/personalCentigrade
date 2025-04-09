@@ -4,7 +4,7 @@ import { getGmailMessages } from '../../utils/signUpHelper';
 import { inValidTestData } from '../../data/SignUpData';
 import API_ENDPOINTS from '../../../api/apiEndpoints';
 
-test.describe.serial('Verification Code Flow', () => {
+test.describe('Verification Code Flow', { tag: '@API' }, () => {
   const { newEmail } = getData('Api');
   let headers;
 

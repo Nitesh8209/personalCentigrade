@@ -5,7 +5,7 @@ import { getData, postRequest } from '../../utils/apiHelper';
 import { Credentials } from '../../data/testData';
 import { getGmailMessages } from '../../utils/signUpHelper';
 
-test.describe.serial("Password Reset Flow", () => {
+test.describe("Password Reset Flow", { tag: '@API' }, () => {
   const { newEmail } = getData('Api');
   let headers;
   let temporaryPassword;

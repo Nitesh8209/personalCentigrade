@@ -2,6 +2,7 @@ export const ValidTestData = {
     firstName: "Nitesh",
     lastName: "Agarwal",
     organizationName: "automationUi",
+    apiOrganizationName: "automationApi",
     Password: 'Centigrade@54321',
     newPassword: 'Centigrade@12345',
     InvalidPassword: '123456789',
@@ -10,6 +11,7 @@ export const ValidTestData = {
         firstName: "Nitesh10",
         lastName: "Agarwal",
         organizationName: "automationUi",
+        apiOrganizationName: "automationApi",
         Password: 'Centigrade@54321',
     },
     Approve: [
