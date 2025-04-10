@@ -22,15 +22,14 @@ jobs:
           name: Run Playwright tests
           command: |
             if [ "<< parameters.test_tag >>" = "" ]; then
-              TEST_CMD="tests/ui/01_Login"
+              TEST_CMD="npx playwright test tests/ui/01_Login"
             else
-              TEST_CMD="tests/ui/01_Login --grep << parameters.test_tag >>"
+              TEST_CMD="npx playwright test tests/ui/01_Login --grep << parameters.test_tag >>"
             fi
       
             docker run --name playwright-container \
               -e PLATFORM=dev \
               playwright-tests $TEST_CMD
-      
             docker cp playwright-container:/app/playwright-report ./playwright-report
             
       # - run:
