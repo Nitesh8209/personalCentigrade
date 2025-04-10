@@ -1907,3 +1907,8 @@ export const organizationtypeData = [
         description: "The ability to create forms",
     }
 ]
+
+export const dataRoomData = {
+    name: "testData",
+    updateName: "UpdateTestData"
+}
