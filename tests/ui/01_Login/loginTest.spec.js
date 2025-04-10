@@ -45,7 +45,7 @@ test.describe('Login Page UI Tests', {tag: '@UI'}, () => {
     expect(loginButton).toBeVisible();
     expect(toS).toBeVisible();
     expect(privacyPolicy).toBeVisible();
-    expect(page.url()).toBe(`${loginPage.baseURL}/login`);
+    expect(page.url()).toBe(`${loginPage.baseURL}/logina`);
 
     // Verify navigation for Terms of Service link
     const [newTab1] = await Promise.all([
