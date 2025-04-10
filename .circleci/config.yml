@@ -30,10 +30,14 @@ jobs:
             docker run --name playwright-container \
             -e PLATFORM=dev \
             playwright-tests $TEST_CMD
-      - run:
-          name: Copy Playwright report
-          when: always
-          command: docker cp playwright-container:/app/playwright-report ./playwright-report
+
+            TEST_EXIT_CODE=$?
+            docker cp playwright-container:/app/playwright-report ./playwright-report || echo "Failed to copy report"
+            exit $TEST_EXIT_CODE
+      # - run:
+      #     name: Copy Playwright report
+      #     when: always
+      #     command: docker cp playwright-container:/app/playwright-report ./playwright-report
 
       - store_artifacts:
           path: playwright-report
