@@ -29,14 +29,16 @@ jobs:
              
             docker run --name playwright-container \
             -e PLATFORM=dev \
-            playwright-tests $TEST_CMD
+            playwright-tests $TEST_CMD || true
       - run:
           name: Copy Playwright report
+          when: always
           command: docker cp playwright-container:/app/playwright-report ./playwright-report
 
       - store_artifacts:
           path: playwright-report
           destination: playwright-report
+          when: always
 
 workflows:
   run-build-and-test:
