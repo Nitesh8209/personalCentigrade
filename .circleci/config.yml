@@ -22,18 +22,16 @@ jobs:
           name: Run Playwright tests
           command: |
            if [ "<< parameters.test_tag >>" = "" ]; then
-              TEST_CMD="npx playwright test tests/ui/01_Login --reporter=list"
+              TEST_CMD="tests/ui/01_Login"
             else
-              TEST_CMD="npx playwright test tests/ui/01_Login --grep "<< parameters.test_tag >>" --reporter=list"
+              TEST_CMD="tests/ui/01_Login --grep "<< parameters.test_tag >>" "
             fi
              
             docker run --name playwright-container \
             -e PLATFORM=dev \
             playwright-tests $TEST_CMD
-
-            TEST_EXIT_CODE=$?
-            docker cp playwright-container:/app/playwright-report ./playwright-report || echo "Failed to copy report"
-            exit $TEST_EXIT_CODE
+            docker cp playwright-container:/app/playwright-report ./playwright-report
+            
       # - run:
       #     name: Copy Playwright report
       #     when: always
