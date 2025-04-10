@@ -16,6 +16,13 @@ export const projectValidationCredentials = {
   organizationName: 'automationProject1',
 }
 
+export const apiProjectCreadentials = {
+  email: 'nitesh.agarwal+test1743665610357@kreeti.com',
+  password: 'Centigrade@12345',
+  organizationName: 'automationProject2',
+  organizationId: 409,
+}
+
 export const InvalidCreadentials = [
   {
     description: 'Invalid username',

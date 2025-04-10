@@ -1,4 +1,4 @@
-import { actualsData, forcastData, projectApproach } from "../tests/data/projectData";
+import { actualsData, forcastData, project, projectApproach } from "../tests/data/projectData";
 import { API_BASE_URL } from "../tests/data/testData";
 import { expect } from '@playwright/test';
 
@@ -10,18 +10,18 @@ class ProjectsPage {
     constructor(page, baseURL) {
         this.page = page;
         this.baseURL = baseURL;
-        this.disableFeedbackWidget();
+        // this.disableFeedbackWidget();
     }
 
-    async disableFeedbackWidget() {
-        await this.page.addStyleTag({
-            content: `
-            #zsfeedbackwidgetdiv {
-              pointer-events: none !important;
-            }
-          `
-        });
-    }
+    // async disableFeedbackWidget() {
+    //     await this.page.addStyleTag({
+    //         content: `
+    //         #zsfeedbackwidgetdiv {
+    //           pointer-events: none !important;
+    //         }
+    //       `
+    //     });
+    // }
 
     async navigate() {
         await this.page.goto(`${this.baseURL}/projects`);
@@ -132,7 +132,8 @@ class ProjectsPage {
     }
 
     async viewProject() {
-        await this.page.locator('.project-list > div:nth-child(1) > .actions > .btn').click();
+        // await this.page.locator('.project-list > div:nth-child(1) > .actions > .btn').click();
+        await this.page.locator('.project-list > .project-card').filter({hasText: project.uiProjectName}).first().locator('.actions > .btn').click();
     }
 
     async projectDetails() {

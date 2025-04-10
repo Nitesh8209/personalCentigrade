@@ -27,7 +27,7 @@ test.describe.serial('Edge Cases and Organization Deletion Scenarios', () => {
     const inviteSignUpData = new URLSearchParams({
       firstName: ValidTestData.Invite.firstName,
       lastName: ValidTestData.Invite.lastName,
-      organizationName: ValidTestData.Invite.organizationName,
+      organizationName: ValidTestData.Invite.apiOrganizationName,
       email: resendEmail,
       reason: '',
     });
