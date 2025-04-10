@@ -29,7 +29,7 @@ jobs:
              
             docker run --name playwright-container \
             -e PLATFORM=dev \
-            playwright-tests $TEST_CMD || true
+            playwright-tests $TEST_CMD
       - run:
           name: Copy Playwright report
           when: always
