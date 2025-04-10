@@ -29,8 +29,12 @@ jobs:
       
             docker run --name playwright-container \
               -e PLATFORM=dev \
-              playwright-tests $TEST_CMD
-            docker cp playwright-container:/app/playwright-report ./playwright-report
+              playwright-tests $TEST_CMD || EXIT_CODE=$?
+            echo "Copying Playwright report..."
+            docker cp playwright-container:/app/playwright-report ./playwright-report || echo "Report not found."
+
+            exit ${EXIT_CODE:-0}  
+            # docker cp playwright-container:/app/playwright-report ./playwright-report 
             
       # - run:
       #     name: Copy Playwright report
