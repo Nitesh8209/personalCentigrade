@@ -342,6 +342,15 @@ module.exports = defineConfig({
         dependencies: ['publishAPiProject'],
       },
       {
+        name: 'DataTableAPI',
+        testMatch: [ 'api/03_Project/07_Data_Table.spec.js'],
+        use: { ...devices['Desktop Chrome'],
+          viewport: { width: 1366, height: 768 },
+         },
+        fullyParallel: false,
+        dependencies: ['publishAPiProject'],
+      },
+      {
         name: 'DataRoomAPI',
         testMatch: [ 'api/03_Project/08_Data_Room.spec.js'],
         use: { ...devices['Desktop Chrome'],

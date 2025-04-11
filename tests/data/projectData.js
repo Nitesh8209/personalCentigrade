@@ -1908,6 +1908,128 @@ export const organizationtypeData = [
     }
 ]
 
+export const dataTableData = [
+  {
+    id: 1809,
+    name: "leakageSourceTable",
+    data: {
+      cells: [
+        {
+          rowIndex: 0,
+          columnId: 1807,
+          value: "Market Effects",
+          isMutable: true,
+        },
+        {
+          rowIndex: 0,
+          columnId: 1808,
+          value: "test",
+          isMutable: true,
+        },
+        {
+          rowIndex: 0,
+          columnId: 1810,
+          value: "Included",
+          isMutable: true,
+        },
+        {
+          rowIndex: 0,
+          columnId: 1811,
+          value: "test",
+          isMutable: true,
+        },
+      ],
+    },
+  },
+  {
+    id: 1690,
+    name: "validationBodyTeamTable",
+    data: {
+      cells: [
+        {
+          rowIndex: 0,
+          columnId: 1691,
+          value: "test",
+          isMutable: true,
+        },
+        {
+          rowIndex: 0,
+          columnId: 1692,
+          value: '["Company point of contact"]',
+          isMutable: true,
+        },
+        {
+          rowIndex: 0,
+          columnId: 1693,
+          value: "test@gmail.com",
+          isMutable: true,
+        },
+        {
+          rowIndex: 0,
+          columnId: 1694,
+          value: '["Site visit"]',
+          isMutable: true,
+        },
+      ],
+    },
+  },
+  {
+    id: 1880,
+    name: "leakageBlockTable",
+    data: {
+      cells: [
+        {
+          rowIndex: 0,
+          columnId: 1881,
+          value: "test",
+          isMutable: true,
+        },
+        {
+          rowIndex: 0,
+          columnId: 1882,
+          value: '["Market"]',
+          isMutable: true,
+        },
+      ],
+    },
+  },
+];
+
+export const updateDataTable = [
+  {
+    id: 1809,
+    name: "leakageSourceTable",
+    data: {
+      cells: [
+        {
+          rowIndex: 0,
+          columnId: 1807,
+          value: "Activity-shifting",
+          isMutable: true,
+        },
+        {
+          rowIndex: 0,
+          columnId: 1808,
+          value: "updatetest",
+          isMutable: true,
+        },
+        {
+          rowIndex: 0,
+          columnId: 1810,
+          value: "Excluded",
+          isMutable: true,
+        },
+        {
+          rowIndex: 0,
+          columnId: 1811,
+          value: "updatetest",
+          isMutable: true,
+        },
+      ],
+    },
+  },
+];
+
 export const dataRoomData = {
     name: "testData",
     updateName: "UpdateTestData"
