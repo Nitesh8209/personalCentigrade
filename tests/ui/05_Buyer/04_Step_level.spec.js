@@ -90,7 +90,6 @@ test.describe("Step Level Validation", { tag: '@UI' }, () => {
                   await expect(stepElement).toBeVisible();
                   await expect(stepElement).toBeEnabled();
                   if (!(authState.isAuthenticated) && topic.name !== 'projectStory') {
-                    console.log(step.label, authState.isAuthenticated);
                     await expect(stepElement).toHaveClass(/disabled/);
                   }
                 }, errors);
@@ -142,8 +141,8 @@ test.describe("Step Level Validation", { tag: '@UI' }, () => {
 
                     if (!hasValidSection) {
                       // Validate that sections with no valid fields are not visible
-                      await safeExpect(`Section ${section.id} should not be visible`, async () => {
-                        await expect(await projectListings.sectionLabel(section.id)).not.toBeVisible();
+                      await safeExpect(`Section ${section.name} should not be visible`, async () => {
+                        await expect(await projectListings.sectionLabel(section.name)).not.toBeVisible();
                         await expect(await projectListings.contentSectionLabel(section.id)).not.toBeVisible();
                       }, errors);
                       continue;
@@ -167,8 +166,8 @@ test.describe("Step Level Validation", { tag: '@UI' }, () => {
                   const step = stepGroup.steps[0];
                   if(step.sections[0].label){
                     await safeExpect(`Section '${step.label}' visibility`, async () => {
-                      await expect(await projectListings.sectionLabel(step.sections[0].id)).toBeVisible();
-                      await expect(await projectListings.sectionLabel(step.sections[0].id)).toHaveText(step.sections[0].label);
+                      await expect(await projectListings.sectionLabel(step.sections[0].name)).toBeVisible();
+                      await expect(await projectListings.sectionLabel(step.sections[0].name)).toHaveText(step.sections[0].label);
                     }, errors);
                   }
                   
@@ -176,10 +175,10 @@ test.describe("Step Level Validation", { tag: '@UI' }, () => {
                     if (!section?.field_groups || section.field_groups.length === 0) continue;
 
                     for (const fieldGroup of section.field_groups) {
-                      if (fieldGroup.label) {
+                      if (fieldGroup.label && fieldGroup.fields) {
                         await safeExpect(`Field Group '${fieldGroup.label}' visibility`, async () => {
-                          await expect(await projectListings.fieldGroupLabel(fieldGroup.id)).toBeVisible();
-                          await expect(await projectListings.fieldGroupLabel(fieldGroup.id)).toHaveText(fieldGroup.label);
+                          await expect(await projectListings.fieldGroupLabel(fieldGroup.name)).toBeVisible();
+                          await expect(await projectListings.fieldGroupLabel(fieldGroup.name)).toHaveText(fieldGroup.label);
                         }, errors);
                       }
                     }

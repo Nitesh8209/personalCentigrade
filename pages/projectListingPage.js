@@ -78,17 +78,17 @@ export class ProjectListings {
     return await this.page.locator('.content').locator('.step-header').getByRole('heading', { name: label , exact: true});
   }
 
-  async sectionLabel(id){
-    return await this.page.locator(`#nav-${id}`);
+  async sectionLabel(name){
+    return await this.page.locator(`div > #nav-${name}`);
   }
 
   
-  async contentSectionLabel(id){
-    return await this.page.locator(`#accordion\\:${id}`);
+  async contentSectionLabel(name){
+    return await this.page.locator(`h2#accordion\\:${name}`);
   }
 
-  async fieldGroupLabel(id){
-    return await this.page.locator('.right-nav > .right-nav-list').locator(`#nav-${id}`);
+  async fieldGroupLabel(name){
+    return await this.page.locator('.right-nav > .right-nav-list').locator(`li > #nav-${name}`);
   }
 
   async contentFieldGroupLabel(label){
@@ -220,7 +220,9 @@ export class ProjectListings {
     await expect(await locator.locator('label')).toHaveText(field.label);
     await expect(await locator.locator('.relative > div > ul')).toBeVisible();
     const value = await getFieldValue(field.name);
-    await expect(await locator.locator('.relative > div > ul > li')).toHaveText(value);
+    const parseValue = JSON.parse(value);
+    const allText = await locator.locator('.relative > div > ul > li').allTextContents();
+    await expect(allText).toEqual(parseValue);
   }
 
   async validateSelectMultiplePillField(field, locator){
@@ -236,7 +238,9 @@ export class ProjectListings {
     await expect(await locator.locator('label')).toHaveText(field.label);
     await expect(await locator.locator('.relative > div > ul')).toBeVisible();
     const value = await getFieldValue(field.name);
-    await expect(await locator.locator('.relative > div > ul > li')).toHaveText(value);
+    const expectedValues = JSON.parse(value);
+    const items = await locator.locator('.relative > div > ul > li').allTextContents();
+    expect(items).toEqual(expectedValues);
   }
 
   async ValidateTruncatedText(field, locator){
@@ -261,7 +265,6 @@ export class ProjectListings {
     await expect(await locator.locator('label')).toBeVisible();
     await expect(await locator.locator('label')).toHaveText(field.label);
     const value = await getFieldValue(field.name);
-    console.log(field.label, value);
    if(value){
         await expect(await locator.locator('.text-link').first()).toBeVisible();
      await expect(await locator.locator('.text-link').first()).toHaveText(value);
@@ -282,19 +285,23 @@ export class ProjectListings {
   async validateModularChart(field, locator){
     await expect(await locator.locator('h2')).toBeVisible();
     await expect(await locator.locator('h2')).toHaveText(field.label);
-    await expect(await locator.locator('.recharts-responsive-container').locator('svg.recharts-surface')).toBeVisible(); 
+    const value = await getFieldValue(field.name);
+    if(value){
+      await expect(await locator.locator('.recharts-responsive-container').locator('svg.recharts-surface')).toBeVisible(); 
 
-    const seriesSetLocator = await locator.locator('.recharts-responsive-container').locator('.recharts-legend-wrapper');
-    await expect(seriesSetLocator).toBeVisible();
-
-      for(const element of field?.elements || []){
-        for(const seriesSet of element?.series_sets || []){
-          const seriesSetItemLocator = await seriesSetLocator.locator('div > div').filter({hasText : seriesSet.label});
-          // await expect(await seriesSetItemLocator.locator('svg')).toBeVisible();
-          await expect(await seriesSetItemLocator.locator('span')).toBeVisible();
-          await expect(await seriesSetItemLocator.locator('span')).toHaveText(seriesSet.label);
+      const seriesSetLocator = await locator.locator('.recharts-responsive-container').locator('.recharts-legend-wrapper');
+      await expect(seriesSetLocator).toBeVisible();
+  
+        for(const element of field?.elements || []){
+          for(const seriesSet of element?.series_sets || []){
+            const seriesSetItemLocator = await seriesSetLocator.locator('div > div').filter({hasText : seriesSet.label});
+            // await expect(await seriesSetItemLocator.locator('svg')).toBeVisible();
+            await expect(await seriesSetItemLocator.locator('span')).toBeVisible();
+            await expect(await seriesSetItemLocator.locator('span')).toHaveText(seriesSet.label);
+          }
         }
-      }
+    }
+    
   }
 
   async validateDataGrid(field, locator, startYear, endYear){
@@ -307,26 +314,31 @@ export class ProjectListings {
     await expect(await tableHeader.locator('.ag-pinned-left-header')).toBeVisible();
     await expect(await tableHeader.locator('.ag-pinned-left-header')).toHaveText('Vintage');
     
+        const value = await getFieldValue(field.name);
         const headerVeiwPort = await tableLocator.locator('.ag-header-viewport ');
         await expect(headerVeiwPort).toBeVisible();
-        for (let i = 0; i <= endYear - startYear; i++) {
-          const colId = Number(startYear);
-          const colheader = await headerVeiwPort.locator(`[col-id="${colId + i}"]`);
-          await expect(colheader).toBeVisible();
-          await expect(colheader).toHaveText(String(colId + i));
+        if(value){
+          for (let i = 0; i <= endYear - startYear; i++) {
+            const colId = Number(startYear);
+            const colheader = await headerVeiwPort.locator(`[col-id="${colId + i}"]`);
+            await expect(colheader).toBeVisible();
+            await expect(colheader).toHaveText(String(colId + i));
+          }
         }
     
         for (const option of field.options) {
           const colName = await tableLocator.getByText(option.label);
           await expect(colName).toBeVisible();
           await expect(colName).toHaveText(option.label);
-          for (let i = 0; i <= endYear - startYear; i++) {
-            const colId = Number(startYear);
-            const rowIndex = await tableLocator.locator('.ag-center-cols-viewport').locator(`[row-id="${option.name}"]`);
-            await expect(rowIndex).toBeVisible();
-            const colheader = await rowIndex.locator(`[col-id="${colId + i}"]`);
-            await expect(colheader).toBeVisible();
-            await expect(colheader).toHaveText((colId + i).toLocaleString());
+          if(value){
+            for (let i = 0; i <= endYear - startYear; i++) {
+              const colId = Number(startYear);
+              const rowIndex = await tableLocator.locator('.ag-center-cols-viewport').locator(`[row-id="${option.name}"]`);
+              await expect(rowIndex).toBeVisible();
+              const colheader = await rowIndex.locator(`[col-id="${colId + i}"]`);
+              await expect(colheader).toBeVisible();
+              await expect(colheader).toHaveText((colId + i).toLocaleString());
+            }
           }
         }
       

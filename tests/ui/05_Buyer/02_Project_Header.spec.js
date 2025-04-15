@@ -79,18 +79,14 @@ test.describe('Project Header - UI and Navigation for Unauthenticated Users', { 
   })
 
   // Test case for verifying Get In Touch modal functionality
-  test('Verify should display and function Get In Touch Modal for Unauthenticated Users', async () => {
+  test('Verify should display and function Get In Touch Modal for Unauthenticated Users', async ({baseURL}) => {
     const errors = [];
     const projectHeader = new ProjectListings(page);
     const getInTouch = await projectHeader.getInTouch();
     await getInTouch.click();
 
-    await validateGetInTouchModal(projectHeader, errors);
-
-    await safeExpect(`Modal cancel Button functionlity`, async () => {
-      const cancelButton = await projectHeader.modalCancelButton();
-      await cancelButton.click();
-      await expect(await projectHeader.getInTouchModal()).not.toBeVisible();
+    await safeExpect(`should be redirect on the create account page`, async () => {
+      expect(await page.url()).toBe(`${baseURL}/create-account`)
     }, errors);
 
     if (errors.length > 0) {
@@ -178,7 +174,7 @@ test.describe('Project Header - UI and Navigation for Authenticated Users', { ta
     }, errors);
 
     await safeExpect(`Project Breadcurmp should be visible`, async () => {
-      await fieldHandler.validateBreadcrumb(1, '', project.uiProjectName);
+      await fieldHandler.validateBreadcrumb(1, '', project.buyerProject);
     }, errors);
 
     await safeExpect(`Overview Breadcurmp should be visible`, async () => {
@@ -186,7 +182,7 @@ test.describe('Project Header - UI and Navigation for Authenticated Users', { ta
     }, errors);
 
     if (errors.length > 0) {
-      throw new Error(`Validation errors found:\n${errors.join('\n')}`);
+      throw new Error(`Validation errors found:\  n${errors.join('\n')}`);
     }
 
   })
