@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import API_ENDPOINTS from '../../../api/apiEndpoints';
-import { getData, getRequest, postRequest, putRequest } from '../../utils/apiHelper';
+import { getData, getRequest, postRequest, putRequest, saveData } from '../../utils/apiHelper';
 import { project, projectApproach } from '../../data/projectData';
 import { validateProjectFieldValues } from '../../utils/projectHelper';
 import { apiProjectCreadentials } from '../../data/testData';
@@ -128,6 +128,9 @@ test.describe('TIER0 Project Management Tests for Publish', { tag: '@API' }, () 
     expect(responseBody.isPublished).toBe(true);
     expect(responseBody.reviewState).toBe('REVIEWED');
     expect(responseBody.latestVersions.published).not.toBe(null);
+
+    const draftProjectId = responseBody.latestVersions.draft.projectId;
+    await saveData({ draftProjectId: draftProjectId }, 'Api');
   })
 
 

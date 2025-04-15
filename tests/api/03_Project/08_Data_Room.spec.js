@@ -10,7 +10,7 @@ const filePath = './tests/assets/file.png';
 const fileBuffer = fs.readFileSync(filePath);
 
 // Test suite for Data Room API endpoints
-test.describe('API Test cases for Data Room', () => {
+test.describe('API Test cases for Data Room' ,{tag: '@API'}, () => {
 
   // Declare variables for authentication and IDs
   const { projectAccessToken} = getData('Api');

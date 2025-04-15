@@ -6,7 +6,7 @@ import { validateProjectFieldValues } from '../../utils/projectHelper';
 
 test.describe('Fill all Fields', { tag: '@API' }, () => {
   // Retrieve required data like tokens, organizationId, and projectId from saved data
-  const { projectAccessToken, projectId } = getData('Api');
+  const { projectAccessToken, draftProjectId } = getData('Api');
 
   let headers;
 
@@ -20,12 +20,12 @@ test.describe('Fill all Fields', { tag: '@API' }, () => {
 
   // Test to create project field values
   test('Post Request project-field-values for all Fields', async () => {
-    const projectfieldvalueUrl = `${API_ENDPOINTS.createProject}/${projectId}/project-field-values`;
+    const projectfieldvalueUrl = `${API_ENDPOINTS.createProject}/${draftProjectId}/project-field-values`;
 
     // Send a POST request with project approach data
     const response = await postRequest(projectfieldvalueUrl, JSON.stringify(remainingFields), headers);
     const responseBody = await response.json();
-
+ 
     // Verify the response status and structure
     expect(response.status).toBe(201);
     expect(Array.isArray(responseBody)).toBe(true);
@@ -37,7 +37,7 @@ test.describe('Fill all Fields', { tag: '@API' }, () => {
   // Test to retrieve project field values
   test('Get Project-Field-Values', async () => {
 
-    const projectfieldvalueUrl = `${API_ENDPOINTS.createProject}/${projectId}/project-field-values`;
+    const projectfieldvalueUrl = `${API_ENDPOINTS.createProject}/${draftProjectId}/project-field-values`;
 
     // Send a GET request to retrieve project field values
     const response = await getRequest(projectfieldvalueUrl, headers);
