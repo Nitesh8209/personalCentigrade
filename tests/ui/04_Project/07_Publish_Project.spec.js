@@ -8,7 +8,7 @@ import * as fs from 'fs';
 import { safeExpect } from "../../utils/authHelper";
 import { methodologyOptions, project } from '../../data/projectData';
 import { ValidTestData } from '../../data/SignUpData';
-import { projectPublishCredentials } from '../../data/testData';
+import { Credentials, projectPublishCredentials } from '../../data/testData';
 
 // Load form data from JSON file
 const formDataPath = path.join(__dirname, '..', '..', 'data', 'form-data.json');
@@ -206,10 +206,10 @@ test.describe('Publish the Project after completed the Tier 0 topic', { tag: '@U
   let fieldHandler;
   let page;
 
-  // Test configuration and setup
-  const { newEmail } = getData('UI');
+  const authStoragePath = path.join(__dirname, '..', '..', 'data', 'project-Publish-auth.json');
 
   test.use({
+    storageState: authStoragePath,
     contextOptions: {
       permissions: ['clipboard-read', 'clipboard-write']
     }
@@ -226,7 +226,6 @@ test.describe('Publish the Project after completed the Tier 0 topic', { tag: '@U
 
     // Navigate and setup initial state
     await loginPage.navigate();
-    await loginPage.login(newEmail, ValidTestData.newPassword);
     await projectsPage.viewProject();
     await page.waitForURL(`**/overview`);
 
@@ -296,6 +295,36 @@ test.describe('Publish the Project after completed the Tier 0 topic', { tag: '@U
 
   });
 
+});
+
+test.describe('Approve project by superuser',{tag:'@UI'} ,() =>{
+  let projectsPage;
+  let fieldHandler;
+  let page;
+
+  test.beforeAll(async ({ browser, baseURL }) => {
+    // Initialize page objects
+    const context = await browser.newContext();
+    page = await context.newPage();
+    const loginPage = new LoginPage(page, baseURL);
+    projectsPage = new ProjectsPage(page, baseURL);
+    fieldHandler = new FieldHandler(page);
+
+    // Navigate and setup initial state
+    await loginPage.navigate();
+    await loginPage.login(Credentials.username, Credentials.password);
+    await page.waitForLoadState('networkidle');
+    await projectsPage.selectOrg(projectPublishCredentials.organizationName);
+
+    await projectsPage.viewProject();
+    await page.waitForURL(`**/overview`);
+
+    const projectTitle = await projectsPage.projectTitle();
+    await expect(projectTitle).toBe(project.uiProjectName);
+  });
+
+ 
+
   test('Verify Approve project button is visible and Approve', async () => {
     
     const errors = [];
@@ -325,6 +354,41 @@ test.describe('Publish the Project after completed the Tier 0 topic', { tag: '@U
       throw new Error(`Validation errors found:\n${errors.join('\n')}`);
     }
   })
+
+})
+
+test.describe('Project after approve Project', {tag: '@UI'}, ()=>{
+  let projectsPage;
+  let fieldHandler;
+  let page;
+
+  const authStoragePath = path.join(__dirname, '..', '..', 'data', 'project-Publish-auth.json');
+
+  test.use({
+    storageState: authStoragePath,
+    contextOptions: {
+      permissions: ['clipboard-read', 'clipboard-write']
+    }
+  });
+
+  // Fixture to handle common setup
+  test.beforeAll(async ({ browser, baseURL }) => {
+    // Initialize page objects
+    const context = await browser.newContext();
+    page = await context.newPage();
+    const loginPage = new LoginPage(page, baseURL);
+    projectsPage = new ProjectsPage(page, baseURL);
+    fieldHandler = new FieldHandler(page);
+
+    // Navigate and setup initial state
+    await loginPage.navigate();
+    await projectsPage.viewProject();
+    await page.waitForURL(`**/overview`);
+
+    const projectTitle = await projectsPage.projectTitle();
+    await expect(projectTitle).toBe(project.uiProjectName);
+  });
+
 
   test('Verify Publish button is disabled after publishing', async () => {
     const errors = [];
@@ -356,6 +420,7 @@ test.describe('Publish the Project after completed the Tier 0 topic', { tag: '@U
         await unpublishButton.waitFor({ state: 'visible' });
         await expect(unpublishButton).toBeVisible();
         await expect(unpublishButton).toBeEnabled();
+        await triggerButton.click();
       },
       errors
     );
@@ -391,6 +456,11 @@ test.describe('Publish the Project after completed the Tier 0 topic', { tag: '@U
     // Verify Copied URL Message
     await safeExpect('Verify URL copied message',
       async () => {
+        const modal = await projectsPage.modal();
+        await expect(modal).toBeVisible();
+        const link = await projectsPage.copyLink();
+        await expect(link).toBeVisible();
+        await link.click();
         const success = await fieldHandler.successMessagediv();
         const successMessage = await success.innerText();
         await expect(success).toBeVisible();
@@ -470,7 +540,7 @@ test.describe('Publish the Project after completed the Tier 0 topic', { tag: '@U
 
   });
 
+})
 
 
-});
 

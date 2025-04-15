@@ -945,6 +945,10 @@ class ProjectsPage {
         return await this.page.locator('.modal-content');
     }
 
+    async copyLink() {
+        return await this.page.getByRole('button', { name: 'Copy link' });
+    }
+
     async createProjectForm() {
         return await this.page.locator('.create-project-form');
     }

@@ -246,7 +246,10 @@ test.describe('Create Account Page UI Tests', { tag: '@UI' }, () => {
 });
 
 test.describe('Set Member to Admin', { tag: '@UI' }, () => {
-  const data = getData('UI');
+  let data ;
+  test.beforeAll(async ()=>{
+     data = getData('UI');
+  })
 
   // Function to login and navigate to the settings page
   async function loginAndNavigateToSettings(page, baseURL) {
