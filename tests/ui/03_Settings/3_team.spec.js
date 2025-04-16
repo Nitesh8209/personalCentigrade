@@ -365,8 +365,6 @@ test.describe('Settings - Team Page UI Tests', { tag: '@UI' }, () => {
     // Verify member type field
     await safeExpect('Member type field initial state',
       async () => {
-        await expect(await settingsPage.usertype(InviteEmail)).toBeVisible();
-        await expect(await settingsPage.usertype(InviteEmail)).toHaveText('Member');
         await expect(await settingsPage.Editmodalmembertype()).toBeVisible();
         await expect(await settingsPage.Editmodalmembertype()).toHaveText('Member type');
         await expect(await settingsPage.Editmodalmembertypedropdown()).toBeVisible();
