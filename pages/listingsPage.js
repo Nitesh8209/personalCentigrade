@@ -63,7 +63,7 @@ export class ListingPage {
   }
 
   async firstprojectListItem(){
-    return (await this.projectListItem()).filter({hasText: project.uiProjectName}).first();
+    return (await this.projectListItem()).filter({hasText: project.buyerProject}).first();
   }
 
   async projectItemImg(){

@@ -18,7 +18,7 @@ export const validateListingProjectHeader = async (projectHeader, errors) => {
 
   await safeExpect(`Project Title should be visible`, async () => {
     await expect(await projectHeader.projectTitle()).toBeVisible();
-    await expect(await projectHeader.projectTitle()).toHaveText(project.uiProjectName);
+    await expect(await projectHeader.projectTitle()).toHaveText(project.buyerProject);
   }, errors);
 
   await safeExpect(`Get in touch button should be visible`, async () => {
@@ -114,21 +114,21 @@ export const navigateToStep = async (step, projectListings,errors) => {
 
 export const validateSectionLabelVisibility = async (section, projectListings, errors) => {
   await safeExpect(`Section '${section.label}' visibility`, async () => {
-    const sectionElement = await projectListings.sectionLabel(section.id);
+    const sectionElement = await projectListings.sectionLabel(section.name);
     await expect(sectionElement).toBeVisible();
     await expect(sectionElement).toHaveText(section.label);
   }, errors);
 
   await safeExpect(`Section '${section.label}' visibility in main Content`, async () => {
-    await expect(await projectListings.contentSectionLabel(section.id)).toBeVisible();
-    await expect(await projectListings.contentSectionLabel(section.id)).toHaveText(section.label);
+    await expect(await projectListings.contentSectionLabel(section.name)).toBeVisible();
+    await expect(await projectListings.contentSectionLabel(section.name)).toHaveText(section.label);
   }, errors);
 }
 
 export const validateFieldGroupVisibility = async (fieldGroup, projectListings, errors) => {
   await safeExpect(`Field Group '${fieldGroup.label}' visibility`, async () => {
-    await expect(await projectListings.fieldGroupLabel(fieldGroup.id)).toBeVisible();
-    await expect(await projectListings.fieldGroupLabel(fieldGroup.id)).toHaveText(fieldGroup.label);
+    await expect(await projectListings.fieldGroupLabel(fieldGroup.name)).toBeVisible();
+    await expect(await projectListings.fieldGroupLabel(fieldGroup.name)).toHaveText(fieldGroup.label);
   }, errors);
 
   await safeExpect(`Field Group '${fieldGroup.label}' visibility in main content`, async () => {
@@ -179,14 +179,14 @@ async function getData(section, dataFilePath) {
   return data[section] || {};
 }
 
-const projectdataFilePath = './tests/data/Project-data.json';
+const projectdataFilePath = './tests/data/Project-data-new.json';
+
 let data;
 (async () => {
   data = await getData('ProjectData', projectdataFilePath);
 })();
 
 export const checkDisplayDependencyField = async (field) => {
-  console.log('dependency', field.label)
   if (!field?.display_dependencies?.length) return false; // Ensure dependency exists
 
   const dependencyField = field.display_dependencies[0].field;
@@ -195,7 +195,6 @@ export const checkDisplayDependencyField = async (field) => {
 
   const expectedValues = expectedPattern.split('|').map(value => value.trim());
 
-  console.log(expectedValues);
 
   if (Array.isArray(actualValue)) {
     return expectedValues.every(value => actualValue.includes(value));
@@ -204,10 +203,21 @@ export const checkDisplayDependencyField = async (field) => {
   return actualValue === expectedPattern;
 };
 
+const projectdataFile = './tests/data/Project-data-new.json';
+const rawData = fs.readFileSync(projectdataFile, 'utf-8');
+const jsonData = JSON.parse(rawData);
 
 export const getFieldValue = async (field) =>{
-  const value = data[field];
-  return value;
+  const cleanKeyName = field.replace(/-nameValue(-nameValue)?$/, '')
+  const foundItem = jsonData.items.find(item => item.keyName == cleanKeyName);
+  if(foundItem){
+    let value = foundItem.value;
+    if(value == "[\"GB\",\"IN\"]"){
+      value = "United Kingdom, India"
+    }
+    return value;
+  }
+  return false;
 }
 
 // Helper function to validate breadcrumbs

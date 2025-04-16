@@ -64,7 +64,7 @@ test.describe("Fields Level Validation - after Login", { tag: '@UI' }, () => {
                 separatorCount: 3,
                 breadcrumbs: [
                   { index: 0, href: '/listings', text: "Projects" },
-                  { index: 1, href: '', text: project.uiProjectName },
+                  { index: 1, href: '', text: project.buyerProject },
                   { index: 2, href: '', text: topic.label },
                   { index: 3, href: '', text: await convertToTitleCase(stepGroup.steps[0].sections[0].label) }
                 ]
@@ -76,7 +76,7 @@ test.describe("Fields Level Validation - after Login", { tag: '@UI' }, () => {
                 separatorCount: 2,
                 breadcrumbs: [
                   { index: 0, href: '/listings', text: "Projects" },
-                  { index: 1, href: '', text: project.uiProjectName },
+                  { index: 1, href: '', text: project.buyerProject },
                   { index: 2, href: '', text: topic.label }
                 ]
               });
@@ -124,7 +124,7 @@ test.describe("Fields Level Validation - after Login", { tag: '@UI' }, () => {
                   separatorCount: 4,
                   breadcrumbs: [
                     { index: 0, href: '/listings', text: "Projects" },
-                    { index: 1, href: '', text: project.uiProjectName },
+                    { index: 1, href: '', text: project.buyerProject },
                     { index: 2, href: '', text: await convertToTitleCase(topic.name) },
                     { index: 3, href: '', text: await convertToTitleCase(stepGroup.name) },
                     { index: 4, href: '', text: await convertToTitleCase(step.name) }

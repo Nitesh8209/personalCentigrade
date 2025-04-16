@@ -204,6 +204,10 @@ export class FieldHandler {
     return this.page.locator('.toast-content > div');
   }
 
+  async removeToastIcon() {
+    return this.page.locator('.removeIcon > svg');
+  }
+
   /**
    * Validates field attributes and behavior
    */
