@@ -22,21 +22,22 @@ jobs:
           name: Run Playwright tests
           command: |
             if [ "<< parameters.test_tag >>" = "" ]; then
-              TEST_CMD="npx playwright test --reporter=html"
+              TEST_CMD="npx playwright test "
             else
-              TEST_CMD="npx playwright test --grep "<< parameters.test_tag >>" --reporter=html"
+              TEST_CMD="npx playwright test --grep "<< parameters.test_tag >>" "
             fi
              
             docker run --name playwright-container \
             -e PLATFORM=dev \
-            playwright-tests $TEST_CMD
-      - run:
-          name: Copy Playwright report
-          command: docker cp playwright-container:/app/playwright-report ./playwright-report
+            playwright-tests $TEST_CMD || EXIT_CODE=$?
+            echo "Copying Playwright report..."
+            docker cp playwright-container:/app/playwright-report ./playwright-report || echo "Report not found."
+            exit ${EXIT_CODE:-0}
 
       - store_artifacts:
           path: playwright-report
           destination: playwright-report
+          when: always
           
 workflows:
   run-build-and-test:
