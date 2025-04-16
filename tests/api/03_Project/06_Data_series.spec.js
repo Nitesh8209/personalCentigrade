@@ -4,9 +4,9 @@ import { getData, getRequest, postRequest } from '../../utils/apiHelper';
 import { dataSeries} from '../../data/projectData';
 
 
-test.describe('Reamining Fields Data Upload Tests', () => {
+test.describe('Reamining Fields Data Upload Tests' ,{tag: '@API'}, () => {
   // Extract required data for testing
-  const { projectAccessToken, projectId } = getData('Api');
+  const { projectAccessToken, draftProjectId } = getData('Api');
 
   let headers;
   let seriesId;
@@ -22,7 +22,7 @@ test.describe('Reamining Fields Data Upload Tests', () => {
   // Test to upload series data
   dataSeries.forEach(({ name, indexOrder }, index) => {
     test(`Upload the series data for ${name} indexOrder ${indexOrder}`, async () => {
-      const uploadSeriesUrl = `${API_ENDPOINTS.createProject}/${projectId}/series`;
+      const uploadSeriesUrl = `${API_ENDPOINTS.createProject}/${draftProjectId}/series`;
 
       const response = await postRequest(uploadSeriesUrl, JSON.stringify(dataSeries[index]), headers);
       const responseBody = await response.json();
@@ -45,7 +45,7 @@ test.describe('Reamining Fields Data Upload Tests', () => {
   // Test to fetch series data by name
   dataSeries.forEach(({ name, indexOrder }, index) => {
     test(`Get series Data by series Name ${name}`, async () => {
-      const getSeriesUrl = `${API_ENDPOINTS.createProject}/${projectId}/series/${name}`;
+      const getSeriesUrl = `${API_ENDPOINTS.createProject}/${draftProjectId}/series/${name}`;
 
       const response = await getRequest(getSeriesUrl, headers);
       const responseBody = await response.json();
@@ -72,7 +72,7 @@ test.describe('Reamining Fields Data Upload Tests', () => {
 
   // Test to fetch series data by ID
   test('Get series Data by id', async () => {
-    const getSeriesUrl = `${API_ENDPOINTS.createProject}/${projectId}/seriesid/${seriesId}`;
+    const getSeriesUrl = `${API_ENDPOINTS.createProject}/${draftProjectId}/seriesid/${seriesId}`;
 
     const response = await getRequest(getSeriesUrl, headers);
     const responseBody = await response.json();
