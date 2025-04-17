@@ -17,6 +17,16 @@ test.describe("fill all fields For validate listings buyer page", { tag: '@UI' }
   test.beforeAll(async () => {
     await extractFieldsFromTopics();
 
+        const filePath = path.join(
+      __dirname,
+      "..",
+      "..",
+      "data",
+      "Project-data-new.json"
+    );
+    const rawData = fs.readFileSync(filePath, "utf-8");
+    ProjectData = JSON.parse(rawData);
+
     const authdata = new URLSearchParams({
       username: apiProjectCreadentials.email,
       password: apiProjectCreadentials.password,
@@ -41,15 +51,7 @@ test.describe("fill all fields For validate listings buyer page", { tag: '@UI' }
       Authorization: `Bearer ${projectAccessToken}`,
     };
 
-    const filePath = path.join(
-      __dirname,
-      "..",
-      "..",
-      "data",
-      "Project-data-new.json"
-    );
-    const rawData = fs.readFileSync(filePath, "utf-8");
-    ProjectData = JSON.parse(rawData);
+
   });
 
   test("create Project", async ({ baseURL }) => {
