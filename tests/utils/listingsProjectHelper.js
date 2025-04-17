@@ -179,12 +179,12 @@ async function getData(section, dataFilePath) {
   return data[section] || {};
 }
 
-const projectdataFilePath = './tests/data/Project-data-new.json';
+// const projectdataFilePath = './tests/data/Project-data-new.json';
 
-let data;
-(async () => {
-  data = await getData('ProjectData', projectdataFilePath);
-})();
+// let data;
+// (async () => {
+//   data = await getData('ProjectData', projectdataFilePath);
+// })();
 
 export const checkDisplayDependencyField = async (field) => {
   if (!field?.display_dependencies?.length) return false; // Ensure dependency exists
@@ -203,11 +203,13 @@ export const checkDisplayDependencyField = async (field) => {
   return actualValue === expectedPattern;
 };
 
+
+export const getFieldValue = async (field) =>{
+
 const projectdataFile = './tests/data/Project-data-new.json';
 const rawData = fs.readFileSync(projectdataFile, 'utf-8');
 const jsonData = JSON.parse(rawData);
-
-export const getFieldValue = async (field) =>{
+  
   const cleanKeyName = field.replace(/-nameValue(-nameValue)?$/, '')
   const foundItem = jsonData.items.find(item => item.keyName == cleanKeyName);
   if(foundItem){
