@@ -1,7 +1,7 @@
 import { API_BASE_URL } from "../tests/data/testData";
 import { getData } from "../tests/utils/apiHelper";
 
-const {  projectId } = getData('Api');
+const {  projectId, draftProjectId } = getData('Api');
 
 export const API_ENDPOINTS = {
   authTOken: `${API_BASE_URL}/auth/token`,
@@ -21,10 +21,10 @@ export const API_ENDPOINTS = {
   publicProject: `${API_BASE_URL}/public/projects`,
   getMethodologies: `${API_BASE_URL}/methodologies`,
   getPublic:`${API_BASE_URL}/public/project`,
-  fileUpload: `${API_BASE_URL}/project/${projectId}/file`,
-  dataRoom: `${API_BASE_URL}/project/${projectId}/room`,
-  dataRooms: `${API_BASE_URL}/project/${projectId}/rooms`,
-  dataTable: `${API_BASE_URL}/project/${projectId}/table`
+  fileUpload: `${API_BASE_URL}/project/${draftProjectId}/file`,
+  dataRoom: `${API_BASE_URL}/project/${draftProjectId}/room`,
+  dataRooms: `${API_BASE_URL}/project/${draftProjectId}/rooms`,
+  dataTable: `${API_BASE_URL}/project/${draftProjectId}/table`
 
 }
 
