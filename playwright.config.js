@@ -365,7 +365,7 @@ module.exports = defineConfig({
           viewport: { width: 1366, height: 768 },
          },
         fullyParallel: false,
-        dependencies: ['modularBenefitProject'],
+        dependencies: ['publishAPiProject'],
       },
     // {
     //   name: 'firefox',
