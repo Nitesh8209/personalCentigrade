@@ -138,7 +138,7 @@ module.exports = defineConfig({
         viewport: { width: 1366, height: 768 },
       },
       fullyParallel: false,
-      dependencies: ['CompleteSignUp'],
+      dependencies: ['Settings'],
     },
     {
       name: 'organizationEdgeCase',
