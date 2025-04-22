@@ -136,6 +136,10 @@ class ProjectsPage {
         await this.page.locator('.project-list > .project-card').filter({hasText: project.uiProjectName}).first().locator('.actions > .btn').click();
     }
 
+    async viewProjectByName(name) {
+        await this.page.locator('.project-list > .project-card').filter({hasText: name}).first().locator('.actions > .btn').click();
+    }
+
     async projectDetails() {
         await this.page.locator('.menu.menu-root > div:nth-child(2)').click();
         await this.page.locator('.menu.menu-root > div:nth-child(2) > .collapsible-content > .menu> a:has-text("Project details")').click();
