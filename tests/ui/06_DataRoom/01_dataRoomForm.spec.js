@@ -14,7 +14,7 @@ test.describe("test for data Room ", () => {
     "..",
     "..",
     "data",
-    "project-Publish-auth.json"
+    "project-auth-admin.json"
   );
   test.use({ storageState: authStoragePath });
 
@@ -33,12 +33,12 @@ test.describe("test for data Room ", () => {
     await loginPage.navigate();
     await page.waitForURL("**/projects");
 
-    await projectsPage.viewProjectByName(project.buyerProject);
+    await projectsPage.viewProjectByName(project.uiProjectName);
     await page.waitForURL(`**/overview`);
 
     // Validate project title
     const projectTitle = await projectsPage.projectTitle();
-    await expect(projectTitle).toBe(project.buyerProject);
+    await expect(projectTitle).toBe(project.uiProjectName);
 
     const dataRoomNavigate = await dataRoomPage.dataRoomNavigation();
     await expect(dataRoomNavigate).toBeVisible();
@@ -58,7 +58,7 @@ test.describe("test for data Room ", () => {
         await fieldValidate.validateBreadcrumb(
           1,
           expect.stringContaining("/projects/"),
-          project.buyerProject
+          project.uiProjectName
         );
         await fieldValidate.validateBreadcrumb(
           2,
@@ -338,9 +338,11 @@ test.describe("test for data Room ", () => {
     const dataRoomPage = new DataRoom(page);
     const errors = [];
     
-    const dataRoom = await dataRoomPage.bodyContentNameLink(DataRoomTestdata.dataRoomName);
-    await dataRoom.click();
-
+    if(!((await dataRoomPage.documentsTabButton()).isVisible())){
+      const dataRoom = await dataRoomPage.bodyContentNameLink(DataRoomTestdata.dataRoomName);
+      await dataRoom.click();
+    }
+   
     await safeExpect(
       "verfiy documents tab heading",
       async () => {
@@ -382,8 +384,10 @@ test.describe("test for data Room ", () => {
     const dataRoomPage = new DataRoom(page);
     const errors = [];
 
-    const dataRoom = await dataRoomPage.bodyContentNameLink(DataRoomTestdata.dataRoomName);
-    await dataRoom.click();
+    if(!((await dataRoomPage.documentsTabButton()).isVisible())){
+      const dataRoom = await dataRoomPage.bodyContentNameLink(DataRoomTestdata.dataRoomName);
+      await dataRoom.click();
+    }
 
     const accessButton = await dataRoomPage.accessTabButton();
     await accessButton.click();
@@ -429,8 +433,13 @@ test.describe("test for data Room ", () => {
     const dataRoomPage = new DataRoom(page);
     const errors = [];
 
-    const dataRoom = await dataRoomPage.bodyContentNameLink(DataRoomTestdata.dataRoomName);
-    await dataRoom.click();
+    if(!((await dataRoomPage.documentsTabButton()).isVisible())){
+      const dataRoom = await dataRoomPage.bodyContentNameLink(DataRoomTestdata.dataRoomName);
+      await dataRoom.click();
+    }
+
+    const documents = await dataRoomPage.documentsTabButton();
+    await documents.click();
 
     const addFile = await dataRoomPage.AddFilesButton();
     await addFile.click();
@@ -477,11 +486,15 @@ test.describe("test for data Room ", () => {
     const dataRoomPage = new DataRoom(page);
     const errors = [];
 
-    const dataRoom = await dataRoomPage.bodyContentNameLink(DataRoomTestdata.dataRoomName);
-    await dataRoom.click();
+    if(!((await dataRoomPage.documentsTabButton()).isVisible())){
+      const dataRoom = await dataRoomPage.bodyContentNameLink(DataRoomTestdata.dataRoomName);
+      await dataRoom.click();
+    }
 
+    if(!((await dataRoomPage.modal()).isVisible())){
     const addFile = await dataRoomPage.AddFilesButton();
     await addFile.click();
+    }
 
     const upload = await dataRoomPage.modalUploadButton();
     await upload.click();
@@ -526,15 +539,19 @@ test.describe("test for data Room ", () => {
     const dataRoomPage = new DataRoom(page);
     const errors = [];
 
-    const dataRoom = await dataRoomPage.bodyContentNameLink(DataRoomTestdata.dataRoomName);
-    await dataRoom.click();
+    if(!((await dataRoomPage.documentsTabButton()).isVisible())){
+      const dataRoom = await dataRoomPage.bodyContentNameLink(DataRoomTestdata.dataRoomName);
+      await dataRoom.click();
+    }
 
+    if(!((await dataRoomPage.modal()).isVisible())){
     const addFile = await dataRoomPage.AddFilesButton();
     await addFile.click();
 
     const upload = await dataRoomPage.modalUploadButton();
     await upload.click();
-    
+    }
+
     await safeExpect(
       "verfiy Add File Modal header",
       async () => {
@@ -577,8 +594,10 @@ test.describe("test for data Room ", () => {
     const dataRoomPage = new DataRoom(page);
     const errors = [];
 
-    const dataRoom = await dataRoomPage.bodyContentNameLink(DataRoomTestdata.dataRoomName);
-    await dataRoom.click();
+    if(!((await dataRoomPage.documentsTabButton()).isVisible())){
+      const dataRoom = await dataRoomPage.bodyContentNameLink(DataRoomTestdata.dataRoomName);
+      await dataRoom.click();
+    }
     
     await safeExpect(
       "Delete Uploaded file",
@@ -603,8 +622,10 @@ test.describe("test for data Room ", () => {
     const dataRoomPage = new DataRoom(page);
     const errors = [];
 
-    const dataRoom = await dataRoomPage.bodyContentNameLink(DataRoomTestdata.dataRoomName);
-    await dataRoom.click();
+    if(!((await dataRoomPage.documentsTabButton()).isVisible())){
+      const dataRoom = await dataRoomPage.bodyContentNameLink(DataRoomTestdata.dataRoomName);
+      await dataRoom.click();
+    }
 
     const accessButton = await dataRoomPage.accessTabButton();
     await accessButton.click();
@@ -659,14 +680,16 @@ test.describe("test for data Room ", () => {
     const dataRoomPage = new DataRoom(page);
     const errors = [];
 
-    const dataRoom = await dataRoomPage.bodyContentNameLink(DataRoomTestdata.dataRoomName);
-    await dataRoom.click();
+    if(!((await dataRoomPage.documentsTabButton()).isVisible())){
+      const dataRoom = await dataRoomPage.bodyContentNameLink(DataRoomTestdata.dataRoomName);
+      await dataRoom.click();
 
-    const accessButton = await dataRoomPage.accessTabButton();
-    await accessButton.click();
-
-    const invite = await dataRoomPage.InviteButton();
-    await invite.click();
+      const accessButton = await dataRoomPage.accessTabButton();
+      await accessButton.click();
+  
+      const invite = await dataRoomPage.InviteButton();
+      await invite.click();
+    }
     
     await safeExpect(
       "invite User",
@@ -723,8 +746,10 @@ test.describe("test for data Room ", () => {
     const dataRoomPage = new DataRoom(page);
     const errors = [];
 
-    const dataRoom = await dataRoomPage.bodyContentNameLink(DataRoomTestdata.dataRoomName);
-    await dataRoom.click();
+    if(!((await dataRoomPage.documentsTabButton()).isVisible())){
+      const dataRoom = await dataRoomPage.bodyContentNameLink(DataRoomTestdata.dataRoomName);
+      await dataRoom.click();
+    }
 
     const accessButton = await dataRoomPage.accessTabButton();
     await accessButton.click();
@@ -756,6 +781,9 @@ test.describe("test for data Room ", () => {
         await expect(await dataRoomPage.removeAccessModalSecondPera()).toHaveText('You can choose to re-invite Nitesh123 Agarwal to this project later');
         await expect(await dataRoomPage.modalCancelButton()).toBeVisible();
         await expect(await dataRoomPage.modalRemoveButton()).toBeVisible();
+
+        const cancel = await dataRoomPage.modalCancelButton()
+        await cancel.click();
      },
       errors
     );
@@ -769,12 +797,14 @@ test.describe("test for data Room ", () => {
     const dataRoomPage = new DataRoom(page);
     const errors = [];
 
-    const dataRoom = await dataRoomPage.bodyContentNameLink(DataRoomTestdata.dataRoomName);
-    await dataRoom.click();
+    if(!((await dataRoomPage.documentsTabButton()).isVisible())){
+      const dataRoom = await dataRoomPage.bodyContentNameLink(DataRoomTestdata.dataRoomName);
+      await dataRoom.click();
 
-    const accessButton = await dataRoomPage.accessTabButton();
-    await accessButton.click();
-    
+      const accessButton = await dataRoomPage.accessTabButton();
+      await accessButton.click();
+    }
+
     await safeExpect(
       "Delete invited User",
       async () => {
@@ -818,7 +848,9 @@ test.describe("test for data Room ", () => {
     const dataRoomPage = new DataRoom(page);
     const errors = [];
 
-
+    const dataRoomNavigate = await dataRoomPage.dataRoomNavigation();
+    await expect(dataRoomNavigate).toBeVisible();
+    await dataRoomNavigate.click();
 
     const dataRoom = await dataRoomPage.bodyContent();
     await dataRoom.hover();
