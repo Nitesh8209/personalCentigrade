@@ -54,6 +54,16 @@ export const InvalidCreadentials = [
   }
 ];
 
+export const DataRoomTestdata = {
+  dataRoomName: 'Automation Test data',
+  updateDataRoomName: 'Automation Test data updated',
+  email: 'nitesh.agarwal+test1743664097066@kreeti.com',
+  message: 'Message added for automation testing',
+  name: 'Nitesh123 Agarwal',
+  projectName: 'automationProject1',
+  
+}
+
 export const API_BASE_URL =
   process.env.PLATFORM === 'local'
     ? process.env.API_BASE_URL_LOCAL
