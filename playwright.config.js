@@ -138,7 +138,7 @@ module.exports = defineConfig({
         viewport: { width: 1366, height: 768 },
       },
       fullyParallel: false,
-      dependencies: ['CompleteSignUp'],
+      dependencies: ['Settings'],
     },
     {
       name: 'organizationEdgeCase',
@@ -226,14 +226,22 @@ module.exports = defineConfig({
       dependencies: ['PublishProject'],
     },
     {
+      name: 'buyerPublishProject',
+      testMatch: [ 'ui/05_Buyer/0_publishProject.spec.js'],
+      use: { ...devices['Desktop Chrome'],
+        viewport: { width: 1366, height: 768 },
+       },
+      fullyParallel: false,
+    },
+    {
       name: 'ListingsPage',
-      testMatch: ['ui/05_Buyer/*.spec.js'],
+      testMatch: ['ui/05_Buyer/01_Listings.spec.js', 'ui/05_Buyer/02_Project_Header.spec.js', 'ui/05_Buyer/03_Topic_level.spec.js', 'ui/05_Buyer/04_step_level.spec.js', 'ui/05_Buyer/05_Fields_level.spec.js'],
       use: {
         ...devices['Desktop Chrome'],
         viewport: { width: 1366, height: 768 },
       },
       fullyParallel: true,
-      dependencies: ['FillRemainingTopics'],
+      dependencies: ['buyerPublishProject'],
     },
     {
       name: 'LoginApi',
