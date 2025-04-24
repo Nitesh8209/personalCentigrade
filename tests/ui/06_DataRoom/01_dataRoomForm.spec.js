@@ -8,7 +8,7 @@ import { LoginPage } from "../../../pages/loginPage";
 import path from "path";
 import { DataRoomTestdata } from "../../data/testData";
 
-test.describe("test for data Room ", () => {
+test.describe("test for data Room ",  { tag: "@UI" }, () => {
   const authStoragePath = path.join(
     __dirname,
     "..",

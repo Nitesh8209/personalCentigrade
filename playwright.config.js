@@ -376,7 +376,15 @@ module.exports = defineConfig({
           fullyParallel: false,
           dependencies: ['ProjectPage'],
       },
-       
+        {
+          name: 'DataRoomViewUI',
+          testMatch: [ 'Ui/06_DataRoom/02_dataRoomView.spec.js'],
+          use: { ...devices['Desktop Chrome'],
+            viewport: { width: 1366, height: 768 },
+           },
+          fullyParallel: false,
+          dependencies: ['buyerPublishProject'],
+        },
     // {
     //   name: 'firefox',
     //   use: { ...devices['Desktop Firefox'] },
