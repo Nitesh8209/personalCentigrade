@@ -2,6 +2,7 @@ import { API_BASE_URL } from "../tests/data/testData";
 import { getData } from "../tests/utils/apiHelper";
 
 const {  projectId, draftProjectId } = getData('Api');
+const { BuyerprojectId } = getData('UI');
 
 export const API_ENDPOINTS = {
   authTOken: `${API_BASE_URL}/auth/token`,
@@ -24,8 +25,9 @@ export const API_ENDPOINTS = {
   fileUpload: `${API_BASE_URL}/project/${draftProjectId}/file`,
   dataRoom: `${API_BASE_URL}/project/${draftProjectId}/room`,
   dataRooms: `${API_BASE_URL}/project/${draftProjectId}/rooms`,
-  dataTable: `${API_BASE_URL}/project/${draftProjectId}/table`
-
+  dataTable: `${API_BASE_URL}/project/${draftProjectId}/table`,
+  dataRoomUI: `${API_BASE_URL}/project/${BuyerprojectId}/room`,
+  fileUploadUI: `${API_BASE_URL}/project/${BuyerprojectId}/file`,
 }
 
 export default API_ENDPOINTS;

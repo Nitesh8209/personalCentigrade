@@ -130,6 +130,10 @@ export class ListingPage {
     return await this.page.getByRole('link', {name: 'Projects'});
   }
 
+  async DocumentsTab(){
+    return await this.page.locator('.tab-list').getByText('Documents');
+  }
+
   async navigateToListings(){
     const ListingsButton = await this.listings();
     await expect(ListingsButton).toBeVisible();
