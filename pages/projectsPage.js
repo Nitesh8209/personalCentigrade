@@ -1733,6 +1733,107 @@ class ProjectsPage {
     async summaryOfUpdates(){
         return await this.page.getByLabel('Summary of updates');
     }
+
+    async viewChangesLink() {
+        return await this.page.locator('.view-changes');
+    }
+
+    async projectUpdateModal() {
+        return await this.page.getByRole('dialog', { name: 'Project update' });
+    }
+
+    async projectUpdateTitle() {
+        return await this.page.locator('.drawer-title');
+    }
+
+    async projectUpdateCloseButton() {
+        return await this.page.locator('.drawer-close-btn > svg');
+    }
+
+    async historyView() {
+        return await this.page.locator('.history-view');
+    }
+
+    async currentDraftCard() {
+       return await (await this.historyView()).locator('.card').first();
+    }
+
+    async currentDraftCardHeader() {
+      return await (await this.currentDraftCard()).locator('.card-header');
+    }
+
+    async currentDraftCardHeaderText() {
+        return await (await this.currentDraftCardHeader()).locator('h3');
+    }
+
+    async currentDraftCardHeaderbadge() {
+        return await (await this.currentDraftCardHeader()).locator('.badge');
+    }
+
+    async currentDraftCardbody() {
+        return await (await this.currentDraftCard()).locator('.card-body');
+    }
+
+    async currentDraftCardbodyVersioNotes() {
+        return await (await this.currentDraftCardbody()).locator('.version-notes');
+    }
+
+    async currentDraftCardbodyVersionNotesText() {
+    return await (await this.currentDraftCardbodyVersioNotes()).locator('h4');
+    }
+
+    async currentDraftCardbodyVersionNotesPera() {
+        return await (await this.currentDraftCardbodyVersioNotes()).locator('p');
+    }
+
+    async currentDraftCardbodyChanges() {
+        return await (await this.currentDraftCardbody()).locator('.text-secondary');
+    }
+
+    async currentDraftModal() {
+        return await this.page.getByRole('dialog', { name: 'Current draft' });
+    }
+
+    async drwerBackButton() {
+        return await this.page.locator('.drawer-header-icon');
+    }
+
+    async summaryOfUpdatesTextarea() {
+        return await this.page.locator('form > .textarea');
+    }
+
+    async summaryOfUpdatesLabel() {
+        return (await this.summaryOfUpdatesTextarea()).locator('label');
+    }
+
+    async summaryOfUpdatesHelperText() {
+        return (await this.summaryOfUpdatesTextarea()).locator('.helper-text');
+    }
+
+    async changelog() {
+        return await this.page.locator('.changelog');
+    }
+
+    async unsavedChangesModal() {
+        return await this.page.getByRole('dialog', { name: 'Unsaved changes' });
+    }
+
+    async unsavedChangesHeader() {
+        return await this.page.locator('.modal-header > h2');
+    }
+
+    async unsavedChnagesCloseIcon() {
+        return (await this.unsavedChangesModal()).locator('.modal-header > button');
+    }
+
+    async unsavedChnagesDiscription() {
+        return (await this.unsavedChangesModal()).locator('.modal-content');
+    }
+
+    async discardButton() {
+        return await this.page.getByRole('button', { name: 'Discard' });
+    }
+
 }
 
 module.exports = { ProjectsPage };
