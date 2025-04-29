@@ -164,7 +164,7 @@ test.describe('Create Account Page UI Tests', { tag: '@UI' }, () => {
     await expect(forgotPassworderrortitle).toBeVisible();
     await expect(forgotPassworderrortitle).toHaveText('This email is already registered');
     await expect(resetPasswordsuccesserrormsg).toBeVisible();
-    await expect(resetPasswordsuccesserrormsg).toHaveText('Log in below or reset your password using the \“Forgot password\” option');
+    await expect(resetPasswordsuccesserrormsg).toHaveText('Log in below or reset your password using the "Forgot password" option');
   })
 
 });
