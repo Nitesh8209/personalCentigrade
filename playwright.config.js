@@ -42,6 +42,7 @@ module.exports = defineConfig({
     baseURL: baseUrl,
     actionTimeout: 60000,
     navigationTimeout: 60000,
+    ignoreHTTPSErrors: true,
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
     screenshot: 'only-on-failure'
