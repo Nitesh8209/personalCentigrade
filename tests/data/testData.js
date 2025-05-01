@@ -21,7 +21,7 @@ export const apiProjectCreadentials = {
   password: 'Centigrade@12345',
   organizationName: 'automationProject2',
   organizationId: 409,
-}
+} 
 
 export const InvalidCreadentials = [
   {
@@ -57,10 +57,10 @@ export const InvalidCreadentials = [
 export const DataRoomTestdata = {
   dataRoomName: 'Automation Test data',
   updateDataRoomName: 'Automation Test data updated',
-  email: 'nitesh.agarwal+test1743664097066@kreeti.com',
+  email: 'nitesh.agarwal+test1743665610357@kreeti.com',
   message: 'Message added for automation testing',
   name: 'Nitesh123 Agarwal',
-  projectName: 'automationProject1',
+  projectName: 'automationProject2',
   
 }
 

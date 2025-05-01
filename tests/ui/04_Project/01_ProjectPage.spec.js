@@ -5,7 +5,7 @@ import API_ENDPOINTS from "../../../api/apiEndpoints";
 import { LoginPage } from "../../../pages/loginPage";
 import { ProjectsPage } from "../../../pages/projectsPage";
 import { methodologyOptions, project } from "../../data/projectData";
-import { getData } from "../../utils/apiHelper";
+import { getData, saveData } from "../../utils/apiHelper";
 import { safeExpect } from "../../utils/authHelper";
 import { projectValidationCredentials } from "../../data/testData";
 
@@ -296,7 +296,15 @@ test.describe('Project Page', { tag: '@UI' }, () => {
     await safeExpect('click on save and verify the project is display',
       async () => {
         const create = await projectsPage.createButton();
-        await create.click();
+        const [ response ] = new Promise.all([
+          page.waitForResponse(resp => resp.url().includes('/project')),
+          await create.click()
+        ])
+
+        const responseBody = await response.json();
+        const projectId = responseBody.id;
+        await saveData({ ValidateProjectId: projectId}, "UI");
+        
         await page.waitForURL('**/projects/**/overview');
         await page.waitForLoadState('networkidle');
         await expect(await projectsPage.modal()).not.toBeVisible();

@@ -575,7 +575,10 @@ export class FieldHandler {
     for (let i = 0; i < count; i++) {
       const checkbox = checkboxes.nth(i);
       await expect(checkbox).toHaveAttribute('data-scope', 'checkbox');
-      await checkbox.click();
+      const state = await checkbox.getAttribute('data-state');
+      if (state === 'unchecked') {
+        await checkbox.click();
+      }
     }
   }
 

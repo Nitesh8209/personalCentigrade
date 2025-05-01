@@ -1,9 +1,10 @@
 import { test, expect } from '@playwright/test';
 import API_ENDPOINTS from '../../../api/apiEndpoints';
 import { getData, getRequest, postRequest, putRequest, saveData } from '../../utils/apiHelper';
-import { project, projectApproach } from '../../data/projectData';
+import { mandatoryFileData, project, projectApproach } from '../../data/projectData';
 import { validateProjectFieldValues } from '../../utils/projectHelper';
 import { apiProjectCreadentials } from '../../data/testData';
+import * as fs from 'fs';
 
 
 test.describe('TIER0 Project Management Tests for Publish', { tag: '@API' }, () => {
@@ -63,6 +64,35 @@ test.describe('TIER0 Project Management Tests for Publish', { tag: '@API' }, () 
     expect(response.status).toBe(200);
     expect(responseBody.fields.projectMission).toHaveProperty('name', 'projectMission');
     expect(responseBody.fields.projectMission).toHaveProperty('value', 'test');
+  })
+
+  mandatoryFileData.forEach(({configFieldId, projectFileType}) => {
+
+    test(`Upload File Tier 0 ${projectFileType}`, async({request}) => {
+      const filePath = './tests/assets/file.png';
+      const fileBuffer = fs.readFileSync(filePath);
+
+      const fileUrl = `${API_ENDPOINTS.createProject}/${projectId}/file`;
+
+       // Prepare file data for upload
+       const fileData = {
+        multipart: {
+          configFieldId: configFieldId,
+          file: {
+            name: 'file.png',
+            mimeType: 'application/octet-stream',
+            buffer: fileBuffer,
+          },
+        },
+        headers: {
+          'Authorization': `Bearer ${projectAccessToken}`,
+        }
+      };
+
+      // Perform file upload
+      const response = await request.post(fileUrl, fileData);
+      await expect(response.status()).toBe(200);
+    })
   })
 
   test('Publish project', async () => {

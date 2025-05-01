@@ -37,6 +37,7 @@ const COMPONENT_TYPES = {
   RICH_TEXT: 'rich-text'
 };
 
+let fileData=[];
 
 // Utility to generate values based on field type
 const generateFieldData = (field) => {
@@ -91,6 +92,17 @@ const generateFieldData = (field) => {
         return `${latitude}, ${longitude}`;
       }
        return "[\"Kolkata\"]"
+
+    case COMPONENT_TYPES.FILE_UPLOAD:
+     
+      if(field.tier == 0){
+        const projectFileType = field.name?.split('-')[0];
+        const data = {
+          configFieldId: field.id,
+          projectFileType: projectFileType
+        }
+        fileData.push(data);
+      }   
 
     // default:   
     //   return faker.lorem.words(2);
@@ -158,7 +170,10 @@ export const extractFieldsFromTopics = async () => {
   });
 
   const finalData = {
-    items: items
+    fields: {
+      items: items
+    },
+    fileData: fileData
   };
 
   const outputPath = path.join(__dirname, '..', 'data', 'Project-data-new.json');
