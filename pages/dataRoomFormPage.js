@@ -88,6 +88,10 @@ export class DataRoom{
   }
 
 
+  async closeToast() {
+    return this.page.locator('.toast-close-trigger');
+  }
+
   async successMessagediv() {
     return this.page.locator('.toast-content > div');
   }

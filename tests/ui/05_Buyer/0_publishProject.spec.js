@@ -117,12 +117,47 @@ test.describe("fill all fields For validate listings buyer page", { tag: '@UI' }
     // Send a POST request with project approach data
     const response = await postRequest(
       projectfieldvalueUrl,
-      JSON.stringify(ProjectData),
+      JSON.stringify(ProjectData.fields),
       headers
     );
 
     // Verify the response status and structure
     expect(response.status).toBe(201);
+  });
+
+  test(`Upload File`, async ({ request }) => {
+    // Load the file to be used for upload tests
+    const filePath = './tests/assets/file.png';
+    const fileBuffer = fs.readFileSync(filePath);
+
+    if (!projectId) {
+      const data = getData("UI");
+      projectId = data.BuyerprojectId
+    }
+    const fileUrl = `${API_ENDPOINTS.createProject}/${projectId}/file`;
+
+    for (const { configFieldId } of ProjectData.fileData) {
+
+      const fileData = {
+        multipart: {
+          configFieldId: configFieldId,
+          file: {
+            name: 'file.png',
+            mimeType: 'application/octet-stream',
+            buffer: fileBuffer,
+          },
+        },
+        headers: {
+          'Authorization': `Bearer ${projectAccessToken}`,
+        }
+      };
+
+      // Perform file upload
+      const response = await request.post(fileUrl, fileData);
+
+      // Verify upload success and response structure
+      expect(response.status()).toBe(200);
+    };
   });
 
 });
@@ -131,8 +166,8 @@ test.describe('publish project after for validate listings buyer page', { tag: '
   let headers;
   let projectId;
 
-  test.beforeAll(async() => {
-    const {projectAccessToken, BuyerprojectId} = getData("UI");
+  test.beforeAll(async () => {
+    const { projectAccessToken, BuyerprojectId } = getData("UI");
     projectId = BuyerprojectId;
 
     headers = {

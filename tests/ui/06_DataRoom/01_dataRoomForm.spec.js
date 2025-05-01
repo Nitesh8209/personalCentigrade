@@ -164,7 +164,7 @@ test.describe("test for data Room ",  { tag: "@UI" }, () => {
     const dataRoomPage = new DataRoom(page);
     const errors = [];
     const modal = await dataRoomPage.modal();
-    console.log(await modal.isVisible());
+    
     if((await modal.isVisible())){
       const cancelButton = await dataRoomPage.modalCancelButton();
       await cancelButton.click();
@@ -236,6 +236,8 @@ test.describe("test for data Room ",  { tag: "@UI" }, () => {
       async () => {
         await expect(await dataRoomPage.successMessagediv()).toBeVisible();
         await expect(await dataRoomPage.successMessagediv()).toHaveText('Data room has been created successfully');
+        const closeButton = await dataRoomPage.closeToast();
+        await closeButton.click();
       },
       errors
     );
@@ -338,7 +340,7 @@ test.describe("test for data Room ",  { tag: "@UI" }, () => {
     const dataRoomPage = new DataRoom(page);
     const errors = [];
     
-    if(!((await dataRoomPage.documentsTabButton()).isVisible())){
+    if(!(await (await dataRoomPage.documentsTabButton()).isVisible())){
       const dataRoom = await dataRoomPage.bodyContentNameLink(DataRoomTestdata.dataRoomName);
       await dataRoom.click();
     }
@@ -384,7 +386,7 @@ test.describe("test for data Room ",  { tag: "@UI" }, () => {
     const dataRoomPage = new DataRoom(page);
     const errors = [];
 
-    if(!((await dataRoomPage.documentsTabButton()).isVisible())){
+    if(!(await (await dataRoomPage.documentsTabButton()).isVisible())){
       const dataRoom = await dataRoomPage.bodyContentNameLink(DataRoomTestdata.dataRoomName);
       await dataRoom.click();
     }
@@ -433,7 +435,7 @@ test.describe("test for data Room ",  { tag: "@UI" }, () => {
     const dataRoomPage = new DataRoom(page);
     const errors = [];
 
-    if(!((await dataRoomPage.documentsTabButton()).isVisible())){
+    if(!(await (await dataRoomPage.documentsTabButton()).isVisible())){
       const dataRoom = await dataRoomPage.bodyContentNameLink(DataRoomTestdata.dataRoomName);
       await dataRoom.click();
     }
@@ -486,12 +488,12 @@ test.describe("test for data Room ",  { tag: "@UI" }, () => {
     const dataRoomPage = new DataRoom(page);
     const errors = [];
 
-    if(!((await dataRoomPage.documentsTabButton()).isVisible())){
-      const dataRoom = await dataRoomPage.bodyContentNameLink(DataRoomTestdata.dataRoomName);
-      await dataRoom.click();
-    }
+    if(!(await (await dataRoomPage.modal()).isVisible())){
+      if(!(await (await dataRoomPage.documentsTabButton()).isVisible())){
+        const dataRoom = await dataRoomPage.bodyContentNameLink(DataRoomTestdata.dataRoomName);
+        await dataRoom.click();
+      }
 
-    if(!((await dataRoomPage.modal()).isVisible())){
     const addFile = await dataRoomPage.AddFilesButton();
     await addFile.click();
     }
@@ -539,12 +541,13 @@ test.describe("test for data Room ",  { tag: "@UI" }, () => {
     const dataRoomPage = new DataRoom(page);
     const errors = [];
 
-    if(!((await dataRoomPage.documentsTabButton()).isVisible())){
+    if(!(await (await dataRoomPage.modal()).isVisible())){
+
+    if(!(await (await dataRoomPage.documentsTabButton()).isVisible())){
       const dataRoom = await dataRoomPage.bodyContentNameLink(DataRoomTestdata.dataRoomName);
       await dataRoom.click();
     }
 
-    if(!((await dataRoomPage.modal()).isVisible())){
     const addFile = await dataRoomPage.AddFilesButton();
     await addFile.click();
 
@@ -567,6 +570,8 @@ test.describe("test for data Room ",  { tag: "@UI" }, () => {
         const success = await dataRoomPage.successMessagediv()
         await expect(success).toBeVisible();
         await expect(success).toHaveText('1 file was added');
+        const closeButton = await dataRoomPage.closeToast();
+        await closeButton.click();
       },
       errors
     );
@@ -594,7 +599,7 @@ test.describe("test for data Room ",  { tag: "@UI" }, () => {
     const dataRoomPage = new DataRoom(page);
     const errors = [];
 
-    if(!((await dataRoomPage.documentsTabButton()).isVisible())){
+    if(!(await (await dataRoomPage.documentsTabButton()).isVisible())){
       const dataRoom = await dataRoomPage.bodyContentNameLink(DataRoomTestdata.dataRoomName);
       await dataRoom.click();
     }
@@ -622,7 +627,7 @@ test.describe("test for data Room ",  { tag: "@UI" }, () => {
     const dataRoomPage = new DataRoom(page);
     const errors = [];
 
-    if(!((await dataRoomPage.documentsTabButton()).isVisible())){
+    if(!(await (await dataRoomPage.documentsTabButton()).isVisible())){
       const dataRoom = await dataRoomPage.bodyContentNameLink(DataRoomTestdata.dataRoomName);
       await dataRoom.click();
     }
@@ -680,7 +685,7 @@ test.describe("test for data Room ",  { tag: "@UI" }, () => {
     const dataRoomPage = new DataRoom(page);
     const errors = [];
 
-    if(!((await dataRoomPage.documentsTabButton()).isVisible())){
+    if(!(await (await dataRoomPage.modal()).isVisible())){
       const dataRoom = await dataRoomPage.bodyContentNameLink(DataRoomTestdata.dataRoomName);
       await dataRoom.click();
 
@@ -712,6 +717,8 @@ test.describe("test for data Room ",  { tag: "@UI" }, () => {
         const message = await dataRoomPage.successMessagediv();
         await expect(message).toBeVisible();
         await expect(message).toHaveText('Your invitation was sent!');
+        const closeButton = await dataRoomPage.closeToast();
+        await closeButton.click();
      },
       errors
     );
@@ -746,7 +753,7 @@ test.describe("test for data Room ",  { tag: "@UI" }, () => {
     const dataRoomPage = new DataRoom(page);
     const errors = [];
 
-    if(!((await dataRoomPage.documentsTabButton()).isVisible())){
+    if(!(await (await dataRoomPage.documentsTabButton()).isVisible())){
       const dataRoom = await dataRoomPage.bodyContentNameLink(DataRoomTestdata.dataRoomName);
       await dataRoom.click();
     }
@@ -797,7 +804,7 @@ test.describe("test for data Room ",  { tag: "@UI" }, () => {
     const dataRoomPage = new DataRoom(page);
     const errors = [];
 
-    if(!((await dataRoomPage.documentsTabButton()).isVisible())){
+    if(!(await (await dataRoomPage.documentsTabButton()).isVisible())){
       const dataRoom = await dataRoomPage.bodyContentNameLink(DataRoomTestdata.dataRoomName);
       await dataRoom.click();
 
@@ -834,6 +841,8 @@ test.describe("test for data Room ",  { tag: "@UI" }, () => {
         const message = await dataRoomPage.successMessagediv();
         await expect(message).toBeVisible();
         await expect(message).toHaveText('Data room member removed successfully');
+        const closeButton = await dataRoomPage.closeToast();
+        await closeButton.click();
         await page.waitForTimeout(10000);
      },
       errors
@@ -953,6 +962,8 @@ test.describe("test for data Room ",  { tag: "@UI" }, () => {
 
       await expect(await dataRoomPage.successMessagediv()).toBeVisible();
       await expect(await dataRoomPage.successMessagediv()).toHaveText('Data room deleted successfully');
+      const closeButton = await dataRoomPage.closeToast();
+      await closeButton.click();
     }, errors)
 
     if (errors.length > 0) {
