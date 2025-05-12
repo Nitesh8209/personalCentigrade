@@ -296,7 +296,7 @@ test.describe('Project Page', { tag: '@UI' }, () => {
     await safeExpect('click on save and verify the project is display',
       async () => {
         const create = await projectsPage.createButton();
-        const [ response ] = new Promise.all([
+        const [ response ] = await Promise.all([
           page.waitForResponse(resp => resp.url().includes('/project')),
           await create.click()
         ])

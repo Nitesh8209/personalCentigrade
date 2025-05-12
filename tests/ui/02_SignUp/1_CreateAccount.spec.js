@@ -105,7 +105,7 @@ test.describe('Create Account Page UI Tests', { tag: '@UI' }, () => {
 
     // Validate checkbox for Terms and Conditions
     await expect(createAccountcheckboxLabel).toBeVisible();
-    await expect(createAccountcheckboxLabel).toHaveText(/I agree to Centigrade’s User.*Terms of Service.*Privacy Policy/);
+    await expect(createAccountcheckboxLabel).toHaveText(/I agree to Centigrade's User Terms of Service and acknowledge the Privacy Policy./);
     await expect(createAccountcheckboxInput).toBeVisible();
     await expect(createAccountcheckboxInput).not.toBeChecked();
     await createAccountcheckboxInput.check();

@@ -213,7 +213,7 @@ const rawData = fs.readFileSync(projectdataFile, 'utf-8');
 const jsonData = JSON.parse(rawData);
 
   const cleanKeyName = field.replace(/-nameValue(-nameValue)?$/, '')
-  const foundItem = jsonData.items.find(item => item.keyName == cleanKeyName);
+  const foundItem = jsonData.fields?.items?.find(item => item.keyName == cleanKeyName);
   if(foundItem){
     let value = foundItem.value;
     if(value == "[\"GB\",\"IN\"]"){
