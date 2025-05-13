@@ -75,7 +75,7 @@ class SignUpPage {
   }
 
   async forgotPasswordEmail(email) {
-    await this.page.locator('.input > .input-control > input').fill(email);
+    await this.page.locator('.input > .input-control > .input-wrapper > input').fill(email);
   }
 
   async forgotPasswordSend() {

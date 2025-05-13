@@ -41,7 +41,7 @@ test.describe('Create Account Page UI Tests', { tag: '@UI' }, () => {
     await saveData({ newEmail: newEmail }, 'UI');
 
     // Verify redirection to the verification page
-    await expect(page).toHaveURL(`${baseURL}/verification?email=${encodeURIComponent(newEmail)}`);
+    await expect(page).toHaveURL(`${baseURL}/verification?email=${encodeURIComponent(newEmail)}&orgName=${ValidTestData.organizationName}`);
     await signUpPage.verificationCodecard();
 
     const verificationCodeheading = await signUpPage.verificationCodeheading();

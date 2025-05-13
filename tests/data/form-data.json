@@ -1,7 +1,7 @@
 {
   "dataSchema": "QA-ACR1.3-cgV1.0.0",
   "navigation": "form2.0-config",
-  "versionDate": "2025-04-28T11:19:48-07:00",
+  "versionDate": "2025-05-09T11:53:48-07:00",
   "topics": [
     {
       "id": 426,
@@ -306,14 +306,14 @@
                           "label": "Additional details on project timeline",
                           "columns": null,
                           "options": [],
-                          "tooltip": "",
+                          "tooltip": "Relevant additional information regarding the project's timeline",
                           "elements": null,
-                          "component": "textarea",
+                          "component": "rich-text",
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "Optional field to add additional information regarding the project's timeline",
                           "display_order": 2,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
                         },
@@ -346,10 +346,10 @@
                           "label": "Crediting start year",
                           "columns": null,
                           "options": [],
-                          "tooltip": "Year that the project begins issuing credits",
+                          "tooltip": "The start of the crediting period, in which verified GHG emission reductions or removals from to a project activity can result in the issuance of carbon credits (i.e., the year that the project begins issuing credits)",
                           "elements": null,
                           "component": "year-input",
-                          "attributes": null,
+                          "attributes": {},
                           "half_width": true,
                           "helper_text": "",
                           "display_order": 4,
@@ -365,11 +365,11 @@
                           "type": "integer",
                           "label": "Crediting end year",
                           "columns": null,
-                          "options": null,
-                          "tooltip": "Year that the project stops issuing credits",
+                          "options": [],
+                          "tooltip": "The end of the crediting period, in which verified GHG emission reductions or removals from to a project activity can result in the issuance of carbon credits (i.e., the year that the project stops issuing credits)",
                           "elements": null,
                           "component": "year-input",
-                          "attributes": null,
+                          "attributes": {},
                           "half_width": true,
                           "helper_text": "",
                           "display_order": 5,
@@ -429,7 +429,7 @@
                             "Validated",
                             "Verified"
                           ],
-                          "tooltip": "Indicates the current stage of the project's development based on the validation or verification process:\n\nUnder development: The project is in the early stages and has not yet completed validation.\n\nValidated: The project has been reviewed and approved against the relevant methodology and standards but is not yet generating verified credits.\n\nVerified: The project has undergone verification and is actively generating verified credits.",
+                          "tooltip": "Indicates the current stage of the project's development: (A) Under development: the project is in the early stages and has not yet completed validation; (B) Validated: The project has been reviewed and approved against the relevant methodology and standards but is not yet generating verified credits; (C) Verified: The project has undergone verification and is actively generating verified credits.",
                           "elements": null,
                           "component": "select",
                           "attributes": {},
@@ -455,7 +455,7 @@
                             "Large (100,000+ tCO2e)",
                             "Unknown"
                           ],
-                          "tooltip": "Estimated tonnes of CO2e to be sequestered or avoided over the life of the project",
+                          "tooltip": "An indication of the estimated tonnes of CO2e to be sequestered or avoided over the life of the project",
                           "elements": null,
                           "component": "select",
                           "attributes": {},
@@ -711,7 +711,7 @@
                             "Self issuing",
                             "Not applicable"
                           ],
-                          "tooltip": "The credit issuing body",
+                          "tooltip": "The body responsible for issuing the credits",
                           "elements": null,
                           "component": "select",
                           "attributes": {},
@@ -756,12 +756,14 @@
                           "label": "Registry standard version used",
                           "columns": null,
                           "options": [],
-                          "tooltip": "i.e., ACR Standard Version 8.0, Puro General Rules Version 4.0",
+                          "tooltip": "Carbon crediting programs (e.g., Verra, ACR, CAR, Puro Earth) publish general rules and documentation that projects must adhere to in addition to a given methodology. These programs or standards are updated periodically (e.g., ACR Standard Version 8.0, Puro General Rules Version 4.0, etc.)",
                           "elements": null,
                           "component": "text-input",
-                          "attributes": null,
+                          "attributes": {
+                            "field": ""
+                          },
                           "half_width": true,
-                          "helper_text": "",
+                          "helper_text": "Indicate which version of the carbon crediting program's standard the project was developed against (e.g., VCS Version 4.0, Puro General Rules 4.0)",
                           "display_order": 3,
                           "view_component": "key-value-table",
                           "validation_schema": null,
@@ -776,12 +778,14 @@
                           "label": "Project registry link",
                           "columns": null,
                           "options": [],
-                          "tooltip": "",
+                          "tooltip": "If relevant, the link to the project's registry listing page",
                           "elements": null,
                           "component": "text-input",
-                          "attributes": null,
+                          "attributes": {
+                            "field": ""
+                          },
                           "half_width": true,
-                          "helper_text": "",
+                          "helper_text": "If relevant, provide the project's listing page on its given registry",
                           "display_order": 4,
                           "view_component": "key-value-table",
                           "validation_schema": null,
@@ -796,10 +800,12 @@
                           "label": "Project registry ID",
                           "columns": null,
                           "options": [],
-                          "tooltip": "",
+                          "tooltip": "If relevant, the project's unique ID in the project's respective registry",
                           "elements": null,
                           "component": "text-input",
-                          "attributes": null,
+                          "attributes": {
+                            "field": ""
+                          },
                           "half_width": true,
                           "helper_text": "",
                           "display_order": 5,
@@ -816,7 +822,7 @@
                           "label": "Additional comments on project approach",
                           "columns": null,
                           "options": [],
-                          "tooltip": "",
+                          "tooltip": "If relevant, any additional or missing information about the project's fundamental approach",
                           "elements": null,
                           "component": "rich-text",
                           "attributes": {},
@@ -836,10 +842,13 @@
                           "label": "Project plan document",
                           "columns": null,
                           "options": [],
-                          "tooltip": "If the project plan document exists (e.g., GHG plan, PDD), it may be uploaded here",
+                          "tooltip": "If relevant, the project plan document (e.g., GHG plan, PDD)",
                           "elements": null,
                           "component": "file-upload-multiple",
-                          "attributes": null,
+                          "attributes": {
+                            "accept": "",
+                            "isPublic": ""
+                          },
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 7,
@@ -869,7 +878,7 @@
             },
             {
               "id": 444,
-              "name": "loactionDetails",
+              "name": "locationDetails",
               "label": "Location details",
               "sections": [
                 {
@@ -922,7 +931,7 @@
                           "label": "How would you like to show your project on a map?",
                           "columns": null,
                           "options": [
-                            "Address (City, State/Province, Region, etc.)",
+                            "Address or region",
                             "Latitude and longitude coordinates",
                             "GeoJSON or other GIS shapefile",
                             "Show the country"
@@ -976,7 +985,7 @@
                           "elements": null,
                           "component": "file-upload",
                           "attributes": {
-                            "accept": "application/geo+json, .json, .geojson",
+                            "accept": "application/geo+json, .json, .geojson, .shp, .shx, .dbf",
                             "isPublic": "true"
                           },
                           "half_width": false,
@@ -1012,7 +1021,7 @@
                           "display_dependencies": [
                             {
                               "field": "locationDetailsType-nameValue-nameValue",
-                              "pattern": "Address or city location"
+                              "pattern": "Address or region"
                             }
                           ]
                         },
@@ -1812,7 +1821,7 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 1
+                  "display_order": 0
                 },
                 {
                   "id": 491,
@@ -1948,7 +1957,7 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 2
+                  "display_order": 1
                 },
                 {
                   "id": 492,
@@ -2225,7 +2234,7 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 3
+                  "display_order": 2
                 },
                 {
                   "id": 495,
@@ -2237,7 +2246,32 @@
                   "nav_type_id": 1,
                   "field_groups": null,
                   "nav_level_id": 4,
-                  "display_order": 6
+                  "display_order": 3
+                },
+                {
+                  "id": 1118,
+                  "name": "otherEntitiesInvolved",
+                  "label": "Other entities involved",
+                  "parent_id": 445,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 1,
+                  "field_groups": [
+                    {
+                      "id": 1119,
+                      "name": "otherEntitiesInvolvedRMI",
+                      "label": "Other entities involved",
+                      "fields": null,
+                      "parent_id": 1118,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 1,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 4
                 }
               ],
               "parent_id": 434,
@@ -3676,9 +3710,12 @@
                           "tooltip": "",
                           "elements": null,
                           "component": "file-upload-multiple",
-                          "attributes": null,
+                          "attributes": {
+                            "accept": "",
+                            "isPublic": ""
+                          },
                           "half_width": false,
-                          "helper_text": "Upload documents related to baseline air pollution. For baseline indoor air pollution levels, sources may include reports of field or lab testing of the technology, results of modelling of the technology’s operation under field conditions, expert opinion etc. ",
+                          "helper_text": "Upload documents related to baseline air pollution, including air quality calculations. For baseline indoor air pollution levels, sources may include reports of field or lab testing of the technology, results of modelling of the technology’s operation under field conditions, expert opinion etc. ",
                           "display_order": 8,
                           "view_component": "key-value-table",
                           "validation_schema": null,
@@ -4946,11 +4983,11 @@
                           "type": "string",
                           "label": "Baseline harvest schedule scenario overview",
                           "columns": null,
-                          "options": null,
-                          "tooltip": "The baseline harvest regime is that which maximizes the 100 year net present value (NPV), while considering common practices applied",
+                          "options": [],
+                          "tooltip": "The baseline harvesting strategy is defined as the one that yields the highest net present value (NPV) over a 100-year period, taking into account common practice",
                           "elements": null,
                           "component": "textarea",
-                          "attributes": null,
+                          "attributes": {},
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 3,
@@ -6053,6 +6090,18 @@
                       "display_order": 0
                     },
                     {
+                      "id": 1109,
+                      "name": "thermalEfficiency",
+                      "label": "Thermal efficiency",
+                      "fields": null,
+                      "parent_id": 509,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 1,
+                      "nav_level_id": 5,
+                      "display_order": 1
+                    },
+                    {
                       "id": 769,
                       "name": "captureTechForm",
                       "label": "Capture equipment",
@@ -7117,10 +7166,10 @@
                           "label": "Project forecasts emission reductions and/or removals",
                           "columns": null,
                           "options": [],
-                          "tooltip": "",
+                          "tooltip": "Forecasting carbon removals or reductions is the process of estimating the amount of greenhouse gases that a project is expected to remove from or prevent from entering the atmosphere over a future period, based on scientific models, historical data, and project-specific assumptions",
                           "elements": null,
                           "component": "radio-y-n",
-                          "attributes": null,
+                          "attributes": {},
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 0,
@@ -7137,10 +7186,12 @@
                           "label": "Credit period forecast",
                           "columns": null,
                           "options": [],
-                          "tooltip": "The total estimated delivery of credits over the crediting period (i.e., tonnes of CO2e removed, avoided, or reduced)",
+                          "tooltip": "The total estimated issued credits over the crediting period (i.e., tonnes of CO2e removed, avoided, or reduced)",
                           "elements": null,
                           "component": "text-input",
-                          "attributes": null,
+                          "attributes": {
+                            "field": ""
+                          },
                           "half_width": false,
                           "helper_text": "Indicate the total estimated delivery of credits over the crediting period (i.e., tonnes of CO2e removed, avoided, or reduced)",
                           "display_order": 1,
@@ -7219,10 +7270,10 @@
                           "label": "Additional comments on forecast",
                           "columns": null,
                           "options": [],
-                          "tooltip": "Additional context on what was used to generate the forecast estimate",
+                          "tooltip": "Optional additional context on the credit forecast",
                           "elements": null,
                           "component": "textarea",
-                          "attributes": null,
+                          "attributes": {},
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 9,
@@ -7337,7 +7388,7 @@
                           "label": "MRV protocol and monitoring plan overview",
                           "columns": null,
                           "options": [],
-                          "tooltip": "Monitoring plan may include: technical description of the monitoring tasks, data to be collected, overview of data collection procedures, quality control and quality assurance procedures, data archiving and organization and responsibilities of the parties involved",
+                          "tooltip": "The monitoring plan may include: technical description of the monitoring tasks, data to be collected, overview of data collection procedures, quality control and quality assurance procedures, data archiving and organization and responsibilities of the parties involved",
                           "elements": null,
                           "component": "rich-text",
                           "attributes": {},
@@ -7370,10 +7421,10 @@
                           "label": "Additional comments on fixed and monitored parameters",
                           "columns": null,
                           "options": [],
-                          "tooltip": "",
+                          "tooltip": "Optional additional context regarding the fixed and monitored parameters used in project calculations",
                           "elements": null,
                           "component": "textarea",
-                          "attributes": null,
+                          "attributes": {},
                           "half_width": false,
                           "helper_text": "Optional space to include any additional details on the parameters used in project calculations",
                           "display_order": 2,
@@ -7403,7 +7454,7 @@
                           "label": "Data processing and storage procedures",
                           "columns": null,
                           "options": [],
-                          "tooltip": "",
+                          "tooltip": "Overview of the methods used to collect, clean, and securely store project monitoring data to ensure accuracy, traceability, and long-term accessibility",
                           "elements": null,
                           "component": "rich-text",
                           "attributes": {},
@@ -7557,10 +7608,12 @@
                             "1,001-10,000 years",
                             "10,000+ years"
                           ],
-                          "tooltip": "The projected duration (in years) over which removed carbon will be stored",
+                          "tooltip": "The projected duration (in years) over which removed carbon will be stored or prevented from entering the atmosphere, accounting for risks of reversal over time",
                           "elements": null,
                           "component": "select",
-                          "attributes": null,
+                          "attributes": {
+                            "field": ""
+                          },
                           "half_width": true,
                           "helper_text": "",
                           "display_order": 0,
@@ -7579,10 +7632,10 @@
                           "rows": null,
                           "tier": 1,
                           "type": "string",
-                          "label": "Carbon storage and permanence",
+                          "label": "Carbon storage overview",
                           "columns": null,
                           "options": [],
-                          "tooltip": "Details on how the carbon is stored and the estimated duration for which it remains safely and stably stored",
+                          "tooltip": "Details on how the carbon is stored and the estimated duration for which it remains stored in a safe and stable manner",
                           "elements": null,
                           "component": "textarea",
                           "attributes": {},
@@ -7613,10 +7666,12 @@
                             "Chemical",
                             "Other"
                           ],
-                          "tooltip": "The carbon removal process categorization is based on the IPCC AR6 report and is focused on the role of the CDR method in the carbon cycle (i.e., the process in which carbon is sequestered from the atmosphere)",
+                          "tooltip": "Carbon removal process refers to the specific mechanism by which a carbon dioxide removal (CDR) method sequesters CO₂ from the atmosphere, categorized according to the IPCC AR6 framework based on its role in the carbon cycle (e.g., biological, geochemical, ocean-based, or chemical pathways)",
                           "elements": null,
                           "component": "select-multiple",
-                          "attributes": null,
+                          "attributes": {
+                            "field": ""
+                          },
                           "half_width": true,
                           "helper_text": "",
                           "display_order": 2,
@@ -7669,10 +7724,12 @@
                             "Engineered product",
                             "Other"
                           ],
-                          "tooltip": "The medium/reservoir in which the carbon is ultimately stored",
+                          "tooltip": "Carbon storage type refers to the form and location in which removed carbon is stored, categorized by the IPCC as terrestrial/biological (e.g., biomass, soil), geological (e.g., rock formations), marine/oceanic, or product-based (e.g., durable materials), each with varying levels of stability and permanence",
                           "elements": null,
                           "component": "select-multiple",
-                          "attributes": null,
+                          "attributes": {
+                            "field": ""
+                          },
                           "half_width": true,
                           "helper_text": "",
                           "display_order": 4,
@@ -7729,15 +7786,15 @@
                           "rows": null,
                           "tier": 1,
                           "type": "string",
-                          "label": "Reversal risk assessment",
+                          "label": "Project risk assessment",
                           "columns": null,
                           "options": [],
-                          "tooltip": "",
+                          "tooltip": "Optional additional context on the assessment of potential project risks (i.e., risks to carbon durability, risks to project viability, and/or risks to credit delivery) ",
                           "elements": null,
                           "component": "rich-text",
                           "attributes": {},
                           "half_width": false,
-                          "helper_text": "",
+                          "helper_text": "Use this space to outline the potential reversal risks",
                           "display_order": 3,
                           "view_component": "key-value-table",
                           "validation_schema": null,
@@ -7784,14 +7841,11 @@
                           "type": "boolean",
                           "label": "Risk management plan in place",
                           "columns": null,
-                          "options": [
-                            "Yes",
-                            "No"
-                          ],
-                          "tooltip": "",
+                          "options": [],
+                          "tooltip": "A risk management plan encompasses a strategy for managing and mitigating risks that could impact a carbon project's ability to generate valid credits",
                           "elements": null,
                           "component": "radio-y-n",
-                          "attributes": null,
+                          "attributes": {},
                           "half_width": false,
                           "helper_text": "Indicate \"Yes\" if there is a risk management plan in place",
                           "display_order": 0,
@@ -7801,7 +7855,7 @@
                         },
                         {
                           "id": 65,
-                          "name": "durabilityInsurance-nameValue-nameValue",
+                          "name": "reversalRiskMitigationStrategy-nameValue-nameValue",
                           "rows": null,
                           "tier": 1,
                           "type": "string",
@@ -7818,7 +7872,7 @@
                             "Other",
                             "None"
                           ],
-                          "tooltip": "Compensatory method for potential loss of credits (e.g., due to reversal events)",
+                          "tooltip": "The strategy to address the potential loss of sequestered carbon by using financial tools or reserves, such as insurance or buffer pools, to compensate for potential reversals and ensure long-term credit validity",
                           "elements": null,
                           "component": "select-multiple",
                           "attributes": {},
@@ -7843,7 +7897,7 @@
                           "label": "Risk management plan",
                           "columns": null,
                           "options": [],
-                          "tooltip": "Overview of the measures taken to mitigate and/or monitor reversal and project risks (e.g., wildfire prevention treatments or legally binding restrictions on land-use activities for the project site)",
+                          "tooltip": "Overview of the project's plan to mitigate risk (i.e., a systematic overview of the measures taken to mitigate and/or monitor reversal and project risks)",
                           "elements": null,
                           "component": "rich-text",
                           "attributes": {},
@@ -7886,7 +7940,7 @@
                         },
                         {
                           "id": 66,
-                          "name": "durabilityInsuranceOther-nameValue-nameValue",
+                          "name": "otherReversalRiskMitigationStrategy-nameValue-nameValue",
                           "rows": null,
                           "tier": 1,
                           "type": "string",
@@ -7896,7 +7950,9 @@
                           "tooltip": "",
                           "elements": null,
                           "component": "text-input",
-                          "attributes": null,
+                          "attributes": {
+                            "field": ""
+                          },
                           "half_width": true,
                           "helper_text": "",
                           "display_order": 4,
@@ -7904,7 +7960,7 @@
                           "validation_schema": null,
                           "display_dependencies": [
                             {
-                              "field": "durabilityInsurance-nameValue-nameValue",
+                              "field": "reversalRiskMitigationStrategy-nameValue-nameValue",
                               "pattern": "Other"
                             }
                           ]
@@ -7929,7 +7985,7 @@
                           "validation_schema": null,
                           "display_dependencies": [
                             {
-                              "field": "durabilityInsurance-nameValue-nameValue",
+                              "field": "reversalRiskMitigationStrategy-nameValue-nameValue",
                               "pattern": "Insurance"
                             }
                           ]
@@ -7954,7 +8010,7 @@
                           "validation_schema": null,
                           "display_dependencies": [
                             {
-                              "field": "durabilityInsurance-nameValue-nameValue",
+                              "field": "reversalRiskMitigationStrategy-nameValue-nameValue",
                               "pattern": "Insurance"
                             }
                           ]
@@ -8017,10 +8073,12 @@
                             "Counterfactual analysis",
                             "Other standardized approach"
                           ],
-                          "tooltip": "",
+                          "tooltip": "Evaluating additionality ensures that carbon credits are granted only to mitigation activities that would not have occurred without the incentives provided by the carbon credit",
                           "elements": null,
                           "component": "select-multiple",
-                          "attributes": null,
+                          "attributes": {
+                            "field": ""
+                          },
                           "half_width": false,
                           "helper_text": "Select which approaches are utilized by the project to demonstrate additionality",
                           "display_order": 4,
@@ -8234,10 +8292,10 @@
                           "label": "The project is not required by and/or exceeds existing applicable laws, regulations, or other binding obligations",
                           "columns": null,
                           "options": [],
-                          "tooltip": "",
+                          "tooltip": "Regulatory additionality ensures that a carbon credit can only be issued for a mitigation activity that goes beyond what is required by existing laws or regulations",
                           "elements": null,
                           "component": "radio-y-n",
-                          "attributes": null,
+                          "attributes": {},
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 1,
@@ -8256,15 +8314,15 @@
                           "rows": null,
                           "tier": 1,
                           "type": "string",
-                          "label": "Relevant laws, regulations, and/or binding obligations and other details regarding the regulatory surplus test",
+                          "label": "Relevant laws, regulations, and/or binding obligations justifying the regulatory surplus test",
                           "columns": null,
                           "options": [],
-                          "tooltip": "",
+                          "tooltip": "Overview of applicable laws and regulations used to justify regulatory additionality by demonstrating that the mitigation activity is not legally required",
                           "elements": null,
                           "component": "rich-text",
                           "attributes": {},
                           "half_width": false,
-                          "helper_text": "",
+                          "helper_text": "Indicate the relevant laws or regulations that support the justification of regulatory additionality (i.e., do not require the mitigation activity)",
                           "display_order": 2,
                           "view_component": "key-value-table",
                           "validation_schema": null,
@@ -8334,14 +8392,11 @@
                           "type": "boolean",
                           "label": "The project demonstrates a low level of penetration or successfully passes the common practice test within a similar sector, region, or activity",
                           "columns": null,
-                          "options": [
-                            "Yes",
-                            "No"
-                          ],
-                          "tooltip": "",
+                          "options": [],
+                          "tooltip": "The common practice or market penetration test evaluates whether a mitigation activity is widely adopted in a sector or region. If the activity is already standard practice, it is not considered additional and is therefore ineligible for carbon credits.",
                           "elements": null,
                           "component": "radio-y-n",
-                          "attributes": null,
+                          "attributes": {},
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 1,
@@ -8388,7 +8443,7 @@
                           "label": "Common practice test details",
                           "columns": null,
                           "options": [],
-                          "tooltip": "",
+                          "tooltip": "Overview of the common practice / market penetration additionality test conducted",
                           "elements": null,
                           "component": "rich-text",
                           "attributes": {},
@@ -8587,14 +8642,14 @@
                           "label": "Simple cost analysis details",
                           "columns": null,
                           "options": [],
-                          "tooltip": "",
+                          "tooltip": "Simple cost analysis is a financial additionality test that compares a project's expected costs and revenues to determine if it would be economically unattractive without carbon credit income. If the project does not generate sufficient returns or would operate at a loss without the added revenue from credits, it may be deemed additional.",
                           "elements": null,
                           "component": "rich-text",
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 2,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -8662,10 +8717,12 @@
                             "Unit cost of service",
                             "Other"
                           ],
-                          "tooltip": "",
+                          "tooltip": "The suitable financial indicator, such as the net present value (NPV) or internal rate of return (IRR) used consistently throughout calculations",
                           "elements": null,
                           "component": "select",
-                          "attributes": null,
+                          "attributes": {
+                            "field": ""
+                          },
                           "half_width": true,
                           "helper_text": "Indicate the financial indicator used consistently throughout the calculations",
                           "display_order": 1,
@@ -8725,10 +8782,10 @@
                           "label": "Project uses a financial benchmark approach",
                           "columns": null,
                           "options": [],
-                          "tooltip": "",
+                          "tooltip": "The benchmark approach compares a project's expected return (e.g., IRR or NPV) to a predefined financial benchmark. If the project's return falls below this benchmark without carbon credit revenue, it may be considered financially additional.",
                           "elements": null,
                           "component": "radio-y-n",
-                          "attributes": null,
+                          "attributes": {},
                           "half_width": true,
                           "helper_text": "",
                           "display_order": 1,
@@ -8813,7 +8870,7 @@
                           "label": "Justification and results of the investment comparison analysis",
                           "columns": null,
                           "options": [],
-                          "tooltip": "",
+                          "tooltip": "The investment comparison approach assesses whether the proposed project is less economically attractive than one or more alternative investment options. If the project would not be chosen over more financially viable alternatives without carbon credit revenue, it may be considered additional.",
                           "elements": null,
                           "component": "rich-text",
                           "attributes": {},
@@ -9040,10 +9097,10 @@
                           "label": "Carbon credits considered prior to the start date of the project",
                           "columns": null,
                           "options": [],
-                          "tooltip": "",
+                          "tooltip": "An additionality test that assesses whether carbon revenue was considered or planned for before a project’s implementation. Evidence of such \"prior consideration\" helps demonstrate that the project would not have been developed without the financial incentive from carbon credits.",
                           "elements": null,
                           "component": "radio-y-n",
-                          "attributes": null,
+                          "attributes": {},
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 1,
@@ -9141,10 +9198,10 @@
                           "label": "The project faces an implementation barrier for which carbon credit revenues are the decisive element in overcoming the barrier",
                           "columns": null,
                           "options": [],
-                          "tooltip": "",
+                          "tooltip": "Barrier analysis is an additionality test used to identify and assess the key obstacles (e.g., financial, technical, regulatory, or market-related) that would prevent a project from being implemented without carbon credit revenue",
                           "elements": null,
                           "component": "radio-y-n",
-                          "attributes": null,
+                          "attributes": {},
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 1,
@@ -9351,10 +9408,10 @@
                           "label": "Project activity exceeds a relevant emission reductions and/or removals benchmark",
                           "columns": null,
                           "options": [],
-                          "tooltip": "",
+                          "tooltip": "Performance-based additionality is an approach where a project’s carbon credit eligibility is tied to its actual performance in achieving emission reductions or removals",
                           "elements": null,
                           "component": "radio-y-n",
-                          "attributes": null,
+                          "attributes": {},
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 1,
@@ -9449,13 +9506,13 @@
                           "rows": null,
                           "tier": 1,
                           "type": "boolean",
-                          "label": "The project uses another standardized approach that demonstrates additionality",
+                          "label": "The project uses another standardized approach to demonstrate additionality",
                           "columns": null,
                           "options": [],
                           "tooltip": "",
                           "elements": null,
                           "component": "radio-y-n",
-                          "attributes": null,
+                          "attributes": {},
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 1,
@@ -10316,8 +10373,8 @@
                     },
                     {
                       "id": 705,
-                      "name": "uptakeUsage",
-                      "label": "Project activity continued usage",
+                      "name": "usage",
+                      "label": "Project activity usage",
                       "fields": null,
                       "parent_id": 1105,
                       "attributes": {},
@@ -11459,7 +11516,7 @@
                         },
                         {
                           "id": 311,
-                          "name": "biocharLeakageActual-dataGrid-dataGrid",
+                          "name": "leakageDataGrid-dataGrid-dataGrid",
                           "rows": null,
                           "tier": 2,
                           "type": "object",
@@ -11474,7 +11531,7 @@
                               "format": "number"
                             }
                           ],
-                          "tooltip": "0 if there is no leakage allocation",
+                          "tooltip": "Leakage values calculated per vintage in tCO2e",
                           "elements": null,
                           "component": "data-grid",
                           "attributes": {
