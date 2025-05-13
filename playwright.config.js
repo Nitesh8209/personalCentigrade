@@ -22,6 +22,7 @@ module.exports = defineConfig({
   testDir: './tests',
   snapshotPathTemplate: 'tests/assets/{arg}{ext}',
   snapshotDir: '__snapshots__',
+  globalTeardown: './tests/ui/CleanUpData.js',
   /* Run tests in files in parallel */
   // fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -141,16 +142,6 @@ module.exports = defineConfig({
       dependencies: ['Settings'],
     },
     {
-      name: 'organizationEdgeCase',
-      testMatch: ['ui/03_Settings/5_edgeCase.spec.js'],
-      use: {
-        ...devices['Desktop Chrome'],
-        viewport: { width: 1366, height: 768 },
-      },
-      fullyParallel: false,
-      dependencies: ['organizationRole'],
-    },
-    {
       name: 'ProjectPage',
       testMatch: ['ui/04_Project/01_ProjectPage.spec.js'],
       use: {
@@ -228,7 +219,8 @@ module.exports = defineConfig({
     {
       name: 'buyerPublishProject',
       testMatch: [ 'ui/05_Buyer/0_publishProject.spec.js'],
-      use: { ...devices['Desktop Chrome'],
+      use: { 
+        ...devices['Desktop Chrome'],
         viewport: { width: 1366, height: 768 },
        },
       fullyParallel: false,
@@ -241,7 +233,7 @@ module.exports = defineConfig({
         viewport: { width: 1366, height: 768 },
       },
       fullyParallel: true,
-      dependencies: ['buyerPublishProject'],
+      dependencies: ['buyerPublishProject']
     },
     {
       name: 'LoginApi',
@@ -295,6 +287,15 @@ module.exports = defineConfig({
          },
         fullyParallel: false,
         dependencies: ['passwordApi'],
+      },
+      {
+        name: 'DelteApiOrg',
+        testMatch: [ 'api/EdgeCase/OrganizationDeleteEdgecase.spec.js'],
+        use: { ...devices['Desktop Chrome'],
+          viewport: { width: 1366, height: 768 },
+         },
+        fullyParallel: false,
+        dependencies: ['inviteApi'],
       },
       {
         name: 'createProjectApi',
