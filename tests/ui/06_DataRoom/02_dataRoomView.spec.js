@@ -198,7 +198,7 @@ test.describe("Data room for authenticated user", { tag: "@UI" }, () => {
       async () => {
         const noResult = await dataRoomPage.noResult();
         await expect(noResult).toBeVisible();
-        await expect(noResult).toHaveText(/You don’t have access to any data rooms for this project/);
+        await expect(noResult).toHaveText("You don’t have access to any data rooms for this project");
       },
       errors
     );
@@ -515,7 +515,7 @@ test.describe("data room file for without access user", { tag: "@UI" }, () => {
       async () => {
         const noResult = await dataRoomPage.noResult();
         await expect(noResult).toBeVisible();
-        await expect(noResult).toHaveText(/You don’t have access to any data rooms for this project/);
+        await expect(noResult).toHaveText("You don’t have access to any data rooms for this project");
       },
       errors
     );
@@ -635,7 +635,7 @@ test.describe("data room file for without access user", { tag: "@UI" }, () => {
       async () => {
         const noResult = await dataRoomPage.noResult();
         await expect(noResult).toBeVisible();
-        await expect(noResult).toHaveText(/You don’t have access to any data rooms for this project/);
+        await expect(noResult).toHaveText("You don’t have access to any data rooms for this project");
       },
       errors
     );
@@ -754,7 +754,7 @@ test.describe("After Delete Data Room", { tag: "@UI" }, () => {
       async () => {
         const noResult = await dataRoomPage.noResult();
         await expect(noResult).toBeVisible();
-        await expect(noResult).toHaveText(/You don’t have access to any data rooms for this project/);
+        await expect(noResult).toHaveText("You don’t have access to any data rooms for this project");
       },
       errors
     );

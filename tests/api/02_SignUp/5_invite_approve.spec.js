@@ -100,7 +100,7 @@ test.describe(`Member Invitation and Approval Flow`, { tag: '@API' }, () => {
       expect(inviteResponseBody).toBe(200);
 
       // Fetch Gmail invite email
-      const { subject, body } = await getGmailMessages();
+      const { subject, body } = await getGmailMessages(InviteEmail);
       expect(subject).toBe(`${ValidTestData.apiOrganizationName} has invited you to Centigrade`);
       const expectedLinkPattern = /Accept invitation \[(https?:\/\/[^\]]+)\]/;
       const invitationLink = body.match(expectedLinkPattern)[1];
@@ -149,7 +149,7 @@ test.describe(`Member Invitation and Approval Flow`, { tag: '@API' }, () => {
       // expect(approveResponseBody).toHaveProperty('email', InviteEmail);
 
       // Fetch Gmail approval email  
-      const { subject } = await getGmailMessages();
+      const { subject } = await getGmailMessages(InviteEmail);
       expect(subject).toBe(expectedSubject);
     })
 

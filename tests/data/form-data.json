@@ -1,7 +1,7 @@
 {
   "dataSchema": "QA-ACR1.3-cgV1.0.0",
   "navigation": "form2.0-config",
-  "versionDate": "2025-05-09T11:53:48-07:00",
+  "versionDate": "2025-05-19T15:47:31-07:00",
   "topics": [
     {
       "id": 426,
@@ -90,7 +90,7 @@
                           "tooltip": "",
                           "elements": null,
                           "component": "textarea",
-                          "attributes": null,
+                          "attributes": {},
                           "half_width": false,
                           "helper_text": "Highlight your project's approach, unique value proposition, and its climate impacts to prospective buyers and investors in 1-2 sentences",
                           "display_order": 2,
@@ -134,7 +134,7 @@
                           "half_width": false,
                           "helper_text": "Describe the mitigation activities that take place as a part of the project",
                           "display_order": 5,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
                         },
@@ -194,7 +194,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 8,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
                         },
@@ -1108,7 +1108,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 8,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
                         },
@@ -1278,7 +1278,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 2,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
                         },
@@ -1298,7 +1298,7 @@
                           "half_width": false,
                           "helper_text": "Include the team structure and each organization involved including their responsibilities",
                           "display_order": 3,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
                         },
@@ -1480,7 +1480,7 @@
                           "half_width": false,
                           "helper_text": "Summarize your organization’s purpose, values, and goals related to climate action.",
                           "display_order": 0,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
                         },
@@ -1542,7 +1542,7 @@
                           "half_width": false,
                           "helper_text": "Describe an overview of the team leads' experience and technical expertise, the details and results of projects the organization has developed (if applicable), and any other significant historical aspects of the Project Proponent organization",
                           "display_order": 3,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
                         },
@@ -1873,7 +1873,7 @@
                           "half_width": false,
                           "helper_text": "Describe any relevant national frameworks and corresponding compliance supporting the rights of Indigenous, tribal and local communities",
                           "display_order": 3,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
                         }
@@ -2125,7 +2125,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 7,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -2170,7 +2170,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 9,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -2215,7 +2215,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 11,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -2316,7 +2316,7 @@
                           "half_width": false,
                           "helper_text": "Describe any potential economic displacement effects. If none, provide a brief explanation justifying the absence of such impacts.",
                           "display_order": 0,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
                         },
@@ -2356,7 +2356,7 @@
                           "half_width": false,
                           "helper_text": "Describe what type of activity the mitigation plan entails (including but not limited to avoidance, minimization, mitigation, and/or compensation)",
                           "display_order": 2,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -2419,7 +2419,7 @@
                           "half_width": false,
                           "helper_text": "Indicate any potential impacts or risks of the project activity on local physical displacement",
                           "display_order": 2,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
                         },
@@ -2459,7 +2459,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 4,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -2535,7 +2535,7 @@
                           "half_width": false,
                           "helper_text": "Outline the communities and other stakeholders impacted (or potentially impacted) by project activities",
                           "display_order": 1,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
                         },
@@ -2555,7 +2555,7 @@
                           "half_width": false,
                           "helper_text": "Outline the process used to identify stakeholders impacted or potentially impacted by project activities",
                           "display_order": 2,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
                         },
@@ -2648,7 +2648,7 @@
                           "half_width": false,
                           "helper_text": "Describe the stakeholder consultation process plan (e.g., format, consultation protocol, etc.)",
                           "display_order": 2,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -2673,7 +2673,7 @@
                           "half_width": false,
                           "helper_text": "Justify why the project has not developed a stakeholder engagement and consultation plan",
                           "display_order": 3,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -2791,7 +2791,7 @@
                           "half_width": false,
                           "helper_text": "Describe any engagement plans or processes with the identified specific vulnerable communities",
                           "display_order": 2,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -2816,7 +2816,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 3,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -2841,7 +2841,7 @@
                           "half_width": false,
                           "helper_text": "Indicate any potential risks or possible negative impacts the project may have on the identified social groups",
                           "display_order": 4,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -2974,7 +2974,7 @@
                           "half_width": false,
                           "helper_text": "Outline the plan to monitor and address gender-specific elements as part of the project activity, and describe any tools or resources used to develop the plan",
                           "display_order": 4,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -3107,7 +3107,7 @@
                           "half_width": false,
                           "helper_text": "Describe any information about the nature of the contracts between the Indigenous, tribal, or local communities and the project developer/owner",
                           "display_order": 6,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -3132,7 +3132,7 @@
                           "half_width": false,
                           "helper_text": "Describe any penalty clauses that exist within the contracts between Indigenous, tribal, or local communities and the project developer/owner",
                           "display_order": 7,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -3157,7 +3157,7 @@
                           "half_width": false,
                           "helper_text": "Describe methods taken to integrate data collected into principles of free, prior, and informed consent",
                           "display_order": 9,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -3265,7 +3265,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 4,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -3361,7 +3361,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 1,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -3386,7 +3386,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 2,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -3630,7 +3630,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 3,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -3689,7 +3689,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 7,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -3768,7 +3768,7 @@
                           "half_width": false,
                           "helper_text": "Outline the potential impacts of the project activity on the identified water resources",
                           "display_order": 0,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
                         },
@@ -3828,7 +3828,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 3,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -3853,7 +3853,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 4,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -3903,7 +3903,7 @@
                           "half_width": false,
                           "helper_text": "Depending on the scope of the project activity and baseline monitoring, describe the baseline water resources (i.e., in terms of quality, availability etc)",
                           "display_order": 6,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -4067,7 +4067,7 @@
                           "half_width": false,
                           "helper_text": "Description should be in accordance with the IUCN Global Ecosystem Typology Version 2.0",
                           "display_order": 1,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
                         },
@@ -4087,7 +4087,7 @@
                           "half_width": false,
                           "helper_text": "Description should be in accordance with the IUCN Global Ecosystem Typology Version 2.0",
                           "display_order": 2,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
                         },
@@ -4156,7 +4156,7 @@
                           "half_width": false,
                           "helper_text": "Indicate any potential positive impacts or potential risks imposed by project activities",
                           "display_order": 5,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
                         },
@@ -4201,7 +4201,7 @@
                           "half_width": false,
                           "helper_text": "If relevant, describe any plans to identify and monitor biodiversity impacts",
                           "display_order": 7,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -4226,7 +4226,7 @@
                           "half_width": false,
                           "helper_text": "List relevant threatened and endangered species and the potential impacts incurred by project activities",
                           "display_order": 10,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -4251,7 +4251,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 11,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -4302,7 +4302,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 4,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
                         }
@@ -4851,7 +4851,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 4,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -4876,7 +4876,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 5,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -5296,8 +5296,8 @@
                 },
                 {
                   "id": 1021,
-                  "name": "almDefault",
-                  "label": "",
+                  "name": "almBaseline",
+                  "label": "Baseline agricultural land management practices",
                   "parent_id": 449,
                   "attributes": {},
                   "description": "",
@@ -5314,6 +5314,42 @@
                       "nav_type_id": 1,
                       "nav_level_id": 5,
                       "display_order": 0
+                    },
+                    {
+                      "id": 1121,
+                      "name": "bslCropHarvesting",
+                      "label": "Crop planting and harvesting",
+                      "fields": null,
+                      "parent_id": 1021,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 1,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    },
+                    {
+                      "id": 1122,
+                      "name": "bslNitrogenFertilizer",
+                      "label": "Nitrogen fertilizer application",
+                      "fields": null,
+                      "parent_id": 1021,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 1,
+                      "nav_level_id": 5,
+                      "display_order": 2
+                    },
+                    {
+                      "id": 1123,
+                      "name": "bslTillage",
+                      "label": "Tillage and/or residue management",
+                      "fields": null,
+                      "parent_id": 1021,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 1,
+                      "nav_level_id": 5,
+                      "display_order": 3
                     }
                   ],
                   "nav_level_id": 4,
@@ -5875,7 +5911,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 2,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
                         },
@@ -6012,7 +6048,7 @@
                           "half_width": false,
                           "helper_text": "Describe any methodology deviations applied and the steps taken to validate each deviation",
                           "display_order": 1,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
                         },
@@ -6032,7 +6068,7 @@
                           "half_width": false,
                           "helper_text": "Describe any information left undisclosed due to commercially sensitive status",
                           "display_order": 2,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
                         },
@@ -6204,7 +6240,7 @@
                           "tooltip": "The total acreage of forestland within the physical project boundaries",
                           "elements": null,
                           "component": "text-input",
-                          "attributes": "{}",
+                          "attributes": [],
                           "half_width": false,
                           "helper_text": "Indicate the total acreage in acres or hectares",
                           "display_order": 0,
@@ -6987,7 +7023,7 @@
                           "half_width": false,
                           "helper_text": "If baseline and/or project carbon stocks are forecasted into the future, indicate the estimation method used (i.e., forest growth model) and describe any major assumptions applied",
                           "display_order": 3,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
                         },
@@ -7395,7 +7431,7 @@
                           "half_width": false,
                           "helper_text": "Describe the planned MRV protocol, including any monitoring plans",
                           "display_order": 2,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
                         }
@@ -7461,7 +7497,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 1,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
                         }
@@ -7796,7 +7832,7 @@
                           "half_width": false,
                           "helper_text": "Use this space to outline the potential reversal risks",
                           "display_order": 3,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
                         },
@@ -7904,7 +7940,7 @@
                           "half_width": false,
                           "helper_text": "Outline the strategies undertaken to mitigate the aforementioned risks",
                           "display_order": 2,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -8223,7 +8259,7 @@
                           "half_width": false,
                           "helper_text": "Describe the mitigation activity, including the sector and/or region in which the activity qualifies as 'first-of-its-kind'",
                           "display_order": 2,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -8324,7 +8360,7 @@
                           "half_width": false,
                           "helper_text": "Indicate the relevant laws or regulations that support the justification of regulatory additionality (i.e., do not require the mitigation activity)",
                           "display_order": 2,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -8418,12 +8454,14 @@
                           "label": "Threshold or maximum adoption level for market penetration",
                           "columns": null,
                           "options": [],
-                          "tooltip": "Overview of the approach used to determine additionality and the methodology, carbon-crediting program, or equivalent entity responsible for determining the threshold for market penetration",
+                          "tooltip": "",
                           "elements": null,
                           "component": "text-input",
-                          "attributes": null,
+                          "attributes": {
+                            "field": ""
+                          },
                           "half_width": true,
-                          "helper_text": "Describe the approach used to determine additionality and indicate the methodology, carbon-crediting program, or equivalent entity responsible for determining the threshold for market penetration",
+                          "helper_text": "",
                           "display_order": 2,
                           "view_component": "key-value-table",
                           "validation_schema": null,
@@ -8443,14 +8481,14 @@
                           "label": "Common practice test details",
                           "columns": null,
                           "options": [],
-                          "tooltip": "Overview of the common practice / market penetration additionality test conducted",
+                          "tooltip": "Overview of the approach used to determine additionality and the methodology, carbon-crediting program, or equivalent entity responsible for determining the threshold for market penetration",
                           "elements": null,
                           "component": "rich-text",
                           "attributes": {},
                           "half_width": false,
-                          "helper_text": "",
+                          "helper_text": "Describe the approach used to determine additionality and indicate the methodology, carbon-crediting program, or equivalent entity responsible for determining the threshold for market penetration",
                           "display_order": 3,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -8814,7 +8852,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 2,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -8877,7 +8915,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 1,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -8965,7 +9003,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 2,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -9028,7 +9066,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 1,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -9053,7 +9091,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 2,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -9129,7 +9167,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 2,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -9286,7 +9324,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 4,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -9339,7 +9377,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 6,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -9440,7 +9478,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 2,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -9566,7 +9604,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 3,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -9591,7 +9629,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 4,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -9667,7 +9705,7 @@
                           "half_width": false,
                           "helper_text": "List the counterfactuals, or alternative scenarios, that could happen if the mitigation activity did not occur",
                           "display_order": 1,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -9692,7 +9730,7 @@
                           "half_width": false,
                           "helper_text": "Describe the counter-factual scenario for what would likely have happened without carbon finance",
                           "display_order": 2,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -9876,7 +9914,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 5,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -10853,7 +10891,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 2,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
                         }
@@ -11143,7 +11181,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 2,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -11987,7 +12025,7 @@
                           "half_width": false,
                           "helper_text": "Describe how uncertainty is accounted for in the project activity",
                           "display_order": 2,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -12190,7 +12228,7 @@
                           "half_width": false,
                           "helper_text": "Provide an overview of how buffer is accounted for in the project activity",
                           "display_order": 5,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -12725,7 +12763,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 1,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -12750,7 +12788,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 2,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -12941,7 +12979,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 2,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
                         },
@@ -13123,7 +13161,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 2,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -13198,7 +13236,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 3,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -13248,7 +13286,7 @@
                           "half_width": false,
                           "helper_text": "Summarize the approach taken to specifically consult and address issues surfaced by women affected by the project activity",
                           "display_order": 5,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -13356,7 +13394,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 9,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -13419,7 +13457,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 4,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -13694,7 +13732,7 @@
                           "half_width": false,
                           "helper_text": "If relevant, describe how much money is reaching women and vulnerable communities in the project context, including how money is being used. If the benefit sharing model does not specifically reach women or other  vulnerable groups, indicate that here.",
                           "display_order": 9,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -14004,7 +14042,7 @@
                           "half_width": false,
                           "helper_text": "Indicate other pollutant(s) monitored",
                           "display_order": 3,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -14029,7 +14067,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 4,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -14054,7 +14092,7 @@
                           "half_width": false,
                           "helper_text": "Describe the approach used by the project to monitor air pollution including the use of passive devices and air quality monitors in select locations",
                           "display_order": 5,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -14229,7 +14267,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 16,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -14280,7 +14318,7 @@
                           "half_width": false,
                           "helper_text": "Provide an overview of the timeline of monitoring and reporting biodiversity impacts",
                           "display_order": 5,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -14343,7 +14381,7 @@
                           "half_width": false,
                           "helper_text": "If applicable, indicate how the project will collect data on threatened/endangered species",
                           "display_order": 1,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -14403,7 +14441,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 3,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -14552,7 +14590,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 10,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -14772,7 +14810,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 3,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -14797,7 +14835,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 4,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -15281,7 +15319,7 @@
                             "isPublic": "true"
                           },
                           "half_width": false,
-                          "helper_text": "Upload an image or a video to complement this first differentator",
+                          "helper_text": "Upload an image or a video to complement this third differentator",
                           "display_order": 3,
                           "view_component": "key-value-table",
                           "validation_schema": null,
