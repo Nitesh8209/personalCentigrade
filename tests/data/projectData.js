@@ -276,7 +276,6 @@ export const remainingFields = {
     { keyName: "reversalRiskOther", value: "test" },
     { keyName: "riskManagementPlan", value: "Yes" },
     { keyName: "riskPlan", value: "test" },
-    { keyName: "durabilityInsurance", value: '["Insurance", "None"]' },
     { keyName: "insuranceOwner", value: "test" },
     {
       keyName: "additionalityApproachUsed",

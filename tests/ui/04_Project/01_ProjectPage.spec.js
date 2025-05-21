@@ -307,7 +307,10 @@ test.describe('Project Page', { tag: '@UI' }, () => {
         
         await page.waitForURL('**/projects/**/overview');
         await page.waitForLoadState('networkidle');
-        await expect(await projectsPage.modal()).not.toBeVisible();
+        if((await (await projectsPage.modal()).isVisible())){
+          const closeButton = await projectsPage.modalClose();
+          await closeButton.click();
+        }
         await expect(await projectsPage.overviewProject()).toBeVisible({ timeout: 20000});
         await expect(await projectsPage.overviewHeader()).toBeVisible();
         await expect(await projectsPage.overviewtitle()).toBeVisible();

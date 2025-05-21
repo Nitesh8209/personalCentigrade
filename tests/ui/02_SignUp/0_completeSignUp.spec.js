@@ -41,7 +41,7 @@ test.describe('Create Account Page UI Tests', { tag: '@UI' }, () => {
     await saveData({ newEmail: newEmail }, 'UI');
 
     // Verify redirection to the verification page
-    await expect(page).toHaveURL(`${baseURL}/verification?email=${encodeURIComponent(newEmail)}&orgName=${ValidTestData.organizationName}`);
+    await expect(page).toHaveURL(`${baseURL}/verification?email=${encodeURIComponent(newEmail)}&org=${ValidTestData.organizationName}`);
     await signUpPage.verificationCodecard();
 
     const verificationCodeheading = await signUpPage.verificationCodeheading();
@@ -89,6 +89,36 @@ test.describe('Create Account Page UI Tests', { tag: '@UI' }, () => {
       // Retrieve the verification code from the email inbox
       const result = await getGmailMessages(newEmail);
       receivedVerificationCode = result.receivedVerificationCode;
+    })
+
+    // Test case: Successful resend of the verification code
+    test('Verify with invalid code', async ({ baseURL }) => {
+        const signUpPage = new SignUpPage(page, baseURL);
+    
+        // Navigate to the verification page using the provided email
+        await signUpPage.navigateVerification(newEmail);
+        await signUpPage.codeInput('123456');
+        await signUpPage.Password(ValidTestData.Password);
+        await signUpPage.createAccount();
+
+        // Verify that the error message is shown
+        const resetPasswordsuccesserrormsg = await signUpPage.resetPasswordsuccesserrormsg();
+        await expect(resetPasswordsuccesserrormsg).toBeVisible();
+        await expect(resetPasswordsuccesserrormsg).toHaveText('Unable to complete this request due to an issue. Try again later.');
+    })
+
+    test('verify with correct password and incorrect password format', async() => {
+      const loginPage = new LoginPage(page, baseURL);
+        const signUpPage = new SignUpPage(page, baseURL);
+        const settingsPage = new SettingsPage(page, baseURL);
+    
+        // Navigate to the verification page using the provided email
+        await signUpPage.navigateVerification(newEmail);
+        await signUpPage.codeInput(receivedVerificationCode);
+        await signUpPage.Password(incorrectPassword.Password);
+        await signUpPage.createAccount();
+
+       expect(page.url()).toContain('/reset');
     })
 
 
