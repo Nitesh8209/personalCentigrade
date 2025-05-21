@@ -118,7 +118,7 @@ export class ProjectListings {
         return this.page.locator('.content').locator('.key-value-item').filter({ hasText: field.label });
       
       case 'rich-text':
-        return this.page.locator('.content').locator('.ComponentContainer').filter({ hasText: field.label });
+        return this.page.locator('.content').locator('.ComponentContainer').getByText(field.label, { exact: true }).locator('..').locator('..');
         
       case 'location-map':
         return this.page.locator('.content').locator('.ComponentContainer').filter({ hasText: field.label });
@@ -157,6 +157,10 @@ export class ProjectListings {
           await this.ValidateKeyValueTabel(field, locator);
         }
         break;
+        
+      case 'block-table':
+        await this.validateBlockTable(field, locator);
+      break;
         
       case 'truncated-text':
         await this.ValidateTruncatedText(field, locator);
@@ -230,7 +234,9 @@ export class ProjectListings {
     await expect(await locator.locator('label')).toHaveText(field.label);
     await expect(await locator.locator('.pills-container')).toBeVisible();
     const value = await getFieldValue(field.name);
-    await expect(await locator.locator('.pills-container > li')).toHaveText(value);
+    const parseValue = JSON.parse(value);
+    const allText = await locator.locator('.pills-container > li').allTextContents();
+    await expect(allText).toEqual(parseValue);
   }
 
   async ValidateCheckBox(field, locator){
@@ -280,6 +286,26 @@ export class ProjectListings {
     await expect(await locator.locator('.key-value-item').locator('.relative')).toBeVisible();
     const value = await getFieldValue(field.name);
     await expect(await locator.locator('.key-value-item').locator('.relative')).toHaveText(value);
+  }
+
+  async validateBlockTable(field, locator) {
+
+    for(const column of field?.columns){
+      const blockTableLocator = await this.page.locator('.TrioHeroBlock').filter({hasText: column.label});
+       
+        await expect(blockTableLocator.locator('.label')).toHaveText(column.label);
+        const cleanKeyName = column.attributes.field.replace(/-namevalue(-namevalue)?$/, '');
+        const value = await getFieldValue(cleanKeyName);
+        if(column.view_component === 'pill'){
+          const pillValue = await blockTableLocator.locator('.BlockValue').locator('.pills').allTextContents();
+          const parseValue = JSON.parse(value);
+          await expect(pillValue).toEqual(parseValue);
+        }else{
+        await expect(await blockTableLocator.locator('.BlockValue')).toHaveText(value);
+
+        }
+
+    }
   }
 
   async validateModularChart(field, locator){
