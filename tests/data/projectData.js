@@ -379,7 +379,6 @@ export const FileType = [
   { configFieldId: 481, projectFileType: "uploadGeo" },
   { configFieldId: 74, projectFileType: "baselineForecastWorkbook" },
   { configFieldId: 640, projectFileType: "projectForecastWorkbook" },
-  { projectFileType: 80, projectFileType: "leakageForecastWorkbook" },
   { configFieldId: 88, projectFileType: "uncertaintyForecastWorkbook" },
   { configFieldId: 85, projectFileType: "forecastWorkbook" },
   { configFieldId: 641, projectFileType: "monitoringWorkbook" },

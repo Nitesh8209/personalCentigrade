@@ -71,7 +71,7 @@ export class DataRoom{
   }
 
   async dataRoomnameInput(){
-    return await (await this.modalContent()).locator('.input-control > input');
+    return await (await this.modalContent()).locator('input');
   }
 
   async modalCancelButton(){
@@ -274,7 +274,7 @@ export class DataRoom{
   }
 
   async inviteModalEmailinput() {
-    return await (await this.inviteModalEmail()).locator('.input-control > input');
+    return await (await this.inviteModalEmail()).locator('input');
   }
 
   async inviteModalMessage() {

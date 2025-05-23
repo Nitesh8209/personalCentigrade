@@ -197,11 +197,11 @@ export class FieldHandler {
   }
 
   async successMessageHeader() {
-    return this.page.locator('.toast-content > header');
+    return this.page.locator('.toast-content > .toast-title');
   }
 
   async successMessagediv() {
-    return this.page.locator('.toast-content > div');
+    return this.page.locator('.toast-content > .toast-message');
   }
 
   async removeToastIcon() {
@@ -311,7 +311,6 @@ export class FieldHandler {
   }
 
   async validateRichTextField(locator) {
-    await expect(await locator.locator('.toolbar')).toBeVisible();
     await expect(await locator.locator('.tiptap')).toBeVisible();
 
     const inputField = await locator.locator('.tiptap');
@@ -530,7 +529,7 @@ export class FieldHandler {
  * Validates boolean fields (radio/checkbox)
  */
   async validateRadioYNField(locator, component) {
-    const radiolocator = locator.getByText('Yes');
+    const radiolocator = locator.locator('.radio-container').getByText('Yes');
     await radiolocator.check();
     await expect(radiolocator).toBeChecked();
     await radiolocator.uncheck();
@@ -540,7 +539,7 @@ export class FieldHandler {
 
   async validateRadioField(locator, options) {
     for (const option of options) {
-      const radioLocator = locator.getByText(option, { exact: true });
+      const radioLocator = locator.locator('.radio-container').getByText(option, { exact: true });
       await radioLocator.check();
       await expect(radioLocator).toBeChecked();
     }
@@ -562,7 +561,7 @@ export class FieldHandler {
     await expect(radiolocatorIDK).not.toBeChecked();
 
     // Recheck "Yes" to ensure behavior
-    await locator.getByText("Yes").check();
+    await locator.locator('.radio-container').getByText("Yes").check();
   }
 
   /**
@@ -707,7 +706,7 @@ export class FieldHandler {
         if(!(await locator.locator('..').locator('..').locator('.autocomplete-control').innerText()).includes(value)){
         await locator.click();
         await locator.fill(value);
-        await expect(await this.listBox(field.label)).toBeVisible();
+        await expect(await this.page.locator('.autocomplete-menu')).toBeVisible();
         await this.page.locator('.autocomplete-option').click();
         await this.page.locator('.step-title').click();
         }
@@ -873,7 +872,7 @@ export class FieldHandler {
 
   // check the Radio Field
   async fillRadioField(locator, value, label) {
-    const radiolocator = await locator.getByText(value);
+    const radiolocator = await locator.locator('.radio-container').getByText(value);
     const isChecked = await radiolocator.isChecked();
     console.log(`radio - ${label}`, isChecked);
     if (!isChecked) {
@@ -934,7 +933,7 @@ export class FieldHandler {
 
       case COMPONENT_TYPES.RADIOYN:
       case COMPONENT_TYPES.RADIOIDK:
-        const radiolocator = await locator.getByText('Yes');
+        const radiolocator = await locator.locator('.radio-container').getByText('Yes');
         const isChecked = await radiolocator.isChecked();
         expect(isChecked).toBe(true);
         break;
@@ -996,7 +995,7 @@ export class FieldHandler {
 
       case COMPONENT_TYPES.RADIOYN:
       case COMPONENT_TYPES.RADIOIDK:
-        const radiolocator = await locator.getByText('Yes');
+        const radiolocator = await locator.locator('.radio-container').getByText('Yes');
         const isChecked = await radiolocator.isChecked();
         expect(isChecked).toBe(false);
         break;

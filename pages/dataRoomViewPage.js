@@ -78,11 +78,11 @@ export class dataRoomViewPage {
   }
 
   async successMessagediv() {
-    return this.page.locator('.toast-content > toast-message');
+    return this.page.locator('.toast-content > .toast-message');
   }
 
   async successMessageHeader() {
-    return this.page.locator('.toast-content > toast-title');
+    return this.page.locator('.toast-content > .toast-title');
   }
 
   async backDataRoomButton() {
