@@ -1,7 +1,7 @@
 {
   "dataSchema": "QA-ACR1.3-cgV1.0.0",
   "navigation": "form2.0-config",
-  "versionDate": "2025-05-19T15:47:31-07:00",
+  "versionDate": "2025-05-20T18:13:26-07:00",
   "topics": [
     {
       "id": 426,
@@ -1478,7 +1478,7 @@
                           "component": "rich-text",
                           "attributes": {},
                           "half_width": false,
-                          "helper_text": "Summarize your organization’s purpose, values, and goals related to climate action.",
+                          "helper_text": "Summarize your organization’s purpose, values, and goals related to climate action",
                           "display_order": 0,
                           "view_component": "rich-text",
                           "validation_schema": null,
@@ -2081,9 +2081,12 @@
                           "tooltip": "",
                           "elements": null,
                           "component": "file-upload-multiple",
-                          "attributes": null,
+                          "attributes": {
+                            "accept": "",
+                            "isPublic": ""
+                          },
                           "half_width": false,
-                          "helper_text": "For verification purposes only, documents will not be shared publicly. Provide documentation such as land or facility ownership and rights attestation, clear land title, resource ownership, and/or project contracts.",
+                          "helper_text": "Provide documentation such as land or facility ownership and rights attestation, clear land title, resource ownership, and/or project contracts",
                           "display_order": 5,
                           "view_component": "key-value-table",
                           "validation_schema": null,
@@ -2641,7 +2644,7 @@
                           "label": "Overview of stakeholder consultation plan",
                           "columns": null,
                           "options": [],
-                          "tooltip": "This can include frequency of meetings, format types (e.g. 1-1 interview, roundtable discussions, focus groups), and how these discussions will be recorded and addressed",
+                          "tooltip": "Plan description can include frequency of meetings, format types (e.g. 1-1 interview, roundtable discussions, focus groups), and how these discussions will be recorded and addressed",
                           "elements": null,
                           "component": "rich-text",
                           "attributes": {},
@@ -5325,7 +5328,7 @@
                       "description": "",
                       "nav_type_id": 1,
                       "nav_level_id": 5,
-                      "display_order": 0
+                      "display_order": 1
                     },
                     {
                       "id": 1122,
@@ -5350,10 +5353,83 @@
                       "nav_type_id": 1,
                       "nav_level_id": 5,
                       "display_order": 3
+                    },
+                    {
+                      "id": 1124,
+                      "name": "bslIrrigation",
+                      "label": "Water management and irrigation",
+                      "fields": null,
+                      "parent_id": 1021,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 1,
+                      "nav_level_id": 5,
+                      "display_order": 4
+                    },
+                    {
+                      "id": 1125,
+                      "name": "bslGrazing",
+                      "label": "Grazing practices",
+                      "fields": null,
+                      "parent_id": 1021,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 1,
+                      "nav_level_id": 5,
+                      "display_order": 5
+                    },
+                    {
+                      "id": 1126,
+                      "name": "bslLiming",
+                      "label": "Liming",
+                      "fields": null,
+                      "parent_id": 1021,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 1,
+                      "nav_level_id": 5,
+                      "display_order": 6
+                    },
+                    {
+                      "id": 1127,
+                      "name": "bslOtherAlm",
+                      "label": "Other ALM practices",
+                      "fields": null,
+                      "parent_id": 1021,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 1,
+                      "nav_level_id": 5,
+                      "display_order": 7
                     }
                   ],
                   "nav_level_id": 4,
                   "display_order": 6
+                },
+                {
+                  "id": 1128,
+                  "name": "bslQuantification",
+                  "label": "Baseline quantification",
+                  "parent_id": 449,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 1,
+                  "field_groups": [
+                    {
+                      "id": 1129,
+                      "name": "almBslQuantification",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1128,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 1,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 8
                 }
               ],
               "parent_id": 435,
@@ -13154,7 +13230,7 @@
                           "label": "Overview of the project's engagement with stakeholders",
                           "columns": null,
                           "options": [],
-                          "tooltip": "Details include items like processes implemented for on-going communication, format, and frequency of engagements, etc.",
+                          "tooltip": "Details include items like processes implemented for ongoing communication, format, and frequency of engagements, etc.",
                           "elements": null,
                           "component": "rich-text",
                           "attributes": {},
@@ -15115,12 +15191,12 @@
                           "options": [],
                           "tooltip": "",
                           "elements": null,
-                          "component": "textarea",
+                          "component": "rich-text",
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 2,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
                         },
@@ -15204,12 +15280,12 @@
                           "options": [],
                           "tooltip": "",
                           "elements": null,
-                          "component": "textarea",
+                          "component": "rich-text",
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 2,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
                         },
@@ -15293,12 +15369,12 @@
                           "options": [],
                           "tooltip": "",
                           "elements": null,
-                          "component": "textarea",
+                          "component": "rich-text",
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 2,
-                          "view_component": "key-value-table",
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
                         },

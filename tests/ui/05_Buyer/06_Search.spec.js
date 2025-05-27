@@ -5,7 +5,7 @@ import { setupPage } from "../../utils/listingsProjectHelper";
 import path from "path";
 import { ValidTestData } from "../../data/SignUpData";
 import { getData } from "../../utils/apiHelper";
-import { SearchModal } from "../../../pages/SearchModal";
+import { SearchModal } from "../../../pages/searchModal";
 
 // Test suite for search functionality in the buyer view
 test.describe('Search Functionlity in the Public view', async () => {

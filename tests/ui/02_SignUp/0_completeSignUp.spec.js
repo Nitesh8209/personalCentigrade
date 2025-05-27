@@ -107,7 +107,7 @@ test.describe('Create Account Page UI Tests', { tag: '@UI' }, () => {
         await expect(resetPasswordsuccesserrormsg).toHaveText('Unable to complete this request due to an issue. Try again later.');
     })
 
-    test('verify with correct password and incorrect password format', async() => {
+    test('verify with correct Code and incorrect password format', async({baseURL}) => {
       const loginPage = new LoginPage(page, baseURL);
         const signUpPage = new SignUpPage(page, baseURL);
         const settingsPage = new SettingsPage(page, baseURL);
