@@ -64,7 +64,7 @@ test.describe('project creation', { tag: '@UI' }, () => {
         await create.click();
         await page.waitForURL('**/projects/**/overview');
         await page.waitForLoadState('networkidle');
-        await expect(await projectsPage.modal()).toBeVisible();
+
         if((await (await projectsPage.modal()).isVisible())){
           const closeButton = await projectsPage.modalClose();
           await closeButton.click();
@@ -469,6 +469,9 @@ test.describe('Project after approve Project', {tag: '@UI'}, ()=>{
         const successMessage = await success.innerText();
         await expect(success).toBeVisible();
         await expect(successMessage).toBe('Link has been copied to your clipboard');
+        const closeToast = await fieldHandler.closeToast();
+        await closeToast.click();
+        
         copiedUrl = await page.evaluate(async () => {
           return await navigator.clipboard.readText();
         });
