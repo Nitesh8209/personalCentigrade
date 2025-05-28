@@ -120,6 +120,16 @@ module.exports = defineConfig({
       dependencies: ['CompleteSignUp'],
     },
     {
+      name: 'EdgeCase',
+      testMatch: ['ui/02_SignUp/5_edgeCase.spec.js'],
+      use: {
+        ...devices['Desktop Chrome'],
+        viewport: { width: 1366, height: 768 },
+      },
+      fullyParallel: false,
+      dependencies: ['CompleteSignUp'],
+    },
+    {
       name: 'Settings',
       testMatch: ['ui/03_Settings/1_myAccount.spec.js',
         'ui/03_Settings/2_organization.spec.js', 'ui/03_Settings/3_team.spec.js'

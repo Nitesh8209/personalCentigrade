@@ -212,6 +212,10 @@ export class SettingsPage {
     return await this.page.getByRole('combobox', { name: 'Country' });
   }
 
+  async orgcountryDropdown() {
+    return await this.page.getByRole('listbox', { name: 'Country' });
+  }
+
   async teamheading() {
     return await this.page.getByRole('heading', { name: 'Team members' });
   }

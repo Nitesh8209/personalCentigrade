@@ -19,6 +19,70 @@ export class ProjectListings {
     return await this.page.locator('.content-header > h1');
   }
 
+  async shareButton() {
+    return await this.page.getByRole('button', { name: 'Share' });
+  }
+
+  async shareModal() {
+    return await this.page.getByRole('dialog');
+  }
+
+  async shareModalHeader() {
+    return await this.page.locator('.modal-header');
+  }
+
+  async input() {
+    return await this.page.locator('.input');
+  }
+  
+  async shareModalInput() {
+    return await (await this.input()).getByLabel('Enter email');
+  }
+
+  async inputLabel() {
+    return await (await this.input()).locator('.label');
+  }
+
+  async inputHelperText() {
+    return await (await this.input()).locator('.helper-text');
+  }
+
+  async shareButtonInModal() {
+    return await (await this.shareModal()).getByRole('button', { name: 'Share' });
+  }
+
+  async shareModalParagraph() {
+    return await this.page.locator('.share-form').locator('p');
+  }
+
+  async shareModalCloseButton() {
+    return await this.page.locator('.modal-close-btn');
+  }
+
+  async shareModalMessage() {
+    return await this.page.locator('.share-form > div > div:nth-child(3)');
+  }
+
+  async shareModalMessageLabel() {
+    return await (await this.shareModalMessage()).getByText('Add a message (optional)');
+  }
+
+  async shareModalMessageTextArea() {
+    return await (await this.shareModalMessage()).locator('textarea');
+  }
+
+  async copyLink() {
+    return await this.page.getByRole('button', { name: 'Copy link' });
+  }
+
+  async successMessagediv() {
+    return this.page.locator('.toast-content > div');
+  }
+
+  async listingprojectTitle() {
+    return await this.page.locator('.content-header-title');
+  }
+
   async getInTouch() {
     return await this.page.getByRole('button', { name: 'Get in touch' });
   }
