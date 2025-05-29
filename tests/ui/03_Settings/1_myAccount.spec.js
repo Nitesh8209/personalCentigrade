@@ -105,6 +105,8 @@ test.describe('Settings - My Account Page UI Tests', { tag: '@UI' }, () => {
         await expect(await settingsPage.email()).toBeVisible();
         await expect(await settingsPage.email()).toHaveText('Email');
         await expect(await settingsPage.emailInput()).toBeVisible();
+        await expect(await settingsPage.emailInput()).toBeEditable({editable: false});
+        await expect(await settingsPage.emailInput()).toHaveAttribute('readonly', '');
         await expect(await settingsPage.emailInput()).toHaveValue(newEmail);
       },
       errors

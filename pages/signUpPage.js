@@ -23,7 +23,7 @@ class SignUpPage {
   }
 
   async email(email) {
-    await this.page.locator('input[name="email"]').fill(email);
+    await this.page.getByLabel('Work email').fill(email);
   }
 
   async checkBox() {

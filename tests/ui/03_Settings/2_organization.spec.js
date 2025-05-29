@@ -104,6 +104,12 @@ test.describe('Settings - organization Page UI Tests', { tag: '@UI' }, () => {
       await expect(await settingsPage.orgcountryInput()).toBeVisible();
     }, errors);
 
+    await safeExpect('Country should be visible as dropdown', async() => {
+      const country = await settingsPage.orgcountryInput();
+      await country.fill('ind');
+      await expect(await settingsPage.orgcountryDropdown()).toBeVisible();
+    })
+
     // Action buttons verification
     await safeExpect('Action buttons state', async () => {
       await expect(await settingsPage.cancelButton()).toBeVisible();

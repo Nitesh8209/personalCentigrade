@@ -9,6 +9,8 @@ import { ProjectListings } from '../../../pages/projectListingPage';
 import { safeExpect } from '../../utils/authHelper';
 import { validateGetInTouchModal, validateListingProjectHeader } from '../../utils/listingsProjectHelper';
 import path from 'path';
+import { projectPublishCredentials } from '../../data/testData';
+import { getGmailMessages } from '../../utils/signUpHelper';
 
 
 test.describe('Project Header - UI and Navigation for Unauthenticated Users', { tag: '@UI' }, async () => {
@@ -78,6 +80,20 @@ test.describe('Project Header - UI and Navigation for Unauthenticated Users', { 
 
   })
 
+  test('Verify share button should not be visible for Unauthenticated Users', async () => {
+    const errors = [];
+    const projectHeader = new ProjectListings(page);
+    const shareButton = await projectHeader.shareButton();
+
+    await safeExpect(`Share button should not be visible`, async () => {
+      await expect(shareButton).not.toBeVisible();
+    }, errors);
+
+    if (errors.length > 0) {
+      throw new Error(`Validation errors found:\n${errors.join('\n')}`);
+    }
+  })
+
   // Test case for verifying Get In Touch modal functionality
   test('Verify should display and function Get In Touch Modal for Unauthenticated Users', async ({baseURL}) => {
     const errors = [];
@@ -101,7 +117,13 @@ test.describe('Project Header - UI and Navigation for Unauthenticated Users', { 
 test.describe('Project Header - UI and Navigation for Authenticated Users', { tag: '@UI' }, async () => {
   const { newEmail } = getData('UI');
   const authStoragePath = path.join(__dirname, '..', '..', 'data', 'project-Publish-auth.json');
-  test.use({ storageState: authStoragePath });
+
+  test.use({
+    storageState: authStoragePath,
+    contextOptions: {
+      permissions: ['clipboard-read', 'clipboard-write']
+    }
+  });
 
   let page;
 
@@ -199,6 +221,155 @@ test.describe('Project Header - UI and Navigation for Authenticated Users', { ta
     }
 
   })
+
+  // Test case for verifying share button visibility and functionality for authenticated users
+  test('Verify share button should be visible', async () => {
+    const errors = [];
+    const projectHeader = new ProjectListings(page);
+    const shareButton = await projectHeader.shareButton();
+    
+    await safeExpect(`Share button visibility`, async () => {
+      await expect(shareButton).toBeVisible();
+    }, errors);
+
+    if (errors.length > 0) {
+      throw new Error(`Validation errors found:\n${errors.join('\n')}`);
+    }
+  })
+
+  // Test case for verifying share modal functionality for authenticated users
+  test('Share Modal should be visible when click on the share button', async ({ context, baseURL }) => {
+    const errors = [];
+    let copiedUrl;
+    const projectHeader = new ProjectListings(page);
+    const shareButton = await projectHeader.shareButton();
+
+    // Click on Share Button
+    await safeExpect('Click Share button',
+      async () => {
+        await shareButton.click();
+        const modal = await projectHeader.shareModal();
+        await expect(modal).toBeVisible();
+      },
+      errors
+    );
+
+    await safeExpect('Verify Share Modal Heading',
+      async () => {
+        await expect(await projectHeader.shareModalHeader()).toBeVisible();
+        await expect(await projectHeader.shareModalHeader()).toHaveText('Share project');
+        await expect(await projectHeader.shareModalCloseButton()).toBeVisible();
+      },
+      errors
+    );
+
+    await safeExpect('Verify Share Modal Input Content',
+      async () => {
+        await expect(await projectHeader.input()).toBeVisible(); 
+        await expect(await projectHeader.inputLabel()).toBeVisible();
+        await expect(await projectHeader.inputLabel()).toHaveText('Enter email');
+        await expect(await projectHeader.shareModalInput()).toBeVisible();
+        await expect(await projectHeader.inputHelperText()).toBeVisible();
+        await expect(await projectHeader.inputHelperText()).toHaveText('Use commas to separate multiple emails');
+        await expect(await projectHeader.shareButtonInModal()).toBeVisible();
+      },
+      errors
+    )
+
+    await safeExpect('Verify Add a message textarea content',
+        async () => {
+          await expect(await projectHeader.shareModalMessage()).toBeVisible();
+          await expect(await projectHeader.shareModalMessageLabel()).toBeVisible();
+          await expect(await projectHeader.shareModalMessageLabel()).toHaveText('Add a message (optional)');
+          await expect(await projectHeader.shareModalMessageTextArea()).toBeVisible();
+        }, errors)
+
+    // Verify Copied URL Message
+    await safeExpect('Verify URL copied message',
+      async () => {
+        const link = await projectHeader.copyLink();
+        await expect(link).toBeVisible();
+        await link.click();
+        const success = await projectHeader.successMessagediv();
+        const successMessage = await success.innerText();
+        await expect(success).toBeVisible();
+        await expect(successMessage).toBe('Link has been copied to your clipboard');
+        copiedUrl = await page.evaluate(async () => {
+          return await navigator.clipboard.readText();
+        });
+      },
+      errors
+    );
+
+    // Open Copied URL and Verify Project Title
+    await safeExpect('Open copied URL and verify project title',
+      async () => {
+        const newPage = await context.newPage();
+        await newPage.goto(copiedUrl);
+        const newProjectPage = new ProjectListings(page);
+        await expect(newPage.url()).toBe(copiedUrl);
+        await expect(await newProjectPage.listingprojectTitle()).toBeVisible();
+        await expect(await newProjectPage.listingprojectTitle()).toHaveText(project.buyerProject);
+      },
+      errors
+    );
+
+    if (errors.length > 0) {
+      throw new Error(`Validation errors found:\n${errors.join('\n')}`);
+    }
+
+  });
+
+  test('Send email should be visible when click on the share button', async () => {
+    const errors = [];
+    const projectHeader = new ProjectListings(page);
+    const shareButton = await projectHeader.shareButton();
+
+    // Click on Share Button
+    await safeExpect('Click Share button',
+      async () => {
+        await shareButton.click();
+        const modal = await projectHeader.shareModal();
+        await expect(modal).toBeVisible();
+      },
+      errors
+    );
+
+    // Click on Send Email Button
+    await safeExpect('Click Send Email button',
+      async () => {
+        const input = await projectHeader.shareModalInput();
+        await input.fill(projectPublishCredentials.email);
+        const shareEmailButton = await projectHeader.shareButtonInModal();
+        await expect(shareEmailButton).toBeVisible();
+        await shareEmailButton.click();
+      },
+      errors
+    );
+
+    await safeExpect('Verify success message',
+      async () => {
+        const success = await projectHeader.successMessagediv();
+        const successMessage = await success.innerText();
+        await expect(success).toBeVisible();
+        await expect(successMessage).toBe('Your project has been shared.');
+      },
+      errors
+    );
+
+    await safeExpect('Verify the email received',
+      async () => {
+        const {subject} = await getGmailMessages(projectPublishCredentials.email);
+        await expect(subject).toContain('automationProject2 has shared a project with you');
+      },
+      errors
+    );
+
+    if (errors.length > 0) {
+      throw new Error(`Validation errors found:\n${errors.join('\n')}`);
+    }
+  });
+
 
   // Test case for verifying Get In Touch modal functionality for authenticated users
   test('Verify should display and functional Get In Touch Modal for authenticated users', async () => {

@@ -68,9 +68,9 @@ test.describe('Login Page UI Tests', { tag: '@UI' }, () => {
     });
   });
 
-  test('Login with Invalid Credentials', async () => {
+  test('Login with Invalid Password Credential', async () => {
 
-    // Use the login method to attempt logging in with invalid credentials
+    // Use the login method to attempt logging in with invalid Password
     await loginPage.login(Credentials.username, Credentials.invalidPassword)
 
     // Validate that the error message is displayed for invalid login
@@ -85,7 +85,17 @@ test.describe('Login Page UI Tests', { tag: '@UI' }, () => {
       maxDiffPixelRatio: 0.02
     });
   })
+  
+  test('Login with Invalid username Credential', async () => {
 
+    // Use the login method to attempt logging in with invalid userName
+    await loginPage.login(Credentials.invalidUsername, Credentials.password)
+
+    // Validate that the error message is displayed for invalid login
+    const getErrorMessage = await loginPage.getErrorMessage();
+    expect(getErrorMessage).toBe('Unable to log in because the email or password is not correct');
+    expect(page.url()).toBe(`${loginPage.baseURL}/login`);
+  })
 
   test('Should Successfully Login with vaild Credentials', async () => {
 

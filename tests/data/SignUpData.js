@@ -7,6 +7,7 @@ export const ValidTestData = {
     newPassword: 'Centigrade@12345',
     InvalidPassword: '123456789',
     newFirstName: "Nitesh123",
+    incorrectPassword: 'centigrade2025',
     Invite: {
         firstName: "Nitesh10",
         lastName: "Agarwal",
