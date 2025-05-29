@@ -135,7 +135,7 @@ export class ProjectListings {
   }
 
   async stepLabel(label){
-    return await this.page.locator('.left-nav').locator('.nav-accordion-content').getByText(label);
+    return await this.page.locator('.left-nav').locator('.nav-accordion-content').getByText(label, { exact: true });
   }
 
   async contentStepLabel(label){

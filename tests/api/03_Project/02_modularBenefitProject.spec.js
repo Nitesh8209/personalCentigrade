@@ -67,7 +67,7 @@ test.describe('Create and Manage Modular Benefit Project', { tag: '@API' }, () =
       classificationCategory: "[\"Carbon reduction\",\"Carbon removal\"]",
       classificationMethod: "Natural - The activity claim uses natural methods (e.g. IFM)",
       projectScale: "Medium (10,000 - 100,000 tCO2e)",
-      projectType: "Improved Forest Management (IFM)"
+      projectType: "ifm"
     };
     const modularUrl = `${API_ENDPOINTS.createProject}/${projectId}/modular-benefit-project/${modularProjectId}`;
 
@@ -80,7 +80,12 @@ test.describe('Create and Manage Modular Benefit Project', { tag: '@API' }, () =
     expect(responseBody).toHaveProperty('grapheneProjectId', projectId);
     expect(responseBody).toHaveProperty('classificationCategory', "[\"Carbon reduction\",\"Carbon removal\"]");
     expect(responseBody).toHaveProperty('classificationMethod', "Natural - The activity claim uses natural methods (e.g. IFM)");
-    expect(responseBody).toHaveProperty('projectType', "Improved Forest Management (IFM)");
+    expect(responseBody.projectType).toMatchObject({
+      id: 14,
+      name: "ifm",
+      nickname: "IFM",
+      description: "Improved Forest Management (IFM)"
+    });
     expect(responseBody).toHaveProperty('projectScale', "Medium (10,000 - 100,000 tCO2e)");
   })
 
@@ -102,7 +107,12 @@ test.describe('Create and Manage Modular Benefit Project', { tag: '@API' }, () =
     expect(responseBody).toHaveProperty('grapheneProjectId', projectId);
     expect(responseBody).toHaveProperty('classificationCategory', "[\"Carbon reduction\",\"Carbon removal\"]");
     expect(responseBody).toHaveProperty('classificationMethod', "Natural - The activity claim uses natural methods (e.g. IFM)");
-    expect(responseBody).toHaveProperty('projectType', "Improved Forest Management (IFM)");
+    expect(responseBody.projectType).toMatchObject({
+      id: 14,
+      name: "ifm",
+      nickname: "IFM",
+      description: "Improved Forest Management (IFM)"
+    });
     expect(responseBody).toHaveProperty('projectScale', "Medium (10,000 - 100,000 tCO2e)");
   })
 
