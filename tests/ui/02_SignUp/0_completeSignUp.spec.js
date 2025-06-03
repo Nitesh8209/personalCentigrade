@@ -115,10 +115,10 @@ test.describe('Create Account Page UI Tests', { tag: '@UI' }, () => {
         // Navigate to the verification page using the provided email
         await signUpPage.navigateVerification(newEmail);
         await signUpPage.codeInput(receivedVerificationCode);
-        await signUpPage.Password(incorrectPassword.Password);
+        await signUpPage.Password(ValidTestData.incorrectPassword);
         await signUpPage.createAccount();
 
-       expect(page.url()).toContain('/reset');
+       expect(page.url()).toContain('/verification');
     })
 
 

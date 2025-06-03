@@ -38,7 +38,7 @@ test.describe('Create and Manage Modular Benefit Project', { tag: '@API' }, () =
 
   // Test case to retrieve modular benefit projects
   test('Get modular-benefit-project', async () => {
-    if(!modularProjectId){
+    if (!modularProjectId) {
       const data = getData('Api');
       modularProjectId = data.modularProjectId;
     }
@@ -59,7 +59,7 @@ test.describe('Create and Manage Modular Benefit Project', { tag: '@API' }, () =
 
   // Test case to update the modular benefit project
   test('Update modular-benefit-project', async () => {
-    if(!modularProjectId){
+    if (!modularProjectId) {
       const data = getData('Api');
       modularProjectId = data.modularProjectId;
     }
@@ -67,7 +67,7 @@ test.describe('Create and Manage Modular Benefit Project', { tag: '@API' }, () =
       classificationCategory: "[\"Carbon reduction\",\"Carbon removal\"]",
       classificationMethod: "Natural - The activity claim uses natural methods (e.g. IFM)",
       projectScale: "Medium (10,000 - 100,000 tCO2e)",
-      projectType: "Improved Forest Management (IFM)"
+      projectType: "ifm"
     };
     const modularUrl = `${API_ENDPOINTS.createProject}/${projectId}/modular-benefit-project/${modularProjectId}`;
 
@@ -80,13 +80,18 @@ test.describe('Create and Manage Modular Benefit Project', { tag: '@API' }, () =
     expect(responseBody).toHaveProperty('grapheneProjectId', projectId);
     expect(responseBody).toHaveProperty('classificationCategory', "[\"Carbon reduction\",\"Carbon removal\"]");
     expect(responseBody).toHaveProperty('classificationMethod', "Natural - The activity claim uses natural methods (e.g. IFM)");
-    expect(responseBody).toHaveProperty('projectType', "Improved Forest Management (IFM)");
+    expect(responseBody.projectType).toMatchObject({
+      id: 14,
+      name: "ifm",
+      nickname: "IFM",
+      description: "Improved Forest Management (IFM)"
+    });
     expect(responseBody).toHaveProperty('projectScale', "Medium (10,000 - 100,000 tCO2e)");
   })
 
   // Test case to retrieve the modular benefit project by ID
   test('Get modular-benefit-project by ID', async () => {
-    if(!modularProjectId){
+    if (!modularProjectId) {
       const data = getData('Api');
       modularProjectId = data.modularProjectId;
     }
@@ -102,13 +107,18 @@ test.describe('Create and Manage Modular Benefit Project', { tag: '@API' }, () =
     expect(responseBody).toHaveProperty('grapheneProjectId', projectId);
     expect(responseBody).toHaveProperty('classificationCategory', "[\"Carbon reduction\",\"Carbon removal\"]");
     expect(responseBody).toHaveProperty('classificationMethod', "Natural - The activity claim uses natural methods (e.g. IFM)");
-    expect(responseBody).toHaveProperty('projectType', "Improved Forest Management (IFM)");
+    expect(responseBody.projectType).toMatchObject({
+      id: 14,
+      name: "ifm",
+      nickname: "IFM",
+      description: "Improved Forest Management (IFM)"
+    });
     expect(responseBody).toHaveProperty('projectScale', "Medium (10,000 - 100,000 tCO2e)");
   })
 
   // Test case to create a configuration for the modular benefit project
   test('Create Modular-Benefit-Project with Config for Methodology', async () => {
-    if(!modularProjectId){
+    if (!modularProjectId) {
       const data = getData('Api');
       modularProjectId = data.modularProjectId;
     }
@@ -124,7 +134,7 @@ test.describe('Create and Manage Modular Benefit Project', { tag: '@API' }, () =
 
   // Test case to retrieve configuration data for a modular benefit project
   test('Get Modular-Benefit-Project Config Data by Config_ID', async () => {
-    if(!modularProjectId){
+    if (!modularProjectId) {
       const data = getData('Api');
       modularProjectId = data.modularProjectId;
     }

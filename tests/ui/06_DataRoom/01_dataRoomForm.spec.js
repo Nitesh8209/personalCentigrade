@@ -653,7 +653,7 @@ test.describe("test for data Room ",  { tag: "@UI" }, () => {
       "Modal content",
       async () => {
         await expect(await dataRoomPage.inviteModalDiscription()).toBeVisible();
-        await expect(await dataRoomPage.inviteModalDiscription()).toHaveText('Add a buyer to your data room by entering their email. You can also include a personalized message in the invitation email.');
+        await expect(await dataRoomPage.inviteModalDiscription()).toHaveText('Add buyers to your data room by entering their emails. You can also include a personalized message in the invitation email.');
 
         await expect(await dataRoomPage.inviteModalEmail()).toBeVisible();        
         await expect(await dataRoomPage.inviteModalEmailLabel()).toBeVisible();  

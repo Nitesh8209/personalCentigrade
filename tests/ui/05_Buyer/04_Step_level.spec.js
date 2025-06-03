@@ -8,7 +8,7 @@ import { LoginPage } from "../../../pages/loginPage";
 import { ValidTestData } from "../../data/SignUpData";
 import { getData } from "../../utils/apiHelper";
 import { hasValidStepFields, navigateToStep, setupPage, validateFieldGroupVisibility, validateSectionLabelVisibility } from "../../utils/listingsProjectHelper";
-import { authStates } from "../../data/projectData";
+import { authStates, project } from "../../data/projectData";
 
 const viewDatapath = path.join(__dirname, '..', '..', 'data', 'view-data.json');
 export const viewData = JSON.parse(fs.readFileSync(viewDatapath, 'utf-8'));
@@ -192,6 +192,24 @@ test.describe("Step Level Validation", { tag: '@UI' }, () => {
               }
 
             });
+
+            if(!(authState.isAuthenticated)){
+              const firstStepName = topic.step_groups[0].steps[0].label;
+
+              test(`Validate Title of Step Group ${stepGroup.label}`, async () => {
+              const errors = [];
+
+              const projectListings = new ProjectListings(page);
+              const stepGroupElement = await projectListings.stepGroup(stepGroup.label);
+              await safeExpect(`Step Group ${stepGroup.label} title visibility`, async () => {
+                await expect(await page.title()).toContain(`${project.buyerProject} - ${firstStepName} | Centigrade`);
+              }, errors);
+
+              if (errors.length > 0) {
+                throw new Error(`Validation errors:\n${errors.join('\n')}`);
+              }
+            });
+            }
 
           });
           }

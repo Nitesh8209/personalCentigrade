@@ -87,6 +87,21 @@ test.describe("Fields Level Validation - after Login", { tag: '@UI' }, () => {
               throw new Error(`Validation errors found:\n${errors.join('\n')}`);
             }
           });
+
+          test(`Validate Title of Step Group ${stepGroup.label}`, async () => {
+              const errors = [];
+
+              const projectListings = new ProjectListings(page);
+              const stepGroupElement = await projectListings.stepGroup(stepGroup.label);
+              await safeExpect(`Step Group ${stepGroup.label} title visibility`, async () => {
+                await expect(await page.title()).toContain(`${project.buyerProject} - ${topic.label} | Centigrade`);
+              }, errors);
+
+              if (errors.length > 0) {
+                throw new Error(`Validation errors:\n${errors.join('\n')}`);
+              }
+            });
+            
         });
       }
       // Case 2: Multiple step groups scenario
@@ -216,6 +231,28 @@ test.describe("Fields Level Validation - after Login", { tag: '@UI' }, () => {
                   throw new Error(`Validation errors found:\n${errors.join('\n')}`);
                 }
               })
+
+              
+              test(`Validate Title of Step ${step.label}`, async () => {
+              const errors = [];
+              const hasValidStepFieldsElement = await hasValidStepFields(step);
+                if (!hasValidStepFieldsElement) {
+                  test.skip(true, 'No Fields Available in this');
+                }
+
+              const projectListings = new ProjectListings(page);
+
+              // Navigate to the specific step and wait for network idle
+                const stepElement = await projectListings.stepLabel(step.label);
+                await stepElement.click();
+              await safeExpect(`Step Group ${step.label} title visibility`, async () => {
+                await expect(await page.title()).toContain(`${project.buyerProject} - ${step.label} | Centigrade`);
+              }, errors);
+
+              if (errors.length > 0) {
+                throw new Error(`Validation errors:\n${errors.join('\n')}`);
+              }
+            });
 
             }
           });
