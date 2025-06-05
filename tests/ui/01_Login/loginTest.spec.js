@@ -46,6 +46,7 @@ test.describe('Login Page UI Tests', { tag: '@UI' }, () => {
     expect(toS).toBeVisible();
     expect(privacyPolicy).toBeVisible();
     expect(page.url()).toBe(`${loginPage.baseURL}/login`);
+    expect(await page.title()).toBe('Centigrade');
 
     // Verify navigation for Terms of Service link
     const [newTab1] = await Promise.all([

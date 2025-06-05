@@ -135,7 +135,7 @@ export class ProjectListings {
   }
 
   async stepLabel(label){
-    return await this.page.locator('.left-nav').locator('.nav-accordion-content').getByText(label);
+    return await this.page.locator('.left-nav').locator('.nav-accordion-content').getByText(label, { exact: true });
   }
 
   async contentStepLabel(label){
@@ -166,6 +166,47 @@ export class ProjectListings {
   async fieldGroupcontent(){
     return await this.page.locator('.right-nav > h4');
   }
+
+  async linkViewData() {
+    return await this.page.getByRole('link', { name: 'View data' });
+  }
+
+  async ProjectSummary() {
+    return await this.page.locator('.ProjectSummary');
+  }
+
+  async headingProjectSummary() {
+    return await this.page.locator('.ProjectSummary').locator('h2');
+  }
+
+  async missionStatement() {
+    return await this.page.locator('.mission-statement');
+  }
+
+  async headingMissionStatement() {
+    return await this.page.locator('.mission-statement').locator('h3');
+  }
+
+  async contentMissionStatement() {
+    return await (await this.missionStatement()).locator('.TruncatedText');
+  }
+
+  async learnMoreButton() {
+    return await this.page.getByRole('button', { name: 'Learn more' });
+  }
+
+  async locationMap() {
+    return await this.page.locator('.location-map');
+  }
+
+  async headingLocationMap() {
+    return await this.page.locator('.location-map').locator('h3');
+  }
+
+  async map() {
+    return await this.page.locator('.location-map').locator('.LocationMap');
+  }
+
 
   async contentFieldLocator(field){
     switch(field.view_component){
@@ -202,6 +243,52 @@ export class ProjectListings {
       default:
         return this.page.locator('.content').locator('.key-value-list').locator('.label-container > label').getByText(field.label , {exact: true});  
     }
+  }
+
+  async contentOverviewFieldLocator(field, step){
+    if(step.name === 'keyFactors'){
+      return this.page.locator('.KeyFactors').getByText(field.label, { exact: true }).locator('..').locator('..');
+    }else if(step.name === 'keyDifferentiators'){
+      return this.page.locator('.KeyDifferentiatorContainer');
+    }else if(step.name === 'creditSummary' && field.view_component === 'block-table'){
+      return this.page.locator('.content').locator('.Summary__content');
+    }else{
+      return false;
+    }
+
+  }
+
+  async overViewFieldValue(field, locator, step) {
+
+    switch (step.name) {
+      case 'keyFactors':
+         await expect(await locator.getByText(field.label)).toBeVisible();
+          await expect(await locator.getByText(field.label)).toHaveText(field.label);
+          const value = await getFieldValue(field.name);
+          if(value && !(field.component === 'select-multiple')){
+          await expect(await locator.locator('.KeyFactorsListItemValue')).toBeVisible();
+          await expect(await locator.locator('.KeyFactorsListItemValue')).toHaveText(value);
+          }else if(value && field.component === 'select-multiple'){
+          const parseValue = JSON.parse(value);
+          const valueLocator = await locator.locator('.KeyFactorsListItemValue > ul > li');
+          const textContent = await valueLocator.allTextContents();
+          await expect(textContent).toEqual(parseValue);
+          }
+          break;
+         
+      case 'keyDifferentiators':
+        const value2 = await getFieldValue(field.name);
+
+        if(value2){
+          await expect(await locator.getByText(value2)).toBeVisible();
+          await expect(await locator.getByText(value2)).toHaveText(value2);
+        }
+        break;
+
+      case 'creditSummary' :
+          await this.validateBlockTable(field, locator);
+        break;
+  }
   }
 
   async contentField(field, locator){  
@@ -354,20 +441,23 @@ export class ProjectListings {
 
   async validateBlockTable(field, locator) {
 
-    for(const column of field?.columns){
-      const blockTableLocator = await this.page.locator('.TrioHeroBlock').filter({hasText: column.label});
-       
-        await expect(blockTableLocator.locator('.label')).toHaveText(column.label);
+    for (const column of field?.columns) {
+      const blockTableLocator = await this.page.locator('.TrioHeroBlock').filter({ hasText: column.label });
+
+      await expect(blockTableLocator.locator('.label')).toHaveText(column.label);
+      if (column.attributes.field) {
         const cleanKeyName = column.attributes.field.replace(/-namevalue(-namevalue)?$/, '');
         const value = await getFieldValue(cleanKeyName);
-        if(column.view_component === 'pill'){
+        if (column.view_component === 'pill') {
           const pillValue = await blockTableLocator.locator('.BlockValue').locator('.pills').allTextContents();
           const parseValue = JSON.parse(value);
           await expect(pillValue).toEqual(parseValue);
-        }else{
-        await expect(await blockTableLocator.locator('.BlockValue')).toHaveText(value);
+        } else {
+          await expect(await blockTableLocator.locator('.BlockValue')).toHaveText(value);
 
         }
+      }
+
 
     }
   }

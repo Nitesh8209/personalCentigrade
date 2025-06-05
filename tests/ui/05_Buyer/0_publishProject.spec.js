@@ -78,7 +78,7 @@ test.describe("fill all fields For validate listings buyer page", { tag: '@UI' }
       classificationMethod:
         "Natural - The activity claim uses natural methods (e.g. IFM)",
       projectScale: "Micro (fewer than 1,000 tCO2e)",
-      projectType: "Improved Forest Management (IFM)",
+      projectType: "ifm",
     };
     const modularUrl = `${API_ENDPOINTS.createProject}/${projectId}/modular-benefit-project`;
     const response = await postRequest(
