@@ -145,7 +145,7 @@ test.describe(`Member Invitation and Approval Flow`, { tag: '@API' }, () => {
       };
       const approveResponse = await postRequest(approveInviteUrl, approveInviteData, approveInviteHeaders);
       const approveResponseBody = await approveResponse.json();
-      // expect(approveResponse.status).toBe(200);
+      await expect(approveResponse.status).toBe(200);
       // expect(approveResponseBody).toHaveProperty('email', InviteEmail);
 
       // Fetch Gmail approval email  

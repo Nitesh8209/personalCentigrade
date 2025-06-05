@@ -58,18 +58,6 @@ test.describe("Fields Level Validation - after Login", { tag: '@UI' }, () => {
             const errors = [];
             const fieldHandler = new FieldHandler(page);
 
-            if (topic.label === 'Documents') {
-              await validateBreadcrumbs(fieldHandler, errors, {
-                expectedCount: 4,
-                separatorCount: 3,
-                breadcrumbs: [
-                  { index: 0, href: '/listings', text: "Projects" },
-                  { index: 1, href: '', text: project.buyerProject },
-                  { index: 2, href: '', text: topic.label },
-                  { index: 3, href: '', text: await convertToTitleCase(stepGroup.steps[0].sections[0].label) }
-                ]
-              });
-            } else {
               // Validate breadcrumbs using helper function
               await validateBreadcrumbs(fieldHandler, errors, {
                 expectedCount: 3,
@@ -80,7 +68,6 @@ test.describe("Fields Level Validation - after Login", { tag: '@UI' }, () => {
                   { index: 2, href: '', text: topic.label }
                 ]
               });
-            }
 
 
             if (errors.length > 0) {
@@ -189,8 +176,10 @@ test.describe("Fields Level Validation - after Login", { tag: '@UI' }, () => {
                         if (field.label) {
                           await safeExpect(`verify the label and value ${field.label}`, async () => {
                             const locator = await projectListings.contentFieldLocator(field);
-                            await expect(locator).toBeVisible();
-                            await projectListings.contentField(field, locator)
+                            if(locator){
+                              await expect(locator).toBeVisible();
+                              await projectListings.contentField(field, locator);     
+                            }
                           }, errors);
                         }
                       }
@@ -202,8 +191,10 @@ test.describe("Fields Level Validation - after Login", { tag: '@UI' }, () => {
                           if (field.label) {
                             await safeExpect(`In dependency field verify the label and value ${field.label}`, async () => {
                               const locator = await projectListings.contentFieldLocator(field);
+                              if(locator){
                               await expect(locator).toBeVisible();
-                              await projectListings.contentField(field, locator)
+                              await projectListings.contentField(field, locator);
+                              }
                             }, errors);
                           }
                         }

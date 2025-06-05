@@ -742,14 +742,14 @@ export class FieldHandler {
 
       case COMPONENT_TYPES.RADIOYN:
       case COMPONENT_TYPES.RADIOIDK:
-        const radiolocator = await locator.getByText('Yes');
+        const radiolocator = await locator.locator('.radio-container').getByText('Yes');
         await radiolocator.check();
         value = "Yes";
         break;
 
       case COMPONENT_TYPES.RADIO:
         value = field.options[0];
-        const radioOption = await locator.getByText(value);
+        const radioOption = await locator.locator('.radio-container').getByText(value);
         await radioOption.check();
         break;
 

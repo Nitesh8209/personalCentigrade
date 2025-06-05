@@ -108,7 +108,8 @@ test.describe('Settings - organization Page UI Tests', { tag: '@UI' }, () => {
       const country = await settingsPage.orgcountryInput();
       await country.fill('ind');
       await expect(await settingsPage.orgcountryDropdown()).toBeVisible();
-    })
+      await page.mouse.click(0, 0);
+    }, errors)
 
     // Action buttons verification
     await safeExpect('Action buttons state', async () => {

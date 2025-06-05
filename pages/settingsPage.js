@@ -213,7 +213,7 @@ export class SettingsPage {
   }
 
   async orgcountryDropdown() {
-    return await this.page.getByRole('listbox', { name: 'Country' });
+    return await this.page.locator('.autocomplete-menu');
   }
 
   async teamheading() {
