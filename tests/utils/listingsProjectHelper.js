@@ -216,11 +216,23 @@ const jsonData = JSON.parse(rawData);
   const foundItem = jsonData.fields?.items?.find(item => item.keyName == cleanKeyName);
   if(foundItem){
     let value = foundItem.value;
-    if(value == "[\"GB\",\"IN\"]"){
-      value = "United Kingdom, India"
-    }
     return value;
   }
+  return false;
+}
+
+export const getFileValue = async (field) => {
+  const projectdataFile = './tests/data/Project-data-new.json';
+  const rawData = fs.readFileSync(projectdataFile, 'utf-8');
+  const jsonData = JSON.parse(rawData);
+
+  const cleanKeyName = field.replace(/-projectFile(-storage)?$/, '');
+  const foundItem = jsonData.fileData?.find(item => item.projectFileType === cleanKeyName);
+  
+  if (foundItem) {
+    return true;
+  }
+  
   return false;
 }
 

@@ -1,5 +1,5 @@
 import { expect } from "@playwright/test";
-import { getFieldValue } from "../tests/utils/listingsProjectHelper";
+import { getFieldValue, getFileValue } from "../tests/utils/listingsProjectHelper";
 
 export class ProjectListings {
 
@@ -211,7 +211,11 @@ export class ProjectListings {
   async contentFieldLocator(field){
     switch(field.view_component){
       case 'media-carousel':
-        return await this.page.locator('.content').locator('.ComponentContainer').filter({hasText: field.label});
+        const value = await getFileValue(field.name);
+        if(value){
+          return await this.page.locator('.content').locator('.ComponentContainer').filter({hasText: field.label});
+        }
+        return false;
 
       case 'key-value-table':
         if (field.component === 'file-upload-multiple' || field.component === 'file-upload') {
@@ -239,6 +243,9 @@ export class ProjectListings {
 
       case 'pill':
         return this.page.locator('.content').locator('.ComponentContainer').getByText(field.label, { exact: true }).locator('..').locator('..');
+        
+      case 'block-table':
+        return this.page.locator('.content').locator('.ComponentContainer').locator('.TrioHeroBlockRow');
         
       default:
         return this.page.locator('.content').locator('.key-value-list').locator('.label-container > label').getByText(field.label , {exact: true});  
@@ -364,7 +371,13 @@ export class ProjectListings {
     await expect(await locator.locator('.relative')).toBeVisible();
     const value = await getFieldValue(field.name);
     if(value){
-      await expect(await locator.locator('.relative')).toHaveText(value);
+      if(field.component === 'country-select'){
+        const parseValue = JSON.parse(value);
+        const listItems = await locator.locator('.unordered-list > li').allTextContents();
+        await expect(listItems).toEqual(parseValue);
+      }else{
+        await expect(await locator.locator('.relative')).toHaveText(value);
+      }
     }else{
       await expect(await locator.locator('.relative')).toHaveText('Data not provided yet');
     }
@@ -421,7 +434,7 @@ export class ProjectListings {
     await expect(await locator.locator('svg')).toBeVisible();
     await expect(await locator.locator('label')).toBeVisible();
     await expect(await locator.locator('label')).toHaveText(field.label);
-    const value = await getFieldValue(field.name);
+    const value = await getFileValue(field.name);
    if(value){
         await expect(await locator.locator('.text-link').first()).toBeVisible();
      await expect(await locator.locator('.text-link').first()).toHaveText(value);
@@ -435,7 +448,10 @@ export class ProjectListings {
     await expect(await locator.locator('.key-value-item').locator('label')).toBeVisible();
     await expect(await locator.locator('.key-value-item').locator('label')).toHaveText(field.label);
     await expect(await locator.locator('.key-value-item').locator('.relative')).toBeVisible();
-    const value = await getFieldValue(field.name);
+    let value = await getFieldValue(field.name);
+    if(value == "[\"GB\",\"IN\"]"){
+      value = "United Kingdom, India"
+    }
     await expect(await locator.locator('.key-value-item').locator('.relative')).toHaveText(value);
   }
 

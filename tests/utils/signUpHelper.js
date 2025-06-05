@@ -37,7 +37,7 @@ async function getLabelId(labelName) {
 export async function getGmailMessages(to='') {
 
   // Adding delay to ensure the email arrives before attempting to fetch it
-  await new Promise(resolve => setTimeout(resolve, 5000));
+  await new Promise(resolve => setTimeout(resolve, 7000));
   try {
 
     const labelId = await getLabelId('Centigrade');
