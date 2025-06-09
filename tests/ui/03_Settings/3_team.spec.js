@@ -156,7 +156,7 @@ test.describe('Settings - Team Page UI Tests', { tag: '@UI' }, () => {
   })
 
 
-  test('Approve the request for an already-invited user (InviteEmail) during the invite process', async () => {
+  test('Approve the request for an already-invited user (InviteEmail) during the invite process', { tag: '@SMOKE' }, async () => {
 
     // Approve the user request
     const ApproveButton = await settingsPage.approveButton(InviteEmail);
@@ -579,7 +579,7 @@ test.describe('Settings - Team Page UI Tests', { tag: '@UI' }, () => {
     await expect(await settingsPage.user(InviteEmail)).not.toBeVisible();
   })
 
-  test('Invite a user to join the organization and auto-approve the invite', async ({ page, baseURL }) => {
+  test('Invite a user to join the organization and auto-approve the invite', { tag: '@SMOKE' }, async ({ page, baseURL }) => {
     const errors = [];
     const Invite1Email = generateTestEmail();
 
@@ -648,7 +648,7 @@ test.describe('Settings - Team Page UI Tests', { tag: '@UI' }, () => {
     );
 
     // Navigate to the signup page using the invite link and fill in the required details
-    await safeExpect('Navigate to the signup page using the invite link and fill in the required details',
+    await safeExpect('Navigate to the signup page using the invite link and fill in the required details', { tag: '@SMOKE' },
       async () => {
         await page.goto(`${baseURL}/create-account?email=${encodeURIComponent(Invite1Email)}&org=${ValidTestData.organizationName}`)
         const signUpPage = new SignUpPage(page, baseURL);
@@ -684,7 +684,7 @@ test.describe('Settings - Team Page UI Tests', { tag: '@UI' }, () => {
 test.describe('Settings - Team Page Functional Tests for Reject', { tag: '@UI' }, () => {
   const { newEmail } = getData('UI');
 
-  test('Sign up a new user, reject the request, and verify rejection', async ({ page, baseURL }) => {
+  test('Sign up a new user, reject the request, and verify rejection', { tag: '@SMOKE' }, async ({ page, baseURL }) => {
     const errors = [];
     const RejectEmail = generateTestEmail();
     const signUpPage = new SignUpPage(page, baseURL);

@@ -7,7 +7,7 @@ import { apiProjectCreadentials, Credentials } from "../../data/testData";
 import { extractFieldsFromTopics } from "../../utils/buyerPublishProject";
 const fs = require("fs");
 
-test.describe("fill all fields For validate listings buyer page", { tag: '@UI' }, async () => {
+test.describe("fill all fields For validate listings buyer page", { tag: ['@UI', '@SMOKE'] }, async () => {
   let headers;
   let projectAccessToken;
   let projectId;
@@ -162,7 +162,7 @@ test.describe("fill all fields For validate listings buyer page", { tag: '@UI' }
 
 });
 
-test.describe('publish project after for validate listings buyer page', { tag: '@UI' }, () => {
+test.describe('publish project after for validate listings buyer page', { tag: ['@UI', '@SMOKE'] }, () => {
   let headers;
   let projectId;
 

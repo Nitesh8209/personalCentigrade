@@ -95,7 +95,7 @@ test.describe('Project Header - UI and Navigation for Unauthenticated Users', { 
   })
 
   // Test case for verifying Get In Touch modal functionality
-  test('Verify should display and function Get In Touch Modal for Unauthenticated Users', async ({baseURL}) => {
+  test('Verify should display and function Get In Touch Modal for Unauthenticated Users', { tag: '@SMOKE' }, async ({baseURL}) => {
     const errors = [];
     const projectHeader = new ProjectListings(page);
     const getInTouch = await projectHeader.getInTouch();
@@ -372,7 +372,7 @@ test.describe('Project Header - UI and Navigation for Authenticated Users', { ta
 
 
   // Test case for verifying Get In Touch modal functionality for authenticated users
-  test('Verify should display and functional Get In Touch Modal for authenticated users', async () => {
+  test('Verify should display and functional Get In Touch Modal for authenticated users', { tag: '@SMOKE' }, async () => {
     const errors = [];
     const projectHeader = new ProjectListings(page);
     const getInTouch = await projectHeader.getInTouch();

@@ -35,7 +35,7 @@ test.describe('Settings - organization Page UI Tests', { tag: '@UI' }, () => {
     await page.close();
   });
 
-  test('Verify Settings - Organization Header and Tabs are displayed correctly', async () => {
+  test('Verify Settings - Organization Header and Tabs are displayed correctly', { tag: '@SMOKE' }, async () => {
     const errors = [];
   
     // Header section verification

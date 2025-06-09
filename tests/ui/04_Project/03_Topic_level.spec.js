@@ -48,7 +48,7 @@ test.describe('Verify Topic and Step Visibility in Project Workflow', { tag: '@U
 
   // Validate visibility of each topic
   for(const topic of formData.topics){
-    test(`Ensure topic '${topic.label}' is visible and enabled`, async () => {
+    test(`Ensure topic '${topic.label}' is visible and enabled`, { tag: '@SMOKE' }, async () => {
       const errors = [];
 
       // Locate the topic label element
