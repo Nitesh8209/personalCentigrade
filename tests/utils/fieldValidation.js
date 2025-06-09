@@ -92,12 +92,8 @@ export class FieldHandler {
       return this.page.locator('.input').getByLabel(fieldLabel, { exact: true });;
     }
 
-    if (component === COMPONENT_TYPES.TEXTAREA) {
-      return this.page.getByLabel(fieldLabel, { exact: true });
-    }
-
-    if (component === COMPONENT_TYPES.RICH_TEXT) {
-      return this.page.getByText(fieldLabel, { exact: true }).locator('..').locator('..').locator('.editor-control');
+    if (component === COMPONENT_TYPES.RICH_TEXT || component === COMPONENT_TYPES.TEXTAREA) {
+      return this.page.locator('label').getByText(fieldLabel, { exact: true }).locator('..').locator('..').locator('.editor-control');
     }
 
     // Handle standard field types
@@ -655,7 +651,6 @@ export class FieldHandler {
     switch (field.component) {
 
       case COMPONENT_TYPES.TEXT_INPUT:
-      case COMPONENT_TYPES.TEXTAREA:
         if (FIELD_TYPES.NUMBER === field.type || FIELD_TYPES.INTEGER === field.type) {
           value = faker.number.int(100).toString();
           await locator.fill(value);
@@ -666,6 +661,7 @@ export class FieldHandler {
         break;
 
       case COMPONENT_TYPES.RICH_TEXT:
+      case COMPONENT_TYPES.TEXTAREA:
           value = faker.lorem.words(3);
           const inputField = await locator.locator('.tiptap')
           await inputField.fill(value);
@@ -706,7 +702,7 @@ export class FieldHandler {
         value = 'United States of America';
         if(!(await locator.locator('..').locator('..').locator('.autocomplete-control').innerText()).includes(value)){
         await locator.click();
-        await locator.fill(value);
+        await locator.locator('..').locator('..').locator('input').fill(value);
         await expect(await this.page.locator('.autocomplete-menu')).toBeVisible();
         await this.page.locator('.autocomplete-option').click();
         await this.page.locator('.step-title').click();

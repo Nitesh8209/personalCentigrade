@@ -48,7 +48,7 @@ test.describe('Verify Topic and Step Visibility in Project Workflow', { tag: '@U
 
   // Validate visibility of each topic
   for(const topic of formData.topics){
-    test(`Ensure topic '${topic.label}' is visible and enabled`, async () => {
+    test(`Ensure topic '${topic.label}' is visible and enabled`, { tag: '@SMOKE' }, async () => {
       const errors = [];
 
       // Locate the topic label element
@@ -70,7 +70,7 @@ test.describe('Verify Topic and Step Visibility in Project Workflow', { tag: '@U
 
   // Validate steps within each topic
   for(const topic of formData.topics){
-    test(`Verify steps inside topic '${topic.label}'`, async ({ }, testInfo) => {
+    test(`Verify steps inside topic '${topic.label}'`, { tag: '@SMOKE' }, async ({ }, testInfo) => {
       const topicLabel = await fieldHandler.findLabel(topic.label);
 
       // Skip the Test if the Topic is not visible

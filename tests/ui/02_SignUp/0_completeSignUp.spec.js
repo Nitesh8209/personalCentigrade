@@ -9,6 +9,7 @@ import { SettingsPage } from '../../../pages/settingsPage';
 import { getGmailMessages } from '../../utils/signUpHelper';
 import API_ENDPOINTS from '../../../api/apiEndpoints';
 import { ProjectsPage } from '../../../pages/projectsPage';
+import { safeExpect } from '../../utils/authHelper';
 
 test.describe('Create Account Page UI Tests', { tag: '@UI' }, () => {
   let newEmail;
@@ -30,7 +31,7 @@ test.describe('Create Account Page UI Tests', { tag: '@UI' }, () => {
   });
 
   // Test 2: Create a new account with a non-existing user
-  test('Create an Account with a Non existing user', async ({ baseURL }) => {
+  test('Create an Account with a Non existing user', { tag: '@SMOKE' }, async ({ baseURL }) => {
 
     const signUpPage = new SignUpPage(page, baseURL);
 
@@ -76,19 +77,29 @@ test.describe('Create Account Page UI Tests', { tag: '@UI' }, () => {
   })
 
   // Test case: Successful resend of the verification code
-    test('Successful resend verification code', async ({ baseURL }) => {
+    test('Successful resend verification code', { tag: '@SMOKE' }, async ({ baseURL }) => {
       const signUpPage = new SignUpPage(page, baseURL);
+      const errors = [];
   
       // Navigate to the verification page using the provided email
+      await safeExpect(`Navigating to verification page with email: ${newEmail}`, async () => {
       await signUpPage.navigateVerification(newEmail);
       const verificationCoderesendlink = await signUpPage.verificationCoderesendlink();
       await verificationCoderesendlink.click();
       const getSuccessMessage = await signUpPage.getSuccessMessage();
       expect(getSuccessMessage).toBe('Email has been sent');
-  
+      }, errors);
+
       // Retrieve the verification code from the email inbox
+      await safeExpect(`Retrieving verification code from email`, async () => {
       const result = await getGmailMessages(newEmail);
       receivedVerificationCode = result.receivedVerificationCode;
+      }, errors);
+
+      if (errors.length > 0) {
+      throw new Error(`Validation errors found:\n${errors.join('\n')}`);
+     }
+
     })
 
     // Test case: Successful resend of the verification code
@@ -122,7 +133,7 @@ test.describe('Create Account Page UI Tests', { tag: '@UI' }, () => {
     })
 
 
-     test('Successful verification with correct code and password and land on the awaiting-approval approval page', async ({ baseURL }) => {
+     test('Successful verification with correct code and password and land on the listings page', { tag: '@SMOKE' }, async ({ baseURL }) => {
     
       const loginPage = new LoginPage(page, baseURL);
         const signUpPage = new SignUpPage(page, baseURL);
@@ -153,7 +164,7 @@ test.describe('Create Account Page UI Tests', { tag: '@UI' }, () => {
 
 
   // Test for requesting a password reset with a valid registered email
-  test('Request password reset with a valid registered email', async ({ baseURL }) => {
+  test('Request password reset with a valid registered email', { tag: '@SMOKE' }, async ({ baseURL }) => {
 
     const loginPage = new LoginPage(page, baseURL);
     const signUpPage = new SignUpPage(page, baseURL);
@@ -191,7 +202,7 @@ test.describe('Create Account Page UI Tests', { tag: '@UI' }, () => {
   })
 
   
-  test('Successful Password Reset with Mandatory Fields', async ({ baseURL }) => {
+  test('Successful Password Reset with Mandatory Fields', { tag: '@SMOKE' }, async ({ baseURL }) => {
     const signUpPage = new SignUpPage(page, baseURL);
 
     // Navigate to reset password page
@@ -300,7 +311,7 @@ test.describe('Set Member to Admin', { tag: '@UI' }, () => {
  }
  
  // Test to set a member to Admin role
- test('Set member to Admin role', async ({ page, baseURL }) => {
+ test('Set member to Admin role', { tag: '@SMOKE' }, async ({ page, baseURL }) => {
    const projectsPage = await loginAndNavigateToSettings(page, baseURL);
  
    // Update the member role to Admin

@@ -29,7 +29,7 @@ test.describe('Project Page', { tag: '@UI' }, () => {
     });
 
 
-  test('Verify project page displays correctly', async ({ baseURL }) => {
+  test('Verify project page displays correctly', { tag: '@SMOKE' }, async ({ baseURL }) => {
     const errors = [];
     const projectsPage = new ProjectsPage(page, baseURL);
 
@@ -264,7 +264,7 @@ test.describe('Project Page', { tag: '@UI' }, () => {
     }
   })
 
-  test('Create Button in create new project modal, Saves Project and Navigates to Overview', async ({ baseURL }) => {
+  test('Create Button in create new project modal, Saves Project and Navigates to Overview',  { tag: '@SMOKE' }, async ({ baseURL }) => {
     await page.reload();
     const errors = [];
     const projectsPage = new ProjectsPage(page, baseURL);

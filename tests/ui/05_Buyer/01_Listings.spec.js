@@ -67,7 +67,7 @@ test.describe('Listings Page - UI and Navigation', { tag: '@UI' }, () => {
   });
 
   // Test case for verifying projects are visible for unauthenticated users
-  test('should display projects on listings page for unauthenticated users', async () => {
+  test('should display projects on listings page for unauthenticated users', { tag: '@SMOKE' }, async () => {
     const errors = [];
     const listingPage = new ListingPage(page);
 
@@ -141,7 +141,7 @@ test.describe('Listings Page - After Login', { tag: '@UI' }, () => {
   });
 
   // Test case for verifying project listings and help button for authenticated users
-  test('should display Project on the listings page', async () => {
+  test('should display Project on the listings page', { tag: '@SMOKE' }, async () => {
     const errors = [];
     const listingPage = new ListingPage(page);
 

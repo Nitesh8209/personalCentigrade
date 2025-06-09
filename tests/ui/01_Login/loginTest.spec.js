@@ -98,7 +98,7 @@ test.describe('Login Page UI Tests', { tag: '@UI' }, () => {
     expect(page.url()).toBe(`${loginPage.baseURL}/login`);
   })
 
-  test('Should Successfully Login with vaild Credentials', async () => {
+  test('Should Successfully Login with valid Credentials', { tag: '@SMOKE' }, async () => {
 
     // Use the login method to attempt logging in with valid credentials
     await loginPage.login(Credentials.username, Credentials.password)
