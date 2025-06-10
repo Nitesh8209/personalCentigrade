@@ -369,9 +369,12 @@ export class ProjectListings {
     await expect(await locator.locator('label')).toBeVisible();
     await expect(await locator.locator('label')).toHaveText(field.label);
     await expect(await locator.locator('.relative')).toBeVisible();
-    const value = await getFieldValue(field.name);
+    let value = await getFieldValue(field.name);
     if(value){
       if(field.component === 'country-select'){
+        if(value == "United Kingdom, India"){
+            value = "[\"GB\",\"IN\"]" ;
+        }
         const parseValue = JSON.parse(value);
         const listItems = await locator.locator('.unordered-list > li').allTextContents();
         await expect(listItems).toEqual(parseValue);
@@ -448,10 +451,7 @@ export class ProjectListings {
     await expect(await locator.locator('.key-value-item').locator('label')).toBeVisible();
     await expect(await locator.locator('.key-value-item').locator('label')).toHaveText(field.label);
     await expect(await locator.locator('.key-value-item').locator('.relative')).toBeVisible();
-    let value = await getFieldValue(field.name);
-    if(value == "[\"GB\",\"IN\"]"){
-      value = "United Kingdom, India"
-    }
+    const value = await getFieldValue(field.name);
     await expect(await locator.locator('.key-value-item').locator('.relative')).toHaveText(value);
   }
 

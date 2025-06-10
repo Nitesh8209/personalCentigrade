@@ -216,6 +216,9 @@ const jsonData = JSON.parse(rawData);
   const foundItem = jsonData.fields?.items?.find(item => item.keyName == cleanKeyName);
   if(foundItem){
     let value = foundItem.value;
+    if(value == "[\"GB\",\"IN\"]"){
+      value = "United Kingdom, India"
+    }
     return value;
   }
   return false;

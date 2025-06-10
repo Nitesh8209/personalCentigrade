@@ -648,7 +648,7 @@ test.describe('Settings - Team Page UI Tests', { tag: '@UI' }, () => {
     );
 
     // Navigate to the signup page using the invite link and fill in the required details
-    await safeExpect('Navigate to the signup page using the invite link and fill in the required details', { tag: '@SMOKE' },
+    await safeExpect('Navigate to the signup page using the invite link and fill in the required details',
       async () => {
         await page.goto(`${baseURL}/create-account?email=${encodeURIComponent(Invite1Email)}&org=${ValidTestData.organizationName}`)
         const signUpPage = new SignUpPage(page, baseURL);
