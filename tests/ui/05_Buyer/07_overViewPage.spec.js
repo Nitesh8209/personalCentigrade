@@ -16,7 +16,7 @@ export const viewData = JSON.parse(fs.readFileSync(viewDatapath, 'utf-8'));
 
 // Iterate through authentication states
 for (const authState of authStates) {
-  test.describe(`Buyer Overview Page - ${authState.name}`, () => {
+  test.describe(`Buyer Overview Page - ${authState.name}`, { tag: ['@UI', '@SMOKE'] }, () => {
 
     // Determine credentials based on authentication state
     const credentials = authState.isAuthenticated ? {

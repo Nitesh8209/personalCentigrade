@@ -13,7 +13,7 @@ const viewData = JSON.parse(fs.readFileSync(ViewDataPath, 'utf-8'));
 
 
 // Validate the visibility of the topic and step group for unauthenticated users
-test.describe('Topic and Step Group Visibility for Unauthenticated Users', { tag: '@UI' }, () => {
+test.describe('Topic and Step Group Visibility for Unauthenticated Users', { tag: ['@UI', '@SMOKE'] }, () => {
 
   let page;
 
@@ -82,7 +82,7 @@ test.describe('Topic and Step Group Visibility for Unauthenticated Users', { tag
 });
 
 // validate the visibility of the topic and step group for authenticated users
-test.describe('Topic and StepGroup Visibility for Authenticated Users', { tag: '@UI' }, () => {
+test.describe('Topic and StepGroup Visibility for Authenticated Users', { tag: ['@UI', '@SMOKE'] }, () => {
 
   const { newEmail } = getData('UI');
 

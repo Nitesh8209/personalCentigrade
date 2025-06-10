@@ -83,7 +83,7 @@ test.describe('Settings - My Account Page UI Tests', { tag: '@UI' }, () => {
   })
 
 
-  test('Verify Name, Email, Phone Number and Password fields on the Settings - My Account page', async () => {
+  test('Verify Name, Email, Phone Number and Password fields on the Settings - My Account page', { tag: '@SMOKE' }, async () => {
     const errors = [];
 
     // First Name and Last Name verification

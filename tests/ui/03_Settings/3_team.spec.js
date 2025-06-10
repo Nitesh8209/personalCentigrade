@@ -156,7 +156,7 @@ test.describe('Settings - Team Page UI Tests', { tag: '@UI' }, () => {
   })
 
 
-  test('Approve the request for an already-invited user (InviteEmail) during the invite process', async () => {
+  test('Approve the request for an already-invited user (InviteEmail) during the invite process', { tag: '@SMOKE' }, async () => {
 
     // Approve the user request
     const ApproveButton = await settingsPage.approveButton(InviteEmail);
@@ -579,7 +579,7 @@ test.describe('Settings - Team Page UI Tests', { tag: '@UI' }, () => {
     await expect(await settingsPage.user(InviteEmail)).not.toBeVisible();
   })
 
-  test('Invite a user to join the organization and auto-approve the invite', async ({ page, baseURL }) => {
+  test('Invite a user to join the organization and auto-approve the invite', { tag: '@SMOKE' }, async ({ page, baseURL }) => {
     const errors = [];
     const Invite1Email = generateTestEmail();
 
@@ -681,7 +681,7 @@ test.describe('Settings - Team Page UI Tests', { tag: '@UI' }, () => {
 
 });
 
-test.describe('Settings - Team Page Functional Tests for Reject', { tag: '@UI' }, () => {
+test.describe('Settings - Team Page Functional Tests for Reject', { tag: ['@UI', '@SMOKE'] }, () => {
   const { newEmail } = getData('UI');
 
   test('Sign up a new user, reject the request, and verify rejection', async ({ page, baseURL }) => {
