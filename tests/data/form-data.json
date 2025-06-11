@@ -1,7 +1,7 @@
 {
   "dataSchema": "QA-ACR1.3-cgV1.0.0",
   "navigation": "form2.0-config",
-  "versionDate": "2025-06-06T13:43:39-07:00",
+  "versionDate": "2025-06-10T19:46:36-07:00",
   "topics": [
     {
       "id": 426,
@@ -2611,6 +2611,69 @@
                           "helper_text": "",
                           "display_order": 4,
                           "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
+                          "id": 2080,
+                          "name": "stakeholderIdentityTable-dataTable-dataTable",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "object",
+                          "label": "Identified stakeholders",
+                          "columns": [
+                            {
+                              "name": "stakeholderIdentityTableId",
+                              "type": "object",
+                              "label": "Identity of communities and other stakeholders impacted or potentially impacted by the project",
+                              "options": [],
+                              "tooltip": "",
+                              "column_id": 2081,
+                              "component": "text-input",
+                              "attributes": {},
+                              "helper_text": "",
+                              "column_order": 0,
+                              "view_component": "data-table",
+                              "validation_schema": null
+                            },
+                            {
+                              "name": "stakeholderIdentityTableDescribe",
+                              "type": "object",
+                              "label": "Stakeholder description",
+                              "options": [],
+                              "tooltip": "May include information on community well-being, demographics and diversity, as well as the interactions between community groups",
+                              "column_id": 2082,
+                              "component": "textarea",
+                              "attributes": {},
+                              "helper_text": "",
+                              "column_order": 1,
+                              "view_component": "data-table",
+                              "validation_schema": null
+                            },
+                            {
+                              "name": "stakeholderIdentityTableNonProj",
+                              "type": "object",
+                              "label": "Overview of anticipated community changes in the without-project scenario",
+                              "options": [],
+                              "tooltip": "Changes may include shifts in ecosystem services valued by the community",
+                              "column_id": 2083,
+                              "component": "textarea",
+                              "attributes": {},
+                              "helper_text": "",
+                              "column_order": 2,
+                              "view_component": "data-table",
+                              "validation_schema": null
+                            }
+                          ],
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "data-table",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": null,
+                          "view_component": "data-table",
                           "validation_schema": null,
                           "display_dependencies": null
                         }
@@ -5888,6 +5951,18 @@
                   "nav_type_id": 1,
                   "field_groups": [
                     {
+                      "id": 1150,
+                      "name": "generalSamplingDesign",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1042,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 1,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    },
+                    {
                       "id": 1049,
                       "name": "soilSamplingDesign",
                       "label": "Soil sampling design",
@@ -5897,7 +5972,7 @@
                       "description": "",
                       "nav_type_id": 1,
                       "nav_level_id": 5,
-                      "display_order": 0
+                      "display_order": 1
                     }
                   ],
                   "nav_level_id": 4,
@@ -5916,6 +5991,18 @@
                       "id": 1050,
                       "name": "soilSamplingCollection",
                       "label": "Soil collection and processing",
+                      "fields": null,
+                      "parent_id": 1043,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 1,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    },
+                    {
+                      "id": 1151,
+                      "name": "soilSamplingGeneral",
+                      "label": "",
                       "fields": null,
                       "parent_id": 1043,
                       "attributes": {},
@@ -14542,7 +14629,7 @@
                           "label": "Species tracking and monitoring approach",
                           "columns": null,
                           "options": [],
-                          "tooltip": "",
+                          "tooltip": "How the project will collect data on threatened/endangered species",
                           "elements": null,
                           "component": "rich-text",
                           "attributes": {},
@@ -14577,7 +14664,7 @@
                             "Endemic species",
                             "Other"
                           ],
-                          "tooltip": "",
+                          "tooltip": "The type of species selected for monitoring, including but not limited to sentinel species, rare species, endangered species, umbrella species, keystone species, endemic species, etc.",
                           "elements": null,
                           "component": "select-multiple",
                           "attributes": {},
@@ -14670,7 +14757,7 @@
                             "90%",
                             "100%"
                           ],
-                          "tooltip": "",
+                          "tooltip": "Percentage of area sampled per hectare",
                           "elements": null,
                           "component": "select",
                           "attributes": {},
@@ -14726,7 +14813,7 @@
                           "label": "Species diversity data is digital and can be audited",
                           "columns": null,
                           "options": [],
-                          "tooltip": "",
+                          "tooltip": "All biodiversity monitoring is conducted through virtual methods (e.g., citizen science apps, photo recognition tools, GPS tracking) and is auditable through digital records rather than paper documentation or verbal accounts",
                           "elements": null,
                           "component": "radio-y-n-idk",
                           "attributes": {},
@@ -14859,10 +14946,13 @@
                           "label": "Water quality impacts supporting documents",
                           "columns": null,
                           "options": [],
-                          "tooltip": "",
+                          "tooltip": "Documents supporting claimed impacts to water quality",
                           "elements": null,
                           "component": "file-upload-multiple",
-                          "attributes": null,
+                          "attributes": {
+                            "accept": "",
+                            "isPublic": ""
+                          },
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 3,
