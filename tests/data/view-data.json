@@ -1,7 +1,7 @@
 {
   "dataSchema": "QA-ACR1.3-cgV1.0.0",
   "navigation": "view2.0-config",
-  "versionDate": "2025-06-10T19:46:36-07:00",
+  "versionDate": "2025-06-12T20:27:52-07:00",
   "topics": [
     {
       "id": 12,
@@ -7122,7 +7122,7 @@
                   "field_groups": [
                     {
                       "id": 186,
-                      "name": "projectFuelView",
+                      "name": "projectFuelViewDefault",
                       "label": "",
                       "fields": null,
                       "parent_id": 1091,
@@ -7131,6 +7131,18 @@
                       "nav_type_id": 2,
                       "nav_level_id": 5,
                       "display_order": 0
+                    },
+                    {
+                      "id": 1154,
+                      "name": "projectEnergyDetails",
+                      "label": "Project energy consumption details",
+                      "fields": null,
+                      "parent_id": 1091,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 1
                     },
                     {
                       "id": 188,
@@ -8409,6 +8421,237 @@
               "nav_type_id": 2,
               "nav_level_id": 3,
               "display_order": 2
+            },
+            {
+              "id": 1156,
+              "name": "cookstoveMonitoring",
+              "label": "Cookstoves monitoring",
+              "sections": [
+                {
+                  "id": 1157,
+                  "name": "cookstoveOverview",
+                  "label": "",
+                  "parent_id": 1156,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1158,
+                      "name": "defaultCookstove",
+                      "label": "",
+                      "fields": [
+                        {
+                          "id": 2090,
+                          "name": "cookstoveOverviewBlock-overview-events",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "object",
+                          "label": "Overview",
+                          "columns": [
+                            {
+                              "name": "cookstoveOverviewBlockTotalDeployedSensors",
+                              "type": null,
+                              "label": "Projects with issued credits",
+                              "options": [],
+                              "tooltip": "",
+                              "column_id": 2091,
+                              "component": "text-input",
+                              "attributes": {
+                                "field": "totalProjectsIssued-overview-events"
+                              },
+                              "helper_text": "",
+                              "column_order": 6,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            },
+                            {
+                              "name": "cookstoveOverviewBlockPercentReporting",
+                              "type": null,
+                              "label": "% of sensors reporting data",
+                              "options": [],
+                              "tooltip": "",
+                              "column_id": 2092,
+                              "component": "text-input",
+                              "attributes": {
+                                "field": "percentReporting-overview-events"
+                              },
+                              "helper_text": "",
+                              "column_order": 7,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            },
+                            {
+                              "name": "cookstoveOverviewBlockDailyEventsPerHousehold",
+                              "type": null,
+                              "label": "Daily events per household",
+                              "options": [],
+                              "tooltip": "",
+                              "column_id": 2093,
+                              "component": "text-input",
+                              "attributes": {
+                                "field": "dailyEventsPerHousehold-overview-events"
+                              },
+                              "helper_text": "",
+                              "column_order": 8,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            }
+                          ],
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "data-table",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 0,
+                          "view_component": "block-table",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
+                          "id": 2100,
+                          "name": "cookstoveBubbleMap-nameValue-nameValue",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "object",
+                          "label": "Monitored cookstoves by region",
+                          "columns": null,
+                          "options": null,
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "select-multiple",
+                          "attributes": {
+                            "bubbleMap": true
+                          },
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 1,
+                          "view_component": "location-map",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
+                          "id": 2094,
+                          "name": "cookstoveRegionTable-overview-events",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "object",
+                          "label": "Breakdown of cookstoves by region",
+                          "columns": [
+                            {
+                              "name": "cookstoveRegionTableName",
+                              "type": null,
+                              "label": "Region",
+                              "options": [],
+                              "tooltip": "",
+                              "column_id": 2095,
+                              "component": "text-input",
+                              "attributes": {
+                                "field": "regionName-overview-events"
+                              },
+                              "helper_text": "",
+                              "column_order": 0,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            },
+                            {
+                              "name": "cookstoveRegionTableDeployedSensors",
+                              "type": "number",
+                              "label": "Deployed sensors",
+                              "options": [],
+                              "tooltip": "",
+                              "column_id": 2096,
+                              "component": "text-input",
+                              "attributes": {
+                                "field": "deployedSensors-overview-events"
+                              },
+                              "helper_text": "",
+                              "column_order": 2,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            },
+                            {
+                              "name": "cookstoveRegionTablePercentReporting",
+                              "type": null,
+                              "label": "% sensors reporting data",
+                              "options": [],
+                              "tooltip": "",
+                              "column_id": 2097,
+                              "component": "text-input",
+                              "attributes": {
+                                "field": "percentReporting-overview-events"
+                              },
+                              "helper_text": "",
+                              "column_order": 3,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            },
+                            {
+                              "name": "cookstoveRegionTableDailyEventsPerHousehols",
+                              "type": null,
+                              "label": "Daily events per household",
+                              "options": [],
+                              "tooltip": "",
+                              "column_id": 2098,
+                              "component": "text-input",
+                              "attributes": {
+                                "field": "dailyEventsPerHousehold-overview-events"
+                              },
+                              "helper_text": "",
+                              "column_order": 4,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            },
+                            {
+                              "name": "cookstoveRegionTableAvgEventDuration",
+                              "type": null,
+                              "label": "Avg duration of event (mins)",
+                              "options": [],
+                              "tooltip": "",
+                              "column_id": 2099,
+                              "component": "text-input",
+                              "attributes": {
+                                "field": "avgEventDuration-overview-events"
+                              },
+                              "helper_text": "",
+                              "column_order": 6,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            }
+                          ],
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "data-table",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 2,
+                          "view_component": "data-table",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        }
+                      ],
+                      "parent_id": 1157,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 0
+                }
+              ],
+              "parent_id": 24,
+              "attributes": {},
+              "description": "",
+              "nav_type_id": 2,
+              "nav_level_id": 3,
+              "display_order": 4
             }
           ],
           "parent_id": 14,
@@ -8701,6 +8944,28 @@
                       "label": "",
                       "fields": [
                         {
+                          "id": 2089,
+                          "name": "acrRiskScore-nameValue-nameValue",
+                          "rows": null,
+                          "tier": 1,
+                          "type": "number",
+                          "label": "Calculated risk score (%)",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "Represents the overall risk category of the project, from both management risks and natural disaster risks, and should be used to calculated necessary buffer pool reductions",
+                          "elements": null,
+                          "component": "text-input",
+                          "attributes": {
+                            "field": ""
+                          },
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 3,
+                          "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
                           "id": 541,
                           "name": "reversalRiskOther-nameValue-nameValue",
                           "rows": null,
@@ -8715,7 +8980,7 @@
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "Use this space to outline the potential reversal risks",
-                          "display_order": 3,
+                          "display_order": 4,
                           "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -8735,7 +9000,7 @@
                           "attributes": null,
                           "half_width": false,
                           "helper_text": "Upload any documentation supporting the risk assessment",
-                          "display_order": 4,
+                          "display_order": 5,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -10241,6 +10506,43 @@
                       "label": "",
                       "fields": [
                         {
+                          "id": 2052,
+                          "name": "additionalityBlockTable-dataTable-dataTable",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "object",
+                          "label": "",
+                          "columns": [
+                            {
+                              "name": "additionalityBlockComponentOne",
+                              "type": null,
+                              "label": "Additionality approaches used",
+                              "options": null,
+                              "tooltip": "",
+                              "column_id": 2054,
+                              "component": "select-multiple",
+                              "attributes": {
+                                "field": "additionalityApproachUsed-namevalue-namevalue"
+                              },
+                              "helper_text": "",
+                              "column_order": 0,
+                              "view_component": "pill",
+                              "validation_schema": null
+                            }
+                          ],
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "data-table",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 8,
+                          "view_component": "block-table",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
                           "id": 2063,
                           "name": "additionalityAiSummary-nameValue-nameValue",
                           "rows": null,
@@ -10313,45 +10615,8 @@
                           },
                           "half_width": false,
                           "helper_text": "Select which approaches are utilized by the project to demonstrate additionality",
-                          "display_order": 4,
+                          "display_order": 0,
                           "view_component": "key-value-table",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        },
-                        {
-                          "id": 2052,
-                          "name": "additionalityBlockTable-dataTable-dataTable",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "object",
-                          "label": "",
-                          "columns": [
-                            {
-                              "name": "additionalityBlockComponentOne",
-                              "type": null,
-                              "label": "Additionality approaches used",
-                              "options": null,
-                              "tooltip": "",
-                              "column_id": 2054,
-                              "component": "select-multiple",
-                              "attributes": {
-                                "field": "additionalityApproachUsed-namevalue-namevalue"
-                              },
-                              "helper_text": "",
-                              "column_order": 0,
-                              "view_component": "pill",
-                              "validation_schema": null
-                            }
-                          ],
-                          "options": [],
-                          "tooltip": "",
-                          "elements": null,
-                          "component": "data-table",
-                          "attributes": {},
-                          "half_width": false,
-                          "helper_text": "",
-                          "display_order": null,
-                          "view_component": "block-table",
                           "validation_schema": null,
                           "display_dependencies": null
                         }
@@ -17628,10 +17893,12 @@
                             "Other",
                             "Not applicable"
                           ],
-                          "tooltip": "",
+                          "tooltip": "Activities undertaken to enhance or maintain the quality of water resources, such as water filtration, desalination, grey water remediation, etc.",
                           "elements": null,
                           "component": "select-multiple",
-                          "attributes": null,
+                          "attributes": {
+                            "field": ""
+                          },
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 1,
@@ -17767,10 +18034,12 @@
                             "Volume provided",
                             "Volume treated"
                           ],
-                          "tooltip": "",
+                          "tooltip": "The Volumetric Water Benefit Accounting framework can be found at https://www.wri.org/research/volumetric-water-benefit-accounting-vwba-method-implementing-and-valuing-water-stewardship",
                           "elements": null,
                           "component": "select-multiple",
-                          "attributes": null,
+                          "attributes": {
+                            "field": ""
+                          },
                           "half_width": true,
                           "helper_text": "",
                           "display_order": 4,
@@ -17792,7 +18061,7 @@
                           "label": "Other relevant indicators used for monitoring water availability impacts",
                           "columns": null,
                           "options": [],
-                          "tooltip": "",
+                          "tooltip": "Any supplementary indicators tracked by the project beyond the core Verra Water Benefit (VWB) indicators, such as community water access, seasonal flow rates, pollution levels, or ecosystem health metrics",
                           "elements": null,
                           "component": "rich-text",
                           "attributes": {},
@@ -17817,7 +18086,7 @@
                           "label": "Rationale for the selected water monitoring indicators",
                           "columns": null,
                           "options": [],
-                          "tooltip": "",
+                          "tooltip": "The reasoning behind the choice of specific water quality parameters and metrics used in the monitoring program",
                           "elements": null,
                           "component": "rich-text",
                           "attributes": {},
@@ -17855,10 +18124,12 @@
                           "label": "Number of people who have benefitted from increased water availability as a result of project activities",
                           "columns": null,
                           "options": [],
-                          "tooltip": "",
+                          "tooltip": "Number of individuals who have gained increased or more reliable access to water as a result of the project’s conservation efforts (e.g., beneficiaries of stream or river recharge, improved groundwater availability, or enhanced well-system performance)",
                           "elements": null,
                           "component": "text-input",
-                          "attributes": null,
+                          "attributes": {
+                            "field": ""
+                          },
                           "half_width": true,
                           "helper_text": "",
                           "display_order": 4,
@@ -17880,10 +18151,13 @@
                           "label": "Water availability impacts documentation",
                           "columns": null,
                           "options": [],
-                          "tooltip": "",
+                          "tooltip": "Evidence demonstrating water availability impacts",
                           "elements": null,
                           "component": "file-upload-multiple",
-                          "attributes": null,
+                          "attributes": {
+                            "accept": "",
+                            "isPublic": ""
+                          },
                           "half_width": false,
                           "helper_text": "Upload any documents related to water impacts, impact monitoring, water-related permits, etc.",
                           "display_order": 5,
@@ -17905,10 +18179,10 @@
                           "label": "Water benefits claimed are third-party verified",
                           "columns": null,
                           "options": [],
-                          "tooltip": "",
+                          "tooltip": "Claimed impacts have been verified, validated, or accredited by a third party group",
                           "elements": null,
                           "component": "radio-y-n",
-                          "attributes": null,
+                          "attributes": {},
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 6,

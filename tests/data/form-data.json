@@ -1,7 +1,7 @@
 {
   "dataSchema": "QA-ACR1.3-cgV1.0.0",
   "navigation": "form2.0-config",
-  "versionDate": "2025-06-10T19:46:36-07:00",
+  "versionDate": "2025-06-12T20:27:53-07:00",
   "topics": [
     {
       "id": 426,
@@ -2546,8 +2546,71 @@
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "Outline the communities and other stakeholders impacted (or potentially impacted) by project activities",
-                          "display_order": 1,
+                          "display_order": 0,
                           "view_component": "rich-text",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
+                          "id": 2080,
+                          "name": "stakeholderIdentityTable-dataTable-dataTable",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "object",
+                          "label": "Identified stakeholders",
+                          "columns": [
+                            {
+                              "name": "stakeholderIdentityTableId",
+                              "type": "object",
+                              "label": "Identity of communities and other stakeholders impacted or potentially impacted by the project",
+                              "options": [],
+                              "tooltip": "",
+                              "column_id": 2081,
+                              "component": "text-input",
+                              "attributes": {},
+                              "helper_text": "",
+                              "column_order": 0,
+                              "view_component": "data-table",
+                              "validation_schema": null
+                            },
+                            {
+                              "name": "stakeholderIdentityTableDescribe",
+                              "type": "object",
+                              "label": "Stakeholder description",
+                              "options": [],
+                              "tooltip": "May include information on community well-being, demographics and diversity, as well as the interactions between community groups",
+                              "column_id": 2082,
+                              "component": "textarea",
+                              "attributes": {},
+                              "helper_text": "",
+                              "column_order": 1,
+                              "view_component": "data-table",
+                              "validation_schema": null
+                            },
+                            {
+                              "name": "stakeholderIdentityTableNonProj",
+                              "type": "object",
+                              "label": "Overview of anticipated community changes in the without-project scenario",
+                              "options": [],
+                              "tooltip": "Changes may include shifts in ecosystem services valued by the community",
+                              "column_id": 2083,
+                              "component": "textarea",
+                              "attributes": {},
+                              "helper_text": "",
+                              "column_order": 2,
+                              "view_component": "data-table",
+                              "validation_schema": null
+                            }
+                          ],
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "data-table",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 1,
+                          "view_component": "data-table",
                           "validation_schema": null,
                           "display_dependencies": null
                         },
@@ -2613,69 +2676,6 @@
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
-                        },
-                        {
-                          "id": 2080,
-                          "name": "stakeholderIdentityTable-dataTable-dataTable",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "object",
-                          "label": "Identified stakeholders",
-                          "columns": [
-                            {
-                              "name": "stakeholderIdentityTableId",
-                              "type": "object",
-                              "label": "Identity of communities and other stakeholders impacted or potentially impacted by the project",
-                              "options": [],
-                              "tooltip": "",
-                              "column_id": 2081,
-                              "component": "text-input",
-                              "attributes": {},
-                              "helper_text": "",
-                              "column_order": 0,
-                              "view_component": "data-table",
-                              "validation_schema": null
-                            },
-                            {
-                              "name": "stakeholderIdentityTableDescribe",
-                              "type": "object",
-                              "label": "Stakeholder description",
-                              "options": [],
-                              "tooltip": "May include information on community well-being, demographics and diversity, as well as the interactions between community groups",
-                              "column_id": 2082,
-                              "component": "textarea",
-                              "attributes": {},
-                              "helper_text": "",
-                              "column_order": 1,
-                              "view_component": "data-table",
-                              "validation_schema": null
-                            },
-                            {
-                              "name": "stakeholderIdentityTableNonProj",
-                              "type": "object",
-                              "label": "Overview of anticipated community changes in the without-project scenario",
-                              "options": [],
-                              "tooltip": "Changes may include shifts in ecosystem services valued by the community",
-                              "column_id": 2083,
-                              "component": "textarea",
-                              "attributes": {},
-                              "helper_text": "",
-                              "column_order": 2,
-                              "view_component": "data-table",
-                              "validation_schema": null
-                            }
-                          ],
-                          "options": [],
-                          "tooltip": "",
-                          "elements": null,
-                          "component": "data-table",
-                          "attributes": {},
-                          "half_width": false,
-                          "helper_text": "",
-                          "display_order": null,
-                          "view_component": "data-table",
-                          "validation_schema": null,
-                          "display_dependencies": null
                         }
                       ],
                       "parent_id": 812,
@@ -2705,7 +2705,7 @@
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "",
-                          "display_order": 1,
+                          "display_order": 0,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -2725,7 +2725,7 @@
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "Describe the stakeholder consultation process plan (e.g., format, consultation protocol, measures taken for effective and appropriate participation, etc.)",
-                          "display_order": 2,
+                          "display_order": 1,
                           "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
@@ -2750,7 +2750,7 @@
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "Justify why the project has not developed a stakeholder engagement and consultation plan",
-                          "display_order": 3,
+                          "display_order": 2,
                           "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
@@ -2775,7 +2775,7 @@
                           "attributes": null,
                           "half_width": false,
                           "helper_text": "",
-                          "display_order": 5,
+                          "display_order": 6,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": [
@@ -3053,7 +3053,7 @@
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "Outline the plan to monitor and address gender-specific elements as part of the project activity, and describe any tools or resources used to develop the plan",
-                          "display_order": 4,
+                          "display_order": 6,
                           "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
@@ -3674,7 +3674,7 @@
                           "attributes": {},
                           "half_width": true,
                           "helper_text": "",
-                          "display_order": 1,
+                          "display_order": 0,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -3699,7 +3699,7 @@
                           },
                           "half_width": true,
                           "helper_text": "",
-                          "display_order": 2,
+                          "display_order": 1,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": [
@@ -3724,7 +3724,7 @@
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "",
-                          "display_order": 3,
+                          "display_order": 2,
                           "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
@@ -3848,26 +3848,6 @@
                       "label": "",
                       "fields": [
                         {
-                          "id": 187,
-                          "name": "waterLocalDetails-nameValue-nameValue",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "string",
-                          "label": "Summary of expected water impacts of the project activity",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "Description of any expected impacts on water quality or availability",
-                          "elements": null,
-                          "component": "rich-text",
-                          "attributes": {},
-                          "half_width": false,
-                          "helper_text": "Outline the potential impacts of the project activity on the identified water resources",
-                          "display_order": 0,
-                          "view_component": "rich-text",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        },
-                        {
                           "id": 143,
                           "name": "waterImpact-nameValue-nameValue",
                           "rows": null,
@@ -3882,7 +3862,7 @@
                           "attributes": {},
                           "half_width": true,
                           "helper_text": "",
-                          "display_order": 1,
+                          "display_order": 0,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -3902,7 +3882,7 @@
                           "attributes": {},
                           "half_width": true,
                           "helper_text": "",
-                          "display_order": 2,
+                          "display_order": 1,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -3922,7 +3902,7 @@
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "",
-                          "display_order": 3,
+                          "display_order": 2,
                           "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
@@ -3947,7 +3927,7 @@
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "",
-                          "display_order": 4,
+                          "display_order": 3,
                           "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
@@ -3956,6 +3936,26 @@
                               "pattern": "Yes"
                             }
                           ]
+                        },
+                        {
+                          "id": 187,
+                          "name": "waterLocalDetails-nameValue-nameValue",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "string",
+                          "label": "Summary of expected water impacts of the project activity",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "Description of any expected impacts on water quality or availability",
+                          "elements": null,
+                          "component": "rich-text",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "Outline the potential impacts of the project activity on the identified water resources",
+                          "display_order": 4,
+                          "view_component": "rich-text",
+                          "validation_schema": null,
+                          "display_dependencies": null
                         },
                         {
                           "id": 183,
@@ -6420,6 +6420,18 @@
                   "nav_type_id": 1,
                   "field_groups": [
                     {
+                      "id": 1152,
+                      "name": "almSpatialBoundaryDefault",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 510,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 1,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    },
+                    {
                       "id": 635,
                       "name": "projectBoundary",
                       "label": "Project boundary",
@@ -6490,7 +6502,7 @@
                       "description": "",
                       "nav_type_id": 1,
                       "nav_level_id": 5,
-                      "display_order": 0
+                      "display_order": 1
                     },
                     {
                       "id": 636,
@@ -6502,7 +6514,7 @@
                       "description": "",
                       "nav_type_id": 1,
                       "nav_level_id": 5,
-                      "display_order": 1
+                      "display_order": 2
                     },
                     {
                       "id": 637,
@@ -6615,7 +6627,7 @@
                       "description": "",
                       "nav_type_id": 1,
                       "nav_level_id": 5,
-                      "display_order": 2
+                      "display_order": 3
                     },
                     {
                       "id": 638,
@@ -6627,7 +6639,7 @@
                       "description": "",
                       "nav_type_id": 1,
                       "nav_level_id": 5,
-                      "display_order": 3
+                      "display_order": 4
                     },
                     {
                       "id": 639,
@@ -6639,7 +6651,7 @@
                       "description": "",
                       "nav_type_id": 1,
                       "nav_level_id": 5,
-                      "display_order": 4
+                      "display_order": 5
                     },
                     {
                       "id": 640,
@@ -6651,7 +6663,7 @@
                       "description": "",
                       "nav_type_id": 1,
                       "nav_level_id": 5,
-                      "display_order": 5
+                      "display_order": 6
                     },
                     {
                       "id": 641,
@@ -6663,7 +6675,7 @@
                       "description": "",
                       "nav_type_id": 1,
                       "nav_level_id": 5,
-                      "display_order": 6
+                      "display_order": 7
                     },
                     {
                       "id": 642,
@@ -6675,7 +6687,7 @@
                       "description": "",
                       "nav_type_id": 1,
                       "nav_level_id": 5,
-                      "display_order": 7
+                      "display_order": 8
                     },
                     {
                       "id": 643,
@@ -6687,7 +6699,7 @@
                       "description": "",
                       "nav_type_id": 1,
                       "nav_level_id": 5,
-                      "display_order": 8
+                      "display_order": 9
                     },
                     {
                       "id": 644,
@@ -6699,7 +6711,7 @@
                       "description": "",
                       "nav_type_id": 1,
                       "nav_level_id": 5,
-                      "display_order": 9
+                      "display_order": 10
                     }
                   ],
                   "nav_level_id": 4,
@@ -7261,13 +7273,26 @@
                 },
                 {
                   "id": 521,
-                  "name": "default",
+                  "name": "almDefault",
                   "label": "",
                   "parent_id": 456,
                   "attributes": null,
                   "description": "",
                   "nav_type_id": 1,
-                  "field_groups": null,
+                  "field_groups": [
+                    {
+                      "id": 1153,
+                      "name": "almDefault",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 521,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 1,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    }
+                  ],
                   "nav_level_id": 4,
                   "display_order": 1
                 },
@@ -8026,6 +8051,28 @@
                       "label": "Reversal risks",
                       "fields": [
                         {
+                          "id": 2089,
+                          "name": "acrRiskScore-nameValue-nameValue",
+                          "rows": null,
+                          "tier": 1,
+                          "type": "number",
+                          "label": "Calculated risk score (%)",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "Represents the overall risk category of the project, from both management risks and natural disaster risks, and should be used to calculated necessary buffer pool reductions",
+                          "elements": null,
+                          "component": "text-input",
+                          "attributes": {
+                            "field": ""
+                          },
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 3,
+                          "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
                           "id": 541,
                           "name": "reversalRiskOther-nameValue-nameValue",
                           "rows": null,
@@ -8040,7 +8087,7 @@
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "Use this space to outline the potential reversal risks",
-                          "display_order": 3,
+                          "display_order": 4,
                           "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -8060,7 +8107,7 @@
                           "attributes": null,
                           "half_width": false,
                           "helper_text": "Upload any documentation supporting the risk assessment",
-                          "display_order": 4,
+                          "display_order": 5,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -8326,7 +8373,7 @@
                           },
                           "half_width": false,
                           "helper_text": "Select which approaches are utilized by the project to demonstrate additionality",
-                          "display_order": 4,
+                          "display_order": 0,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -11708,6 +11755,18 @@
                   "nav_type_id": 1,
                   "field_groups": [
                     {
+                      "id": 1155,
+                      "name": "almLeakage",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 553,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 1,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    },
+                    {
                       "id": 721,
                       "name": "leakageActualsDefault",
                       "label": "",
@@ -13731,7 +13790,7 @@
                     {
                       "id": 835,
                       "name": "displacementImpactsDefault",
-                      "label": "",
+                      "label": "Resettlement impacts",
                       "fields": [
                         {
                           "id": 36,
@@ -14921,10 +14980,12 @@
                             "Other",
                             "Not applicable"
                           ],
-                          "tooltip": "",
+                          "tooltip": "Activities undertaken to enhance or maintain the quality of water resources, such as water filtration, desalination, grey water remediation, etc.",
                           "elements": null,
                           "component": "select-multiple",
-                          "attributes": null,
+                          "attributes": {
+                            "field": ""
+                          },
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 2,
@@ -15036,10 +15097,12 @@
                             "Volume provided",
                             "Volume treated"
                           ],
-                          "tooltip": "",
+                          "tooltip": "The Volumetric Water Benefit Accounting framework can be found at https://www.wri.org/research/volumetric-water-benefit-accounting-vwba-method-implementing-and-valuing-water-stewardship",
                           "elements": null,
                           "component": "select-multiple",
-                          "attributes": null,
+                          "attributes": {
+                            "field": ""
+                          },
                           "half_width": true,
                           "helper_text": "",
                           "display_order": 2,
@@ -15061,7 +15124,7 @@
                           "label": "Other relevant indicators used for monitoring water availability impacts",
                           "columns": null,
                           "options": [],
-                          "tooltip": "",
+                          "tooltip": "Any supplementary indicators tracked by the project beyond the core Verra Water Benefit (VWB) indicators, such as community water access, seasonal flow rates, pollution levels, or ecosystem health metrics",
                           "elements": null,
                           "component": "rich-text",
                           "attributes": {},
@@ -15086,7 +15149,7 @@
                           "label": "Rationale for the selected water monitoring indicators",
                           "columns": null,
                           "options": [],
-                          "tooltip": "",
+                          "tooltip": "The reasoning behind the choice of specific water quality parameters and metrics used in the monitoring program",
                           "elements": null,
                           "component": "rich-text",
                           "attributes": {},
@@ -15111,10 +15174,12 @@
                           "label": "Number of people who have benefitted from increased water availability as a result of project activities",
                           "columns": null,
                           "options": [],
-                          "tooltip": "",
+                          "tooltip": "Number of individuals who have gained increased or more reliable access to water as a result of the project’s conservation efforts (e.g., beneficiaries of stream or river recharge, improved groundwater availability, or enhanced well-system performance)",
                           "elements": null,
                           "component": "text-input",
-                          "attributes": null,
+                          "attributes": {
+                            "field": ""
+                          },
                           "half_width": true,
                           "helper_text": "",
                           "display_order": 9,
@@ -15136,10 +15201,10 @@
                           "label": "Water benefits claimed are third-party verified",
                           "columns": null,
                           "options": [],
-                          "tooltip": "",
+                          "tooltip": "Claimed impacts have been verified, validated, or accredited by a third party group",
                           "elements": null,
                           "component": "radio-y-n",
-                          "attributes": null,
+                          "attributes": {},
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 10,
@@ -15186,10 +15251,13 @@
                           "label": "Water availability impacts documentation",
                           "columns": null,
                           "options": [],
-                          "tooltip": "",
+                          "tooltip": "Evidence demonstrating water availability impacts",
                           "elements": null,
                           "component": "file-upload-multiple",
-                          "attributes": null,
+                          "attributes": {
+                            "accept": "",
+                            "isPublic": ""
+                          },
                           "half_width": false,
                           "helper_text": "Upload any documents related to water impacts, impact monitoring, water-related permits, etc.",
                           "display_order": 12,
