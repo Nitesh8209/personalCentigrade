@@ -18,6 +18,11 @@ test.describe(`Member Invitation and Approval Flow`, { tag: '@API' }, () => {
     headers = {
       'Content-Type': 'application/x-www-form-urlencoded',
     };
+    
+    if(!organizationId){
+      const data = getData('Api');
+      organizationId = data.organizationId; // Retrieve the organization ID from the saved data
+    }
   });
 
   // before Invite the new member set the new member as an Admin

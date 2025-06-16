@@ -139,7 +139,8 @@ test.describe('Button Level Validations', { tag: '@UI' }, () => {
                           type: field.type,
                           component: field.component,
                           label: field.label,
-                          options: field.options
+                          options: field.options,
+                          columns: field.columns,
                         });
                       },
                       errors
