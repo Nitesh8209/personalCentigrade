@@ -245,6 +245,11 @@ class SignUpPage {
     await this.organizationName(organizationName);
     await this.email(email);
     await this.checkBox();
+    if((await (await this.page.getByRole('button', { name: 'Accept All' })).isVisible())){
+      const acceptAll = await this.page.getByRole('button', { name: 'Accept All' });
+      await acceptAll.click();
+    }
+    
     await this.signUp();
   }
 
