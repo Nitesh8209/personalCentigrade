@@ -147,7 +147,7 @@ class SignUpPage {
   }
 
   async verificationCoderesendlink() {
-    return await this.page.locator('a.text-link');
+    return await this.page.getByRole('link', {name: 'resend it' });
   }
 
   async verificationCodehelpertext() {
