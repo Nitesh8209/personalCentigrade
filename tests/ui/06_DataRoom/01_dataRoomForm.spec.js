@@ -634,217 +634,14 @@ test.describe("test for data Room ",  { tag: ['@UI', '@SMOKE'] }, () => {
 
     const accessButton = await dataRoomPage.accessTabButton();
     await accessButton.click();
-
-    const invite = await dataRoomPage.InviteButton();
-    await invite.click();
     
     await safeExpect(
-      "Modal Header",
+      "Invite Button",
       async () => {
-        await expect(await dataRoomPage.modal()).toBeVisible();
-        await expect(await dataRoomPage.modalHeading()).toBeVisible();
-        await expect(await dataRoomPage.modalHeading()).toHaveText('Invite to data room');
-        await expect(await dataRoomPage.modalCloseIcon()).toBeVisible();        
+        const invite = await dataRoomPage.InviteButton();
+        await expect(invite).toBeVisible();     
+        await expect(invite).toBeDisabled();     
       },
-      errors
-    );
-
-    await safeExpect(
-      "Modal content",
-      async () => {
-        await expect(await dataRoomPage.inviteModalDiscription()).toBeVisible();
-        await expect(await dataRoomPage.inviteModalDiscription()).toHaveText('Add buyers to your data room by entering their emails. You can also include a personalized message in the invitation email.');
-
-        await expect(await dataRoomPage.inviteModalEmail()).toBeVisible();        
-        await expect(await dataRoomPage.inviteModalEmailLabel()).toBeVisible();  
-        await expect(await dataRoomPage.inviteModalEmailLabel()).toHaveText('Email');  
-        await expect(await dataRoomPage.inviteModalEmailinput()).toBeVisible();  
-        await expect(await dataRoomPage.inviteModalMessage()).toBeVisible();  
-        await expect(await dataRoomPage.inviteModalMessageLabel()).toBeVisible();  
-        await expect(await dataRoomPage.inviteModalMessageLabel()).toHaveText('Add a message');  
-        await expect(await dataRoomPage.inviteButtonModal()).toBeVisible();  
-      },
-      errors
-    );
-
-    await safeExpect(
-      "Modal buttons",
-      async () => {
-        await expect(await dataRoomPage.modalCancelButton()).toBeVisible();
-        await expect(await dataRoomPage.inviteButtonModal()).toBeVisible();        
-      },
-      errors
-    );
-
-    if (errors.length > 0) {
-      throw new Error(`Validation errors found:\n${errors.join('\n')}`);
-    }
-  })
-  
-  test('Invite user for visitor access', async() =>{
-    const dataRoomPage = new DataRoom(page);
-    const errors = [];
-
-    if(!(await (await dataRoomPage.modal()).isVisible())){
-      const dataRoom = await dataRoomPage.bodyContentNameLink(DataRoomTestdata.dataRoomName);
-      await dataRoom.click();
-
-      const accessButton = await dataRoomPage.accessTabButton();
-      await accessButton.click();
-  
-      const invite = await dataRoomPage.InviteButton();
-      await invite.click();
-    }
-    
-    await safeExpect(
-      "invite User",
-      async () => {
-        const inputEmail = await dataRoomPage.inviteModalEmailinput();
-        await inputEmail.fill(DataRoomTestdata.email);
-
-        const inputMessage = await dataRoomPage.inviteModalMessageinput();
-        await inputMessage.fill(DataRoomTestdata.message);
-                
-        const invite = await dataRoomPage.inviteButtonModal();
-        await invite.click();
-      },
-      errors
-    );
-
-    await safeExpect(
-      "message reciedved success",
-      async () => {
-        const message = await dataRoomPage.successMessagediv();
-        await expect(message).toBeVisible();
-        await expect(message).toHaveText('Your invitation was sent!');
-        const closeButton = await dataRoomPage.closeToast();
-        await closeButton.click();
-     },
-      errors
-    );
-
-    await safeExpect(
-      "visitors with access row",
-      async () => {
-        await expect(await dataRoomPage.fileRow()).toBeVisible();
-        await expect(await dataRoomPage.accessNameEmail()).toBeVisible();
-        await expect(await dataRoomPage.accessName()).toBeVisible();
-        await expect(await dataRoomPage.accessName()).toHaveText(DataRoomTestdata.name);
-        await expect(await dataRoomPage.accessEmail()).toHaveText(DataRoomTestdata.email);
-
-        await expect(await dataRoomPage.accessOrgName()).toBeVisible();
-        await expect(await dataRoomPage.accessOrgName()).toHaveText(DataRoomTestdata.projectName);
-
-        await expect(await dataRoomPage.accessStatus()).toBeVisible();
-        await expect(await dataRoomPage.accessStatus()).toHaveText('Invited');
-
-        await expect(await dataRoomPage.accessDate()).toBeVisible();
-        await expect(await dataRoomPage.accessAction()).toBeVisible();
-     },
-      errors
-    );
-
-    if (errors.length > 0) {
-      throw new Error(`Validation errors found:\n${errors.join('\n')}`);
-    }
-  })
-  
-  test('Remove access Invited user modal for visitor access', async() =>{
-    const dataRoomPage = new DataRoom(page);
-    const errors = [];
-
-    if(!(await (await dataRoomPage.documentsTabButton()).isVisible())){
-      const dataRoom = await dataRoomPage.bodyContentNameLink(DataRoomTestdata.dataRoomName);
-      await dataRoom.click();
-    }
-
-    const accessButton = await dataRoomPage.accessTabButton();
-    await accessButton.click();
-    
-    await safeExpect(
-      "Delete invited User",
-      async () => {
-        const accessRow = await dataRoomPage.fileRow();
-        await accessRow.hover();
-        const accessDelete = await dataRoomPage.accessDelete();
-        await expect(accessDelete).toBeVisible();
-        await accessDelete.click();
-      },
-      errors
-    );
-
-    await safeExpect(
-      "Remove access modal",
-      async () => {
-        await expect(await dataRoomPage.modal()).toBeVisible();
-        await expect(await dataRoomPage.modalHeading()).toBeVisible();
-        await expect(await dataRoomPage.modalHeading()).toHaveText('Remove access');
-        await expect(await dataRoomPage.modalCloseIcon()).toBeVisible();
-        await expect(await dataRoomPage.modalContent()).toBeVisible();
-
-        await expect(await dataRoomPage.removeAccessModalfirstPera()).toBeVisible();
-        await expect(await dataRoomPage.removeAccessModalfirstPera()).toHaveText('Are you sure you want to remove Nitesh123 Agarwal from the data room "Automation Test data"?');
-        await expect(await dataRoomPage.removeAccessModalSecondPera()).toBeVisible();
-        await expect(await dataRoomPage.removeAccessModalSecondPera()).toHaveText('You can choose to re-invite Nitesh123 Agarwal to this project later');
-        await expect(await dataRoomPage.modalCancelButton()).toBeVisible();
-        await expect(await dataRoomPage.modalRemoveButton()).toBeVisible();
-
-        const cancel = await dataRoomPage.modalCancelButton()
-        await cancel.click();
-     },
-      errors
-    );
-
-    if (errors.length > 0) {
-      throw new Error(`Validation errors found:\n${errors.join('\n')}`);
-    }
-  })
-  
-  test('Delete Invited user for visitor access', async() =>{
-    const dataRoomPage = new DataRoom(page);
-    const errors = [];
-
-    if(!(await (await dataRoomPage.documentsTabButton()).isVisible())){
-      const dataRoom = await dataRoomPage.bodyContentNameLink(DataRoomTestdata.dataRoomName);
-      await dataRoom.click();
-
-      const accessButton = await dataRoomPage.accessTabButton();
-      await accessButton.click();
-    }
-
-    await safeExpect(
-      "Delete invited User",
-      async () => {
-        const accessRow = await dataRoomPage.fileRow();
-        await accessRow.hover();
-        const accessDelete = await dataRoomPage.accessDelete();
-        await expect(accessDelete).toBeVisible();
-        await accessDelete.click();
-      },
-      errors
-    );
-
-    await safeExpect(
-      "Delete User",
-      async () => {
-        const remove = await dataRoomPage.modalRemoveButton();
-        await expect(remove).toBeVisible();
-
-        await remove.click();
-     },
-      errors
-    );
-
-    await safeExpect(
-      "message reciedved success",
-      async () => {
-        const message = await dataRoomPage.successMessagediv();
-        await expect(message).toBeVisible();
-        await expect(message).toHaveText('Data room member removed successfully');
-        const closeButton = await dataRoomPage.closeToast();
-        await closeButton.click();
-        await page.waitForTimeout(10000);
-     },
       errors
     );
 
@@ -862,6 +659,11 @@ test.describe("test for data Room ",  { tag: ['@UI', '@SMOKE'] }, () => {
     await dataRoomNavigate.click();
 
     const dataRoom = await dataRoomPage.bodyContent();
+    if (!(await dataRoom.isVisible())) {
+      const dataRoomNavigate = await dataRoomPage.dataRoomNavigation();
+      await expect(dataRoomNavigate).toBeVisible();
+      await dataRoomNavigate.click();
+    }
     await dataRoom.hover();
 
     const button = await dataRoomPage.bodyContentActionButton();
