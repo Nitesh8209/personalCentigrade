@@ -159,12 +159,7 @@ export const remainingFields = {
     { keyName: "benefitSharing", value: "Yes" },
     { keyName: "benefitSharingExplanation", value: "test" },
     { keyName: "benefitSharingCommunities", value: "Yes" },
-    {
-      keyName: "compensationType",
-      value: '["Monetary incentives - Community funds"]',
-    },
     { keyName: "iplcOwnershipPercent", value: "80" },
-    { keyName: "compensationPercent", value: "90" },
     { keyName: "airMonitoringPlan", value: "Yes" },
     { keyName: "airMonitoringDomains", value: '["Indoor air pollution"]' },
     { keyName: "airMonitoringDescription", value: "test" },
