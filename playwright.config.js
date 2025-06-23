@@ -397,6 +397,15 @@ module.exports = defineConfig({
           dependencies: ['buyerPublishProject'],
         },
         {
+          name: 'DataRoomFormInviteUI',
+          testMatch: [ 'Ui/06_DataRoom/03_dataRoomForm_Invite.spec.js'],
+          use: { ...devices['Desktop Chrome'],
+            viewport: { width: 1366, height: 768 },
+           },
+          fullyParallel: false,
+          dependencies: ['PublishProject'],
+        },
+        {
           name: 'EntitiesInvolved',
           testMatch: [ 'Ui/04_Project/09_Entities_involved.spec.js'],
           use: { ...devices['Desktop Chrome'],

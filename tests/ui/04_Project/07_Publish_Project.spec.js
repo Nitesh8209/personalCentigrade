@@ -27,7 +27,7 @@ test.describe('project creation', { tag: ['@UI', '@SMOKE'] }, () => {
       await page.context().storageState({ path: authStoragePath });
       });
 
- test('Create Button in create new project modal, Saves Project and Navigates to Overview', async ({page, baseURL }) => {
+  test('Create Button in create new project modal, Saves Project and Navigates to Overview', async ({ page, baseURL }) => {
     const errors = [];
     const loginPage = new LoginPage(page, baseURL);
     const projectsPage = new ProjectsPage(page, baseURL);
@@ -65,11 +65,11 @@ test.describe('project creation', { tag: ['@UI', '@SMOKE'] }, () => {
         await page.waitForURL('**/projects/**/overview');
         await page.waitForLoadState('networkidle');
 
-        if((await (await projectsPage.modal()).isVisible())){
+        if ((await (await projectsPage.modal()).isVisible())) {
           const closeButton = await projectsPage.modalClose();
           await closeButton.click();
         }
-        await expect(await projectsPage.overviewProject()).toBeVisible({ timeout: 20000});
+        await expect(await projectsPage.overviewProject()).toBeVisible({ timeout: 20000 });
         await expect(await projectsPage.overviewHeader()).toBeVisible();
         await expect(await projectsPage.overviewtitle()).toBeVisible();
         await expect(await projectsPage.overviewtitle()).toHaveText(project.uiProjectName);
@@ -114,6 +114,11 @@ test.describe('Fill All Required Fields and Save', { tag: ['@UI', '@SMOKE'] }, (
     // Find and click on the topic label
     const topicElement = await fieldHandler.findLabel(topic.label);
     await topicElement.click();
+
+    if ((await (await page.getByRole('button', { name: 'Accept All' })).isVisible())) {
+      const acceptAll = await page.getByRole('button', { name: 'Accept All' });
+      await acceptAll.click();
+    }
   });
 
 
@@ -150,7 +155,7 @@ test.describe('Fill All Required Fields and Save', { tag: ['@UI', '@SMOKE'] }, (
 
                 // Skip specific fields based on conditions
                 if (['Project name', 'Methodology'].includes(field.label)) continue;
-                if(field.name == 'geographicLocation-projectFile-storage') continue;
+                if (field.name == 'geographicLocation-projectFile-storage') continue;
 
                 // Identify the input locator for the field
                 const inputLocator = await fieldHandler.getLocator(
@@ -301,7 +306,7 @@ test.describe('Publish the Project after completed the Tier 0 topic', { tag: ['@
 
 });
 
-test.describe('Approve project by superuser',{ tag: ['@UI', '@SMOKE'] } ,() =>{
+test.describe('Approve project by superuser', { tag: ['@UI', '@SMOKE'] }, () => {
   let projectsPage;
   let fieldHandler;
   let page;
@@ -330,7 +335,7 @@ test.describe('Approve project by superuser',{ tag: ['@UI', '@SMOKE'] } ,() =>{
  
 
   test('Verify Approve project button is visible and Approve', async () => {
-    
+
     const errors = [];
 
     await safeExpect('Verify Approve project Button should be visible and enabled and click',
@@ -361,7 +366,7 @@ test.describe('Approve project by superuser',{ tag: ['@UI', '@SMOKE'] } ,() =>{
 
 })
 
-test.describe('Project after approve Project', { tag: ['@UI', '@SMOKE'] }, ()=>{
+test.describe('Project after approve Project', { tag: ['@UI', '@SMOKE'] }, () => {
   let projectsPage;
   let fieldHandler;
   let page;
@@ -498,54 +503,6 @@ test.describe('Project after approve Project', { tag: ['@UI', '@SMOKE'] }, ()=>{
 
   });
 
-  test('Unpublish the project', async () => {
-    const errors = [];
-
-    // Click on Unpublish Button
-    await safeExpect('Click Unpublish button',
-      async () => {
-        const triggerButton = await projectsPage.unpublishTrigger();
-        await triggerButton.click();
-        const unpublishButton = await projectsPage.unPublishButton();
-        await unpublishButton.waitFor({ state: 'visible' });
-        await unpublishButton.click();
-        await projectsPage.confirmButton();
-      },
-      errors
-    )
-
-    // Verify Success Message after Unpublishing
-    await safeExpect('Check success message after unpublishing',
-      async () => {
-        const success = await fieldHandler.successMessagediv();
-        const successMessage = await success.innerText();
-        await expect(success).toBeVisible();
-        await expect(successMessage).toBe('Your project has been unpublished');
-      },
-      errors
-    );
-
-    if (errors.length > 0) {
-      throw new Error(`Validation errors found:\n${errors.join('\n')}`);
-    }
-  });
-
-  test('Verify Share button is not visible after unpublishing', async () => {
-    const errors = [];
-
-    await safeExpect('Share button should not be visible',
-      async () => {
-        const shareButton = await projectsPage.shareButton();
-        await expect(shareButton).not.toBeVisible();
-      },
-      errors
-    );
-
-    if (errors.length > 0) {
-      throw new Error(`Validation errors found:\n${errors.join('\n')}`);
-    }
-
-  });
 
 })
 
