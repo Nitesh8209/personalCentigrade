@@ -337,6 +337,13 @@ export class FieldHandler {
       case COMPONENT_TYPES.TEXTAREA:
         await this.dataTableTextAreaField(dataTableLocator, field);
         break;
+
+      case COMPONENT_TYPES.DATE_PICKER:
+        const date = "06/26/2025";
+        await locator.click();
+        await locator.locator('input').fill(date);
+        await locator.locator('button').click();
+        break;  
     }
   }
 
@@ -362,6 +369,7 @@ export class FieldHandler {
   async dataTableInputField(locator, field) {
     const inputField = await locator.locator('input');
     await inputField.click();
+    await inputField.clear();
 
     const testValue = field.type === FIELD_TYPES.STRING ? 'Test Input' : '123';
     await inputField.type(testValue);
@@ -373,9 +381,10 @@ export class FieldHandler {
   async dataTableTextAreaField(locator, field) {
     const inputField = await locator.locator('textarea');
     await inputField.click();
+    await inputField.clear()
 
     const testValue = field.type === FIELD_TYPES.STRING ? 'Test Input' : '123';
-    await inputField.type(testValue);
+    await inputField.fill(testValue);
     await expect(inputField).toHaveValue(testValue);
   }
 
@@ -404,6 +413,7 @@ export class FieldHandler {
 
       const AddRow = await locator.getByRole('button', { name: '+ Add row' });
       await expect(AddRow).toBeVisible();
+      await AddRow.click();
     }
   }
 
@@ -680,15 +690,19 @@ export class FieldHandler {
         value = [];
         const indicator = await locator.locator('.select-indicator');
         const listbox = await this.listBox(field.label);
-        if (!(await listbox.isVisible())) {
+        
+        for (const option of field.options) {
+          if (!(await listbox.isVisible())) {
           await indicator.click();
         }
-        for (const option of field.options) {
           const selectedValuesText = await locator.textContent();
-          if (selectedValuesText.includes(option)) continue;
+          if (selectedValuesText.includes(option)){
+            value.push(option);
+            continue;
+          } 
           const optionLocator = listbox.locator(`text="${option}"`);
           await expect(optionLocator).toBeVisible();
-          await optionLocator.click();
+          await optionLocator.click({force: true});
           value.push(option);
         }
         await indicator.click();
@@ -755,15 +769,21 @@ export class FieldHandler {
         const startYear = data["creditStart-nameValue-nameValue"];
         const endyear = data["creditEnd-nameValue-nameValue"];
         await this.validateDataGridFields(locator, field, startYear, endyear);
+        value = true;
         break;
 
       case COMPONENT_TYPES.DATA_TABLE:
         await this.validateDataTableFields(locator, field);
+        value = true;
         break;
 
       case COMPONENT_TYPES.DATE_PICKER:
         const date = faker.date.past();
-        value = date.toLocaleDateString('en-US');
+        value = date.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit'
+                  });
         await locator.fill(value);
         break;
 
@@ -1152,6 +1172,124 @@ export class FieldHandler {
     if (!stepState?.includes('active')) {
       await stepElement.click();
     }
+  }
+
+
+  async validateFieldAfterSave(locator, field, value) {
+   
+    switch (field.component) {
+
+      case COMPONENT_TYPES.TEXT_INPUT:
+          expect(locator).toHaveValue(value);
+        break;
+
+      case COMPONENT_TYPES.RICH_TEXT:
+      case COMPONENT_TYPES.TEXTAREA:
+          await expect(locator).toHaveText(value)
+        break;
+
+      case COMPONENT_TYPES.SELECT:
+        await expect(locator).toHaveText(value);
+        break;
+
+      case COMPONENT_TYPES.SELECT_MULTIPLE:
+        const selectMultipleallText = await locator.locator('span > div').allTextContents();
+        await expect(selectMultipleallText).toEqual(value);
+        break;
+
+      case COMPONENT_TYPES.COUNTRY_SELECT:
+        const countrySelectallText = await locator.locator('..').locator('..').locator('.autocomplete-control').allTextContents();
+        await expect(countrySelectallText).toEqual([value]);
+        break;
+
+      case COMPONENT_TYPES.YEAR_INPUT:
+        expect(locator).toHaveValue(value);
+        break;
+
+      case COMPONENT_TYPES.MEDIA_CAROUSEL:
+      case COMPONENT_TYPES.FILE_UPLOAD_MULTIPLE:
+      case COMPONENT_TYPES.FILE_UPLOAD:   
+        const lastLi = await locator.locator('..').locator('ul li').nth(-1);     
+        const lastLiFileName = await lastLi.locator('.file-name-container');
+        const lastLiText = await lastLiFileName.textContent();
+        await expect(lastLiText).toBe('file2.png');
+        value = "file2.png";
+        break;
+
+      case COMPONENT_TYPES.RADIOYN:
+      case COMPONENT_TYPES.RADIOIDK:
+        const radiolocator = await locator.locator('.radio-container').getByText('Yes');
+        const isChecked = await radiolocator.isChecked();
+        expect(isChecked).toBe(true);
+        break;
+
+      case COMPONENT_TYPES.CHECKBOX:
+        for (const option of field.options) {
+          const checkBoxlocator = await locator.getByText(option);
+          const isChecked = await checkBoxlocator.isChecked();
+          await expect(isChecked).toBe(true);
+        }
+        break;  
+
+      case COMPONENT_TYPES.RADIO:
+        value = field.options[0];
+        const radioOption = await locator.locator('.radio-container').getByText(value);
+        const isRadioChecked = await radioOption.isChecked();
+        await expect(isRadioChecked).toBe(true);
+        break;
+
+      case COMPONENT_TYPES.DATA_GRID:
+        const projectdataFilePath = './tests/data/Project-data.json';
+        const data = await this.getData('ProjectData', projectdataFilePath);
+        const startYear = data["creditStart-nameValue-nameValue"];
+        const endyear = data["creditEnd-nameValue-nameValue"];
+
+        const dataGridField = await locator.locator('..').locator('..').getByRole('treegrid');
+        await expect(dataGridField).toBeVisible();
+
+        for (const option of field.options) {
+          const colName = await dataGridField.getByText(option.label);
+          await expect(colName).toBeVisible();
+          await expect(colName).toHaveText(option.label);
+          for (let i = 0; i <= endyear - startYear; i++) {
+            const colId = Number(startYear);
+            const rowIndex = await dataGridField.locator('.ag-center-cols-viewport').locator(`[row-id="${option.name}"]`);
+            await expect(rowIndex).toBeVisible();
+            const colheader = await rowIndex.locator(`[col-id="${colId + i}"]`);
+            await expect(colheader).toBeVisible();
+            await expect(colheader).toHaveText((colId + i).toLocaleString());
+          }
+        }
+        break;
+
+      case COMPONENT_TYPES.DATA_TABLE:
+            const firstRow = await locator.locator('[row-id="0"]');
+          for(const column of field.columns){
+            if(column.component == 'text-input' || column.component == 'textarea'){
+            const testValue = column.type === 'string' ? 'Test Input' : '123';
+            await expect(await firstRow.locator(`[col-id="${column.column_id}"]`)).toBeVisible();
+            await expect(await firstRow.locator(`[col-id="${column.column_id}"]`)).toHaveText(testValue);
+            }else if(column.component == 'select'){
+            }else if(column.component == 'date-picker'){
+              await expect(await firstRow.locator(`[col-id="${column.column_id}"]`)).toBeVisible();
+              await expect(await firstRow.locator(`[col-id="${column.column_id}"]`)).toHaveText("06/26/2025");
+            }
+            
+          }
+        break;
+
+      case COMPONENT_TYPES.DATE_PICKER:
+        await expect(locator).toHaveValue(value);
+        break;
+
+      case COMPONENT_TYPES.TEXT_INPUT_MULTIPLE:
+       expect(await locator.locator('input')).toHaveValue(value);
+        break;
+
+      default:
+          console.log('default', locator, value)
+    }
+
   }
 
 }

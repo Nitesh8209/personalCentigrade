@@ -40,8 +40,8 @@ test.describe('After Topic 1 - Fill Remaining Required Fields and Save', { tag: 
     await expect(projectTitle).toBe(project.uiProjectName);
   });
 
- 
-  test('Verify Update project modal', async({baseURL}) => {
+
+  test('Verify Update project modal', async ({ baseURL }) => {
     const errors = [];
     const projectsPage = new ProjectsPage(page, baseURL);
 
@@ -69,11 +69,11 @@ test.describe('After Topic 1 - Fill Remaining Required Fields and Save', { tag: 
     }
   })
 
-  test('Verify the Current draft card before updating any filed since last publish', async ({baseURL}) => {
+  test('Verify the Current draft card before updating any filed since last publish', async ({ baseURL }) => {
     const errors = [];
     const projectsPage = new ProjectsPage(page, baseURL);
 
-    if(!(await (await projectsPage.projectUpdateModal()).isVisible())){
+    if (!(await (await projectsPage.projectUpdateModal()).isVisible())) {
       await safeExpect('Click on the Last Update Link',
         async () => {
           const viewChanges = await projectsPage.viewChangesLink();
@@ -115,8 +115,8 @@ test.describe('After Topic 1 - Fill Remaining Required Fields and Save', { tag: 
         await expect(await projectsPage.currentDraftCardbodyVersionNotesText()).toHaveText('Summary of changes');
         await expect(await projectsPage.currentDraftCardbodyVersionNotesPera()).toBeEnabled();
         await expect(await projectsPage.currentDraftCardbodyVersionNotesPera()).toHaveText('Add a summary...');
-        await expect(await projectsPage.currentDraftCardbodyChanges()).toBeEnabled(); 
-        await expect(await projectsPage.currentDraftCardbodyChanges()).toHaveText('No changes since last publish'); 
+        await expect(await projectsPage.currentDraftCardbodyChanges()).toBeEnabled();
+        await expect(await projectsPage.currentDraftCardbodyChanges()).toHaveText('No changes since last publish');
       },
       errors
     );
@@ -136,6 +136,11 @@ test.describe('After Topic 1 - Fill Remaining Required Fields and Save', { tag: 
           test.skip(true, `Skipping all tests for topic '${topic.label}' as it's not visible`);
         } else {
           await topicElement.click();
+
+          if ((await (await page.getByRole('button', { name: 'Accept All' })).isVisible())) {
+            const acceptAll = await page.getByRole('button', { name: 'Accept All' });
+            await acceptAll.click();
+          }
         }
       });
 
@@ -155,6 +160,8 @@ test.describe('After Topic 1 - Fill Remaining Required Fields and Save', { tag: 
               // Ensure step is visible and click on it
               await expect(stepElement).toBeVisible();
               await stepElement.click();
+              const stepLabel = await page.getByRole('heading', { name: step.label, exact: true });
+              await expect(stepLabel).toBeVisible();
             })
 
             test(`Complete and Save All Fields for Step: ${step.label}`, async () => {
@@ -310,7 +317,7 @@ test.describe('Publish the Project after completed the Tier 1, Tier 2, Tier 3 to
   test('Click on the Close button of Project Update modal', async () => {
     const errors = [];
 
-    if(!(await (await projectsPage.projectUpdateModal()).isVisible())){
+    if (!(await (await projectsPage.projectUpdateModal()).isVisible())) {
       await safeExpect('Click on the Last Update Link',
         async () => {
           const viewChanges = await projectsPage.viewChangesLink();
@@ -339,7 +346,7 @@ test.describe('Publish the Project after completed the Tier 1, Tier 2, Tier 3 to
   test('Verify the Current draft card', async () => {
     const errors = [];
 
-    if(!(await (await projectsPage.projectUpdateModal()).isVisible())){
+    if (!(await (await projectsPage.projectUpdateModal()).isVisible())) {
       await safeExpect('Click on the Last Update Link',
         async () => {
           const viewChanges = await projectsPage.viewChangesLink();
@@ -371,7 +378,7 @@ test.describe('Publish the Project after completed the Tier 1, Tier 2, Tier 3 to
         await expect(await projectsPage.currentDraftCardbodyVersionNotesText()).toHaveText('Summary of changes');
         await expect(await projectsPage.currentDraftCardbodyVersionNotesPera()).toBeEnabled();
         await expect(await projectsPage.currentDraftCardbodyVersionNotesPera()).toHaveText('Add a summary...');
-        await expect(await projectsPage.currentDraftCardbodyChanges()).toBeEnabled(); 
+        await expect(await projectsPage.currentDraftCardbodyChanges()).toBeEnabled();
       },
       errors
     );
@@ -384,7 +391,7 @@ test.describe('Publish the Project after completed the Tier 1, Tier 2, Tier 3 to
   test('verify the Summary of Updates field by cick on the current drat card', async () => {
     const errors = [];
 
-    if(!(await (await projectsPage.projectUpdateModal()).isVisible())){
+    if (!(await (await projectsPage.projectUpdateModal()).isVisible())) {
       await safeExpect('Click on the Last Update Link',
         async () => {
           const viewChanges = await projectsPage.viewChangesLink();
@@ -429,7 +436,7 @@ test.describe('Publish the Project after completed the Tier 1, Tier 2, Tier 3 to
   test('Unsaved changes modal', async () => {
     const errors = [];
 
-    if(!((await (await projectsPage.projectUpdateModal()).isVisible()) || (await (await projectsPage.currentDraftModal()).isVisible()))){
+    if (!((await (await projectsPage.projectUpdateModal()).isVisible()) || (await (await projectsPage.currentDraftModal()).isVisible()))) {
       await safeExpect('Click on the Last Update Link',
         async () => {
           const viewChanges = await projectsPage.viewChangesLink();
@@ -507,8 +514,8 @@ test.describe('Publish the Project after completed the Tier 1, Tier 2, Tier 3 to
 
   test('Verify the Summary of Updates field by click on the Publish button', async () => {
     const errors = [];
-    
-    if(!((await projectsPage.projectUpdateModal()).isVisible())){
+
+    if (!((await projectsPage.projectUpdateModal()).isVisible())) {
       await safeExpect('close modal',
         async () => {
           const closeButton = await projectsPage.projectUpdateCloseButton();
@@ -612,3 +619,128 @@ test.describe('Publish the Project after completed the Tier 1, Tier 2, Tier 3 to
 
 });
 
+
+test.describe('Verify the all Fileds are saved', { tag: '@UI' }, () => {
+
+  let page;
+  let fieldHandler;
+
+  const authStoragePath = path.join(__dirname, '..', '..', 'data', 'project-Publish-auth.json');
+  test.use({ storageState: authStoragePath });
+
+  test.beforeAll(async ({ browser, baseURL }) => {
+    // Initialize page objects
+    const context = await browser.newContext();
+    page = await context.newPage();
+    const loginPage = new LoginPage(page, baseURL);
+    const projectsPage = new ProjectsPage(page, baseURL);
+    fieldHandler = new FieldHandler(page);
+
+    // Navigate to the application and log in
+    await loginPage.navigate();
+    await projectsPage.viewProject();
+    await page.waitForURL(`**/overview`);
+
+    // Validate project title
+    const projectTitle = await projectsPage.projectTitle();
+    await expect(projectTitle).toBe(project.uiProjectName);
+  });
+
+  test.afterAll(async () => {
+    // Close the page after all tests are done
+    await page.close();
+  });
+
+
+  // Iterate over each step group in the topic
+  for (let i = 0; i < formData.topics.length; i++) {
+    const topic = formData.topics[i];
+    test.describe(`Topic: ${topic.label}`, () => {
+      test.beforeAll(async () => {
+        const topicElement = await fieldHandler.findLabel(topic.label);
+        if (!topicElement || !(await topicElement.isVisible())) {
+          test.skip(true, `Skipping all tests for topic '${topic.label}' as it's not visible`);
+        } else {
+          await topicElement.click();
+        }
+      });
+
+      for (const stepGroup of topic.step_groups) {
+        if (!stepGroup?.steps) continue;
+        for (const step of stepGroup.steps) {
+
+          // Iterate over each step in the step group
+          test.describe(`Step: ${step.label}`, () => {
+            test.beforeEach(async () => {
+              const stepElement = await fieldHandler.findStep(step.label);
+
+              // Check step visibility before proceeding
+              await fieldHandler.checkStepVisibility(stepElement, step, test);
+              // await fieldHandler.checkValidateField(step, test);
+
+              // Ensure step is visible and click on it
+              await expect(stepElement).toBeVisible();
+              await stepElement.click();
+              const stepLabel = await page.getByRole('heading', { name: step.label, exact: true });
+              await expect(stepLabel).toBeVisible();
+            })
+
+            test(`Validate All Fields are saved for Step: ${step.label}`, async () => {
+              const errors = [];
+
+              for (const section of step.sections) {
+                if (!section?.field_groups) continue;
+                for (const fieldGroup of section.field_groups) {
+                  if (!fieldGroup?.fields) continue;
+
+                  // Iterate through fields within each group
+                  for (const field of fieldGroup.fields) {
+
+                    // Skip specific fields based on conditions
+                    if (['Project name', 'Methodology'].includes(field.label)) continue;
+                    // if (field.name == 'geographicLocation-projectFile-storage') continue;
+                    if (
+                      field.name === 'creditIssuerOther-nameValue-nameValue' ||
+                      field.name === 'geographicLocation-projectFile-storage' ||
+                      field.name === 'projectOther-nameValue-nameValue'
+                    ) {
+                      continue;
+                    }
+                    await safeExpect('Validate the Field after save', async () => {
+                      const inputLocator = await fieldHandler.getLocator(
+                        field.name, field.label, field.type, field.component
+                      );
+                      if (inputLocator) {
+                        const projectdataFilePath = './tests/data/Project-data.json';
+                        const data = await fieldHandler.getData('ProjectData', projectdataFilePath);
+
+                        const value = data[field.name];
+                        if (value) {
+                          await expect(inputLocator).toBeVisible();
+                          await fieldHandler.validateFieldAfterSave(inputLocator, field, value);
+                        }
+
+                      }
+                    }, errors)
+                  }
+
+                }
+
+              }
+
+              // If there are any errors, fail the test with all collected errors
+              if (errors.length > 0) {
+                throw new Error(`Validation errors found:\n${errors.join('\n')}`);
+              }
+            });
+
+          })
+
+        }
+      }
+    }
+    )
+
+  }
+
+})
