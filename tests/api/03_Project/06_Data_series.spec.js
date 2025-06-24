@@ -15,14 +15,15 @@ test.describe('Reamining Fields Data Upload Tests' ,{tag: '@API'}, () => {
   test.beforeAll(async () => {
     headers = {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${projectAccessToken}`
+      'Authorization': `Bearer ${projectAccessToken}`,
+      'x-centigrade-organization-id': 409
     };
   });
 
   // Test to upload series data
   dataSeries.forEach(({ name, indexOrder }, index) => {
     test(`Upload the series data for ${name} indexOrder ${indexOrder}`, async () => {
-      const uploadSeriesUrl = `${API_ENDPOINTS.createProject}/${draftProjectId}/series`;
+      const uploadSeriesUrl = `${API_ENDPOINTS.createProjectguid}/series`;
 
       const response = await postRequest(uploadSeriesUrl, JSON.stringify(dataSeries[index]), headers);
       const responseBody = await response.json();

@@ -14,13 +14,14 @@ test.describe('Fill all Fields', { tag: '@API' }, () => {
     // Set headers with authorization token and content type
     headers = {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${projectAccessToken}`
+      'Authorization': `Bearer ${projectAccessToken}`,
+      'x-centigrade-organization-id': 409
     };
   });
 
   // Test to create project field values
   test('Post Request project-field-values for all Fields', async () => {
-    const projectfieldvalueUrl = `${API_ENDPOINTS.createProject}/${draftProjectId}/project-field-values`;
+    const projectfieldvalueUrl = `${API_ENDPOINTS.createProjectguid}/project-field-values`;
 
     // Send a POST request with project approach data
     const response = await postRequest(projectfieldvalueUrl, JSON.stringify(remainingFields), headers);
@@ -37,7 +38,7 @@ test.describe('Fill all Fields', { tag: '@API' }, () => {
   // Test to retrieve project field values
   test('Get Project-Field-Values', async () => {
 
-    const projectfieldvalueUrl = `${API_ENDPOINTS.createProject}/${draftProjectId}/project-field-values`;
+    const projectfieldvalueUrl = `${API_ENDPOINTS.createProjectguid}/project-field-values/draft`;
 
     // Send a GET request to retrieve project field values
     const response = await getRequest(projectfieldvalueUrl, headers);
