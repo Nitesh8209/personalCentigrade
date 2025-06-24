@@ -18,7 +18,8 @@ test.describe('Upload Files For all Tiers', { tag: '@API' }, () => {
     // Set headers with authorization token and content type
     headers = {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${projectAccessToken}`
+      'Authorization': `Bearer ${projectAccessToken}`,
+      'x-centigrade-organization-id': 409
     };
   });
 
@@ -26,7 +27,7 @@ test.describe('Upload Files For all Tiers', { tag: '@API' }, () => {
   test.describe('Upload File', () => {
     FileType.forEach(({configFieldId, projectFileType }) => {
       test(`should successfully upload a file of type: ${projectFileType}`, async ({ request }) => {
-        const fileUrl = `${API_ENDPOINTS.createProject}/${draftProjectId}/file`;
+        const fileUrl = `${API_ENDPOINTS.createProjectguid}/file`;
 
         // Prepare file data for upload
         const fileData = {
@@ -40,6 +41,7 @@ test.describe('Upload Files For all Tiers', { tag: '@API' }, () => {
           },
           headers: {
             'Authorization': `Bearer ${projectAccessToken}`,
+            'x-centigrade-organization-id': String(409),
           }
         };
 

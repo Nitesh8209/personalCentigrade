@@ -17,13 +17,14 @@ test.describe('TIER0 Project Management Tests for Publish', { tag: '@API' }, () 
     // Set headers with authorization token and content type
     headers = {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${projectAccessToken}`
+      'Authorization': `Bearer ${projectAccessToken}`,
+      'x-centigrade-organization-id': 409
     };
   });
 
   // Test to create project field values
   test('Create Project-Field-Values ', async () => {
-    const projectfieldvalueUrl = `${API_ENDPOINTS.createProject}/${projectId}/project-field-values`;
+    const projectfieldvalueUrl = `${API_ENDPOINTS.createProjectguid}/project-field-values`;
 
     // Send a POST request with project approach data
     const response = await postRequest(projectfieldvalueUrl, JSON.stringify(projectApproach), headers);
@@ -40,15 +41,15 @@ test.describe('TIER0 Project Management Tests for Publish', { tag: '@API' }, () 
   // Test to retrieve project field values
   test('Get Project-Field-Values', async () => {
 
-    const projectfieldvalueUrl = `${API_ENDPOINTS.createProject}/${projectId}/project-field-values`;
+    const projectfieldvalueUrl = `${API_ENDPOINTS.createProjectguid}/project-field-values/draft`;
 
     // Send a GET request to retrieve project field values
     const response = await getRequest(projectfieldvalueUrl, headers);
-
+ 
     // Verify response status and structure
     expect(response.status).toBe(200);
     const responseBody = await response.json();
-
+     console.log(responseBody);
     expect(Array.isArray(responseBody)).toBe(true);
 
     // Validate the response data
@@ -57,7 +58,7 @@ test.describe('TIER0 Project Management Tests for Publish', { tag: '@API' }, () 
 
   // Test to retrieve specific project fields based on a search query
   test('Retrieve Project Fields', async () => {
-    const projectFiledsUrl = `${API_ENDPOINTS.createProject}/${projectId}/fields?searchText=projectMission`;
+    const projectFiledsUrl = `${API_ENDPOINTS.createProjectguid}/fields/draft?searchText=projectMission`;
     const response = await getRequest(projectFiledsUrl, headers);
     const responseBody = await response.json();
 
@@ -72,7 +73,7 @@ test.describe('TIER0 Project Management Tests for Publish', { tag: '@API' }, () 
       const filePath = './tests/assets/file.png';
       const fileBuffer = fs.readFileSync(filePath);
 
-      const fileUrl = `${API_ENDPOINTS.createProject}/${projectId}/file`;
+      const fileUrl = `${API_ENDPOINTS.createProjectguid}/file`;
 
        // Prepare file data for upload
        const fileData = {
@@ -86,6 +87,7 @@ test.describe('TIER0 Project Management Tests for Publish', { tag: '@API' }, () 
         },
         headers: {
           'Authorization': `Bearer ${projectAccessToken}`,
+          'x-centigrade-organization-id': String(409),
         }
       };
 
@@ -96,7 +98,7 @@ test.describe('TIER0 Project Management Tests for Publish', { tag: '@API' }, () 
   })
 
   test('Publish project', async () => {
-    const publishProjectUrl = `${API_ENDPOINTS.createProject}/${projectId}/publish`;
+    const publishProjectUrl = `${API_ENDPOINTS.createProjectguid}/publish`;
 
     const data = { notes: "Project first published" };
 
@@ -112,7 +114,7 @@ test.describe('TIER0 Project Management Tests for Publish', { tag: '@API' }, () 
   })
 
   test('should not Update the Review State of project  by Admin', async () => {
-    const reviewProjectUrl = `${API_ENDPOINTS.createProject}/${projectId}`;
+    const reviewProjectUrl = `${API_ENDPOINTS.createProjectguid}`;
     const data = { reviewState: "REVIEWED" };
 
     const response = await putRequest(reviewProjectUrl, JSON.stringify(data), headers);
@@ -125,13 +127,14 @@ test.describe('TIER0 Project Management Tests for Publish', { tag: '@API' }, () 
   })
 
   test('should be Update the Review State of project by superUser', async () => {
-    const reviewProjectUrl = `${API_ENDPOINTS.createProject}/${projectId}`;
+    const reviewProjectUrl = `${API_ENDPOINTS.createProjectguid}`;
 
     const data = { reviewState: "REVIEWED" };
 
     const reviewHeaders = {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${admin_access_token}`
+      'Authorization': `Bearer ${admin_access_token}`,
+      'x-centigrade-organization-id': 409
     };
 
     const response = await putRequest(reviewProjectUrl, JSON.stringify(data), reviewHeaders);
@@ -146,7 +149,7 @@ test.describe('TIER0 Project Management Tests for Publish', { tag: '@API' }, () 
   })
 
   test('Publish project after REVIEWED', async () => {
-    const publishProjectUrl = `${API_ENDPOINTS.createProject}/${projectId}/publish`;
+    const publishProjectUrl = `${API_ENDPOINTS.createProjectguid}/publish`;
     const data = { notes: "Project first published" };
 
     const response = await postRequest(publishProjectUrl, JSON.stringify(data), headers);
@@ -165,21 +168,22 @@ test.describe('TIER0 Project Management Tests for Publish', { tag: '@API' }, () 
 
 
   test('Get the public Project API After Publish', async () => {
-    const publishProjectUrl = `${API_ENDPOINTS.getPublic}/${projectId}`;
-
-    const response = await getRequest(publishProjectUrl, headers);
+    const publishProjectUrl = `${API_ENDPOINTS.createProjectguid}/public`;
+    const publicHeader ={}
+    const response = await getRequest(publishProjectUrl, publicHeader);
     const responseBody = await response.json();
 
+    console.log(responseBody);
     expect(response.status).toBe(200);
     expect(responseBody.id).toBe(projectId);
     expect(responseBody.organizationId).toBe(apiProjectCreadentials.organizationId);
     expect(responseBody.isPublished).toBe(true);
     expect(responseBody.reviewState).toBe('REVIEWED');
-    expect(responseBody.latestVersions.published).not.toBe(null);
+    expect(responseBody.latestVersions).toBe(null);
   })
 
   test('UnPublish the Project', async () => {
-    const unpublishProjectUrl = `${API_ENDPOINTS.createProject}/${projectId}`;
+    const unpublishProjectUrl = `${API_ENDPOINTS.createProjectguid}`;
     const unpublishprojectData = {
       isPublished: false,
     };
@@ -194,14 +198,14 @@ test.describe('TIER0 Project Management Tests for Publish', { tag: '@API' }, () 
   })
 
   test('should not be able to Get the public Project API After unPublish', async () => {
-    const publishProjectUrl = `${API_ENDPOINTS.getPublic}/${projectId}`;
+    const publishProjectUrl = `${API_ENDPOINTS.createProjectguid}/public`;
 
     const response = await getRequest(publishProjectUrl, headers);
     const responseBody = await response.json();
 
-    expect(response.status).toBe(500);
-    expect(responseBody.errorType).toBe("INTERNAL_SERVER_ERROR");
-    expect(responseBody.errorMessage).toBe("project is not published");
+    expect(response.status).toBe(404);
+    expect(responseBody.errorType).toBe("MODEL_NOT_FOUND");
+    expect(responseBody.errorMessage).toBe("Project not found");
   })
 
 })

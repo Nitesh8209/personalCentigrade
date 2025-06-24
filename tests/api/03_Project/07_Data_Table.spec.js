@@ -19,15 +19,16 @@ test.describe(`API test case for Data Table`, { tag: "@API" }, async () => {
     headers = {
       "Content-Type": "application/json",
       Authorization: `Bearer ${projectAccessToken}`,
+      "x-centigrade-organization-id": 409,
     };
   });
 
   // Test cases for adding new data tables
   dataTableData.forEach(({ id, name, data }) => {
-    const dataTableUrl = `${API_ENDPOINTS.dataTable}/${id}`;
-
+    
     // Verify table is empty before adding data
     test(`Get Table before Add table ${name}`, async () => {
+      const dataTableUrl = `${API_ENDPOINTS.dataTable}/${id}`;
       const response = await getRequest(dataTableUrl, headers);
       const responseBody = await response.json();
 
@@ -36,6 +37,7 @@ test.describe(`API test case for Data Table`, { tag: "@API" }, async () => {
 
     // Create new data table
     test(`Create Data Table ${name}`, async () => {
+      const dataTableUrl = `${API_ENDPOINTS.dataTableGuid}/${id}`;
       const response = await postRequest(
         dataTableUrl,
         JSON.stringify(data),
@@ -59,6 +61,7 @@ test.describe(`API test case for Data Table`, { tag: "@API" }, async () => {
 
     // Verify data table contents after creation
     test(`Verify Data Table ${name} After Creation`, async () => {
+      const dataTableUrl = `${API_ENDPOINTS.dataTable}/${id}`;
       const response = await getRequest(dataTableUrl, headers);
       const responseBody = await response.json();
 

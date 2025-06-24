@@ -5,7 +5,7 @@ import { getData, getRequest, postRequest, putRequest, saveData } from '../../ut
 // Test suite for creating and managing a modular benefit project
 test.describe('Create and Manage Modular Benefit Project', { tag: '@API' }, () => {
   // Retrieve necessary data from storage for the test
-  const { projectAccessToken, projectId } = getData('Api');
+  const { projectAccessToken, projectId, guid } = getData('Api');
   let headers;
   let modularProjectId;
 
@@ -13,16 +13,17 @@ test.describe('Create and Manage Modular Benefit Project', { tag: '@API' }, () =
   test.beforeAll(async () => {
     headers = {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${projectAccessToken}`
+      'Authorization': `Bearer ${projectAccessToken}`,
+      'x-centigrade-organization-id': 409
     };
   });
 
   // Test case to create a modular benefit project
   test('Create Modular-Benefit-Project', async () => {
     const data = {
-      grapheneProjectId: projectId,
+      projectGuid: guid,
     };
-    const modularUrl = `${API_ENDPOINTS.createProject}/${projectId}/modular-benefit-project`;
+    const modularUrl = `${API_ENDPOINTS.modularbenefitprojectguid}`;
     const response = await postRequest(modularUrl, JSON.stringify(data), headers);
     const responseBody = await response.json();
 
@@ -42,7 +43,7 @@ test.describe('Create and Manage Modular Benefit Project', { tag: '@API' }, () =
       const data = getData('Api');
       modularProjectId = data.modularProjectId;
     }
-    const getProjectUrl = `${API_ENDPOINTS.createProject}/${projectId}/modular-benefit-project`;
+    const getProjectUrl = `${API_ENDPOINTS.modularbenefitprojectguid}/draft`;
 
     const response = await getRequest(getProjectUrl, headers);
     const responseBody = await response.json();
@@ -69,7 +70,7 @@ test.describe('Create and Manage Modular Benefit Project', { tag: '@API' }, () =
       projectScale: "Medium (10,000 - 100,000 tCO2e)",
       projectType: "ifm"
     };
-    const modularUrl = `${API_ENDPOINTS.createProject}/${projectId}/modular-benefit-project/${modularProjectId}`;
+    const modularUrl = `${API_ENDPOINTS.modularbenefitprojectguid}/${modularProjectId}`;
 
     const response = await putRequest(modularUrl, JSON.stringify(data), headers);
     const responseBody = await response.json();
@@ -96,24 +97,24 @@ test.describe('Create and Manage Modular Benefit Project', { tag: '@API' }, () =
       modularProjectId = data.modularProjectId;
     }
 
-    const getProjectUrl = `${API_ENDPOINTS.modularbenefitproject}/${modularProjectId}`;
+    const getProjectUrl = `${API_ENDPOINTS.modularbenefitprojectguid}/draft`;
 
     const response = await getRequest(getProjectUrl, headers);
     const responseBody = await response.json();
 
     // Assertions to verify the details of the retrieved project
     expect(response.status).toBe(200);
-    expect(responseBody).toHaveProperty('id', modularProjectId);
-    expect(responseBody).toHaveProperty('grapheneProjectId', projectId);
-    expect(responseBody).toHaveProperty('classificationCategory', "[\"Carbon reduction\",\"Carbon removal\"]");
-    expect(responseBody).toHaveProperty('classificationMethod', "Natural - The activity claim uses natural methods (e.g. IFM)");
-    expect(responseBody.projectType).toMatchObject({
+    expect(responseBody[0]).toHaveProperty('id', modularProjectId);
+    expect(responseBody[0]).toHaveProperty('grapheneProjectId', projectId);
+    expect(responseBody[0]).toHaveProperty('classificationCategory', "[\"Carbon reduction\",\"Carbon removal\"]");
+    expect(responseBody[0]).toHaveProperty('classificationMethod', "Natural - The activity claim uses natural methods (e.g. IFM)");
+    expect(responseBody[0].projectType).toMatchObject({
       id: 14,
       name: "ifm",
       nickname: "IFM",
       description: "Improved Forest Management (IFM)"
     });
-    expect(responseBody).toHaveProperty('projectScale', "Medium (10,000 - 100,000 tCO2e)");
+    expect(responseBody[0]).toHaveProperty('projectScale', "Medium (10,000 - 100,000 tCO2e)");
   })
 
   // Test case to create a configuration for the modular benefit project
@@ -123,7 +124,7 @@ test.describe('Create and Manage Modular Benefit Project', { tag: '@API' }, () =
       modularProjectId = data.modularProjectId;
     }
     const config_id = 13;
-    const mbpConfigUrl = `${API_ENDPOINTS.modularbenefitproject}/${modularProjectId}/config/${config_id}`;
+    const mbpConfigUrl = `${API_ENDPOINTS.modularbenefitprojectguid}/${modularProjectId}/config/${config_id}`;
     const mbpConfigData = {}
     const mbpresponse = await postRequest(mbpConfigUrl, mbpConfigData, headers);
     const mbpResponseBody = mbpresponse.json();
@@ -138,7 +139,7 @@ test.describe('Create and Manage Modular Benefit Project', { tag: '@API' }, () =
       const data = getData('Api');
       modularProjectId = data.modularProjectId;
     }
-    const getConfigUrl = `${API_ENDPOINTS.modularbenefitproject}/${modularProjectId}/config`;
+    const getConfigUrl = `${API_ENDPOINTS.modularbenefitprojectguid}/${modularProjectId}/config`;
 
     const response = await getRequest(getConfigUrl, headers);
     const responseBody = await response.json();
