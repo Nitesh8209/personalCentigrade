@@ -175,8 +175,16 @@ class LoginPage {
     async login(email, password) {
         await this.enterEmail(email);
         await this.enterPassword(password);
+        await this.accecptAll();
         await this.submit();
       }
+
+    async accecptAll() {
+        if((await (await this.page.getByRole('button', { name: 'Accept All' })).isVisible())){
+      const acceptAll = await this.page.getByRole('button', { name: 'Accept All' });
+      await acceptAll.click();
+    }
+    }  
     
 }
 

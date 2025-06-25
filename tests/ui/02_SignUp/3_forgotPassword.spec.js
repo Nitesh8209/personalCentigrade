@@ -68,6 +68,7 @@ test.describe('Forgot password Page UI Tests', { tag: '@UI' }, () => {
 
     // Navigate to login page and perform forgot password flow
     await loginPage.navigate();
+    await loginPage.accecptAll();
     await signUpPage.forgotPassword();
     await signUpPage.forgotPasswordEmail(inValidTestData.InvalidEmail);
     await signUpPage.forgotPasswordSend();

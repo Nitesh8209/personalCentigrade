@@ -6,6 +6,7 @@ import path from "path";
 import { ValidTestData } from "../../data/SignUpData";
 import { getData } from "../../utils/apiHelper";
 import { SearchModal } from "../../../pages/searchModal";
+import { AiSearch } from "../../../pages/aiSearch";
 
 // Test suite for search functionality in the buyer view
 test.describe('Search Functionlity in the Public view', async () => {
@@ -44,6 +45,7 @@ test.describe('Search Functionlity in the buyer view', async () => {
   test.use({ storageState: authStoragePath });
 
   let page;
+  let aiSearch;
 
    // Setup before all tests: create new browser context, page, and perform login
   test.beforeAll(async ({ browser, baseURL }) => {
@@ -52,22 +54,29 @@ test.describe('Search Functionlity in the buyer view', async () => {
 
     const loginPage = new LoginPage(page, baseURL);
     const listingPage = new ListingPage(page);
+    aiSearch = new AiSearch(page);
     await setupPage(page, loginPage, credentials, listingPage, baseURL);
   })
 
   // Test to verify search box and button visibility and content
-  test('Should search box shown', async () => {
+  test('Should search Tab shown', async () => {
     const searchModal = new SearchModal(page);
-    await expect(await searchModal.searchButton()).toBeVisible();
-    await expect(await searchModal.searchButton()).toHaveText('Search');
-    await expect(await searchModal.searchBoxIcon()).toBeVisible();
+    const aiCentigrade = await aiSearch.centigradeAiButton();
+    await expect(aiCentigrade).toBeVisible({ timeout: 20000 });
+    await aiCentigrade.click();
+    await expect(await aiSearch.searchTab()).toBeVisible();
+    await expect(await aiSearch.searchTab()).toHaveText('Search');
   })
 
   // Test to verify search modal appears when clicking search box
   test('Should search modal shown when click on search box', async () => {
+    if (!(await (await aiSearch.drawer()).isVisible())) {
+      const centigradeAiButton = await aiSearch.centigradeAiButton();
+      await centigradeAiButton.click();
+    }
     const searchModal = new SearchModal(page);
-    const searchBox = await searchModal.searchButton();
-    await searchBox.click();
+    const searchTab = await aiSearch.searchTab();
+    await searchTab.click();
 
     await expect(await searchModal.searchModal()).toBeVisible();
     await expect(await searchModal.searchInputWrapper()).toBeVisible()
@@ -80,9 +89,14 @@ test.describe('Search Functionlity in the buyer view', async () => {
   // Test to verify "no results" message for invalid search term
   test('should show "no results" message for invalid search', async () => {
     const searchModal = new SearchModal(page);
+    if (!(await (await aiSearch.drawer()).isVisible())) {
+      const centigradeAiButton = await aiSearch.centigradeAiButton();
+      await centigradeAiButton.click();
+    }
+
     if (!(await (await searchModal.searchModal()).isVisible())) {
-      const searchBox = await searchModal.searchButton();
-      await searchBox.click();
+      const searchTab = await aiSearch.searchTab();
+      await searchTab.click();
     }
 
     const inputField = await searchModal.searchInput();
@@ -95,9 +109,14 @@ test.describe('Search Functionlity in the buyer view', async () => {
   // Test to verify search results appear for valid search term
   test('should return results for a valid search term', async () => {
     const searchModal = new SearchModal(page);
+    if (!(await (await aiSearch.drawer()).isVisible())) {
+      const centigradeAiButton = await aiSearch.centigradeAiButton();
+      await centigradeAiButton.click();
+    }
+
     if (!(await (await searchModal.searchModal()).isVisible())) {
-      const searchBox = await searchModal.searchButton();
-      await searchBox.click();
+      const searchTab = await aiSearch.searchTab();
+      await searchTab.click();
     }
 
     await page.waitForLoadState('networkidle');
@@ -116,10 +135,17 @@ test.describe('Search Functionlity in the buyer view', async () => {
   test('should land on the page when click on search text', async () => {
     const searchModal = new SearchModal(page);
     const searchItems = await searchModal.SearchItem();
+    if (!(await (await aiSearch.drawer()).isVisible())) {
+      const centigradeAiButton = await aiSearch.centigradeAiButton();
+      await centigradeAiButton.click();
+    }
+
+    if (!(await (await searchModal.searchModal()).isVisible())) {
+      const searchTab = await aiSearch.searchTab();
+      await searchTab.click();
+    }
+
     if (!(await (await searchItems.first()).isVisible())) {
-      const searchBox = await searchModal.searchButton();
-      await searchBox.click();
-      await page.waitForLoadState('networkidle');
       const inputField = await searchModal.searchInput();
       await inputField.fill('yes');
       await expect(await searchModal.SearchContent()).toBeVisible();

@@ -42,6 +42,11 @@ test.describe("Step Level Validation", { tag: '@UI' }, () => {
      const loginPage = authState.isAuthenticated ? new LoginPage(page, baseURL) : null;
 
      await setupPage(page, loginPage, credentials, listingPage, baseURL);
+     
+     if(loginPage){
+     await loginPage.accecptAll();
+     }
+
     });
 
       // Iterate over each topic in the view data

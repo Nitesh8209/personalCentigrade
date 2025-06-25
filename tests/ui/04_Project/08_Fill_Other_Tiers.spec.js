@@ -261,6 +261,7 @@ test.describe('Publish the Project after completed the Tier 1, Tier 2, Tier 3 to
 
     // Navigate and setup initial state
     await loginPage.navigate();
+    await loginPage.accecptAll();
     await projectsPage.viewProject();
     await page.waitForURL(`**/overview`);
 

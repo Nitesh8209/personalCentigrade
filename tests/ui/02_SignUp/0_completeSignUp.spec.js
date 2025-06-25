@@ -18,11 +18,13 @@ test.describe('Create Account Page UI Tests', { tag: '@UI' }, () => {
   let temporaryPassword;
 
   // Setup: Generate a new email before all tests
-  test.beforeAll(async ({ browser }) => {
+  test.beforeAll(async ({ browser, baseURL }) => {
     const context = await browser.newContext();
     page = await context.newPage();
 
-    newEmail = generateTestEmail();
+    const loginPage = new LoginPage(page, baseURL);
+    await loginPage.navigate();
+    await loginPage.accecptAll();
   });
 
    // Close the browser page after all tests are complete
@@ -32,7 +34,7 @@ test.describe('Create Account Page UI Tests', { tag: '@UI' }, () => {
 
   // Test 2: Create a new account with a non-existing user
   test('Create an Account with a Non existing user', { tag: '@SMOKE' }, async ({ baseURL }) => {
-
+    newEmail = generateTestEmail();
     const signUpPage = new SignUpPage(page, baseURL);
 
     // Navigate to the sign-up page and fill in the required fields
@@ -78,6 +80,10 @@ test.describe('Create Account Page UI Tests', { tag: '@UI' }, () => {
 
   // Test case: Successful resend of the verification code
     test('Successful resend verification code', { tag: '@SMOKE' }, async ({ baseURL }) => {
+      if(!newEmail) {
+        const data = getData('UI');
+        newEmail = data.newEmail;
+      }
       const signUpPage = new SignUpPage(page, baseURL);
       const errors = [];
   
@@ -94,6 +100,7 @@ test.describe('Create Account Page UI Tests', { tag: '@UI' }, () => {
       await safeExpect(`Retrieving verification code from email`, async () => {
       const result = await getGmailMessages(newEmail);
       receivedVerificationCode = result.receivedVerificationCode;
+      await saveData({ receivedVerificationCode: receivedVerificationCode }, 'UI');
       }, errors);
 
       if (errors.length > 0) {
@@ -119,6 +126,12 @@ test.describe('Create Account Page UI Tests', { tag: '@UI' }, () => {
     })
 
     test('verify with correct Code and incorrect password format', async({baseURL}) => {
+      if(!newEmail || !receivedVerificationCode) {
+        const data = await getData('UI');
+        newEmail = data.newEmail;
+        receivedVerificationCode = data.receivedVerificationCode;
+      }
+
       const loginPage = new LoginPage(page, baseURL);
         const signUpPage = new SignUpPage(page, baseURL);
         const settingsPage = new SettingsPage(page, baseURL);
@@ -134,7 +147,12 @@ test.describe('Create Account Page UI Tests', { tag: '@UI' }, () => {
 
 
      test('Successful verification with correct code and password and land on the listings page', { tag: '@SMOKE' }, async ({ baseURL }) => {
-    
+    if(!newEmail || !receivedVerificationCode) {
+        const data = await getData('UI');
+        newEmail = data.newEmail;
+        receivedVerificationCode = data.receivedVerificationCode;
+      }
+
       const loginPage = new LoginPage(page, baseURL);
         const signUpPage = new SignUpPage(page, baseURL);
         const settingsPage = new SettingsPage(page, baseURL);
@@ -165,6 +183,11 @@ test.describe('Create Account Page UI Tests', { tag: '@UI' }, () => {
 
   // Test for requesting a password reset with a valid registered email
   test('Request password reset with a valid registered email', { tag: '@SMOKE' }, async ({ baseURL }) => {
+
+    if(!newEmail){
+        const data = await getData('UI');
+        newEmail = data.newEmail;
+      }
 
     const loginPage = new LoginPage(page, baseURL);
     const signUpPage = new SignUpPage(page, baseURL);
@@ -199,10 +222,17 @@ test.describe('Create Account Page UI Tests', { tag: '@UI' }, () => {
     expect(tempPassword).toBeDefined();
 
     temporaryPassword = tempPassword;
+    await saveData({ temporaryPassword: temporaryPassword }, 'UI');
   })
 
   
   test('Successful Password Reset with Mandatory Fields', { tag: '@SMOKE' }, async ({ baseURL }) => {
+    if(!newEmail || !temporaryPassword){
+        const data = await getData('UI');
+        newEmail = data.newEmail;
+        temporaryPassword = data.temporaryPassword;
+      }
+
     const signUpPage = new SignUpPage(page, baseURL);
 
     // Navigate to reset password page
@@ -221,26 +251,26 @@ test.describe('Create Account Page UI Tests', { tag: '@UI' }, () => {
     const resetPasswordSubmit = await signUpPage.resetPasswordSubmit();
 
     // Assert visibility and text of reset password elements
-    expect(resetPasswordheading).toHaveText('Reset Password');
-    expect(resetPasswordmsg).toHaveText('Use the form below to reset your password and recover your account');
-    expect(resetPasswordemail).toHaveAttribute('readonly', '');
-    expect(resetPasswordemail).toHaveValue(newEmail);
-    expect(resetPasswordtempPassword).toBeVisible();
-    expect(resetPasswordtempPasswordbtn).toBeVisible();
-    expect(resetPasswordtempHelperText).toHaveText('This is found in the reset password email that was sent to you');
-    expect(resetPasswordnewPassword).toBeVisible();
-    expect(resetPasswordnewPasswordbtn).toBeVisible();
-    expect(resetPasswordHelperText).toHaveText('Password must be at least 8 characters and contain an uppercase, a lowercase, a number, and a special character');
-    expect(resetPasswordSubmit).toBeVisible();
+    await expect(resetPasswordheading).toHaveText('Reset Password');
+    await expect(resetPasswordmsg).toHaveText('Use the form below to reset your password and recover your account');
+    await expect(resetPasswordemail).toHaveAttribute('readonly', '');
+    await expect(resetPasswordemail).toHaveValue(newEmail);
+    await expect(resetPasswordtempPassword).toBeVisible();
+    await expect(resetPasswordtempPasswordbtn).toBeVisible();
+    await expect(resetPasswordtempHelperText).toHaveText('This is found in the reset password email that was sent to you');
+    await expect(resetPasswordnewPassword).toBeVisible();
+    await expect(resetPasswordnewPasswordbtn).toBeVisible();
+    await expect(resetPasswordHelperText).toHaveText('Password must be at least 8 characters and contain an uppercase, a lowercase, a number, and a special character');
+    await expect(resetPasswordSubmit).toBeVisible();
 
     // Fill in the form and submit
     await resetPasswordtempPassword.fill(temporaryPassword);
     await resetPasswordtempPasswordbtn.click();
-    expect(resetPasswordtempPassword).toHaveAttribute('type', 'text');
+    await expect(resetPasswordtempPassword).toHaveAttribute('type', 'text');
 
     await resetPasswordnewPassword.fill(ValidTestData.newPassword);
     await resetPasswordtempPasswordbtn.click();
-    expect(resetPasswordnewPassword).toHaveAttribute('type', 'text');
+    await expect(resetPasswordnewPassword).toHaveAttribute('type', 'text');
 
     await resetPasswordSubmit.click();
 
@@ -255,8 +285,8 @@ test.describe('Create Account Page UI Tests', { tag: '@UI' }, () => {
     const resetPasswordsucesssubText = await signUpPage.resetPasswordsucesssubText();
     const backToLoginButton = await signUpPage.backToLoginButton();
 
-    expect(resetPasswordsucessheader).toHaveText('Your password was reset successfully');
-    expect(resetPasswordsucesssubText).toHaveText('Use your new password to log in to your Centigrade account');
+    await expect(resetPasswordsucessheader).toHaveText('Your password was reset successfully');
+    await expect(resetPasswordsucesssubText).toHaveText('Use your new password to log in to your Centigrade account');
     expect(backToLoginButton).toBeVisible();
     await backToLoginButton.click();
     await expect(page).toHaveURL(`${baseURL}/login`);
@@ -264,6 +294,11 @@ test.describe('Create Account Page UI Tests', { tag: '@UI' }, () => {
 
   test('Password Reset with Invalid Temporary Password', async ({ baseURL }) => {
 
+    if(!newEmail) {
+      const data = await getData('UI');
+      newEmail = data.newEmail;
+    }
+    
     const signUpPage = new SignUpPage(page, baseURL);
 
     // Navigate to reset password page with invalid email
