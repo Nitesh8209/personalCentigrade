@@ -34,6 +34,7 @@ test.describe('Field level validation', { tag: '@UI' }, async () => {
 
     // Navigate and setup initial state
     await loginPage.navigate();
+    await loginPage.accecptAll();
     await projectsPage.viewProject();
     await page.waitForURL(`**/overview`);
 

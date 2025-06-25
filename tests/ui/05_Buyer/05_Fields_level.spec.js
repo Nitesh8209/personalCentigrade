@@ -35,6 +35,7 @@ test.describe("Fields Level Validation - after Login", { tag: '@UI' }, () => {
     const loginPage = new LoginPage(page, baseURL);
     const listingPage = new ListingPage(page);
     await setupPage(page, loginPage, credentials, listingPage, baseURL);
+    await loginPage.accecptAll();
   });
 
   // Loop through each topic and validate visibility

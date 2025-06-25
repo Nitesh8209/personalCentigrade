@@ -28,6 +28,7 @@ test.describe("Entities involved in a project", () => {
 
     // Perform login and navigate to the project
     await loginPage.navigate();
+    await loginPage.accecptAll();
     await projectsPage.viewProject();
     await page.waitForURL(`**/overview`);
 

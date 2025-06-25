@@ -147,7 +147,7 @@ class SignUpPage {
   }
 
   async verificationCoderesendlink() {
-    return await this.page.locator('a.text-link');
+    return await this.page.locator('a', { hasText: 'resend it' });;
   }
 
   async verificationCodehelpertext() {
@@ -187,7 +187,7 @@ class SignUpPage {
   }
 
   async resetPasswordmsg() {
-    return await this.page.locator('p');
+    return await this.page.locator('.Reset > p');
   }
 
   async resetPasswordemail() {

@@ -13,7 +13,7 @@ export class SearchModal {
   }
 
   async searchModal() {
-    return await this.page.locator('.SearchModal');
+    return await this.page.locator('.search-modal');
   }
 
   async searchInputWrapper() {

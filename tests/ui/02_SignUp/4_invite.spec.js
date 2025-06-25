@@ -3,6 +3,7 @@ import { SignUpPage } from '../../../pages/signUpPage';
 import { generateTestEmail, getGmailMessages } from '../../utils/signUpHelper';
 import { ValidTestData } from '../../data/SignUpData';
 import { getData, saveData } from '../../utils/apiHelper';
+import { LoginPage } from "../../../pages/loginPage";
 
 // Describe the test suite for awaiting-approval Page UI Tests
 test.describe('awaiting-approval Page UI Tests', { tag: ['@UI', '@SMOKE'] }, () => {
@@ -11,6 +12,10 @@ test.describe('awaiting-approval Page UI Tests', { tag: ['@UI', '@SMOKE'] }, () 
   test('Verify sign-up in an existing organization and navigation to the awaiting-approval page', async ({ page, baseURL }) => {
     const InviteEmail = generateTestEmail();
     const signUpPage = new SignUpPage(page, baseURL);
+
+    const loginPage = new LoginPage(page, baseURL);
+    await loginPage.navigate();
+    await loginPage.accecptAll();
 
     // Complete the sign-up process
     await signUpPage.completeSignUpProcess(ValidTestData.firstName, ValidTestData.lastName, ValidTestData.organizationName, InviteEmail);

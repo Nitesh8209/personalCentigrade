@@ -688,6 +688,9 @@ test.describe('Settings - Team Page Functional Tests for Reject', { tag: ['@UI',
     const errors = [];
     const RejectEmail = generateTestEmail();
     const signUpPage = new SignUpPage(page, baseURL);
+    const loginPage = new LoginPage(page, baseURL);
+    await loginPage.navigate();
+    await loginPage.accecptAll();
 
     // Sign up a new user and verify verification code
     await signUpPage.completeSignUpProcess(ValidTestData.firstName, ValidTestData.lastName, ValidTestData.organizationName, RejectEmail);
@@ -700,7 +703,6 @@ test.describe('Settings - Team Page Functional Tests for Reject', { tag: ['@UI',
     expect(page.url()).toContain('/awaiting-approval');
 
     // Log in as an admin and navigate to Settings
-    const loginPage = new LoginPage(page, baseURL);
     const settingsPage = new SettingsPage(page, baseURL);
 
     // Navigate to login page and perform login

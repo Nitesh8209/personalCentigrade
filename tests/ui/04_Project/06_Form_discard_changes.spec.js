@@ -30,6 +30,7 @@ test.describe('Button Level Validations', { tag: '@UI' }, () => {
     fieldHandler = new FieldHandler(page);
     // Navigate and setup initial state
     await loginPage.navigate();
+    await loginPage.accecptAll();
     await projectsPage.viewProject();
     await page.waitForURL(`**/overview`);
 

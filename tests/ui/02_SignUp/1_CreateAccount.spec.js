@@ -7,15 +7,16 @@ import { ValidTestData } from '../../data/SignUpData';
 import { saveData } from '../../utils/apiHelper';
 
 test.describe('Create Account Page UI Tests', { tag: '@UI' }, () => {
-  let newEmail;
   let page;
 
   // Setup: Generate a new email before all tests
-  test.beforeAll(async ({ browser }) => {
+  test.beforeAll(async ({ browser, baseURL }) => {
     const context = await browser.newContext();
     page = await context.newPage();
 
-    newEmail = generateTestEmail();
+    const loginPage = new LoginPage(page, baseURL);
+    await loginPage.navigate();
+    await loginPage.accecptAll();
   });
 
    // Close the browser page after all tests are complete
