@@ -1,0 +1,73 @@
+{
+  "topics": [
+    {
+      "name": "projectStory",
+      "label": "Project story",
+      "step_groups": [
+        {
+          "name": "projectDetails",
+          "label": "Project details",
+          "steps": [
+            { 
+              "name": "projectDetails",
+              "label": "Project details"
+            },
+            { 
+              "name": "provenance",
+              "label": "Disclosures"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "projectData",
+      "label": "Project data",
+      "step_groups": [
+        {
+          "name": "durability",
+          "label": "Permanence and risk",
+          "steps": [
+            { "name": "riskStepView", "label": "Risk" }
+          ]
+        },
+        {
+          "name": "riskDeductions",
+          "label": "Risk deductions",
+          "steps": [
+            { "name": "leakage", "label": "Leakage" }
+          ]
+        },
+        {
+          "name": "additionality",
+          "label": "Additionality",
+          "steps": [
+            { "name": "additionality", "label": "Additionality" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "coBenefits",
+      "label": "Social and ecological impacts",
+      "step_groups": [
+        {
+          "name": "socioeconomicImpacts",
+          "label": "Socio-economic impacts",
+          "steps": [
+            { "name": "socioeconomicDueDiligence", "label": "Socioeconomic due diligence" },
+            { "name": "socioeconomicImpacts", "label": "Socioeconomic impacts" }
+          ]
+        },
+        {
+          "name": "EcologicalImpacts",
+          "label": "Ecological impacts",
+          "steps": [
+            { "name": "ecologicalDueDiligenceView", "label": "Ecological due diligence" },
+            { "name": "ecologicalImpacts", "label": "Ecological impacts" }
+          ]
+        }
+      ]
+    }
+  ]
+}

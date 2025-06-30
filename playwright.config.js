@@ -246,6 +246,24 @@ module.exports = defineConfig({
       dependencies: ['buyerPublishProject']
     },
     {
+      name: 'AiSummaryBeforePublish',
+      testMatch: [ 'ui/07_AiSummary/01_AiSummaryBeforePublish.spec.js'],
+      use: { ...devices['Desktop Chrome'],
+        viewport: { width: 1366, height: 768 },
+        },
+      fullyParallel: false,
+      dependencies: ['ProjectPage']
+    },
+    {
+      name: 'AiSummaryAfterPublish',
+      testMatch: [ 'ui/07_AiSummary/02_AiSummaryAfterPublish.spec.js'],
+      use: { ...devices['Desktop Chrome'],
+        viewport: { width: 1366, height: 768 },
+        },
+      fullyParallel: false,
+      dependencies: ['PublishProject']
+    },
+    {
       name: 'LoginApi',
       testMatch: ['api/01_Login/*.spec.js'],
       use: {
