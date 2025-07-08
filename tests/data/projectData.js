@@ -21,7 +21,7 @@ export const methodologyOptions = [
   "Puro Geologically Stored Carbon Edition 2024",
   "Puro Standard Biochar Methodology Edition 2022 v3",
   "Puro Standard Enhanced Rock Weathering v2",
-  "QA use only frozen ACR 1.3 test methodology",
+  "QA (ACR 1.3 test methodology)",
   "VM0045 Methodology for Improved Forest Management v1.1",
   "VM0047 Afforestation, Reforestation, and Revegetation, v1.0",
   "Other methodology agnostic",

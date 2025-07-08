@@ -943,7 +943,7 @@ export class FieldHandler {
 
       case COMPONENT_TYPES.METHODOLOGY_SELECT:
         const MethodologyselectedValuesText = await locator.textContent();
-        await expect(MethodologyselectedValuesText).toBe('QA use only frozen ACR 1.3 test methodology');
+        await expect(MethodologyselectedValuesText).toBe('QA (ACR 1.3 test methodology)');
         console.log('select', MethodologyselectedValuesText)
 
         break;
@@ -1006,7 +1006,7 @@ export class FieldHandler {
 
       case COMPONENT_TYPES.METHODOLOGY_SELECT:
         const MethodologyselectedValuesText = await locator.textContent();
-        await expect(MethodologyselectedValuesText).toBe('QA use only frozen ACR 1.3 test methodology');
+        await expect(MethodologyselectedValuesText).toBe('QA (ACR 1.3 test methodology)');
         console.log('select', MethodologyselectedValuesText)
         break;
 

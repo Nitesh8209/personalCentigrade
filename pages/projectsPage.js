@@ -101,7 +101,7 @@ class ProjectsPage {
         await this.page.getByRole('button', { name: '+ Create Project' }).click();
         await this.page.getByLabel('Project name').fill(ProjectName);
         await this.page.locator('.create-project-form > form > div:nth-child(2) > div:nth-child(2) > .select-control > button').click();
-        await this.page.locator('text=QA use only frozen ACR 1.3 test methodology').click();
+        await this.page.locator('text=QA (ACR 1.3 test methodology)').click();
         await this.page.locator('.create-project-form > form > div:nth-child(3) > div:nth-child(2) > .select-control > button').click();
         await this.page.locator('text=Micro (less than 1000 tCO2e)').click();
         await this.page.locator('.create-project-form > form > div:nth-child(4) > div:nth-child(2) > .select-control > button').click();
