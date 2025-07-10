@@ -92,8 +92,12 @@ export class FieldHandler {
       return this.page.locator('.input').getByLabel(fieldLabel, { exact: true });;
     }
 
-    if (component === COMPONENT_TYPES.RICH_TEXT || component === COMPONENT_TYPES.TEXTAREA) {
+    if (component === COMPONENT_TYPES.RICH_TEXT) {
       return this.page.locator('label').getByText(fieldLabel, { exact: true }).locator('..').locator('..').locator('.editor-control');
+    }
+
+    if (component === COMPONENT_TYPES.TEXTAREA) {
+      return this.page.locator('label').getByText(fieldLabel, { exact: true }).locator('..').locator('..').locator('textarea');
     }
 
     // Handle standard field types
