@@ -1,10 +1,12 @@
 import { test, expect } from '@playwright/test';
 import API_ENDPOINTS from '../../../api/apiEndpoints';
 import { getData, getRequest, postRequest, putRequest, saveData } from '../../utils/apiHelper';
-import { mandatoryFileData, project, projectApproach } from '../../data/projectData';
+import { project } from '../../data/projectData';
 import { validateProjectFieldValues } from '../../utils/projectHelper';
 import { apiProjectCreadentials } from '../../data/testData';
 import * as fs from 'fs';
+import { extractTier0FieldsFromTopics } from '../../utils/buyerPublishProject';
+import path from 'path';
 
 
 test.describe('TIER0 Project Management Tests for Publish', { tag: '@API' }, () => {
@@ -12,14 +14,26 @@ test.describe('TIER0 Project Management Tests for Publish', { tag: '@API' }, () 
   const { projectAccessToken, admin_access_token, projectId } = getData('Api');
 
   let headers;
+  let ProjectData;
 
   test.beforeAll(async () => {
+     await extractTier0FieldsFromTopics();
     // Set headers with authorization token and content type
     headers = {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${projectAccessToken}`,
       'x-centigrade-organization-id': 409
     };
+
+    const filePath = path.join(
+      __dirname,
+      "..",
+      "..",
+      "data",
+      "Project-publish-data.json"
+    );
+    const rawData = fs.readFileSync(filePath, "utf-8");
+    ProjectData = JSON.parse(rawData);
   });
 
   // Test to create project field values
@@ -27,7 +41,7 @@ test.describe('TIER0 Project Management Tests for Publish', { tag: '@API' }, () 
     const projectfieldvalueUrl = `${API_ENDPOINTS.createProjectguid}/project-field-values`;
 
     // Send a POST request with project approach data
-    const response = await postRequest(projectfieldvalueUrl, JSON.stringify(projectApproach), headers);
+    const response = await postRequest(projectfieldvalueUrl, JSON.stringify(ProjectData.fields), headers);
     const responseBody = await response.json();
 
     // Verify the response status and structure
@@ -35,7 +49,7 @@ test.describe('TIER0 Project Management Tests for Publish', { tag: '@API' }, () 
     expect(Array.isArray(responseBody)).toBe(true);
 
     // Validate the response data
-    validateProjectFieldValues(projectApproach.items, responseBody);
+    validateProjectFieldValues(ProjectData.fields.items, responseBody);
   })
 
   // Test to retrieve project field values
@@ -45,15 +59,14 @@ test.describe('TIER0 Project Management Tests for Publish', { tag: '@API' }, () 
 
     // Send a GET request to retrieve project field values
     const response = await getRequest(projectfieldvalueUrl, headers);
- 
+
     // Verify response status and structure
     expect(response.status).toBe(200);
     const responseBody = await response.json();
-     console.log(responseBody);
     expect(Array.isArray(responseBody)).toBe(true);
 
     // Validate the response data
-    validateProjectFieldValues(projectApproach.items, responseBody);
+    validateProjectFieldValues(ProjectData.fields.items, responseBody);
   })
 
   // Test to retrieve specific project fields based on a search query
@@ -61,22 +74,23 @@ test.describe('TIER0 Project Management Tests for Publish', { tag: '@API' }, () 
     const projectFiledsUrl = `${API_ENDPOINTS.createProjectguid}/fields/draft?searchText=projectMission`;
     const response = await getRequest(projectFiledsUrl, headers);
     const responseBody = await response.json();
+    const field = ProjectData.fields.items.find(f => f.keyName === 'projectMission');
 
     expect(response.status).toBe(200);
     expect(responseBody.fields.projectMission).toHaveProperty('name', 'projectMission');
-    expect(responseBody.fields.projectMission).toHaveProperty('value', 'test');
+    expect(responseBody.fields.projectMission).toHaveProperty('value', field.value);
   })
 
-  mandatoryFileData.forEach(({configFieldId, projectFileType}) => {
 
-    test(`Upload File Tier 0 ${projectFileType}`, async({request}) => {
-      const filePath = './tests/assets/file.png';
-      const fileBuffer = fs.readFileSync(filePath);
+  test(`Upload File Tier 0`, async ({ request }) => {
+    const filePath = './tests/assets/file.png';
+    const fileBuffer = fs.readFileSync(filePath);
 
-      const fileUrl = `${API_ENDPOINTS.createProjectguid}/file`;
+    const fileUrl = `${API_ENDPOINTS.createProjectguid}/file`;
 
-       // Prepare file data for upload
-       const fileData = {
+    for (const { configFieldId } of ProjectData.fileData) {
+      // Prepare file data for upload
+      const fileData = {
         multipart: {
           configFieldId: configFieldId,
           file: {
@@ -94,7 +108,7 @@ test.describe('TIER0 Project Management Tests for Publish', { tag: '@API' }, () 
       // Perform file upload
       const response = await request.post(fileUrl, fileData);
       await expect(response.status()).toBe(200);
-    })
+    }
   })
 
   test('Publish project', async () => {
@@ -169,11 +183,10 @@ test.describe('TIER0 Project Management Tests for Publish', { tag: '@API' }, () 
 
   test('Get the public Project API After Publish', async () => {
     const publishProjectUrl = `${API_ENDPOINTS.createProjectguid}/public`;
-    const publicHeader ={}
+    const publicHeader = {}
     const response = await getRequest(publishProjectUrl, publicHeader);
     const responseBody = await response.json();
 
-    console.log(responseBody);
     expect(response.status).toBe(200);
     expect(responseBody.id).toBe(projectId);
     expect(responseBody.organizationId).toBe(apiProjectCreadentials.organizationId);

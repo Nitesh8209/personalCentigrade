@@ -1,7 +1,19 @@
 {
   "dataSchema": "QA-ACR1.3-cgV1.0.0",
   "navigation": "view2.0-config",
-  "versionDate": "2025-07-07T15:55:06-07:00",
+  "versionDate": "2025-07-11T19:42:03-07:00",
+  "methodology": {
+    "id": 13,
+    "nickname": "QA-ACR1.3",
+    "description": "QA (ACR 1.3 test methodology)",
+    "name": "QA-ACR1.3",
+    "type": "methodology"
+  },
+  "dataSchemaInfo": {
+    "id": 13,
+    "version": "cgV1.0.0",
+    "status": "QA"
+  },
   "topics": [
     {
       "id": 12,
@@ -1010,7 +1022,8 @@
                             "Calyx Global BB",
                             "Calyx Global B",
                             "Calyx Global C",
-                            "Calyx Global D"
+                            "Calyx Global D",
+                            "None"
                           ],
                           "tooltip": "",
                           "elements": null,
@@ -5186,7 +5199,10 @@
                           "tooltip": "",
                           "elements": null,
                           "component": "file-upload-multiple",
-                          "attributes": null,
+                          "attributes": {
+                            "accept": "",
+                            "isPublic": ""
+                          },
                           "half_width": false,
                           "helper_text": "Upload any additional supporting materials for the baseline scenario",
                           "display_order": 2,
@@ -9303,7 +9319,7 @@
                           "component": "rich-text",
                           "attributes": {},
                           "half_width": false,
-                          "helper_text": "Describe each potential impact, it's risk category, and plans to monitor it",
+                          "helper_text": "Describe each potential impact, its risk category, and plans to monitor it",
                           "display_order": 1,
                           "view_component": "rich-text",
                           "validation_schema": null,
@@ -9334,7 +9350,10 @@
                           "tooltip": "Documents underpinning the monitoring approach (e.g., details on the parameters monitored, monitoring plan documentation etc.)",
                           "elements": null,
                           "component": "file-upload-multiple",
-                          "attributes": null,
+                          "attributes": {
+                            "accept": "",
+                            "isPublic": ""
+                          },
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 1,
@@ -10091,7 +10110,7 @@
                           "type": "object",
                           "label": "Monitored cookstoves by region",
                           "columns": null,
-                          "options": null,
+                          "options": [],
                           "tooltip": "",
                           "elements": null,
                           "component": "select-multiple",
@@ -11676,7 +11695,9 @@
                           "tooltip": "",
                           "elements": null,
                           "component": "select",
-                          "attributes": null,
+                          "attributes": {
+                            "field": ""
+                          },
                           "half_width": true,
                           "helper_text": "",
                           "display_order": 2,
@@ -11685,7 +11706,7 @@
                           "display_dependencies": [
                             {
                               "field": "marketLeakageOptions-nameValue-nameValue",
-                              "pattern": "Direct values"
+                              "pattern": "Default values"
                             }
                           ]
                         }
@@ -14820,48 +14841,6 @@
                       "label": "Validation body accreditations",
                       "fields": [
                         {
-                          "id": 1679,
-                          "name": "validationBodySectoralScopes-nameValue-nameValue",
-                          "rows": null,
-                          "tier": 1,
-                          "type": "array",
-                          "label": "Accredited sectoral scopes of the validation body",
-                          "columns": null,
-                          "options": [
-                            "  1. Energy (renewable/non-renewable) ",
-                            "2. Energy distribution",
-                            "3. Energy demand  ",
-                            "  4. Manufacturing industries",
-                            "  5. Chemical industry",
-                            "6. Construction  ",
-                            "7. Transport",
-                            "8. Mining/mineral production",
-                            "  9. Metal production",
-                            "10. Fugitive emissions – from Industrial gases",
-                            "11. Fugitive emissions – from Industrial gases (halocarbons and sulphur hexafluoride)",
-                            "12. Solvents use",
-                            "13. Waste handling and disposal ",
-                            "14. Agriculture, Forestry and Other Land Use (AFOLU)",
-                            "15. Livestock and manure management",
-                            "16. Carbon capture and storage"
-                          ],
-                          "tooltip": "",
-                          "elements": null,
-                          "component": "select-multiple",
-                          "attributes": null,
-                          "half_width": false,
-                          "helper_text": "",
-                          "display_order": 0,
-                          "view_component": "key-value-table",
-                          "validation_schema": null,
-                          "display_dependencies": [
-                            {
-                              "field": "projectValidation-nameValue-nameValue",
-                              "pattern": "Yes"
-                            }
-                          ]
-                        },
-                        {
                           "id": 1673,
                           "name": "validationBodyAccreditation-nameValue-nameValue",
                           "rows": null,
@@ -14915,6 +14894,50 @@
                             {
                               "field": "validationBodyAccreditation-nameValue-nameValue",
                               "pattern": "Other"
+                            }
+                          ]
+                        },
+                        {
+                          "id": 1679,
+                          "name": "validationBodySectoralScopes-nameValue-nameValue",
+                          "rows": null,
+                          "tier": 1,
+                          "type": "array",
+                          "label": "Accredited sectoral scopes of the validation body",
+                          "columns": null,
+                          "options": [
+                            "  1. Energy (renewable/non-renewable) ",
+                            "2. Energy distribution",
+                            "3. Energy demand  ",
+                            "  4. Manufacturing industries",
+                            "  5. Chemical industry",
+                            "6. Construction  ",
+                            "7. Transport",
+                            "8. Mining/mineral production",
+                            "  9. Metal production",
+                            "10. Fugitive emissions – from fuel",
+                            "11. Fugitive emissions – from Industrial gases (halocarbons and sulphur hexafluoride)",
+                            "12. Solvents use",
+                            "13. Waste handling and disposal ",
+                            "14. Agriculture, Forestry and Other Land Use (AFOLU)",
+                            "15. Livestock and manure management",
+                            "16. Carbon capture and storage"
+                          ],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "select-multiple",
+                          "attributes": {
+                            "field": ""
+                          },
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 0,
+                          "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": [
+                            {
+                              "field": "projectValidation-nameValue-nameValue",
+                              "pattern": "Yes"
                             }
                           ]
                         }
@@ -15416,48 +15439,6 @@
                           ]
                         },
                         {
-                          "id": 1686,
-                          "name": "verificationBodySectoralScopes-nameValue-nameValue",
-                          "rows": null,
-                          "tier": 1,
-                          "type": "array",
-                          "label": "Accredited sectoral scopes of the verification body",
-                          "columns": null,
-                          "options": [
-                            "  1. Energy (renewable/non-renewable) ",
-                            "2. Energy distribution",
-                            "3. Energy demand  ",
-                            "  4. Manufacturing industries",
-                            "  5. Chemical industry",
-                            "6. Construction  ",
-                            "7. Transport",
-                            "8. Mining/mineral production",
-                            "  9. Metal production",
-                            "10. Fugitive emissions – from Industrial gases",
-                            "11. Fugitive emissions – from Industrial gases (halocarbons and sulphur hexafluoride)",
-                            "12. Solvents use",
-                            "13. Waste handling and disposal ",
-                            "14. Agriculture, Forestry and Other Land Use (AFOLU)",
-                            "15. Livestock and manure management",
-                            "16. Carbon capture and storage"
-                          ],
-                          "tooltip": "",
-                          "elements": null,
-                          "component": "select-multiple",
-                          "attributes": null,
-                          "half_width": false,
-                          "helper_text": "",
-                          "display_order": 0,
-                          "view_component": "key-value-table",
-                          "validation_schema": null,
-                          "display_dependencies": [
-                            {
-                              "field": "verificationSame-nameValue-nameValue",
-                              "pattern": "No"
-                            }
-                          ]
-                        },
-                        {
                           "id": 1684,
                           "name": "verificationBodyAccreditation-nameValue-nameValue",
                           "rows": null,
@@ -15477,6 +15458,50 @@
                           "elements": null,
                           "component": "select-multiple",
                           "attributes": null,
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 0,
+                          "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": [
+                            {
+                              "field": "verificationSame-nameValue-nameValue",
+                              "pattern": "No"
+                            }
+                          ]
+                        },
+                        {
+                          "id": 1686,
+                          "name": "verificationBodySectoralScopes-nameValue-nameValue",
+                          "rows": null,
+                          "tier": 1,
+                          "type": "array",
+                          "label": "Accredited sectoral scopes of the verification body",
+                          "columns": null,
+                          "options": [
+                            "  1. Energy (renewable/non-renewable) ",
+                            "2. Energy distribution",
+                            "3. Energy demand  ",
+                            "  4. Manufacturing industries",
+                            "  5. Chemical industry",
+                            "6. Construction  ",
+                            "7. Transport",
+                            "8. Mining/mineral production",
+                            "  9. Metal production",
+                            "10. Fugitive emissions – from fuel",
+                            "11. Fugitive emissions – from Industrial gases (halocarbons and sulphur hexafluoride)",
+                            "12. Solvents use",
+                            "13. Waste handling and disposal ",
+                            "14. Agriculture, Forestry and Other Land Use (AFOLU)",
+                            "15. Livestock and manure management",
+                            "16. Carbon capture and storage"
+                          ],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "select-multiple",
+                          "attributes": {
+                            "field": ""
+                          },
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 0,
@@ -17385,7 +17410,9 @@
                           "tooltip": "",
                           "elements": null,
                           "component": "select-multiple",
-                          "attributes": null,
+                          "attributes": {
+                            "field": ""
+                          },
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 0,
@@ -21792,6 +21819,26 @@
                       "label": "",
                       "fields": [
                         {
+                          "id": 1688,
+                          "name": "ecoImpactsSummary-nameValue-nameValue",
+                          "rows": null,
+                          "tier": 2,
+                          "type": "string",
+                          "label": "Summary of actual ecological impacts due to project activities",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "rich-text",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "Use this space to indicate the high level ecological impacts due to the project. Detailed results can be reported in the sections below.",
+                          "display_order": 0,
+                          "view_component": "rich-text",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
                           "id": 1567,
                           "name": "ecoParentConditional-nameValue-nameValue",
                           "rows": null,
@@ -21812,31 +21859,13 @@
                           "tooltip": "",
                           "elements": null,
                           "component": "select-multiple",
-                          "attributes": null,
+                          "attributes": {
+                            "field": ""
+                          },
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 0,
                           "view_component": "key-value-table",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        },
-                        {
-                          "id": 1688,
-                          "name": "ecoImpactsSummary-nameValue-nameValue",
-                          "rows": null,
-                          "tier": 2,
-                          "type": "string",
-                          "label": "Summary of actual ecological impacts due to project activities",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "",
-                          "elements": null,
-                          "component": "rich-text",
-                          "attributes": {},
-                          "half_width": false,
-                          "helper_text": "Use this space to indicate the high level ecological impacts due to the project. Detailed results can be reported in the sections below.",
-                          "display_order": 0,
-                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
                         }
@@ -22871,7 +22900,10 @@
                           "tooltip": "Documentation related to the project's ecological or biodiversity impacts, monitoring plans or reports, permits, registry-specific assessments (e.g., the ACR Environmental and Social Impact Assessment Report template)",
                           "elements": null,
                           "component": "file-upload-multiple",
-                          "attributes": null,
+                          "attributes": {
+                            "accept": "",
+                            "isPublic": ""
+                          },
                           "half_width": false,
                           "helper_text": "Upload any documentation related to biodiversity impacts",
                           "display_order": 6,
