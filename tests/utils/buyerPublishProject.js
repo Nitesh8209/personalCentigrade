@@ -94,6 +94,7 @@ const generateFieldData = (field) => {
        return "[\"Kolkata\"]"
 
     case COMPONENT_TYPES.FILE_UPLOAD:
+    case COMPONENT_TYPES.FILE_UPLOAD_MULTIPLE:
      
       if(field.tier == 0){
         const projectFileType = field.name?.split('-')[0];
@@ -180,3 +181,85 @@ export const extractFieldsFromTopics = async () => {
   fs.writeFileSync(outputPath, JSON.stringify(finalData, null, 2));
 };
 
+const excludedNames = [
+  'name-grapheneProject-iwa',
+  'projectScale-modularBenefitProject-iwa',
+  'projectType-modularBenefitProject-iwa'
+];
+
+// Traverse topics and extract field values where tier = 0
+export const extractTier0FieldsFromTopics = async () => {
+  const filePath = path.join(__dirname, '..', 'data', 'form-data.json');
+  const rawData = fs.readFileSync(filePath, 'utf-8');
+  const jsonData = JSON.parse(rawData);
+
+  const topics = jsonData.topics;
+
+  const items = [];
+  const currentValues = {}; // to track fields for dependency check
+
+  topics.forEach(topic => {
+    topic.step_groups?.forEach(stepGroup => {
+      stepGroup.steps?.forEach(step => {
+        step.sections?.forEach(section => {
+          section.field_groups?.forEach(fieldGroup => {
+            fieldGroup.fields?.forEach(field => {
+              const { name, component, display_dependencies, tier } = field;
+
+                // Skip fields with excluded names
+               if (excludedNames.includes(name)) return;
+
+              // Filter: Only include fields with tier = 0
+              if (tier !== 0) return;
+
+              // Check display dependencies if they exist
+              if (display_dependencies && display_dependencies.length > 0) {
+                const allDepsSatisfied = display_dependencies.every(dep => {
+                  const actualVal = currentValues[dep.field];
+                  const pattern = dep.pattern;
+
+                  if (!actualVal) return false;
+
+                  try {
+                    const parsedValue = JSON.parse(actualVal);
+
+                    if (Array.isArray(parsedValue)) {
+                      return parsedValue.includes(pattern);
+                    } else {
+                      return parsedValue === pattern;
+                    }
+                  } catch (e) {
+                    return actualVal === pattern;
+                  }
+                });
+
+                if (!allDepsSatisfied) {
+                  return; // skip this field
+                }
+              }
+
+              // Generate fake data
+              const value = generateFieldData(field);
+              const cleanKeyName = name.replace(/-nameValue(-nameValue)?$/, '');
+
+              if (value) {
+                items.push({ keyName: cleanKeyName, value });
+                currentValues[name] = value;
+              }
+            });
+          });
+        });
+      });
+    });
+  });
+
+  const finalData = {
+    fields: {
+      items: items
+    },
+    fileData: fileData // make sure this is defined somewhere
+  };
+
+  const outputPath = path.join(__dirname, '..', 'data', 'Project-publish-data.json');
+  fs.writeFileSync(outputPath, JSON.stringify(finalData, null, 2));
+};

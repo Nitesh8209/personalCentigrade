@@ -23,7 +23,7 @@ test.describe('Create and Manage Modular Benefit Project', { tag: '@API' }, () =
     const data = {
       projectGuid: guid,
     };
-    const modularUrl = `${API_ENDPOINTS.modularbenefitprojectguid}`;
+    const modularUrl = API_ENDPOINTS.modularbenefitprojectguid(guid);
     const response = await postRequest(modularUrl, JSON.stringify(data), headers);
     const responseBody = await response.json();
 
@@ -43,7 +43,7 @@ test.describe('Create and Manage Modular Benefit Project', { tag: '@API' }, () =
       const data = getData('Api');
       modularProjectId = data.modularProjectId;
     }
-    const getProjectUrl = `${API_ENDPOINTS.modularbenefitprojectguid}/draft`;
+    const getProjectUrl = `${API_ENDPOINTS.modularbenefitprojectguid(guid)}/draft`;
 
     const response = await getRequest(getProjectUrl, headers);
     const responseBody = await response.json();
@@ -70,7 +70,7 @@ test.describe('Create and Manage Modular Benefit Project', { tag: '@API' }, () =
       projectScale: "Medium (10,000 - 100,000 tCO2e)",
       projectType: "ifm"
     };
-    const modularUrl = `${API_ENDPOINTS.modularbenefitprojectguid}/${modularProjectId}`;
+    const modularUrl = `${API_ENDPOINTS.modularbenefitprojectguid(guid)}/${modularProjectId}`;
 
     const response = await putRequest(modularUrl, JSON.stringify(data), headers);
     const responseBody = await response.json();
@@ -97,7 +97,7 @@ test.describe('Create and Manage Modular Benefit Project', { tag: '@API' }, () =
       modularProjectId = data.modularProjectId;
     }
 
-    const getProjectUrl = `${API_ENDPOINTS.modularbenefitprojectguid}/draft`;
+    const getProjectUrl = `${API_ENDPOINTS.modularbenefitprojectguid(guid)}/draft`;
 
     const response = await getRequest(getProjectUrl, headers);
     const responseBody = await response.json();
@@ -124,7 +124,7 @@ test.describe('Create and Manage Modular Benefit Project', { tag: '@API' }, () =
       modularProjectId = data.modularProjectId;
     }
     const config_id = 13;
-    const mbpConfigUrl = `${API_ENDPOINTS.modularbenefitprojectguid}/${modularProjectId}/config/${config_id}`;
+    const mbpConfigUrl = `${API_ENDPOINTS.modularbenefitprojectguid(guid)}/${modularProjectId}/config/${config_id}`;
     const mbpConfigData = {}
     const mbpresponse = await postRequest(mbpConfigUrl, mbpConfigData, headers);
     const mbpResponseBody = mbpresponse.json();
@@ -139,7 +139,7 @@ test.describe('Create and Manage Modular Benefit Project', { tag: '@API' }, () =
       const data = getData('Api');
       modularProjectId = data.modularProjectId;
     }
-    const getConfigUrl = `${API_ENDPOINTS.modularbenefitprojectguid}/${modularProjectId}/config`;
+    const getConfigUrl = `${API_ENDPOINTS.modularbenefitprojectguid(guid)}/${modularProjectId}/config`;
 
     const response = await getRequest(getConfigUrl, headers);
     const responseBody = await response.json();

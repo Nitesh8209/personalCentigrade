@@ -6,7 +6,7 @@ import { dataSeries} from '../../data/projectData';
 
 test.describe('Reamining Fields Data Upload Tests' ,{tag: '@API'}, () => {
   // Extract required data for testing
-  const { projectAccessToken, draftProjectId } = getData('Api');
+  const { projectAccessToken, draftProjectId , guid} = getData('Api');
 
   let headers;
   let seriesId;
@@ -23,7 +23,7 @@ test.describe('Reamining Fields Data Upload Tests' ,{tag: '@API'}, () => {
   // Test to upload series data
   dataSeries.forEach(({ name, indexOrder }, index) => {
     test(`Upload the series data for ${name} indexOrder ${indexOrder}`, async () => {
-      const uploadSeriesUrl = `${API_ENDPOINTS.createProjectguid}/series`;
+      const uploadSeriesUrl = `${API_ENDPOINTS.createProjectguid(guid)}/series`;
 
       const response = await postRequest(uploadSeriesUrl, JSON.stringify(dataSeries[index]), headers);
       const responseBody = await response.json();

@@ -10,7 +10,7 @@ import { dataTableData, updateDataTable } from "../../data/projectData";
 
 // Test suite for Data Table API endpoints
 test.describe(`API test case for Data Table`, { tag: "@API" }, async () => {
-  const { projectAccessToken } = getData("Api");
+  const { projectAccessToken, guid } = getData("Api");
   let headers;
 
   // Setup before running all tests
@@ -37,7 +37,7 @@ test.describe(`API test case for Data Table`, { tag: "@API" }, async () => {
 
     // Create new data table
     test(`Create Data Table ${name}`, async () => {
-      const dataTableUrl = `${API_ENDPOINTS.dataTableGuid}/${id}`;
+      const dataTableUrl = `${API_ENDPOINTS.dataTableGuid(guid)}/${id}`;
       const response = await postRequest(
         dataTableUrl,
         JSON.stringify(data),
