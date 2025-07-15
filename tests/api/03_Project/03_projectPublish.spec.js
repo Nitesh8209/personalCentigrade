@@ -11,7 +11,7 @@ import path from 'path';
 
 test.describe('TIER0 Project Management Tests for Publish', { tag: '@API' }, () => {
   // Retrieve required data like tokens, organizationId, and projectId from saved data
-  const { projectAccessToken, admin_access_token, projectId } = getData('Api');
+  const { projectAccessToken, admin_access_token, projectId , guid} = getData('Api');
 
   let headers;
   let ProjectData;
@@ -38,7 +38,7 @@ test.describe('TIER0 Project Management Tests for Publish', { tag: '@API' }, () 
 
   // Test to create project field values
   test('Create Project-Field-Values ', async () => {
-    const projectfieldvalueUrl = `${API_ENDPOINTS.createProjectguid}/project-field-values`;
+    const projectfieldvalueUrl = `${API_ENDPOINTS.createProjectguid(guid)}/project-field-values`;
 
     // Send a POST request with project approach data
     const response = await postRequest(projectfieldvalueUrl, JSON.stringify(ProjectData.fields), headers);
@@ -55,7 +55,7 @@ test.describe('TIER0 Project Management Tests for Publish', { tag: '@API' }, () 
   // Test to retrieve project field values
   test('Get Project-Field-Values', async () => {
 
-    const projectfieldvalueUrl = `${API_ENDPOINTS.createProjectguid}/project-field-values/draft`;
+    const projectfieldvalueUrl = `${API_ENDPOINTS.createProjectguid(guid)}/project-field-values/draft`;
 
     // Send a GET request to retrieve project field values
     const response = await getRequest(projectfieldvalueUrl, headers);
@@ -71,7 +71,7 @@ test.describe('TIER0 Project Management Tests for Publish', { tag: '@API' }, () 
 
   // Test to retrieve specific project fields based on a search query
   test('Retrieve Project Fields', async () => {
-    const projectFiledsUrl = `${API_ENDPOINTS.createProjectguid}/fields/draft?searchText=projectMission`;
+    const projectFiledsUrl = `${API_ENDPOINTS.createProjectguid(guid)}/fields/draft?searchText=projectMission`;
     const response = await getRequest(projectFiledsUrl, headers);
     const responseBody = await response.json();
     const field = ProjectData.fields.items.find(f => f.keyName === 'projectMission');
@@ -86,7 +86,7 @@ test.describe('TIER0 Project Management Tests for Publish', { tag: '@API' }, () 
     const filePath = './tests/assets/file.png';
     const fileBuffer = fs.readFileSync(filePath);
 
-    const fileUrl = `${API_ENDPOINTS.createProjectguid}/file`;
+    const fileUrl = `${API_ENDPOINTS.createProjectguid(guid)}/file`;
 
     for (const { configFieldId } of ProjectData.fileData) {
       // Prepare file data for upload
@@ -112,7 +112,7 @@ test.describe('TIER0 Project Management Tests for Publish', { tag: '@API' }, () 
   })
 
   test('Publish project', async () => {
-    const publishProjectUrl = `${API_ENDPOINTS.createProjectguid}/publish`;
+    const publishProjectUrl = `${API_ENDPOINTS.createProjectguid(guid)}/publish`;
 
     const data = { notes: "Project first published" };
 
@@ -128,7 +128,7 @@ test.describe('TIER0 Project Management Tests for Publish', { tag: '@API' }, () 
   })
 
   test('should not Update the Review State of project  by Admin', async () => {
-    const reviewProjectUrl = `${API_ENDPOINTS.createProjectguid}`;
+    const reviewProjectUrl = `${API_ENDPOINTS.createProjectguid(guid)}`;
     const data = { reviewState: "REVIEWED" };
 
     const response = await putRequest(reviewProjectUrl, JSON.stringify(data), headers);
@@ -141,7 +141,7 @@ test.describe('TIER0 Project Management Tests for Publish', { tag: '@API' }, () 
   })
 
   test('should be Update the Review State of project by superUser', async () => {
-    const reviewProjectUrl = `${API_ENDPOINTS.createProjectguid}`;
+    const reviewProjectUrl = `${API_ENDPOINTS.createProjectguid(guid)}`;
 
     const data = { reviewState: "REVIEWED" };
 
@@ -163,7 +163,7 @@ test.describe('TIER0 Project Management Tests for Publish', { tag: '@API' }, () 
   })
 
   test('Publish project after REVIEWED', async () => {
-    const publishProjectUrl = `${API_ENDPOINTS.createProjectguid}/publish`;
+    const publishProjectUrl = `${API_ENDPOINTS.createProjectguid(guid)}/publish`;
     const data = { notes: "Project first published" };
 
     const response = await postRequest(publishProjectUrl, JSON.stringify(data), headers);
@@ -182,7 +182,7 @@ test.describe('TIER0 Project Management Tests for Publish', { tag: '@API' }, () 
 
 
   test('Get the public Project API After Publish', async () => {
-    const publishProjectUrl = `${API_ENDPOINTS.createProjectguid}/public`;
+    const publishProjectUrl = `${API_ENDPOINTS.createProjectguid(guid)}/public`;
     const publicHeader = {}
     const response = await getRequest(publishProjectUrl, publicHeader);
     const responseBody = await response.json();
@@ -196,7 +196,7 @@ test.describe('TIER0 Project Management Tests for Publish', { tag: '@API' }, () 
   })
 
   test('UnPublish the Project', async () => {
-    const unpublishProjectUrl = `${API_ENDPOINTS.createProjectguid}`;
+    const unpublishProjectUrl = `${API_ENDPOINTS.createProjectguid(guid)}`;
     const unpublishprojectData = {
       isPublished: false,
     };
@@ -211,7 +211,7 @@ test.describe('TIER0 Project Management Tests for Publish', { tag: '@API' }, () 
   })
 
   test('should not be able to Get the public Project API After unPublish', async () => {
-    const publishProjectUrl = `${API_ENDPOINTS.createProjectguid}/public`;
+    const publishProjectUrl = `${API_ENDPOINTS.createProjectguid(guid)}/public`;
 
     const response = await getRequest(publishProjectUrl, headers);
     const responseBody = await response.json();

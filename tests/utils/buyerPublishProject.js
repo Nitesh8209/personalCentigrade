@@ -95,6 +95,7 @@ const generateFieldData = (field) => {
 
     case COMPONENT_TYPES.FILE_UPLOAD:
     case COMPONENT_TYPES.FILE_UPLOAD_MULTIPLE:
+     
       if(field.tier == 0){
         const projectFileType = field.name?.split('-')[0];
         const data = {
@@ -179,7 +180,6 @@ export const extractFieldsFromTopics = async () => {
   const outputPath = path.join(__dirname, '..', 'data', 'Project-data-new.json');
   fs.writeFileSync(outputPath, JSON.stringify(finalData, null, 2));
 };
-
 
 const excludedNames = [
   'name-grapheneProject-iwa',

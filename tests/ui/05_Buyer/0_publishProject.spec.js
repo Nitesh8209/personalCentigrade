@@ -13,6 +13,7 @@ test.describe("fill all fields For validate listings buyer page", { tag: ['@UI',
   let projectId;
   let modularProjectId;
   let ProjectData;
+  let BuyerprojectGuid;
 
   test.beforeAll(async () => {
     await extractFieldsFromTopics();
@@ -67,20 +68,26 @@ test.describe("fill all fields For validate listings buyer page", { tag: ['@UI',
     const responseBody = await response.json();
     expect(response.status).toBe(201);
     projectId = responseBody.id;
+    BuyerprojectGuid = responseBody.guid;
     await saveData({ BuyerprojectId: projectId }, "UI");
+    await saveData({ BuyerprojectGuid: BuyerprojectGuid}, 'UI');
   });
 
   // Test case to create a modular benefit project
   test("Create Modular-Benefit-Project", async () => {
+    if(!BuyerprojectGuid){
+        const data = getData('UI');
+        BuyerprojectGuid = data.BuyerprojectGuid;
+    }
     const data = {
-      grapheneProjectId: projectId,
+      projectGuid: BuyerprojectGuid,
       classificationCategory: '["Carbon avoidance","Carbon reduction","Carbon removal","Undefined"]',
       classificationMethod:
         "Natural - The activity claim uses natural methods (e.g. IFM)",
       projectScale: "Micro (fewer than 1,000 tCO2e)",
       projectType: "ifm",
     };
-    const modularUrl = `${API_ENDPOINTS.createProject}/${projectId}/modular-benefit-project`;
+    const modularUrl = API_ENDPOINTS.modularbenefitprojectguid(guid);
     const response = await postRequest(
       modularUrl,
       JSON.stringify(data),
@@ -97,12 +104,13 @@ test.describe("fill all fields For validate listings buyer page", { tag: ['@UI',
   });
 
   test("Create Modular-Benefit-Project with Config for Methodology", async () => {
-    if (!modularProjectId) {
+    if (!modularProjectId || !BuyerprojectGuid) {
       const data = getData("UI");
       modularProjectId = data.modularProjectId;
+      BuyerprojectGuid = data.BuyerprojectGuid
     }
     const config_id = 13;
-    const mbpConfigUrl = `${API_ENDPOINTS.modularbenefitproject}/${modularProjectId}/config/${config_id}`;
+    const mbpConfigUrl = `${API_ENDPOINTS.modularbenefitprojectguid(BuyerprojectGuid)}/${modularProjectId}/config/${config_id}`;
     const mbpConfigData = {};
     const mbpresponse = await postRequest(mbpConfigUrl, mbpConfigData, headers);
 
@@ -111,8 +119,12 @@ test.describe("fill all fields For validate listings buyer page", { tag: ['@UI',
   });
 
   test("Post Request project-field-values for all Fields", async () => {
-    const projectfieldvalueUrl = `${API_ENDPOINTS.createProject}/${projectId}/project-field-values`;
+    if (!BuyerprojectGuid) {
+      const data = getData("UI");
+      BuyerprojectGuid = data.BuyerprojectGuid
+    }
 
+    const projectfieldvalueUrl = `${API_ENDPOINTS.createProjectguid(BuyerprojectGuid)}/project-field-values`;
 
     // Send a POST request with project approach data
     const response = await postRequest(
@@ -126,6 +138,10 @@ test.describe("fill all fields For validate listings buyer page", { tag: ['@UI',
   });
 
   test(`Upload File`, async ({ request }) => {
+    if (!BuyerprojectGuid) {
+      const data = getData("UI");
+      BuyerprojectGuid = data.BuyerprojectGuid
+    }
     // Load the file to be used for upload tests
     const filePath = './tests/assets/file.png';
     const fileBuffer = fs.readFileSync(filePath);
@@ -134,7 +150,7 @@ test.describe("fill all fields For validate listings buyer page", { tag: ['@UI',
       const data = getData("UI");
       projectId = data.BuyerprojectId
     }
-    const fileUrl = `${API_ENDPOINTS.createProject}/${projectId}/file`;
+    const fileUrl = `${API_ENDPOINTS.createProjectguid(BuyerprojectGuid)}/file`;
 
     for (const { configFieldId } of ProjectData.fileData) {
 
@@ -167,7 +183,7 @@ test.describe('publish project after for validate listings buyer page', { tag: [
   let projectId;
 
   test.beforeAll(async () => {
-    const { projectAccessToken, BuyerprojectId } = getData("UI");
+    const { projectAccessToken, BuyerprojectId ,BuyerprojectGuid} = getData("UI");
     projectId = BuyerprojectId;
 
     headers = {
@@ -177,7 +193,7 @@ test.describe('publish project after for validate listings buyer page', { tag: [
   })
 
   test("Publish project", async () => {
-    const publishProjectUrl = `${API_ENDPOINTS.createProject}/${projectId}/publish`;
+    const publishProjectUrl = `${API_ENDPOINTS.createProjectguid(BuyerprojectGuid)}/publish`;
     const data = { notes: "Project first published" };
     const response = await postRequest(
       publishProjectUrl,
@@ -201,7 +217,7 @@ test.describe('publish project after for validate listings buyer page', { tag: [
     expect(credResponse.status).toBe(200);
     const accessToken = credResponseBody.access_token;
 
-    const reviewProjectUrl = `${API_ENDPOINTS.createProject}/${projectId}`;
+    const reviewProjectUrl = `${API_ENDPOINTS.createProjectguid(BuyerprojectGuid)}`;
     const data = { reviewState: "REVIEWED" };
     const reviewHeaders = {
       "Content-Type": "application/json",
@@ -217,7 +233,7 @@ test.describe('publish project after for validate listings buyer page', { tag: [
   });
 
   test("Publish project after REVIEWED", async () => {
-    const publishProjectUrl = `${API_ENDPOINTS.createProject}/${projectId}/publish`;
+    const publishProjectUrl = `${API_ENDPOINTS.createProjectguid(BuyerprojectGuid)}/publish`;
     const data = { notes: "Project first published" };
 
     const response = await postRequest(

@@ -13,7 +13,7 @@ const fileBuffer = fs.readFileSync(filePath);
 test.describe('API Test cases for Data Room' ,{tag: '@API'}, () => {
 
   // Declare variables for authentication and IDs
-  const { projectAccessToken} = getData('Api');
+  const { projectAccessToken, guid} = getData('Api');
   let headers;
   let dataRoomId;
   let dataRoomMemberId;
@@ -31,7 +31,7 @@ test.describe('API Test cases for Data Room' ,{tag: '@API'}, () => {
 
   // Test retrieving Data Room list before creation (should be empty)
   test('Get Data Room Before Creting Data Room', async () => {
-    const dataRoomUrl = `${API_ENDPOINTS.dataRoomsGuid}`
+    const dataRoomUrl = `${API_ENDPOINTS.dataRoomsGuid(guid)}`
 
     const response = await getRequest(dataRoomUrl, headers);
     const responseBody = await response.json();
@@ -42,7 +42,7 @@ test.describe('API Test cases for Data Room' ,{tag: '@API'}, () => {
 
   // Test creating a new Data Room
   test('Crete Data Room', async () => {
-    const dataRoomUrl = `${API_ENDPOINTS.dataRoomGuid}`;
+    const dataRoomUrl = `${API_ENDPOINTS.dataRoomGuid(guid)}`;
     const data = {
       name: dataRoomData.name
     }
@@ -56,7 +56,6 @@ test.describe('API Test cases for Data Room' ,{tag: '@API'}, () => {
     // expect(response.status).toBe(200);
     expect(responseBody.id).toEqual(expect.any(Number));
     expect(responseBody.name).toBe(dataRoomData.name);
-    expect(responseBody.grapheneProjectId).toBe(null);
     expect(responseBody.dataRoomMembers).toEqual([]);
     expect(responseBody.dataRoomFiles).toEqual([]);
     
@@ -69,7 +68,7 @@ test.describe('API Test cases for Data Room' ,{tag: '@API'}, () => {
       dataRoomId = data.dataRoomId;
     }
 
-    const dataRoomUrl = `${API_ENDPOINTS.dataRoomsGuid}`;
+    const dataRoomUrl = `${API_ENDPOINTS.dataRoomsGuid(guid)}`;
 
     const response = await getRequest(dataRoomUrl, headers);
     const responseBody = await response.json();
@@ -88,7 +87,7 @@ test.describe('API Test cases for Data Room' ,{tag: '@API'}, () => {
       dataRoomId = data.dataRoomId;
     }
 
-    const dataRoomUrl = `${API_ENDPOINTS.dataRoomGuid}/${dataRoomId}`;
+    const dataRoomUrl = `${API_ENDPOINTS.dataRoomGuid(guid)}/${dataRoomId}`;
 
     const response = await getRequest(dataRoomUrl, headers);
     const responseBody = await response.json();
@@ -96,7 +95,6 @@ test.describe('API Test cases for Data Room' ,{tag: '@API'}, () => {
     expect(response.status).toBe(200);
     expect(responseBody.id).toBe(dataRoomId);
     expect(responseBody.name).toBe(dataRoomData.name);
-    expect(responseBody.grapheneProjectId).toBe(null);
     expect(responseBody.dataRoomMembers).toEqual([]);
     expect(responseBody.dataRoomFiles).toEqual([]);
   })
@@ -108,7 +106,7 @@ test.describe('API Test cases for Data Room' ,{tag: '@API'}, () => {
       dataRoomId = data.dataRoomId;
     }
 
-    const dataRoomUrl = `${API_ENDPOINTS.dataRoomGuid}/${dataRoomId}`;
+    const dataRoomUrl = `${API_ENDPOINTS.dataRoomGuid(guid)}/${dataRoomId}`;
 
     const data = {
       name: dataRoomData.updateName
@@ -119,7 +117,6 @@ test.describe('API Test cases for Data Room' ,{tag: '@API'}, () => {
     expect(response.status).toBe(200);
     expect(responseBody.id).toBe(dataRoomId);
     expect(responseBody.name).toBe(dataRoomData.updateName);
-    expect(responseBody.grapheneProjectId).toBe(null);
     expect(responseBody.dataRoomMembers).toEqual([]);
     expect(responseBody.dataRoomFiles).toEqual([]);
   })
@@ -131,7 +128,7 @@ test.describe('API Test cases for Data Room' ,{tag: '@API'}, () => {
       dataRoomId = data.dataRoomId;
     }
 
-    const dataRoomUrl = `${API_ENDPOINTS.dataRoomGuid}/${dataRoomId}`;
+    const dataRoomUrl = `${API_ENDPOINTS.dataRoomGuid(guid)}/${dataRoomId}`;
 
     const response = await getRequest(dataRoomUrl, headers);
     const responseBody = await response.json();
@@ -139,7 +136,6 @@ test.describe('API Test cases for Data Room' ,{tag: '@API'}, () => {
     expect(response.status).toBe(200);
     expect(responseBody.id).toBe(dataRoomId);
     expect(responseBody.name).toBe(dataRoomData.updateName);
-    expect(responseBody.grapheneProjectId).toBe(null);
     expect(responseBody.dataRoomMembers).toEqual([]);
     expect(responseBody.dataRoomFiles).toEqual([]);
   })
@@ -173,14 +169,14 @@ test.describe('API Test cases for Data Room' ,{tag: '@API'}, () => {
     const fileId = fileRessponseBody.projectFileId;
 
     // Retrieve uploaded file details
-    const getFileUrl = `${API_ENDPOINTS.createProjectguid}/file/draft`;
+    const getFileUrl = `${API_ENDPOINTS.createProjectguid(guid)}/file/draft`;
     const getfileResponse = await getRequest(getFileUrl, headers);
     const getfileRessponseBody = await getfileResponse.json();
     const projectField = getfileRessponseBody[0];
     const projectfiledId = getfileRessponseBody[0].id;
 
     // Associate file with Data Room
-    const dataRoomUrl = `${API_ENDPOINTS.dataRoomGuid}/${dataRoomId}/file`;
+    const dataRoomUrl = `${API_ENDPOINTS.dataRoomGuid(guid)}/${dataRoomId}/file`;
     const data = {
       projectFileIds:[projectfiledId]
     }
@@ -191,7 +187,6 @@ test.describe('API Test cases for Data Room' ,{tag: '@API'}, () => {
     expect(response.status).toBe(201);
     expect(responseBody.id).toBe(dataRoomId);
     expect(responseBody.name).toBe(dataRoomData.updateName);
-    expect(responseBody.grapheneProjectId).toBe(null);
     expect(responseBody.dataRoomMembers).toEqual([]);
     expect(responseBody.dataRoomFiles[0].dataRoomId).toBe(dataRoomId);
     expect(responseBody.dataRoomFiles[0].projectFile).toEqual(projectField);
@@ -205,7 +200,7 @@ test.describe('API Test cases for Data Room' ,{tag: '@API'}, () => {
       dataRoomId = data.dataRoomId;
     }
 
-    const dataRoomUrl = `${API_ENDPOINTS.dataRoomGuid}/${dataRoomId}`;
+    const dataRoomUrl = `${API_ENDPOINTS.dataRoomGuid(guid)}/${dataRoomId}`;
 
     const response = await getRequest(dataRoomUrl, headers);
     const responseBody = await response.json();
@@ -213,7 +208,6 @@ test.describe('API Test cases for Data Room' ,{tag: '@API'}, () => {
     expect(response.status).toBe(200);
     expect(responseBody.id).toBe(dataRoomId);
     expect(responseBody.name).toBe(dataRoomData.updateName);
-    expect(responseBody.grapheneProjectId).toBe(null);
     expect(responseBody.dataRoomMembers).toEqual([]);
     expect(responseBody.dataRoomFiles[0].dataRoomId).toBe(dataRoomId);
     expect(responseBody.dataRoomFiles[0].projectFile).not.toEqual([]);
@@ -229,7 +223,7 @@ test.describe('API Test cases for Data Room' ,{tag: '@API'}, () => {
       dataRoomId = data.dataRoomId;
     }
 
-    const dataRoomUrl = `${API_ENDPOINTS.dataRoomGuid}/${dataRoomId}/member`;
+    const dataRoomUrl = `${API_ENDPOINTS.dataRoomGuid(guid)}/${dataRoomId}/member`;
     const data = {
       email: "Invalid@gmail.com",
       message: "Test"
@@ -252,7 +246,7 @@ test.describe('API Test cases for Data Room' ,{tag: '@API'}, () => {
       dataRoomId = data.dataRoomId;
     }
 
-    const dataRoomUrl = `${API_ENDPOINTS.dataRoomGuid}/${dataRoomId}/member`;
+    const dataRoomUrl = `${API_ENDPOINTS.dataRoomGuid(guid)}/${dataRoomId}/member`;
     const data = {
       email: projectValidationCredentials.email,
       message: "Test"
@@ -276,7 +270,7 @@ test.describe('API Test cases for Data Room' ,{tag: '@API'}, () => {
       dataRoomId = data.dataRoomId;
     }
 
-    const dataRoomUrl = `${API_ENDPOINTS.dataRoomGuid}/${dataRoomId}`;
+    const dataRoomUrl = `${API_ENDPOINTS.dataRoomGuid(guid)}/${dataRoomId}`;
 
     const response = await getRequest(dataRoomUrl, headers);
     const responseBody = await response.json();
@@ -284,7 +278,6 @@ test.describe('API Test cases for Data Room' ,{tag: '@API'}, () => {
     expect(response.status).toBe(200);
     expect(responseBody.id).toBe(dataRoomId);
     expect(responseBody.name).toBe(dataRoomData.updateName);
-    expect(responseBody.grapheneProjectId).toBe(null);
     expect(responseBody.dataRoomMembers[0].id).toEqual(expect.any(Number));
     expect(responseBody.dataRoomMembers[0].status).toBe("INVITED");
     expect(responseBody.dataRoomMembers[0].dataRoomId).toBe(dataRoomId);
@@ -304,7 +297,7 @@ test.describe('API Test cases for Data Room' ,{tag: '@API'}, () => {
       dataRoomMemberId = data.dataRoomMemberId;
     }
 
-    const dataRoomUrl = `${API_ENDPOINTS.dataRoomGuid}/${dataRoomId}/member/${dataRoomMemberId}`;
+    const dataRoomUrl = `${API_ENDPOINTS.dataRoomGuid(guid)}/${dataRoomId}/member/${dataRoomMemberId}`;
 
     const response = await deleteRequest(dataRoomUrl, headers);
     expect(response.status).toBe(204);
@@ -317,7 +310,7 @@ test.describe('API Test cases for Data Room' ,{tag: '@API'}, () => {
       dataRoomId = data.dataRoomId;
     }
 
-    const dataRoomUrl = `${API_ENDPOINTS.dataRoomGuid}/${dataRoomId}`;
+    const dataRoomUrl = `${API_ENDPOINTS.dataRoomGuid(guid)}/${dataRoomId}`;
 
     const response = await getRequest(dataRoomUrl, headers);
     const responseBody = await response.json();
@@ -325,7 +318,6 @@ test.describe('API Test cases for Data Room' ,{tag: '@API'}, () => {
     expect(response.status).toBe(200);
     expect(responseBody.id).toBe(dataRoomId);
     expect(responseBody.name).toBe(dataRoomData.updateName);
-    expect(responseBody.grapheneProjectId).toBe(null);
     expect(responseBody.dataRoomMembers).toEqual([]);
     expect(responseBody.dataRoomFiles[0].dataRoomId).toBe(dataRoomId);
     expect(responseBody.dataRoomFiles[0].projectFile).not.toEqual([]);
@@ -339,7 +331,7 @@ test.describe('API Test cases for Data Room' ,{tag: '@API'}, () => {
       projectFileId = data.projectFileId;
     }
 
-    const dataRoomUrl = `${API_ENDPOINTS.dataRoomGuid}/${dataRoomId}/file/${projectFileId}`;
+    const dataRoomUrl = `${API_ENDPOINTS.dataRoomGuid(guid)}/${dataRoomId}/file/${projectFileId}`;
 
     const response = await deleteRequest(dataRoomUrl, headers);
     expect(response.status).toBe(204);
@@ -352,15 +344,14 @@ test.describe('API Test cases for Data Room' ,{tag: '@API'}, () => {
       dataRoomId = data.dataRoomId;
     }
 
-    const dataRoomUrl = `${API_ENDPOINTS.dataRoomGuid}/${dataRoomId}`;
+    const dataRoomUrl = `${API_ENDPOINTS.dataRoomGuid(guid)}/${dataRoomId}`;
 
     const response = await getRequest(dataRoomUrl, headers);
     const responseBody = await response.json();
-
+ console.log(responseBody)
     expect(response.status).toBe(200);
     expect(responseBody.id).toBe(dataRoomId);
     expect(responseBody.name).toBe(dataRoomData.updateName);
-    expect(responseBody.grapheneProjectId).toBe(null);
     expect(responseBody.dataRoomMembers).toEqual([]);
     expect(responseBody.dataRoomFiles).toEqual([]);
   })
@@ -373,7 +364,7 @@ test.describe('API Test cases for Data Room' ,{tag: '@API'}, () => {
       projectFileId = data.projectFileId;
     }
 
-    const dataRoomUrl = `${API_ENDPOINTS.dataRoomGuid}/${dataRoomId}`;
+    const dataRoomUrl = `${API_ENDPOINTS.dataRoomGuid(guid)}/${dataRoomId}`;
 
     const response = await deleteRequest(dataRoomUrl, headers);
     expect(response.status).toBe(204);
@@ -381,7 +372,7 @@ test.describe('API Test cases for Data Room' ,{tag: '@API'}, () => {
 
   // Test retrieving Data Room list after deletion (should be empty)
   test('Get Data Room after delete Data Room', async () => {
-    const dataRoomUrl = `${API_ENDPOINTS.dataRoomsGuid}`
+    const dataRoomUrl = `${API_ENDPOINTS.dataRoomsGuid(guid)}`
 
     const response = await getRequest(dataRoomUrl, headers);
     const responseBody = await response.json();
