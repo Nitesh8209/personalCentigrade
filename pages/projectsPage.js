@@ -906,7 +906,7 @@ class ProjectsPage {
     }
 
     async leftSideBar() {
-        return await this.page.locator('.navbar');
+        return await this.page.locator('.nav-items');
     }
 
     async avatar() {

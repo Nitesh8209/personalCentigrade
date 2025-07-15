@@ -17,7 +17,6 @@ test.describe('TIER0 Project Management Tests for Publish', { tag: '@API' }, () 
   let ProjectData;
 
   test.beforeAll(async () => {
-     await extractTier0FieldsFromTopics();
     // Set headers with authorization token and content type
     headers = {
       'Content-Type': 'application/json',
@@ -38,6 +37,7 @@ test.describe('TIER0 Project Management Tests for Publish', { tag: '@API' }, () 
 
   // Test to create project field values
   test('Create Project-Field-Values ', async () => {
+    await extractTier0FieldsFromTopics();
     const projectfieldvalueUrl = `${API_ENDPOINTS.createProjectguid(guid)}/project-field-values`;
 
     // Send a POST request with project approach data
