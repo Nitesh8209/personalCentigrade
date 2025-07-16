@@ -174,12 +174,7 @@ test.describe('Field level validation', { tag: '@UI' }, async () => {
                       async () => {
                         const inputLocator = await fieldHandler.getLocator(field.name, field.label, field.type, field.component);
                         await expect(inputLocator).toBeVisible();
-                        await fieldHandler.validateField(inputLocator, {
-                          type: field.type,
-                          component: field.component,
-                          label: field.label,
-                          options: field.options
-                        });
+                        await fieldHandler.validateField(inputLocator, field);
                       },
                       errors
                     );

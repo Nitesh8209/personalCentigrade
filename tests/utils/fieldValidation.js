@@ -92,8 +92,12 @@ export class FieldHandler {
       return this.page.locator('.input').getByLabel(fieldLabel, { exact: true });;
     }
 
-    if (component === COMPONENT_TYPES.RICH_TEXT || component === COMPONENT_TYPES.TEXTAREA) {
+    if (component === COMPONENT_TYPES.RICH_TEXT) {
       return this.page.locator('label').getByText(fieldLabel, { exact: true }).locator('..').locator('..').locator('.editor-control');
+    }
+
+    if (component === COMPONENT_TYPES.TEXTAREA) {
+      return this.page.locator('label').getByText(fieldLabel, { exact: true }).locator('..').locator('..').locator('textarea');
     }
 
     // Handle standard field types
@@ -356,7 +360,7 @@ export class FieldHandler {
         await locator.click();
       }
       await expect(listBox).toBeVisible();
-      const optionText = await listBox.getByText(option);
+      const optionText = await listBox.getByText(option, { exact: true });
       await expect(optionText).toBeVisible();
       await expect(optionText).toHaveText(option);
       await optionText.click(); 
@@ -671,11 +675,15 @@ export class FieldHandler {
         break;
 
       case COMPONENT_TYPES.RICH_TEXT:
-      case COMPONENT_TYPES.TEXTAREA:
           value = faker.lorem.words(3);
           const inputField = await locator.locator('.tiptap')
           await inputField.fill(value);
         break;
+
+      case COMPONENT_TYPES.TEXTAREA:
+          value = faker.lorem.words(3);
+          await locator.fill(value);
+        break;  
 
       case COMPONENT_TYPES.SELECT:
         value = await field.options[0];
@@ -943,7 +951,7 @@ export class FieldHandler {
 
       case COMPONENT_TYPES.METHODOLOGY_SELECT:
         const MethodologyselectedValuesText = await locator.textContent();
-        await expect(MethodologyselectedValuesText).toBe('QA use only frozen ACR 1.3 test methodology');
+        await expect(MethodologyselectedValuesText).toBe('QA (ACR 1.3 test methodology)');
         console.log('select', MethodologyselectedValuesText)
 
         break;
@@ -1006,7 +1014,7 @@ export class FieldHandler {
 
       case COMPONENT_TYPES.METHODOLOGY_SELECT:
         const MethodologyselectedValuesText = await locator.textContent();
-        await expect(MethodologyselectedValuesText).toBe('QA use only frozen ACR 1.3 test methodology');
+        await expect(MethodologyselectedValuesText).toBe('QA (ACR 1.3 test methodology)');
         console.log('select', MethodologyselectedValuesText)
         break;
 

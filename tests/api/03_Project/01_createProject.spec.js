@@ -10,6 +10,7 @@ test.describe('Project API Tests', { tag: '@API' }, () => {
   let projectId;
   let headers;
   let projectAccessToken;
+  let guid;
 
 
   test.beforeAll(async () => {
@@ -73,18 +74,19 @@ test.describe('Project API Tests', { tag: '@API' }, () => {
 
     // Save the project ID for future use
     projectId = responseBody.id;
-    const guid = responseBody.guid;
+    guid = responseBody.guid;
     await saveData({ projectId: projectId }, 'Api');
     await saveData({ guid: guid}, 'Api');
   })
 
   // Test case to retrieve a project by its ID
   test('Get Project By projet GUID', async () => {
-    if(!projectId){
+    if(!projectId || !guid){
       const data = getData('Api');
       projectId = data.projectId;
+      guid = data.guid;
     }
-    const getProjectUrl = `${API_ENDPOINTS.createProjectguid}/draft`;
+    const getProjectUrl = `${API_ENDPOINTS.createProjectguid(guid)}/draft`;
     const response = await getRequest(getProjectUrl, headers);
     const responseBody = await response.json();
 
@@ -97,11 +99,12 @@ test.describe('Project API Tests', { tag: '@API' }, () => {
 
   // Test case to update project details
   test('Update Project Data', async ({ baseURL }) => {
-    if(!projectId){
+    if(!projectId || !guid){
       const data = getData('Api');
       projectId = data.projectId;
+      guid = data.guid;
     }
-    const ProjectUrl = `${API_ENDPOINTS.createProjectguid}`;
+    const ProjectUrl = `${API_ENDPOINTS.createProjectguid(guid)}`;
     const projectData = {
       domain: `${baseURL}/`,
     };
@@ -118,11 +121,12 @@ test.describe('Project API Tests', { tag: '@API' }, () => {
 
   // // Test case to retrieve the state of the project by its ID
   test('Get Project state By GUID', async () => {
-      if(!projectId){
+     if(!projectId || !guid){
       const data = getData('Api');
       projectId = data.projectId;
+      guid = data.guid;
     }
-    const getProjectUrl = `${API_ENDPOINTS.createProjectguid}/state`;
+    const getProjectUrl = `${API_ENDPOINTS.createProjectguid(guid)}/state`;
 
     const response = await getRequest(getProjectUrl, headers);
     const responseBody = await response.json();

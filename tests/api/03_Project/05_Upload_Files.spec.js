@@ -10,7 +10,7 @@ const fileBuffer = fs.readFileSync(filePath);
 
 test.describe('Upload Files For all Tiers', { tag: '@API' }, () => {
   // Retrieve required data like tokens, organizationId, and projectId from saved data
-  const { projectAccessToken, draftProjectId } = getData('Api');
+  const { projectAccessToken, draftProjectId, guid } = getData('Api');
 
   let headers;
 
@@ -27,7 +27,7 @@ test.describe('Upload Files For all Tiers', { tag: '@API' }, () => {
   test.describe('Upload File', () => {
     FileType.forEach(({configFieldId, projectFileType }) => {
       test(`should successfully upload a file of type: ${projectFileType}`, async ({ request }) => {
-        const fileUrl = `${API_ENDPOINTS.createProjectguid}/file`;
+        const fileUrl = `${API_ENDPOINTS.createProjectguid(guid)}/file`;
 
         // Prepare file data for upload
         const fileData = {
