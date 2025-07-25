@@ -107,9 +107,10 @@ test.describe('Fill All Required Fields and Save', { tag: ['@UI', '@SMOKE'] }, (
     await projectsPage.viewProject();
     await page.waitForURL(`**/overview`);
 
-    // Validate project title
-    const projectTitle = await projectsPage.projectTitle();
-    await expect(projectTitle).toBe(project.uiProjectName);
+    // Validat project title
+    const projectTitle = await projectsPage.overviewtitle();
+    await expect(projectTitle).toBeVisible({ timeout: 20000});
+    await expect(projectTitle).toHaveText(project.uiProjectName);
 
     // Find and click on the topic label
     const topicElement = await fieldHandler.findLabel(topic.label);
@@ -238,8 +239,10 @@ test.describe('Publish the Project after completed the Tier 0 topic', { tag: ['@
     await projectsPage.viewProject();
     await page.waitForURL(`**/overview`);
 
-    const projectTitle = await projectsPage.projectTitle();
-    await expect(projectTitle).toBe(project.uiProjectName);
+        // Validat project title
+    const projectTitle = await projectsPage.overviewtitle();
+    await expect(projectTitle).toBeVisible({ timeout: 20000});
+    await expect(projectTitle).toHaveText(project.uiProjectName);
   });
 
   test('Verify if Publish button is visible and enabled, and Tier 0 progress is 100%', async () => {
@@ -328,8 +331,10 @@ test.describe('Approve project by superuser', { tag: ['@UI', '@SMOKE'] }, () => 
     await projectsPage.viewProject();
     await page.waitForURL(`**/overview`);
 
-    const projectTitle = await projectsPage.projectTitle();
-    await expect(projectTitle).toBe(project.uiProjectName);
+    // Validat project title
+    const projectTitle = await projectsPage.overviewtitle();
+    await expect(projectTitle).toBeVisible({ timeout: 20000});
+    await expect(projectTitle).toHaveText(project.uiProjectName);
   });
 
  
@@ -394,8 +399,10 @@ test.describe('Project after approve Project', { tag: ['@UI', '@SMOKE'] }, () =>
     await projectsPage.viewProject();
     await page.waitForURL(`**/overview`);
 
-    const projectTitle = await projectsPage.projectTitle();
-    await expect(projectTitle).toBe(project.uiProjectName);
+    // Validat project title
+    const projectTitle = await projectsPage.overviewtitle();
+    await expect(projectTitle).toBeVisible({ timeout: 20000});
+    await expect(projectTitle).toHaveText(project.uiProjectName);
   });
 
 

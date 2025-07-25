@@ -131,7 +131,7 @@ export class ListingPage {
   }
 
   async DocumentsTab(){
-    return await this.page.locator('.tab-list').getByText('Documents');
+    return await this.page.locator('.navbar').getByRole('link', { name: 'Documents' });
   }
 
   async navigateToListings(){

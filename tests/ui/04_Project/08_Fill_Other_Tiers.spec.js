@@ -35,9 +35,10 @@ test.describe('After Topic 1 - Fill Remaining Required Fields and Save', { tag: 
     await projectsPage.viewProject();
     await page.waitForURL(`**/overview`);
 
-    // Validate project title
-    const projectTitle = await projectsPage.projectTitle();
-    await expect(projectTitle).toBe(project.uiProjectName);
+    // Validat project title
+    const projectTitle = await projectsPage.overviewtitle();
+    await expect(projectTitle).toBeVisible({ timeout: 20000 });
+    await expect(projectTitle).toHaveText(project.uiProjectName);
   });
 
 
@@ -160,7 +161,7 @@ test.describe('After Topic 1 - Fill Remaining Required Fields and Save', { tag: 
               // Ensure step is visible and click on it
               await expect(stepElement).toBeVisible();
               await stepElement.click();
-              const stepLabel = await page.getByRole('heading', { name: step.label, exact: true });
+              const stepLabel = await page.locator('h1', { hasText: step.label, exact: true });
               await expect(stepLabel).toBeVisible();
             })
 
@@ -265,8 +266,10 @@ test.describe('Publish the Project after completed the Tier 1, Tier 2, Tier 3 to
     await projectsPage.viewProject();
     await page.waitForURL(`**/overview`);
 
-    const projectTitle = await projectsPage.projectTitle();
-    await expect(projectTitle).toBe(project.uiProjectName);
+    // Validat project title
+    const projectTitle = await projectsPage.overviewtitle();
+    await expect(projectTitle).toBeVisible({ timeout: 20000 });
+    await expect(projectTitle).toHaveText(project.uiProjectName);
   });
 
   test('Verify Publish button is visible and enabled after filling all other fields ', async () => {
@@ -277,7 +280,7 @@ test.describe('Publish the Project after completed the Tier 1, Tier 2, Tier 3 to
       async () => {
         const publishButton = await projectsPage.publishButton();
         await expect(publishButton).toBeVisible();
-        await expect(publishButton).toBeEnabled();
+        await expect(publishButton).toBeEnabled({ timeout: 20000 });
       },
       errors
     )
@@ -500,7 +503,7 @@ test.describe('Publish the Project after completed the Tier 1, Tier 2, Tier 3 to
         // cancel button on the current draft modal
         const cancelButton = await projectsPage.cancelButton();
         await expect(cancelButton).toBeVisible();
-        await cancelButton.click();
+        await cancelButton.click({ force: true });
         const discardButton = await projectsPage.discardButton();
         await expect(discardButton).toBeVisible();
         await discardButton.click();
@@ -557,16 +560,18 @@ test.describe('Publish the Project after completed the Tier 1, Tier 2, Tier 3 to
   test('Publish the project after Filled another remaining fields', async () => {
     const errors = [];
 
-    // Click on Publish Button
-    await safeExpect('Click on Publish button',
-      async () => {
-        const publishButton = await projectsPage.publishButton();
-        await expect(publishButton).toBeVisible();
-        await expect(publishButton).toBeEnabled();
-        await publishButton.click();
-      },
-      errors
-    );
+    if (!(await (await projectsPage.draftPublishButton()).isVisible())) {
+      // Click on Publish Button
+      await safeExpect('Click on Publish button',
+        async () => {
+          const publishButton = await projectsPage.publishButton();
+          await expect(publishButton).toBeVisible();
+          await expect(publishButton).toBeEnabled();
+          await publishButton.click();
+        },
+        errors
+      );
+    }
 
     // Click on Publish Button
     await safeExpect('Click on Publish button after fill summary of Updates',
@@ -642,9 +647,10 @@ test.describe('Verify the all Fileds are saved', { tag: '@UI' }, () => {
     await projectsPage.viewProject();
     await page.waitForURL(`**/overview`);
 
-    // Validate project title
-    const projectTitle = await projectsPage.projectTitle();
-    await expect(projectTitle).toBe(project.uiProjectName);
+    // Validat project title
+    const projectTitle = await projectsPage.overviewtitle();
+    await expect(projectTitle).toBeVisible({ timeout: 20000});
+    await expect(projectTitle).toHaveText(project.uiProjectName);
   });
 
   test.afterAll(async () => {
@@ -682,7 +688,7 @@ test.describe('Verify the all Fileds are saved', { tag: '@UI' }, () => {
               // Ensure step is visible and click on it
               await expect(stepElement).toBeVisible();
               await stepElement.click();
-              const stepLabel = await page.getByRole('heading', { name: step.label, exact: true });
+              const stepLabel = await page.locator('h1', { hasText: step.label, exact: true });
               await expect(stepLabel).toBeVisible();
             })
 

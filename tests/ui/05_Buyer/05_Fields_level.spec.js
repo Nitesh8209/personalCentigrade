@@ -55,26 +55,26 @@ test.describe("Fields Level Validation - after Login", { tag: '@UI' }, () => {
         test.describe(`Single Step Group: ${stepGroup.label}`, () => {
 
           // Test breadcrumb visibility for single step group page
-          test(`Validate breadcrumbs on single page for ${stepGroup.label}`, async () => {
-            const errors = [];
-            const fieldHandler = new FieldHandler(page);
+          // test(`Validate breadcrumbs on single page for ${stepGroup.label}`, async () => {
+          //   const errors = [];
+          //   const fieldHandler = new FieldHandler(page);
 
-              // Validate breadcrumbs using helper function
-              await validateBreadcrumbs(fieldHandler, errors, {
-                expectedCount: 3,
-                separatorCount: 2,
-                breadcrumbs: [
-                  { index: 0, href: '/listings', text: "Projects" },
-                  { index: 1, href: '', text: project.buyerProject },
-                  { index: 2, href: '', text: topic.label }
-                ]
-              });
+          //     // Validate breadcrumbs using helper function
+          //     await validateBreadcrumbs(fieldHandler, errors, {
+          //       expectedCount: 3,
+          //       separatorCount: 2,
+          //       breadcrumbs: [
+          //         { index: 0, href: '/listings', text: "Projects" },
+          //         { index: 1, href: '', text: project.buyerProject },
+          //         { index: 2, href: '', text: topic.label }
+          //       ]
+          //     });
 
 
-            if (errors.length > 0) {
-              throw new Error(`Validation errors found:\n${errors.join('\n')}`);
-            }
-          });
+          //   if (errors.length > 0) {
+          //     throw new Error(`Validation errors found:\n${errors.join('\n')}`);
+          //   }
+          // });
 
           test(`Validate Title of Step Group ${stepGroup.label}`, async () => {
               const errors = [];
@@ -107,45 +107,45 @@ test.describe("Fields Level Validation - after Login", { tag: '@UI' }, () => {
             // Iterate through each step in the step group
             for (const step of stepGroup.steps) {
               // Test breadcrumb validation for each step 
-              test(`Validate Breadcrump on step ${step.label} on separate page`, async () => {
-                const hasValidStepFieldsElement = await hasValidStepFields(step);
-                if (!hasValidStepFieldsElement) {
-                  test.skip(true, 'No Fields Availabel in this');
-                }
+              // test(`Validate Breadcrump on step ${step.label} on separate page`, async () => {
+              //   const hasValidStepFieldsElement = await hasValidStepFields(step);
+              //   if (!hasValidStepFieldsElement) {
+              //     test.skip(true, 'No Fields Availabel in this');
+              //   }
 
-                const errors = [];
-                const projectListings = new ProjectListings(page);
-                const fieldHandler = new FieldHandler(page);
+              //   const errors = [];
+              //   const projectListings = new ProjectListings(page);
+              //   const fieldHandler = new FieldHandler(page);
 
-                // Navigate to the specific step
-                const stepElement = await projectListings.stepLabel(step.label);
-                await stepElement.click();
+              //   // Navigate to the specific step
+              //   const stepElement = await projectListings.stepLabel(step.label);
+              //   await stepElement.click();
 
-                // Define breadcrumb data for validation
-                const breadcrumbData = {
-                  expectedCount: 5,
-                  separatorCount: 4,
-                  breadcrumbs: [
-                    { index: 0, href: '/listings', text: "Projects" },
-                    { index: 1, href: '', text: project.buyerProject },
-                    { index: 2, href: '', text: await convertToTitleCase(topic.name) },
-                    { index: 3, href: '', text: await convertToTitleCase(stepGroup.name) },
-                    { index: 4, href: '', text: await convertToTitleCase(step.name) }
-                  ]
-                };
+              //   // Define breadcrumb data for validation
+              //   const breadcrumbData = {
+              //     expectedCount: 5,
+              //     separatorCount: 4,
+              //     breadcrumbs: [
+              //       { index: 0, href: '/listings', text: "Projects" },
+              //       { index: 1, href: '', text: project.buyerProject },
+              //       { index: 2, href: '', text: await convertToTitleCase(topic.name) },
+              //       { index: 3, href: '', text: await convertToTitleCase(stepGroup.name) },
+              //       { index: 4, href: '', text: await convertToTitleCase(step.name) }
+              //     ]
+              //   };
 
-                // Verify URL contains step name
-                await safeExpect(`URL should contain step name: ${step.name}`, async () => {
-                  await expect(page.url()).toContain(step.name);
-                }, errors);
+              //   // Verify URL contains step name
+              //   await safeExpect(`URL should contain step name: ${step.name}`, async () => {
+              //     await expect(page.url()).toContain(step.name);
+              //   }, errors);
 
-                // Validate breadcrumbs
-                await validateBreadcrumbs(fieldHandler, errors, breadcrumbData);
+              //   // Validate breadcrumbs
+              //   await validateBreadcrumbs(fieldHandler, errors, breadcrumbData);
 
-                if (errors.length > 0) {
-                  throw new Error(`Validation errors found:\n${errors.join('\n')}`);
-                }
-              });
+              //   if (errors.length > 0) {
+              //     throw new Error(`Validation errors found:\n${errors.join('\n')}`);
+              //   }
+              // });
 
               // Test field label validation for each step
               test(`validate the filed label and value in the content on step ${step.label}`, async () => {

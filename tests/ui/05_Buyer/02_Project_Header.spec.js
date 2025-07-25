@@ -216,7 +216,7 @@ test.describe('Project Header - UI and Navigation for Authenticated Users', { ta
 
     await validateListingProjectHeader(projectHeader, errors);
 
-    if (errors > 0) {
+    if (errors.length > 0) {
       throw new Error(`Validation errors found:\n${errors.join('\n')}`);
     }
 

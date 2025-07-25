@@ -1,7 +1,7 @@
 {
   "dataSchema": "QA-ACR1.3-cgV1.0.0",
   "navigation": "view2.0-config",
-  "versionDate": "2025-07-11T19:42:03-07:00",
+  "versionDate": "2025-07-23T16:53:44-07:00",
   "methodology": {
     "id": 13,
     "nickname": "QA-ACR1.3",
@@ -12,7 +12,7 @@
   "dataSchemaInfo": {
     "id": 13,
     "version": "cgV1.0.0",
-    "status": "QA"
+    "status": "draft"
   },
   "topics": [
     {
@@ -181,7 +181,7 @@
                             },
                             {
                               "name": "blockCreditPriceRange",
-                              "type": "integer",
+                              "type": "number",
                               "label": "Est. price",
                               "options": [],
                               "tooltip": "",
@@ -292,7 +292,7 @@
                           "name": "creditPriceRange-nameValue-nameValue",
                           "rows": null,
                           "tier": -1,
-                          "type": "integer",
+                          "type": "number",
                           "label": "Est. price",
                           "columns": null,
                           "options": [],
@@ -332,8 +332,8 @@
                                   "order": 0,
                                   "set_type": null,
                                   "data_series": [
-                                    "creditsAvailable",
-                                    "exAnteAvailable"
+                                    "exAnteAvailable",
+                                    "creditsAvailable"
                                   ],
                                   "truncation_type": "none"
                                 },
@@ -344,8 +344,8 @@
                                   "order": 1,
                                   "set_type": null,
                                   "data_series": [
-                                    "creditsSold",
-                                    "creditsForward"
+                                    "creditsForward",
+                                    "creditsSold"
                                   ],
                                   "truncation_type": "none"
                                 }
@@ -378,28 +378,13 @@
                           "tooltip": "",
                           "elements": [
                             {
-                              "id": 2,
-                              "order": 1,
+                              "id": 28,
+                              "order": 0,
                               "series_sets": [
                                 {
-                                  "id": 5,
-                                  "color": "green6",
-                                  "label": "Forecast",
-                                  "order": 0,
-                                  "set_type": "forecast",
-                                  "data_series": [
-                                    "estimatedCORCS",
-                                    "partialCredits",
-                                    "estimatedNetReductionRemoval",
-                                    "estimatedNetRemovals",
-                                    "estimatedNetReductions"
-                                  ],
-                                  "truncation_type": "none"
-                                },
-                                {
-                                  "id": 9,
-                                  "color": "pink6",
-                                  "label": "Actual",
+                                  "id": 55,
+                                  "color": "navy5",
+                                  "label": "Actuals",
                                   "order": 1,
                                   "set_type": "actual",
                                   "data_series": [
@@ -410,9 +395,24 @@
                                     "actualNetReductions"
                                   ],
                                   "truncation_type": "none"
+                                },
+                                {
+                                  "id": 54,
+                                  "color": "sky5",
+                                  "label": "Forecast",
+                                  "order": 0,
+                                  "set_type": "forecast",
+                                  "data_series": [
+                                    "estimatedCORCS",
+                                    "partialCredits",
+                                    "estimatedNetReductions",
+                                    "estimatedNetRemovals",
+                                    "estimatedNetReductionRemoval"
+                                  ],
+                                  "truncation_type": "none"
                                 }
                               ],
-                              "element_type": "line"
+                              "element_type": "bar"
                             }
                           ],
                           "component": "modular-chart",
@@ -430,21 +430,36 @@
                         },
                         {
                           "id": 1633,
-                          "name": "modChartTestForecastActuals-nameValue-nameValue",
+                          "name": "modChartTestForecastActuals-dataGrid-dataGrid",
                           "rows": null,
                           "tier": -1,
-                          "type": null,
+                          "type": "object",
                           "label": "mod chart test",
                           "columns": null,
                           "options": [],
                           "tooltip": "",
                           "elements": [
                             {
-                              "id": 1,
+                              "id": 24,
                               "order": 0,
                               "series_sets": [
                                 {
-                                  "id": 2,
+                                  "id": 45,
+                                  "color": "green6",
+                                  "label": "Actuals",
+                                  "order": 0,
+                                  "set_type": "actual",
+                                  "data_series": [
+                                    "actualCORCS",
+                                    "actualNetReductions",
+                                    "actualNetRemovals",
+                                    "actualNetReductionsRemovals",
+                                    "partialActualCredits"
+                                  ],
+                                  "truncation_type": "none"
+                                },
+                                {
+                                  "id": 46,
                                   "color": "pink6",
                                   "label": "Forecast",
                                   "order": 1,
@@ -452,36 +467,21 @@
                                   "data_series": [
                                     "estimatedCORCS",
                                     "partialCredits",
-                                    "estimatedNetReductionRemoval",
+                                    "estimatedNetReductions",
                                     "estimatedNetRemovals",
-                                    "estimatedNetReductions"
-                                  ],
-                                  "truncation_type": "none"
-                                },
-                                {
-                                  "id": 44,
-                                  "color": "green6",
-                                  "label": "Actuals",
-                                  "order": 0,
-                                  "set_type": "actual",
-                                  "data_series": [
-                                    "actualCORCS",
-                                    "actualNetReductionsRemovals",
-                                    "partialActualCredits",
-                                    "actualNetRemovals",
-                                    "actualNetReductions"
+                                    "estimatedNetReductionRemoval"
                                   ],
                                   "truncation_type": "none"
                                 }
                               ],
-                              "element_type": "line"
+                              "element_type": "bar"
                             }
                           ],
                           "component": "modular-chart",
                           "attributes": {
-                            "endYear": null,
-                            "startYear": null,
-                            "useDataSeries": true
+                            "endYear": "creditEnd-nameValue-nameValue",
+                            "startYear": "creditStart-nameValue-nameValue",
+                            "useDataSeries": false
                           },
                           "half_width": false,
                           "helper_text": "",
@@ -869,7 +869,7 @@
                           "name": "projectStatus-nameValue-nameValue",
                           "rows": null,
                           "tier": 0,
-                          "type": "array",
+                          "type": "string",
                           "label": "Project status",
                           "columns": null,
                           "options": [
@@ -1023,7 +1023,19 @@
                             "Calyx Global B",
                             "Calyx Global C",
                             "Calyx Global D",
-                            "None"
+                            "None",
+                            "Keeling Curve Prize",
+                            "Earthshot Prize",
+                            "St Andrews Prize",
+                            "Equator Prize",
+                            "XPRIZE Finalist",
+                            "XPRIZE Top 100",
+                            "XPRIZE Runner Up",
+                            "Renoster - Excellent",
+                            "Renoster - Good",
+                            "Renoster - Poor",
+                            "Renoster - Neutral",
+                            "Renoster - Suspect"
                           ],
                           "tooltip": "",
                           "elements": null,
@@ -1104,7 +1116,7 @@
                           "name": "organizationHeadquartersCountry-nameValue-nameValue",
                           "rows": null,
                           "tier": 0,
-                          "type": "array",
+                          "type": "string",
                           "label": "Headquarters country",
                           "columns": null,
                           "options": [],
@@ -1389,7 +1401,7 @@
                           "name": "projectStartYear-nameValue-nameValue",
                           "rows": null,
                           "tier": 0,
-                          "type": "integer",
+                          "type": "number",
                           "label": "Project start year",
                           "columns": null,
                           "options": [],
@@ -1409,7 +1421,7 @@
                           "name": "projectEndYear-nameValue-nameValue",
                           "rows": null,
                           "tier": 0,
-                          "type": "integer",
+                          "type": "number",
                           "label": "Project end year",
                           "columns": null,
                           "options": [],
@@ -1449,7 +1461,7 @@
                           "name": "termLength-nameValue-nameValue",
                           "rows": null,
                           "tier": -1,
-                          "type": "integer",
+                          "type": "number",
                           "label": "Project term commitment (in years)",
                           "columns": null,
                           "options": [],
@@ -1469,7 +1481,7 @@
                           "name": "creditStart-nameValue-nameValue",
                           "rows": null,
                           "tier": 0,
-                          "type": "integer",
+                          "type": "number",
                           "label": "Crediting start year",
                           "columns": null,
                           "options": [],
@@ -1489,7 +1501,7 @@
                           "name": "creditEnd-nameValue-nameValue",
                           "rows": null,
                           "tier": 0,
-                          "type": "integer",
+                          "type": "number",
                           "label": "Crediting end year",
                           "columns": null,
                           "options": [],
@@ -1634,7 +1646,7 @@
                           "id": 1220,
                           "name": "projectOther-nameValue-nameValue",
                           "rows": null,
-                          "tier": 0,
+                          "tier": -1,
                           "type": "string",
                           "label": "Other project type",
                           "columns": null,
@@ -1938,7 +1950,7 @@
                           "name": "countries-nameValue-nameValue",
                           "rows": null,
                           "tier": 0,
-                          "type": "array",
+                          "type": "string",
                           "label": "Country or countries of project activity",
                           "columns": null,
                           "options": [],
@@ -2070,31 +2082,6 @@
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
-                        },
-                        {
-                          "id": 453,
-                          "name": "projectGroupInfo-nameValue-nameValue",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "string",
-                          "label": "Grouped project information",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "Additional information relevant to the design of the grouped project",
-                          "elements": null,
-                          "component": "rich-text",
-                          "attributes": null,
-                          "half_width": false,
-                          "helper_text": "",
-                          "display_order": 7,
-                          "view_component": "rich-text",
-                          "validation_schema": null,
-                          "display_dependencies": [
-                            {
-                              "field": "projectLocationACR-nameValue-nameValue",
-                              "pattern": "Grouped project"
-                            }
-                          ]
                         }
                       ],
                       "parent_id": 77,
@@ -2328,7 +2315,7 @@
                           "name": "nationalLawsCompliance-nameValue-nameValue",
                           "rows": null,
                           "tier": 0,
-                          "type": "boolean",
+                          "type": "string",
                           "label": "Compliance with all applicable national laws",
                           "columns": null,
                           "options": null,
@@ -2809,7 +2796,7 @@
                           "name": "timber-nameValue-nameValue",
                           "rows": null,
                           "tier": -1,
-                          "type": "array",
+                          "type": "string",
                           "label": "Land ownership class",
                           "columns": null,
                           "options": [
@@ -3116,6 +3103,26 @@
                       "label": "",
                       "fields": [
                         {
+                          "id": 2056,
+                          "name": "organizationAiSummary-nameValue-nameValue",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "string",
+                          "label": "",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "ai-summary",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": null,
+                          "view_component": "ai-summary",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
                           "id": 2048,
                           "name": "orgExperienceBlockTable-dataTable-dataTable",
                           "rows": null,
@@ -3181,26 +3188,6 @@
                           "helper_text": "",
                           "display_order": null,
                           "view_component": "block-table",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        },
-                        {
-                          "id": 2056,
-                          "name": "organizationAiSummary-nameValue-nameValue",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "string",
-                          "label": "",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "",
-                          "elements": null,
-                          "component": "ai-summary",
-                          "attributes": {},
-                          "half_width": false,
-                          "helper_text": "",
-                          "display_order": null,
-                          "view_component": "ai-summary",
                           "validation_schema": null,
                           "display_dependencies": null
                         }
@@ -3608,28 +3595,13 @@
                           "tooltip": "",
                           "elements": [
                             {
-                              "id": 2,
-                              "order": 1,
+                              "id": 28,
+                              "order": 0,
                               "series_sets": [
                                 {
-                                  "id": 5,
-                                  "color": "green6",
-                                  "label": "Forecast",
-                                  "order": 0,
-                                  "set_type": "forecast",
-                                  "data_series": [
-                                    "estimatedCORCS",
-                                    "partialCredits",
-                                    "estimatedNetReductionRemoval",
-                                    "estimatedNetRemovals",
-                                    "estimatedNetReductions"
-                                  ],
-                                  "truncation_type": "none"
-                                },
-                                {
-                                  "id": 9,
-                                  "color": "pink6",
-                                  "label": "Actual",
+                                  "id": 55,
+                                  "color": "navy5",
+                                  "label": "Actuals",
                                   "order": 1,
                                   "set_type": "actual",
                                   "data_series": [
@@ -3640,9 +3612,24 @@
                                     "actualNetReductions"
                                   ],
                                   "truncation_type": "none"
+                                },
+                                {
+                                  "id": 54,
+                                  "color": "sky5",
+                                  "label": "Forecast",
+                                  "order": 0,
+                                  "set_type": "forecast",
+                                  "data_series": [
+                                    "estimatedCORCS",
+                                    "partialCredits",
+                                    "estimatedNetReductions",
+                                    "estimatedNetRemovals",
+                                    "estimatedNetReductionRemoval"
+                                  ],
+                                  "truncation_type": "none"
                                 }
                               ],
-                              "element_type": "line"
+                              "element_type": "bar"
                             }
                           ],
                           "component": "modular-chart",
@@ -3654,6 +3641,68 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 0,
+                          "view_component": "modular-chart",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
+                          "id": 1633,
+                          "name": "modChartTestForecastActuals-dataGrid-dataGrid",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "object",
+                          "label": "mod chart test",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "",
+                          "elements": [
+                            {
+                              "id": 24,
+                              "order": 0,
+                              "series_sets": [
+                                {
+                                  "id": 45,
+                                  "color": "green6",
+                                  "label": "Actuals",
+                                  "order": 0,
+                                  "set_type": "actual",
+                                  "data_series": [
+                                    "actualCORCS",
+                                    "actualNetReductions",
+                                    "actualNetRemovals",
+                                    "actualNetReductionsRemovals",
+                                    "partialActualCredits"
+                                  ],
+                                  "truncation_type": "none"
+                                },
+                                {
+                                  "id": 46,
+                                  "color": "pink6",
+                                  "label": "Forecast",
+                                  "order": 1,
+                                  "set_type": "forecast",
+                                  "data_series": [
+                                    "estimatedCORCS",
+                                    "partialCredits",
+                                    "estimatedNetReductions",
+                                    "estimatedNetRemovals",
+                                    "estimatedNetReductionRemoval"
+                                  ],
+                                  "truncation_type": "none"
+                                }
+                              ],
+                              "element_type": "bar"
+                            }
+                          ],
+                          "component": "modular-chart",
+                          "attributes": {
+                            "endYear": "creditEnd-nameValue-nameValue",
+                            "startYear": "creditStart-nameValue-nameValue",
+                            "useDataSeries": false
+                          },
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 12,
                           "view_component": "modular-chart",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -3721,7 +3770,7 @@
                           "name": "partialForecast-dataGrid-dataGrid",
                           "rows": null,
                           "tier": -1,
-                          "type": "Object",
+                          "type": "object",
                           "label": "Credit forecast by vintage",
                           "columns": null,
                           "options": [
@@ -3950,7 +3999,7 @@
                             },
                             {
                               "name": "testDtPeterCol",
-                              "type": "",
+                              "type": "string",
                               "label": "Peter Notes",
                               "options": [],
                               "tooltip": "",
@@ -4112,7 +4161,7 @@
                           "name": "projectActuals-dataGrid-dataGrid",
                           "rows": null,
                           "tier": 2,
-                          "type": "Object",
+                          "type": "object",
                           "label": "Actual emissions reductions and removals per vintage (tCO2e)",
                           "columns": null,
                           "options": [
@@ -4408,6 +4457,78 @@
                           "view_component": "modular-chart",
                           "validation_schema": null,
                           "display_dependencies": null
+                        },
+                        {
+                          "id": 2434,
+                          "name": "emissionsTestChart-dataGrid-dataGrid",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "object",
+                          "label": "Emissions test chart",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "",
+                          "elements": [
+                            {
+                              "id": 25,
+                              "order": 0,
+                              "series_sets": [
+                                {
+                                  "id": 47,
+                                  "color": "pink6",
+                                  "label": "Baseline emissions",
+                                  "order": 0,
+                                  "set_type": "forecast",
+                                  "data_series": [
+                                    "baselineEmissions"
+                                  ],
+                                  "truncation_type": "none"
+                                }
+                              ],
+                              "element_type": "bar"
+                            },
+                            {
+                              "id": 27,
+                              "order": 1,
+                              "series_sets": [
+                                {
+                                  "id": 52,
+                                  "color": "navy2",
+                                  "label": "Forecasted project emissions",
+                                  "order": 1,
+                                  "set_type": "forecast",
+                                  "data_series": [
+                                    "estimatedProjectEmissions"
+                                  ],
+                                  "truncation_type": "none"
+                                },
+                                {
+                                  "id": 53,
+                                  "color": "navy4",
+                                  "label": "Actual project emissions",
+                                  "order": 2,
+                                  "set_type": "actual",
+                                  "data_series": [
+                                    "partialActualEmissions"
+                                  ],
+                                  "truncation_type": "none"
+                                }
+                              ],
+                              "element_type": "stackedBar"
+                            }
+                          ],
+                          "component": "modular-chart",
+                          "attributes": {
+                            "endYear": null,
+                            "startYear": null,
+                            "useDataSeries": true
+                          },
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": null,
+                          "view_component": "modular-chart",
+                          "validation_schema": null,
+                          "display_dependencies": null
                         }
                       ],
                       "parent_id": 1082,
@@ -4421,7 +4542,101 @@
                       "id": 1087,
                       "name": "emissionsSupportingInfo",
                       "label": "Supporting information",
-                      "fields": null,
+                      "fields": [
+                        {
+                          "id": 1316,
+                          "name": "baselineEmissionsGrid-dataGrid-dataGrid",
+                          "rows": null,
+                          "tier": 1,
+                          "type": "object",
+                          "label": "Baseline emissions (tCO2e)",
+                          "columns": null,
+                          "options": [
+                            {
+                              "id": 60,
+                              "name": "baselineEmissions",
+                              "type": "forecast",
+                              "label": "Baseline emissions",
+                              "format": "number"
+                            }
+                          ],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "data-grid",
+                          "attributes": {
+                            "endYear": "$creditEnd-nameValue-nameValue",
+                            "startYear": "$creditStart-nameValue-nameValue"
+                          },
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 1,
+                          "view_component": "data-grid",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
+                          "id": 1322,
+                          "name": "forecastProjectEmissions-dataGrid-dataGrid",
+                          "rows": null,
+                          "tier": 1,
+                          "type": "object",
+                          "label": "Forecasted project emissions (tCO2e)",
+                          "columns": null,
+                          "options": [
+                            {
+                              "id": 61,
+                              "name": "estimatedProjectEmissions",
+                              "type": "forecast",
+                              "label": "Estimated project emissions",
+                              "format": "number"
+                            }
+                          ],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "data-grid",
+                          "attributes": {
+                            "endYear": "$creditEnd-nameValue-nameValue",
+                            "startYear": "$creditStart-nameValue-nameValue"
+                          },
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 2,
+                          "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
+                          "id": 1323,
+                          "name": "actualProjectEmissions-dataGrid-dataGrid",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "object",
+                          "label": "Actual project emissions (tCO2e)",
+                          "columns": null,
+                          "options": [
+                            {
+                              "id": 57,
+                              "name": "partialActualEmissions",
+                              "type": "actual",
+                              "label": "Actual project emissions",
+                              "format": "number"
+                            }
+                          ],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "data-grid",
+                          "attributes": {
+                            "endYear": "$creditEnd-nameValue-nameValue",
+                            "startYear": "$creditStart-nameValue-nameValue"
+                          },
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 3,
+                          "view_component": "data-grid",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        }
+                      ],
                       "parent_id": 1082,
                       "attributes": {},
                       "description": "",
@@ -4946,7 +5161,7 @@
                           "name": "ownershipSummaryDocumentation-projectFile-storage",
                           "rows": null,
                           "tier": 1,
-                          "type": "String",
+                          "type": "array",
                           "label": "Timber rights ownership documentation",
                           "columns": null,
                           "options": [],
@@ -5015,7 +5230,7 @@
                           "name": "nonCommercial-nameValue-nameValue",
                           "rows": null,
                           "tier": 1,
-                          "type": "boolean",
+                          "type": "string",
                           "label": "Later occurrence of commercial harvesting",
                           "columns": null,
                           "options": [],
@@ -6282,7 +6497,7 @@
                           "name": "baselineComments-nameValue-nameValue",
                           "rows": null,
                           "tier": -1,
-                          "type": "String",
+                          "type": "string",
                           "label": "Approach to carbon stocks forecasting",
                           "columns": null,
                           "options": [],
@@ -6794,7 +7009,7 @@
                           "name": "deviations-nameValue-nameValue",
                           "rows": null,
                           "tier": 1,
-                          "type": "String",
+                          "type": "string",
                           "label": "Methodology deviations",
                           "columns": null,
                           "options": [],
@@ -7647,7 +7862,7 @@
                           "name": "biomassEstimation-nameValue-nameValue",
                           "rows": null,
                           "tier": 1,
-                          "type": "array",
+                          "type": "string",
                           "label": "Biomass estimation technique",
                           "columns": null,
                           "options": [
@@ -7824,7 +8039,7 @@
                             },
                             {
                               "name": "projSamplingOverviewTablePeriod",
-                              "type": "array",
+                              "type": "string",
                               "label": "Monitoring period",
                               "options": [],
                               "tooltip": "The monitoring period in which the parameter was monitoring from the identified  representative sample",
@@ -8176,7 +8391,7 @@
                           "name": "lca-nameValue-nameValue",
                           "rows": null,
                           "tier": 1,
-                          "type": "Boolean",
+                          "type": "boolean",
                           "label": "LCA has been completed",
                           "columns": null,
                           "options": [],
@@ -8201,7 +8416,7 @@
                           "name": "lcaPartial-nameValue-nameValue",
                           "rows": null,
                           "tier": 1,
-                          "type": "Boolean",
+                          "type": "boolean",
                           "label": "LCA is used to quantify emissions",
                           "columns": null,
                           "options": [],
@@ -8221,7 +8436,7 @@
                           "name": "lcaUpload-projectFile-storage",
                           "rows": null,
                           "tier": 1,
-                          "type": "Array",
+                          "type": "array",
                           "label": "LCA upload",
                           "columns": null,
                           "options": [],
@@ -8977,7 +9192,7 @@
                           "columns": [
                             {
                               "name": "emissionTableScenario",
-                              "type": "array",
+                              "type": "string",
                               "label": "Scenario",
                               "options": [
                                 "Baseline",
@@ -10107,7 +10322,7 @@
                           "name": "cookstoveBubbleMap-nameValue-nameValue",
                           "rows": null,
                           "tier": -1,
-                          "type": "object",
+                          "type": "array",
                           "label": "Monitored cookstoves by region",
                           "columns": null,
                           "options": [],
@@ -10183,7 +10398,7 @@
                             {
                               "name": "cookstoveRegionTableDailyEventsPerHousehols",
                               "type": null,
-                              "label": "Daily events per household",
+                              "label": "Avg. daily events per household",
                               "options": [],
                               "tooltip": "",
                               "column_id": 2098,
@@ -10199,7 +10414,7 @@
                             {
                               "name": "cookstoveRegionTableAvgEventDuration",
                               "type": null,
-                              "label": "Avg duration of event (mins)",
+                              "label": "Avg. duration of event (hours)",
                               "options": [],
                               "tooltip": "",
                               "column_id": 2099,
@@ -10240,7 +10455,7 @@
               ],
               "parent_id": 24,
               "attributes": {},
-              "description": "",
+              "description": "Powered by Geocene • Updated nightly",
               "nav_type_id": 2,
               "nav_level_id": 3,
               "display_order": 4
@@ -10783,7 +10998,7 @@
                           "name": "riskManagementPlanUpload-projectFile-storage",
                           "rows": null,
                           "tier": -1,
-                          "type": "array",
+                          "type": "object",
                           "label": "Risk management plan supporting documents",
                           "columns": null,
                           "options": [],
@@ -10808,7 +11023,7 @@
                           "name": "reversalRiskMitigationStrategy-nameValue-nameValue",
                           "rows": null,
                           "tier": 1,
-                          "type": "string",
+                          "type": "array",
                           "label": "Reversal risk mitigation strategy",
                           "columns": null,
                           "options": [
@@ -11173,7 +11388,7 @@
                           "name": "reversalEventStatus-nameValue-nameValue",
                           "rows": null,
                           "tier": 2,
-                          "type": "boolean",
+                          "type": "string",
                           "label": "Status of reversal event(s)",
                           "columns": null,
                           "options": [
@@ -11956,7 +12171,7 @@
                           "name": "uncertaintyActuals-dataGrid-dataGrid",
                           "rows": null,
                           "tier": 2,
-                          "type": "Object",
+                          "type": "object",
                           "label": "Uncertainty actual values",
                           "columns": null,
                           "options": [
@@ -11992,7 +12207,7 @@
                           "name": "additionalActualUncertainty-nameValue-nameValue",
                           "rows": null,
                           "tier": 2,
-                          "type": "String",
+                          "type": "string",
                           "label": "Overview of uncertainty calculation",
                           "columns": null,
                           "options": [],
@@ -12043,7 +12258,7 @@
                           "name": "uncertaintyWorkbook-projectFile-storage",
                           "rows": null,
                           "tier": -1,
-                          "type": "Array",
+                          "type": "array",
                           "label": "Uncertainty supporting documents",
                           "columns": null,
                           "options": [],
@@ -12533,7 +12748,7 @@
                           "name": "recentUpdate-nameValue-nameValue",
                           "rows": null,
                           "tier": 3,
-                          "type": "string",
+                          "type": "number",
                           "label": "Latest review",
                           "columns": null,
                           "options": [],
@@ -12659,7 +12874,7 @@
                           "name": "priorConsideration-projectFile-storage",
                           "rows": null,
                           "tier": -1,
-                          "type": "Array",
+                          "type": "array",
                           "label": "Evidence of prior consideration of carbon credits",
                           "columns": null,
                           "options": [],
@@ -12710,7 +12925,7 @@
                           "name": "firstOfItsKind-nameValue-nameValue",
                           "rows": null,
                           "tier": 1,
-                          "type": "array",
+                          "type": "boolean",
                           "label": "Project mitigation activity is the first-of-its-kind",
                           "columns": null,
                           "options": [],
@@ -13065,7 +13280,7 @@
                           "name": "additionalityDemonstration-projectFile-storage",
                           "rows": null,
                           "tier": 1,
-                          "type": "Array",
+                          "type": "array",
                           "label": "Demonstration that the project activities are a result of carbon finance",
                           "columns": null,
                           "options": [],
@@ -13133,7 +13348,7 @@
                           "name": "financialIndicator-nameValue-nameValue",
                           "rows": null,
                           "tier": 1,
-                          "type": "array",
+                          "type": "string",
                           "label": "Chosen financial indicator",
                           "columns": null,
                           "options": [
@@ -13504,7 +13719,7 @@
                           "name": "sensitivityUpload-projectFile-storage",
                           "rows": null,
                           "tier": -1,
-                          "type": "array",
+                          "type": "object",
                           "label": "Sensitivity analysis documentation",
                           "columns": null,
                           "options": [],
@@ -13891,7 +14106,7 @@
                           "name": "performanceAdditionalityUpload-projectFile-storage",
                           "rows": null,
                           "tier": -1,
-                          "type": "string",
+                          "type": "array",
                           "label": "Evidence and documentation of performance-based additionality",
                           "columns": null,
                           "options": [],
@@ -15934,7 +16149,7 @@
                           "name": "economicDisplacementPlan-nameValue-nameValue",
                           "rows": null,
                           "tier": -1,
-                          "type": "string",
+                          "type": "boolean",
                           "label": "Mitigation plan in place to address economic displacement effects",
                           "columns": null,
                           "options": [],
@@ -16040,7 +16255,7 @@
                           "name": "physicalMitigation-nameValue-nameValue",
                           "rows": null,
                           "tier": -1,
-                          "type": "string",
+                          "type": "boolean",
                           "label": "Mitigation plan in place to address physical displacement effects",
                           "columns": null,
                           "options": [],
@@ -16780,7 +16995,7 @@
                           "name": "carbonContractLength-nameValue-nameValue",
                           "rows": null,
                           "tier": -1,
-                          "type": "integer",
+                          "type": "number",
                           "label": "Length of project contract with Indigenous, tribal, and local communities",
                           "columns": null,
                           "options": [],
@@ -20644,7 +20859,7 @@
                           "name": "airMonitoringBaseline-nameValue-nameValue",
                           "rows": null,
                           "tier": 1,
-                          "type": "boolean",
+                          "type": "array",
                           "label": "Pollutants monitored in baseline air quality",
                           "columns": null,
                           "options": [
@@ -20836,7 +21051,7 @@
                           "name": "waterImpact-nameValue-nameValue",
                           "rows": null,
                           "tier": -1,
-                          "type": "string",
+                          "type": "boolean",
                           "label": "Project activity takes place near a water basin",
                           "columns": null,
                           "options": [],
@@ -21023,7 +21238,7 @@
                           "name": "waterBaselineCondition-nameValue-nameValue",
                           "rows": null,
                           "tier": -1,
-                          "type": "string",
+                          "type": "boolean",
                           "label": "Project evaluates initial water resources",
                           "columns": null,
                           "options": [],
@@ -21275,7 +21490,7 @@
                           "name": "biodiversityMonitoring-nameValue-nameValue",
                           "rows": null,
                           "tier": -1,
-                          "type": "string",
+                          "type": "boolean",
                           "label": "Project plans to identify and monitor related biodiversity impacts before, during, and after project implementation",
                           "columns": null,
                           "options": [],
@@ -21386,7 +21601,7 @@
                           "name": "endangeredSpeciesConditional-nameValue-nameValue",
                           "rows": null,
                           "tier": -1,
-                          "type": "string",
+                          "type": "boolean",
                           "label": "Project may pose risks to threatened or endangered species",
                           "columns": null,
                           "options": [],
@@ -22705,7 +22920,7 @@
                           "name": "speciesCollectionAudit-nameValue-nameValue",
                           "rows": null,
                           "tier": 2,
-                          "type": "boolean",
+                          "type": "string",
                           "label": "Species diversity data is digital and can be audited",
                           "columns": null,
                           "options": [],

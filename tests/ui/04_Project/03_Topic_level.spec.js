@@ -41,8 +41,9 @@ test.describe('Verify Topic and Step Visibility in Project Workflow', { tag: '@U
     await page.waitForURL(`**/overview`);
 
     // Validate project title
-    const projectTitle = await projectsPage.projectTitle();
-    await expect(projectTitle).toBe(project.uiProjectName);
+    const projectTitle = await projectsPage.overviewtitle();
+    await expect(projectTitle).toBeVisible({ timeout: 20000});
+    await expect(projectTitle).toHaveText(project.uiProjectName);
   });
 
 

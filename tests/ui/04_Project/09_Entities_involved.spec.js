@@ -32,9 +32,10 @@ test.describe("Entities involved in a project", () => {
     await projectsPage.viewProject();
     await page.waitForURL(`**/overview`);
 
-    // Validate project title
-    const projectTitle = await projectsPage.projectTitle();
-    await expect(projectTitle).toBe(project.uiProjectName);
+    // Validat project title
+    const projectTitle = await projectsPage.overviewtitle();
+    await expect(projectTitle).toBeVisible({ timeout: 20000});
+    await expect(projectTitle).toHaveText(project.uiProjectName);
 
     if ((await (await page.getByRole('button', { name: 'Got it' })).isVisible())) {
       const gotItButton = await page.getByRole('button', { name: 'Got it' });
@@ -67,7 +68,7 @@ test.describe("Entities involved in a project", () => {
     }, errors);
 
     await safeExpect(`Project Breadcurmp should be visible`, async () => {
-      await fieldHandler.validateBreadcrumb(1, '', project.buyerProject);
+      await fieldHandler.validateBreadcrumb(1, '', project.uiProjectName);
     }, errors);
 
     await safeExpect(`Overview Breadcurmp should be visible`, async () => {
