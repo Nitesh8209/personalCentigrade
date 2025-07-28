@@ -182,8 +182,8 @@ test.describe("Step Level Validation", { tag: '@UI' }, () => {
                     for (const fieldGroup of section.field_groups) {
                       if (fieldGroup.label && fieldGroup.fields) {
                         await safeExpect(`Field Group '${fieldGroup.label}' visibility`, async () => {
-                          await expect(await projectListings.fieldGroupLabel(fieldGroup.name)).toBeVisible();
-                          await expect(await projectListings.fieldGroupLabel(fieldGroup.name)).toHaveText(fieldGroup.label);
+                          await expect(await projectListings.fieldGroupLabel(fieldGroup.label)).toBeVisible();
+                          await expect(await projectListings.fieldGroupLabel(fieldGroup.label)).toHaveText(fieldGroup.label);
                         }, errors);
                       }
                     }

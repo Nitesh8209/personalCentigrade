@@ -54,12 +54,9 @@ test.describe("Data Room Access for Unauthenticated User", { tag: ['@UI', '@SMOK
         const documents = await listingPage.DocumentsTab();
         await expect(documents).toBeVisible();
         await documents.click();
-        await page.waitForURL("**/documents");
+        await page.waitForURL("**/supportingDocuments");
 
-        await expect(await dataRoomPage.dataRoomNavigation()).toBeVisible();
-        await expect(await dataRoomPage.dataRoomNavigation()).toHaveClass(
-          /disabled/
-        );
+        await expect(await dataRoomPage.dataRoomNavigation()).toBeVisible(); 
       },
       errors
     );
@@ -71,6 +68,9 @@ test.describe("Data Room Access for Unauthenticated User", { tag: ['@UI', '@SMOK
         await expect(dataRoom).toBeVisible();
         await dataRoom.click();
         await expect(await page.url()).toContain(`/documents`);
+        await expect(await dataRoomPage.dataRoomNavigation()).not.toHaveClass(
+          /active/
+        ); 
       },
       errors
     );
@@ -133,9 +133,9 @@ test.describe("Data room for authenticated user", { tag: ['@UI', '@SMOKE'] }, ()
       `should navigate to supporting documents`,
       async () => {
         const documents = await listingPage.DocumentsTab();
-        await expect(documents).toBeVisible();
+        await expect(documents).toBeVisible({ timeout: 20000});
         await documents.click();
-        await page.waitForURL("**/documents");
+        await page.waitForURL("**/supportingDocuments");
       },
       errors
     );

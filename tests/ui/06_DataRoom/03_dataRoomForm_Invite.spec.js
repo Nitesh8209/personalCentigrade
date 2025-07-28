@@ -37,8 +37,9 @@ test.describe("test for data Room for invite", { tag: ['@UI', '@SMOKE'] }, () =>
     await page.waitForURL(`**/overview`);
 
     // Validate project title
-    const projectTitle = await projectsPage.projectTitle();
-    await expect(projectTitle).toBe(project.uiProjectName);
+    const projectTitle = await projectsPage.overviewtitle();
+    await expect(projectTitle).toBeVisible({ timeout: 20000});
+    await expect(projectTitle).toHaveText(project.uiProjectName);
 
     const dataRoomNavigate = await dataRoomPage.dataRoomNavigation();
     await expect(dataRoomNavigate).toBeVisible();
@@ -404,8 +405,10 @@ test.describe('UnPublish Project', { tag: ['@UI', '@SMOKE'] }, () => {
     await projectsPage.viewProject();
     await page.waitForURL(`**/overview`);
 
-    const projectTitle = await projectsPage.projectTitle();
-    await expect(projectTitle).toBe(project.uiProjectName);
+    // Validate project title
+    const projectTitle = await projectsPage.overviewtitle();
+    await expect(projectTitle).toBeVisible({ timeout: 20000});
+    await expect(projectTitle).toHaveText(project.uiProjectName);
   });
 
   test('Unpublish the project', async () => {

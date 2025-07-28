@@ -4,7 +4,6 @@ import path from "path";
 import { getData, postRequest, putRequest, saveData } from "../../utils/apiHelper";
 import { project } from "../../data/projectData";
 import { apiProjectCreadentials, Credentials } from "../../data/testData";
-import { extractFieldsFromTopics } from "../../utils/buyerPublishProject";
 const fs = require("fs");
 
 test.describe("fill all fields For validate listings buyer page", { tag: ['@UI', '@SMOKE'] }, async () => {
@@ -16,7 +15,6 @@ test.describe("fill all fields For validate listings buyer page", { tag: ['@UI',
   let BuyerprojectGuid;
 
   test.beforeAll(async () => {
-    await extractFieldsFromTopics();
 
     const authdata = new URLSearchParams({
       username: apiProjectCreadentials.email,
@@ -40,6 +38,7 @@ test.describe("fill all fields For validate listings buyer page", { tag: ['@UI',
     headers = {
       "Content-Type": "application/json",
       Authorization: `Bearer ${projectAccessToken}`,
+      'x-centigrade-organization-id': 409
     };
 
     const filePath = path.join(
@@ -87,7 +86,7 @@ test.describe("fill all fields For validate listings buyer page", { tag: ['@UI',
       projectScale: "Micro (fewer than 1,000 tCO2e)",
       projectType: "ifm",
     };
-    const modularUrl = API_ENDPOINTS.modularbenefitprojectguid(guid);
+    const modularUrl = API_ENDPOINTS.modularbenefitprojectguid(BuyerprojectGuid);
     const response = await postRequest(
       modularUrl,
       JSON.stringify(data),
@@ -165,13 +164,13 @@ test.describe("fill all fields For validate listings buyer page", { tag: ['@UI',
         },
         headers: {
           'Authorization': `Bearer ${projectAccessToken}`,
+          'x-centigrade-organization-id': '409',
         }
       };
 
       // Perform file upload
       const response = await request.post(fileUrl, fileData);
 
-      // Verify upload success and response structure
       expect(response.status()).toBe(200);
     };
   });
@@ -181,19 +180,22 @@ test.describe("fill all fields For validate listings buyer page", { tag: ['@UI',
 test.describe('publish project after for validate listings buyer page', { tag: ['@UI', '@SMOKE'] }, () => {
   let headers;
   let projectId;
+  let projectGuid;
 
   test.beforeAll(async () => {
     const { projectAccessToken, BuyerprojectId ,BuyerprojectGuid} = getData("UI");
     projectId = BuyerprojectId;
+    projectGuid = BuyerprojectGuid;
 
     headers = {
       "Content-Type": "application/json",
       Authorization: `Bearer ${projectAccessToken}`,
+      'x-centigrade-organization-id': 409
     };
   })
 
   test("Publish project", async () => {
-    const publishProjectUrl = `${API_ENDPOINTS.createProjectguid(BuyerprojectGuid)}/publish`;
+    const publishProjectUrl = `${API_ENDPOINTS.createProjectguid(projectGuid)}/publish`;
     const data = { notes: "Project first published" };
     const response = await postRequest(
       publishProjectUrl,
@@ -217,11 +219,12 @@ test.describe('publish project after for validate listings buyer page', { tag: [
     expect(credResponse.status).toBe(200);
     const accessToken = credResponseBody.access_token;
 
-    const reviewProjectUrl = `${API_ENDPOINTS.createProjectguid(BuyerprojectGuid)}`;
+    const reviewProjectUrl = `${API_ENDPOINTS.createProjectguid(projectGuid)}`;
     const data = { reviewState: "REVIEWED" };
     const reviewHeaders = {
       "Content-Type": "application/json",
       Authorization: `Bearer ${accessToken}`,
+      'x-centigrade-organization-id': 409
     };
 
     const response = await putRequest(
@@ -233,7 +236,7 @@ test.describe('publish project after for validate listings buyer page', { tag: [
   });
 
   test("Publish project after REVIEWED", async () => {
-    const publishProjectUrl = `${API_ENDPOINTS.createProjectguid(BuyerprojectGuid)}/publish`;
+    const publishProjectUrl = `${API_ENDPOINTS.createProjectguid(projectGuid)}/publish`;
     const data = { notes: "Project first published" };
 
     const response = await postRequest(
