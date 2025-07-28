@@ -131,7 +131,7 @@ export class ListingPage {
   }
 
   async DocumentsTab(){
-    return await this.page.locator('.tab-list').getByText('Documents');
+    return await this.page.locator('.navbar').getByRole('link', { name: 'Documents' });
   }
 
   async navigateToListings(){
@@ -141,7 +141,7 @@ export class ListingPage {
     await this.page.waitForURL('**/listings');
   }
 
-  async navigateToListingsProject(baseURL){
+  async navigateToListingsProject(baseURL){  
     await this.page.goto(`${baseURL}/listings`);
     const projectTitle = await this.projectItemCardContentMainTitle();
     await expect(projectTitle).toBeVisible();

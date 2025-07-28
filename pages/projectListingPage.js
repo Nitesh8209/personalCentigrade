@@ -7,8 +7,8 @@ export class ProjectListings {
     this.page = page;
   }
 
-  async pageHeader() {
-    return await this.page.locator('.page-header');
+  async navbar() {
+    return await this.page.locator('.navbar');
   }
 
   async projectTag() {
@@ -32,7 +32,7 @@ export class ProjectListings {
   }
 
   async input() {
-    return await this.page.locator('.input');
+    return await (await this.shareModal()).locator('.input');
   }
   
   async shareModalInput() {
@@ -60,7 +60,7 @@ export class ProjectListings {
   }
 
   async shareModalMessage() {
-    return await this.page.locator('.share-form > div > div:nth-child(3)');
+    return await this.page.locator('.share-project-form > form > div:nth-child(3)');
   }
 
   async shareModalMessageLabel() {
@@ -131,19 +131,19 @@ export class ProjectListings {
   } 
 
   async topicName(label){
-    return await this.page.locator('.tab-list > li').getByText(label);
+    return await this.page.getByRole('link', { name: label , exact: true })
   }
 
   async stepLabel(label){
-    return await this.page.locator('.left-nav').locator('.nav-accordion-content').getByText(label, { exact: true });
+    return await this.page.locator('.sidebar').getByRole('link', { name: label , exact: true });
   }
 
   async contentStepLabel(label){
     return await this.page.locator('.content').locator('.step-header').getByRole('heading', { name: label , exact: true});
   }
 
-  async sectionLabel(name){
-    return await this.page.locator(`div > #nav-${name}`);
+  async sectionLabel(name) {
+    return this.page.locator(`.step-content-nav a[href$="${name}"]`);
   }
 
   
@@ -151,8 +151,8 @@ export class ProjectListings {
     return await this.page.locator(`h2#accordion\\:${name}`);
   }
 
-  async fieldGroupLabel(name){
-    return await this.page.locator('.right-nav > .right-nav-list').locator(`li > #nav-${name}`);
+  async fieldGroupLabel(label){
+    return await this.page.locator('.step-content-nav .nav-item.pl-gutter').getByText(label , { exact: true });
   }
 
   async contentFieldGroupLabel(label){
@@ -160,7 +160,7 @@ export class ProjectListings {
   }
 
   async stepGroup(label){
-    return await this.page.locator('.left-nav').locator('.nav-accordion-header ').getByText(label);
+    return await this.page.locator('.sidebar').locator('.collapsible-trigger.menu-item').getByText(label);
   }
 
   async fieldGroupcontent(){
@@ -329,7 +329,11 @@ export class ProjectListings {
         break;
 
       case 'location-map':
-        await this.validateLocationMap(field, locator);
+        if(field.component == "country-select"){
+          await this.validateLocationMap(field, locator);
+        }else{
+          await this.validateLocationMapSelectMultiple(field, locator);
+        }
         break;
       
       case 'modular-chart':
@@ -389,11 +393,14 @@ export class ProjectListings {
   async ValidateMultipleSelect(field, locator){
     await expect(await locator.locator('label')).toBeVisible();
     await expect(await locator.locator('label')).toHaveText(field.label);
-    await expect(await locator.locator('.relative > div > ul')).toBeVisible();
     const value = await getFieldValue(field.name);
-    const parseValue = JSON.parse(value);
-    const allText = await locator.locator('.relative > div > ul > li').allTextContents();
-    await expect(allText).toEqual(parseValue);
+    if(value){
+      await expect(await locator.locator('.relative > div > ul')).toBeVisible();
+      const parseValue = JSON.parse(value);
+      const allText = await locator.locator('.relative > div > ul > li').allTextContents();
+      await expect(allText).toEqual(parseValue);
+    }
+    
   }
 
   async validateSelectMultiplePillField(field, locator){
@@ -430,7 +437,12 @@ export class ProjectListings {
     await expect(await locator.locator('label')).toHaveText(field.label);
     await expect(await locator.locator('.key-value-item')).toBeVisible();
     const value = await getFieldValue(field.name);
-    await expect(await locator.locator('.key-value-item')).toHaveText(value);
+    if(value){
+      await expect(await locator.locator('.key-value-item')).toHaveText(value);
+    }else{
+      await expect(await locator.locator('.key-value-item')).toHaveText('Data not provided yet');
+    }
+    
   }
 
   async ValidateUploadedFile(field, locator){
@@ -455,6 +467,13 @@ export class ProjectListings {
     await expect(await locator.locator('.key-value-item').locator('.relative')).toHaveText(value);
   }
 
+  async validateLocationMapSelectMultiple(field, locator){
+    await expect(locator).toBeVisible();
+    await expect(await locator.locator('label')).toBeVisible();
+    await expect(await locator.locator('label')).toHaveText(field.label);
+    await expect(await locator.locator('.LocationMap')).toBeVisible();
+  }
+
   async validateBlockTable(field, locator) {
 
     for (const column of field?.columns) {
@@ -469,8 +488,9 @@ export class ProjectListings {
           const parseValue = JSON.parse(value);
           await expect(pillValue).toEqual(parseValue);
         } else {
-          await expect(await blockTableLocator.locator('.BlockValue')).toHaveText(value);
-
+          if(value){
+            await expect(await blockTableLocator.locator('.BlockValue')).toHaveText(value);
+          }
         }
       }
 
@@ -504,7 +524,7 @@ export class ProjectListings {
     await expect(await locator.locator('label')).toBeVisible();
     await expect(await locator.locator('label')).toHaveText(field.label);
 
-    const tableLocator = await locator.getByRole('treegrid');
+    const tableLocator = await locator.getByRole('grid');
     const tableHeader = await tableLocator.locator('.ag-header');
 
     await expect(await tableHeader.locator('.ag-pinned-left-header')).toBeVisible();
@@ -544,7 +564,7 @@ export class ProjectListings {
     await expect(await locator.locator('label')).toBeVisible();
     await expect(await locator.locator('label')).toHaveText(field.label);
 
-    const tableLocator = await locator.getByRole('treegrid');
+    const tableLocator = await locator.getByRole('grid');
     const tableHeader = await tableLocator.locator('.ag-header');
     await expect(tableHeader).toBeVisible();
     await expect(await tableLocator.locator('.ag-body')).toBeVisible();

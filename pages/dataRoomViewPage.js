@@ -5,7 +5,7 @@ export class dataRoomViewPage {
   }
 
   async dataRoomNavigation() {
-    return await this.page.locator('.nav-accordion-item').getByText('Data Room');
+    return await this.page.locator('.sidebar').getByRole('link', { name: 'Data rooms' });
   }
 
   async mainContent() {

@@ -41,11 +41,11 @@ export class SearchModal {
   }
 
   async tabListTitle() {
-    return await this.page.locator('.tab-list > .active');
+    return await this.page.locator('.buyer-navbar-nav-item.active');
   }
 
   async navAccordionItem() {
-    return await this.page.locator('.nav-accordion-item-title.active');
+    return await this.page.locator('.menu-item.nav-link.active');
   }
 
 }

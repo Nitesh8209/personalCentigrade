@@ -7,8 +7,8 @@ import { projectPublishCredentials } from "../data/testData";
 
 export const validateListingProjectHeader = async (projectHeader, errors) => {
 
-  await safeExpect(`Project Header should be visible`, async () => {
-    await expect(await projectHeader.pageHeader()).toBeVisible();
+  await safeExpect(`navbar should be visible`, async () => {
+    await expect(await projectHeader.navbar()).toBeVisible();
   }, errors);
 
   await safeExpect(`Project Tag should be visible`, async () => {
@@ -127,8 +127,8 @@ export const validateSectionLabelVisibility = async (section, projectListings, e
 
 export const validateFieldGroupVisibility = async (fieldGroup, projectListings, errors) => {
   await safeExpect(`Field Group '${fieldGroup.label}' visibility`, async () => {
-    await expect(await projectListings.fieldGroupLabel(fieldGroup.name)).toBeVisible();
-    await expect(await projectListings.fieldGroupLabel(fieldGroup.name)).toHaveText(fieldGroup.label);
+    await expect(await projectListings.fieldGroupLabel(fieldGroup.label)).toBeVisible();
+    await expect(await projectListings.fieldGroupLabel(fieldGroup.label)).toHaveText(fieldGroup.label);
   }, errors);
 
   await safeExpect(`Field Group '${fieldGroup.label}' visibility in main content`, async () => {
