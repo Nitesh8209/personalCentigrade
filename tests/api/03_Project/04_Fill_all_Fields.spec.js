@@ -1,14 +1,17 @@
 import { test, expect } from '@playwright/test';
 import API_ENDPOINTS from '../../../api/apiEndpoints';
 import { getData, getRequest, postRequest } from '../../utils/apiHelper';
-import { projectApproach, remainingFields } from '../../data/projectData';
 import { validateProjectFieldValues } from '../../utils/projectHelper';
+import * as fs from 'fs';
+import path from 'path';
 
 test.describe('Fill all Fields', { tag: '@API' }, () => {
   // Retrieve required data like tokens, organizationId, and projectId from saved data
-  const { projectAccessToken, draftProjectId, guid } = getData('Api');
+  const { projectAccessToken, guid } = getData('Api');
 
   let headers;
+  let remainingFields;
+  let projectApproach;
 
   test.beforeAll(async () => {
     // Set headers with authorization token and content type
@@ -17,6 +20,28 @@ test.describe('Fill all Fields', { tag: '@API' }, () => {
       'Authorization': `Bearer ${projectAccessToken}`,
       'x-centigrade-organization-id': 409
     };
+
+    const filePathTier0 = path.join(
+      __dirname,
+      "..",
+      "..",
+      "data",
+      "Project-publish-data.json"
+    );
+    const rawDataTier0 = fs.readFileSync(filePathTier0, "utf-8");
+    const tier0Fields = JSON.parse(rawDataTier0);
+    projectApproach = tier0Fields.fields;
+
+    const filePath = path.join(
+      __dirname,
+      "..",
+      "..",
+      "data",
+      "Project-publish-data-non-tier0.json"
+    );
+    const rawData = fs.readFileSync(filePath, "utf-8");
+    const fieldsData = JSON.parse(rawData);
+    remainingFields = fieldsData.fields;
   });
 
   // Test to create project field values

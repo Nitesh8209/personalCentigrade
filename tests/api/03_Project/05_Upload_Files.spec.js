@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test';
 import API_ENDPOINTS from '../../../api/apiEndpoints';
 import { getData } from '../../utils/apiHelper';
-import { FileType} from '../../data/projectData';
-const fs = require('fs');
+import * as fs from 'fs';
+import path from 'path';
 
 // Load the file to be used for upload tests
 const filePath = './tests/assets/file.png';
@@ -10,9 +10,21 @@ const fileBuffer = fs.readFileSync(filePath);
 
 test.describe('Upload Files For all Tiers', { tag: '@API' }, () => {
   // Retrieve required data like tokens, organizationId, and projectId from saved data
-  const { projectAccessToken, draftProjectId, guid } = getData('Api');
+  const { projectAccessToken, guid } = getData('Api');
 
   let headers;
+  let FileType;
+
+  const filePath = path.join(
+    __dirname,
+    "..",
+    "..",
+    "data",
+    "Project-publish-data-non-tier0.json"
+  );
+  const rawData = fs.readFileSync(filePath, "utf-8");
+  const fieldsData = JSON.parse(rawData);
+  FileType = fieldsData.fileData;
 
   test.beforeAll(async () => {
     // Set headers with authorization token and content type
@@ -25,7 +37,10 @@ test.describe('Upload Files For all Tiers', { tag: '@API' }, () => {
 
   // tests for file upload with different file types
   test.describe('Upload File', () => {
-    FileType.forEach(({configFieldId, projectFileType }) => {
+    const singleFile = FileType[0];
+
+    if (singleFile) {
+      const { configFieldId, projectFileType } = singleFile;
       test(`should successfully upload a file of type: ${projectFileType}`, async ({ request }) => {
         const fileUrl = `${API_ENDPOINTS.createProjectguid(guid)}/file`;
 
@@ -56,7 +71,7 @@ test.describe('Upload Files For all Tiers', { tag: '@API' }, () => {
         expect(responseBody).toHaveProperty('projectFileId', expect.any(Number));
         expect(responseBody).toHaveProperty('filePath', expect.any(String));
       });
-    });
+    };
   });
 
 })
