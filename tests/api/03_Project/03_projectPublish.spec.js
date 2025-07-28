@@ -5,7 +5,6 @@ import { project } from '../../data/projectData';
 import { validateProjectFieldValues } from '../../utils/projectHelper';
 import { apiProjectCreadentials } from '../../data/testData';
 import * as fs from 'fs';
-import { extractTier0FieldsFromTopics } from '../../utils/buyerPublishProject';
 import path from 'path';
 
 
@@ -17,7 +16,7 @@ test.describe('TIER0 Project Management Tests for Publish', { tag: '@API' }, () 
   let ProjectData;
 
   test.beforeAll(async () => {
-     await extractTier0FieldsFromTopics();
+
     // Set headers with authorization token and content type
     headers = {
       'Content-Type': 'application/json',

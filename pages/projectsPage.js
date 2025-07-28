@@ -906,7 +906,7 @@ class ProjectsPage {
     }
 
     async leftSideBar() {
-        return await this.page.locator('.navbar');
+        return await this.page.locator('.nav-items');
     }
 
     async avatar() {
@@ -1112,11 +1112,15 @@ class ProjectsPage {
     }
 
     async overviewHeader() {
-        return await this.page.locator('.overview-header');
+        return await this.page.locator('.project-navbar');
     }
 
     async overviewtitle() {
-        return await this.page.locator('.project-name');
+        return await this.page.locator('h1.project-name');
+    }
+
+    async projectHeader() {
+        return await this.page.locator('h4.project-name');
     }
 
     async projectBreadcrumb() {
@@ -1498,7 +1502,7 @@ class ProjectsPage {
     }
 
     async projectOverviewContent() {
-        return await this.page.locator('.page-content');
+        return await this.page.locator('.project');
     }
 
     async previewButton() {

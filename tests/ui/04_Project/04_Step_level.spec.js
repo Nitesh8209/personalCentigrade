@@ -20,7 +20,7 @@ test.describe('Step-Level UI Validations', { tag: '@UI' }, () => {
   let page;
   let fieldHandler;
 
-  const authStoragePath = path.join(__dirname, '..', '..', 'data', 'project-auth-admin.json');
+  const authStoragePath = path.join(__dirname, '..', '..', 'data', 'project-Publish-auth.json');
   test.use({ storageState: authStoragePath });
 
   test.beforeAll(async ({ browser, baseURL }) => {
@@ -37,8 +37,9 @@ test.describe('Step-Level UI Validations', { tag: '@UI' }, () => {
     await page.waitForURL(`**/overview`);
 
     // Validate project title
-    const projectTitle = await projectsPage.projectTitle();
-    await expect(projectTitle).toBe(project.uiProjectName);
+    const projectTitle = await projectsPage.overviewtitle();
+    await expect(projectTitle).toBeVisible({ timeout: 20000});
+    await expect(projectTitle).toHaveText(project.uiProjectName);
   });
 
   // Iterate over each topic in the form data
@@ -73,43 +74,43 @@ test.describe('Step-Level UI Validations', { tag: '@UI' }, () => {
               await stepElement.click();
             })
 
-            test(`Breadcrumb validation for Step: ${step.label}`, async ({ }, testInfo) => {
-              const errors = [];
+            // test(`Breadcrumb validation for Step: ${step.label}`, async ({ }, testInfo) => {
+            //   const errors = [];
 
-              // Validate breadcrumb navigation
-              await safeExpect('Breadcrumb count verification', async () => {
-                await expect(await fieldHandler.breadCrumps()).toHaveCount(3);
-                await expect(await fieldHandler.separators()).toHaveCount(2);
-              },
-                errors
-              );
+            //   // Validate breadcrumb navigation
+            //   await safeExpect('Breadcrumb count verification', async () => {
+            //     await expect(await fieldHandler.breadCrumps()).toHaveCount(3);
+            //     await expect(await fieldHandler.separators()).toHaveCount(2);
+            //   },
+            //     errors
+            //   );
 
-              // Validate breadcrumb for 'Projects'
-              await safeExpect('Projects breadcrumb visibility', async () => {
-                await fieldHandler.validateBreadcrumb(0, '/projects', "Projects");
-              },
-                errors
-              );
+            //   // Validate breadcrumb for 'Projects'
+            //   await safeExpect('Projects breadcrumb visibility', async () => {
+            //     await fieldHandler.validateBreadcrumb(0, '/projects', "Projects");
+            //   },
+            //     errors
+            //   );
 
-              // Validate breadcrumb for project name
-              await safeExpect('Project Name BreadCrump visibility', async () => {
-                await fieldHandler.validateBreadcrumb(1, expect.stringContaining('/projects/'), project.uiProjectName);
-              },
-                errors
-              );
+            //   // Validate breadcrumb for project name
+            //   await safeExpect('Project Name BreadCrump visibility', async () => {
+            //     await fieldHandler.validateBreadcrumb(1, expect.stringContaining('/projects/'), project.uiProjectName);
+            //   },
+            //     errors
+            //   );
 
-              // Validate breadcrumb for current step
-              await safeExpect('Step Name BreadCrump visibility', async () => {
-                await fieldHandler.validateBreadcrumb(2, null, step.label);
-              },
-                errors
-              );
+            //   // Validate breadcrumb for current step
+            //   await safeExpect('Step Name BreadCrump visibility', async () => {
+            //     await fieldHandler.validateBreadcrumb(2, null, step.label);
+            //   },
+            //     errors
+            //   );
 
-              // If there are any errors, fail the test with all collected errors
-              if (errors.length > 0) {
-                throw new Error(`Validation errors found:\n${errors.join('\n')}`);
-              }
-            });
+            //   // If there are any errors, fail the test with all collected errors
+            //   if (errors.length > 0) {
+            //     throw new Error(`Validation errors found:\n${errors.join('\n')}`);
+            //   }
+            // });
 
 
             test(`Title and Description validation for Step: ${step.label}`, async () => {

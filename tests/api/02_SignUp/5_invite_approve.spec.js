@@ -4,12 +4,12 @@ import { generateTestEmail, getGmailMessages } from '../../utils/signUpHelper';
 import { postRequest, getRequest, putRequest, getData, saveData } from '../../utils/apiHelper';
 import API_ENDPOINTS from '../../../api/apiEndpoints';
 
-test.describe(`Member Invitation and Approval Flow`, { tag: '@API' }, () => {
-  const { newEmail, admin_access_token } = getData('Api');
+test.describe(`Member Invitation and Approval Flow`, { tag: '@API' }, async () => {
+  const { newEmail, admin_access_token } = await getData('Api');
 
   let headers;
   let InviteEmail;
-  let organizationId;
+  let organizationId
   let accessToken;
   let memberEmail;
   let approveEmail;
@@ -79,8 +79,8 @@ test.describe(`Member Invitation and Approval Flow`, { tag: '@API' }, () => {
         password: ValidTestData.Password,
       });
       const authResponse = await postRequest(API_ENDPOINTS.authTOken, authdata, headers);
-      expect(authResponse.status).toBe(200);
       const authResponseBody = await authResponse.json();
+      expect(authResponse.status).toBe(200);
       accessToken = authResponseBody.access_token;
       await saveData({ InviteaccessToken: accessToken }, 'Api');
 

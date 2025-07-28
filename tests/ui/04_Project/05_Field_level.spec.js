@@ -39,8 +39,9 @@ test.describe('Field level validation', { tag: '@UI' }, async () => {
     await page.waitForURL(`**/overview`);
 
     // Validate project title
-    const projectTitle = await projectsPage.projectTitle();
-    await expect(projectTitle).toBe(project.uiProjectName);
+    const projectTitle = await projectsPage.overviewtitle();
+    await expect(projectTitle).toBeVisible({ timeout: 20000});
+    await expect(projectTitle).toHaveText(project.uiProjectName);
   });
 
   // Iterate over each topic in the form data
@@ -74,7 +75,7 @@ test.describe('Field level validation', { tag: '@UI' }, async () => {
 
               // Click on the step if visible
               await expect(stepElement).toBeVisible();
-              await stepElement.click();
+              await stepElement.click({force: true});
               await expect(await fieldHandler.title()).toBeVisible();
             })
 

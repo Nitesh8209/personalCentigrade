@@ -35,8 +35,9 @@ test.describe('Button Level Validations', { tag: '@UI' }, () => {
     await page.waitForURL(`**/overview`);
 
     // Validat project title
-    const projectTitle = await projectsPage.projectTitle();
-    await expect(projectTitle).toBe(project.uiProjectName);
+    const projectTitle = await projectsPage.overviewtitle();
+    await expect(projectTitle).toBeVisible({ timeout: 20000});
+    await expect(projectTitle).toHaveText(project.uiProjectName);
   });
 
   // Iterate over each topic in the form data
@@ -256,7 +257,7 @@ test.describe('Button Level Validations', { tag: '@UI' }, () => {
                     // Validate field locator
                     await safeExpect(
                       `Field locator: ${field.label}`,
-                      async () => {
+                      async () => { 
                         const inputLocator = await fieldHandler.getLocator(field.name, field.label, field.type, field.component);
                         await expect(inputLocator).toBeVisible();
                         await fieldHandler.validateFieldAfterCancel(inputLocator, {

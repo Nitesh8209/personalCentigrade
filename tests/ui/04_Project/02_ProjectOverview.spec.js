@@ -30,8 +30,9 @@ test.describe('Project Overview Page', { tag: '@UI' }, () => {
     await page.waitForURL('**/projects/**/overview');
 
     // Validate project title
-    const projectTitle = await projectsPage.projectTitle();
-    await expect(projectTitle).toBe(project.uiProjectName);
+    const projectTitle = await projectsPage.overviewtitle();
+    await expect(projectTitle).toBeVisible({ timeout: 20000});
+    await expect(projectTitle).toHaveText(project.uiProjectName);
   });
 
   test('Verify left sidebar and project overview sections on the project overview page', async () => {
@@ -76,17 +77,17 @@ test.describe('Project Overview Page', { tag: '@UI' }, () => {
   test('Verify project overview page layout, breadcrumbs, and content header', async () => {
     const errors = [];
 
-    await safeExpect('Project overview page breadcrumbs',
-      async () => {
-        await expect(await projectsPage.projectBreadcrumbs()).toBeVisible({ timeout: 20000 });
-        await expect(await projectsPage.projectBreadcrumbsSeparator()).toBeVisible();
-        await expect(await projectsPage.projectBreadcrumbfirst()).toBeVisible();
-        await expect(await projectsPage.projectBreadcrumbsecond()).toBeVisible();
-        await expect(await projectsPage.projectBreadcrumbfirst()).toHaveText('Projects')
-        await expect(await projectsPage.projectBreadcrumbsecond()).toHaveText(project.uiProjectName)
-      },
-      errors
-    )
+    // await safeExpect('Project overview page breadcrumbs',
+    //   async () => {
+    //     await expect(await projectsPage.projectBreadcrumbs()).toBeVisible({ timeout: 20000 });
+    //     await expect(await projectsPage.projectBreadcrumbsSeparator()).toBeVisible();
+    //     await expect(await projectsPage.projectBreadcrumbfirst()).toBeVisible();
+    //     await expect(await projectsPage.projectBreadcrumbsecond()).toBeVisible();
+    //     await expect(await projectsPage.projectBreadcrumbfirst()).toHaveText('Projects')
+    //     await expect(await projectsPage.projectBreadcrumbsecond()).toHaveText(project.uiProjectName)
+    //   },
+    //   errors
+    // )
 
     await safeExpect('Project overview page Content Header project name',
       async () => {

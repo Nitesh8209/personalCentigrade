@@ -17,15 +17,15 @@ const filePath = require('path').resolve(__dirname, '../../assets/file2.png');
 
 test.describe('project creation', { tag: ['@UI', '@SMOKE'] }, () => {
 
-   test.beforeEach(async ({ page, baseURL }) => {
-        const loginPage = new LoginPage(page, baseURL);
-        await loginPage.navigate();
-        await loginPage.login(projectPublishCredentials.email, projectPublishCredentials.password);
-         
-      await page.waitForURL('**/projects');
-      const authStoragePath = path.join(__dirname, '..', '..', 'data', 'project-Publish-auth.json');
-      await page.context().storageState({ path: authStoragePath });
-      });
+  test.beforeEach(async ({ page, baseURL }) => {
+    const loginPage = new LoginPage(page, baseURL);
+    await loginPage.navigate();
+    await loginPage.login(projectPublishCredentials.email, projectPublishCredentials.password);
+
+    await page.waitForURL('**/projects');
+    const authStoragePath = path.join(__dirname, '..', '..', 'data', 'project-Publish-auth.json');
+    await page.context().storageState({ path: authStoragePath });
+  });
 
   test('Create Button in create new project modal, Saves Project and Navigates to Overview', async ({ page, baseURL }) => {
     const errors = [];
@@ -107,9 +107,10 @@ test.describe('Fill All Required Fields and Save', { tag: ['@UI', '@SMOKE'] }, (
     await projectsPage.viewProject();
     await page.waitForURL(`**/overview`);
 
-    // Validate project title
-    const projectTitle = await projectsPage.projectTitle();
-    await expect(projectTitle).toBe(project.uiProjectName);
+    // Validat project title
+    const projectTitle = await projectsPage.overviewtitle();
+    await expect(projectTitle).toBeVisible({ timeout: 20000});
+    await expect(projectTitle).toHaveText(project.uiProjectName);
 
     // Find and click on the topic label
     const topicElement = await fieldHandler.findLabel(topic.label);
@@ -238,8 +239,10 @@ test.describe('Publish the Project after completed the Tier 0 topic', { tag: ['@
     await projectsPage.viewProject();
     await page.waitForURL(`**/overview`);
 
-    const projectTitle = await projectsPage.projectTitle();
-    await expect(projectTitle).toBe(project.uiProjectName);
+    // Validat project title
+    const projectTitle = await projectsPage.overviewtitle();
+    await expect(projectTitle).toBeVisible({ timeout: 20000});
+    await expect(projectTitle).toHaveText(project.uiProjectName);
   });
 
   test('Verify if Publish button is visible and enabled, and Tier 0 progress is 100%', async () => {
@@ -328,11 +331,13 @@ test.describe('Approve project by superuser', { tag: ['@UI', '@SMOKE'] }, () => 
     await projectsPage.viewProject();
     await page.waitForURL(`**/overview`);
 
-    const projectTitle = await projectsPage.projectTitle();
-    await expect(projectTitle).toBe(project.uiProjectName);
+    // Validat project title
+    const projectTitle = await projectsPage.overviewtitle();
+    await expect(projectTitle).toBeVisible({ timeout: 20000});
+    await expect(projectTitle).toHaveText(project.uiProjectName);
   });
 
- 
+
 
   test('Verify Approve project button is visible and Approve', async () => {
 
@@ -394,8 +399,10 @@ test.describe('Project after approve Project', { tag: ['@UI', '@SMOKE'] }, () =>
     await projectsPage.viewProject();
     await page.waitForURL(`**/overview`);
 
-    const projectTitle = await projectsPage.projectTitle();
-    await expect(projectTitle).toBe(project.uiProjectName);
+    // Validat project title
+    const projectTitle = await projectsPage.overviewtitle();
+    await expect(projectTitle).toBeVisible({ timeout: 20000});
+    await expect(projectTitle).toHaveText(project.uiProjectName);
   });
 
 
@@ -476,7 +483,7 @@ test.describe('Project after approve Project', { tag: ['@UI', '@SMOKE'] }, () =>
         await expect(successMessage).toBe('Link has been copied to your clipboard');
         const closeToast = await fieldHandler.closeToast();
         await closeToast.click();
-        
+
         copiedUrl = await page.evaluate(async () => {
           return await navigator.clipboard.readText();
         });
