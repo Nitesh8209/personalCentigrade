@@ -248,6 +248,11 @@ export class FieldHandler {
           if (selectedValuesText.includes(option)) continue;
           const optionLocator = listbox.locator(`text="${option}"`);
           await expect(optionLocator).toBeVisible();
+          await optionLocator.evaluate(el => {
+            const rect = el.getBoundingClientRect();
+            const middleY = window.innerHeight / 2;
+            window.scrollBy({ top: rect.top - middleY, behavior: 'instant' });
+          });
           await optionLocator.click();
         }
         await indicator.click();
@@ -354,10 +359,12 @@ export class FieldHandler {
   // selct the filed in the data Table
   async dataTableSelectField(locator, dataTableLocator, field) {
     for (const option of field.options) {
+      const selectLocator = await locator.locator('.select-indicator')
       await locator.click();
       const listBox = await dataTableLocator.getByRole('listbox');
       if(!(await listBox.isVisible())){
-        await locator.click();
+        await expect(selectLocator).toBeVisible()
+        await selectLocator.click();
       }
       await expect(listBox).toBeVisible();
       const optionText = await listBox.getByText(option, { exact: true });
@@ -442,7 +449,7 @@ export class FieldHandler {
 
   // Validating the Data Grid Fields 
   async validateDataGridFields(locator, field, startYear, endYear) {
-    const dataGridField = await locator.locator('..').locator('..').getByRole('treegrid');
+    const dataGridField = await locator.locator('..').locator('..').getByRole('grid');
     await expect(dataGridField).toBeVisible();
     const headerLeft = await dataGridField.locator('.ag-header').locator('.ag-pinned-left-header ');
     await expect(headerLeft).toBeVisible();
@@ -507,7 +514,7 @@ export class FieldHandler {
 
     const options = await listBox.getByRole('option').allInnerTexts();
     const normalizedExpectedOptions = expectedOptions.map(option =>
-      option.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+      option.trim().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
     );
 
     expect(options.length).toBeGreaterThan(0);
@@ -637,6 +644,12 @@ export class FieldHandler {
       case COMPONENT_TYPES.SELECT:
         return this.page.locator('.select').locator('label').getByText(field.label, { exact: true });
 
+      case COMPONENT_TYPES.FILE_UPLOAD:
+        const locator = this.page.locator('.project-file-upload').filter({
+          has: this.page.locator(`input[name="${field.name}"]`),
+        });
+        return locator.locator('label').getByText(field.label, { exact: true });
+
       default:
         return this.page.locator('label').getByText(field.label, { exact: true });
 
@@ -710,7 +723,12 @@ export class FieldHandler {
           } 
           const optionLocator = listbox.locator(`text="${option}"`);
           await expect(optionLocator).toBeVisible();
-          await optionLocator.click({force: true});
+          await optionLocator.evaluate(el => {
+            const rect = el.getBoundingClientRect();
+            const middleY = window.innerHeight / 2;
+            window.scrollBy({ top: rect.top - middleY, behavior: 'instant' });
+          });
+          await optionLocator.click();
           value.push(option);
         }
         await indicator.click();
@@ -889,10 +907,7 @@ export class FieldHandler {
     const optionLocator = listbox.locator(`text="${value}"`);
     await expect(optionLocator).toBeVisible();
     await optionLocator.click();
-    const selectedValue = await locator.innerText();
-    console.log(selectedValue);
-    console.log(value)
-    expect(selectedValue).toBe(value);
+    expect(locator).toHaveText(value);
   }
 
   // check the Radio Field
@@ -1252,7 +1267,7 @@ export class FieldHandler {
         const startYear = data["creditStart-nameValue-nameValue"];
         const endyear = data["creditEnd-nameValue-nameValue"];
 
-        const dataGridField = await locator.locator('..').locator('..').getByRole('treegrid');
+        const dataGridField = await locator.locator('..').locator('..').getByRole('grid');
         await expect(dataGridField).toBeVisible();
 
         for (const option of field.options) {

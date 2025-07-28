@@ -22,6 +22,7 @@ module.exports = defineConfig({
   testDir: './tests',
   snapshotPathTemplate: 'tests/assets/{arg}{ext}',
   snapshotDir: '__snapshots__',
+globalSetup: require.resolve('./tests/global-setup'),
   globalTeardown: './tests/ui/CleanUpData.js',
   /* Run tests in files in parallel */
   // fullyParallel: true,
@@ -240,7 +241,7 @@ module.exports = defineConfig({
       testMatch: ['ui/05_Buyer/01_Listings.spec.js', 'ui/05_Buyer/02_Project_Header.spec.js', 'ui/05_Buyer/03_Topic_level.spec.js', 'ui/05_Buyer/04_step_level.spec.js', 'ui/05_Buyer/05_Fields_level.spec.js', 'Ui/05_Buyer/06_Search.spec.js', 'ui/05_Buyer/07_overViewPage.spec.js', 'Ui/05_Buyer/08_AI_Search.spec.js'],
       use: {
         ...devices['Desktop Chrome'],
-        viewport: { width: 1366, height: 768 },
+        viewport: { width: 1536, height: 768 },
       },
       fullyParallel: true,
       dependencies: ['buyerPublishProject']

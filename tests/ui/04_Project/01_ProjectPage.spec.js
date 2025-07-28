@@ -362,6 +362,10 @@ test.describe('Project Page', { tag: '@UI' }, () => {
     await safeExpect('View Project Visibility',
       async () => {
         await expect(await projectsPage.viewProjectButton()).toBeVisible();
+        const button = await projectsPage.viewProjectButton();
+        await button.click();
+         await expect(await projectsPage.overviewtitle()).toBeVisible({timeout: 30000});
+          await expect(await projectsPage.projectHeader()).toBeVisible();
       }, errors
     );
 
