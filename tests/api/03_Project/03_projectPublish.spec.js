@@ -122,7 +122,7 @@ test.describe('TIER0 Project Management Tests for Publish', { tag: '@API' }, () 
     expect(responseBody.id).toBe(projectId);
     expect(responseBody.organizationId).toBe(apiProjectCreadentials.organizationId);
     expect(responseBody.isPublished).toBe(false);
-    expect(responseBody.reviewState).toBe('PENDING_REVIEW');
+    expect(responseBody.reviewState).toBe('UNREVIEWED');
     expect(responseBody.latestVersions.published).toBe(null);
   })
 

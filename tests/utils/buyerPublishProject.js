@@ -37,10 +37,8 @@ const COMPONENT_TYPES = {
   RICH_TEXT: 'rich-text'
 };
 
-let fileData=[];
-
 // Utility to generate values based on field type
-const generateFieldData = (field) => {
+const generateFieldData = (field, fileData = null, fileTierFilter = null) => {
   switch (field.component) {
     case COMPONENT_TYPES.TEXT_INPUT:
     case COMPONENT_TYPES.TEXTAREA:
@@ -86,24 +84,22 @@ const generateFieldData = (field) => {
       return faker.date.past().toISOString().split('T')[0];
 
     case COMPONENT_TYPES.TEXT_INPUT_MULTIPLE:
-      if(FIELD_TYPES.STRING === field.type ){
+      if (FIELD_TYPES.STRING === field.type) {
         const latitude = faker.location.latitude();
         const longitude = faker.location.longitude();
         return `${latitude}, ${longitude}`;
       }
-       return "[\"Kolkata\"]"
+      return "[\"Kolkata\"]"
 
     case COMPONENT_TYPES.FILE_UPLOAD:
     case COMPONENT_TYPES.FILE_UPLOAD_MULTIPLE:
-     
-      if(field.tier == 0){
+      if (fileData && (fileTierFilter === null || fileTierFilter === field.tier)) {
         const projectFileType = field.name?.split('-')[0];
-        const data = {
+        fileData.push({
           configFieldId: field.id,
-          projectFileType: projectFileType
-        }
-        fileData.push(data);
-      }   
+          projectFileType
+        });
+      }
 
     // default:   
     //   return faker.lorem.words(2);
@@ -120,6 +116,7 @@ export const extractFieldsFromTopics = async () => {
 
   const items = [];
   const currentValues = {}; // to track fields for dependency check
+  const fileData = [];
 
   topics.forEach(topic => {
     topic.step_groups?.forEach(stepGroup => {
@@ -127,10 +124,10 @@ export const extractFieldsFromTopics = async () => {
         step.sections?.forEach(section => {
           section.field_groups?.forEach(fieldGroup => {
             fieldGroup.fields?.forEach(field => {
-              const { name, component, display_dependencies } = field;
+              const { name, display_dependencies } = field;
 
               // Check dependency if it exists
-              if (display_dependencies && display_dependencies.length > 0) {
+              if (display_dependencies?.length > 0) {
                 const allDepsSatisfied = display_dependencies.every(dep => {
                   const actualVal = currentValues[dep.field];
                   const pattern = dep.pattern;
@@ -157,7 +154,7 @@ export const extractFieldsFromTopics = async () => {
               }
 
               // Generate fake data
-              const value = generateFieldData(field);
+              const value = generateFieldData(field, fileData, 0);
               const cleanKeyName = name.replace(/-nameValue(-nameValue)?$/, '')
               if (value) {
                 items.push({ keyName: cleanKeyName, value });
@@ -170,12 +167,7 @@ export const extractFieldsFromTopics = async () => {
     });
   });
 
-  const finalData = {
-    fields: {
-      items: items
-    },
-    fileData: fileData
-  };
+  const finalData = { fields: { items }, fileData };
 
   const outputPath = path.join(__dirname, '..', 'data', 'Project-data-new.json');
   fs.writeFileSync(outputPath, JSON.stringify(finalData, null, 2));
@@ -184,7 +176,10 @@ export const extractFieldsFromTopics = async () => {
 const excludedNames = [
   'name-grapheneProject-iwa',
   'projectScale-modularBenefitProject-iwa',
-  'projectType-modularBenefitProject-iwa'
+  'projectType-modularBenefitProject-iwa',
+  'domain-grapheneProject-iwa',
+  'classificationCategory-modularBenefitProject-iwa',
+  'classificationMethod-modularBenefitProject-iwa'
 ];
 
 // Traverse topics and extract field values where tier = 0
@@ -197,6 +192,7 @@ export const extractTier0FieldsFromTopics = async () => {
 
   const items = [];
   const currentValues = {}; // to track fields for dependency check
+  const fileData = [];
 
   topics.forEach(topic => {
     topic.step_groups?.forEach(stepGroup => {
@@ -204,13 +200,88 @@ export const extractTier0FieldsFromTopics = async () => {
         step.sections?.forEach(section => {
           section.field_groups?.forEach(fieldGroup => {
             fieldGroup.fields?.forEach(field => {
-              const { name, component, display_dependencies, tier } = field;
+              const { name, display_dependencies, tier } = field;
 
-                // Skip fields with excluded names
-               if (excludedNames.includes(name)) return;
+              // Skip fields with excluded names
+              if (excludedNames.includes(name)) return;
 
               // Filter: Only include fields with tier = 0
               if (tier !== 0) return;
+
+              // Check display dependencies if they exist
+              if (display_dependencies?.length > 0) {
+                const allDepsSatisfied = display_dependencies.every(dep => {
+                  const actualVal = currentValues[dep.field];
+                  const pattern = dep.pattern;
+
+                  if (!actualVal) return false;
+
+                  try {
+                    const parsedValue = JSON.parse(actualVal);
+
+                    if (Array.isArray(parsedValue)) {
+                      return parsedValue.includes(pattern);
+                    } else {
+                      return parsedValue === pattern;
+                    }
+                  } catch (e) {
+                    return actualVal === pattern;
+                  }
+                });
+
+                if (!allDepsSatisfied) {
+                  return; // skip this field
+                }
+              }
+
+              // Generate fake data
+              const value = generateFieldData(field, fileData, 0);
+              const cleanKeyName = name.replace(/-nameValue(-nameValue)?$/, '');
+
+              if (value) {
+                items.push({ keyName: cleanKeyName, value });
+                currentValues[name] = value;
+              }
+            });
+          });
+        });
+      });
+    });
+  });
+
+  const finalData = { fields: { items }, fileData };
+
+  const outputPath = path.join(__dirname, '..', 'data', 'Project-publish-data.json');
+  fs.writeFileSync(outputPath, JSON.stringify(finalData, null, 2));
+};
+
+export const extractNonTier0FieldsFromTopics = async () => {
+  const filePath = path.join(__dirname, '..', 'data', 'form-data.json');
+  const rawData = fs.readFileSync(filePath, 'utf-8');
+  const jsonData = JSON.parse(rawData);
+
+  const topics = jsonData.topics;
+
+  const items = [];
+  const currentValues = {}; // to track fields for dependency check
+  const fileData = [];
+
+  topics.forEach(topic => {
+    topic.step_groups?.forEach(stepGroup => {
+      stepGroup.steps?.forEach(step => {
+        step.sections?.forEach(section => {
+          section.field_groups?.forEach(fieldGroup => {
+            fieldGroup.fields?.forEach(field => {
+              const { name, display_dependencies, tier } = field;
+
+              // Skip fields with excluded names
+              if (excludedNames.includes(name)) {
+                console.log(`Excluded field: ${name}`);
+                return;
+              }
+
+              // Filter: Only include fields with tier !== 0
+              if (tier === 0 || tier == null) return;
 
               // Check display dependencies if they exist
               if (display_dependencies && display_dependencies.length > 0) {
@@ -239,7 +310,7 @@ export const extractTier0FieldsFromTopics = async () => {
               }
 
               // Generate fake data
-              const value = generateFieldData(field);
+              const value = generateFieldData(field, fileData, tier); // File only if tier ≠ 0
               const cleanKeyName = name.replace(/-nameValue(-nameValue)?$/, '');
 
               if (value) {
@@ -253,13 +324,8 @@ export const extractTier0FieldsFromTopics = async () => {
     });
   });
 
-  const finalData = {
-    fields: {
-      items: items
-    },
-    fileData: fileData // make sure this is defined somewhere
-  };
+  const finalData = { fields: { items }, fileData };
 
-  const outputPath = path.join(__dirname, '..', 'data', 'Project-publish-data.json');
+  const outputPath = path.join(__dirname, '..', 'data', 'Project-publish-data-non-tier0.json');
   fs.writeFileSync(outputPath, JSON.stringify(finalData, null, 2));
 };
