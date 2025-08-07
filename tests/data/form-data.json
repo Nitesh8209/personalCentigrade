@@ -1,7 +1,7 @@
 {
   "dataSchema": "QA-ACR1.3-cgV1.0.0",
   "navigation": "form2.0-config",
-  "versionDate": "2025-07-23T16:53:44-07:00",
+  "versionDate": "2025-07-28T11:52:43-07:00",
   "methodology": {
     "id": 13,
     "nickname": "QA-ACR1.3",
@@ -483,10 +483,10 @@
                           "label": "Project scale",
                           "columns": null,
                           "options": [
-                            "Micro (fewer than 1,000 tCO2e)",
-                            "Small (1,000 - 10,000 tCO2e)",
-                            "Medium (10,000 - 100,000 tCO2e)",
-                            "Large (100,000+ tCO2e)",
+                            "Micro (fewer than 1k tCO2e)",
+                            "Small (1k - 10k tCO2e)",
+                            "Medium (10k - 100k tCO2e)",
+                            "Large (100k+ tCO2e)",
                             "Unknown"
                           ],
                           "tooltip": "An indication of the estimated tonnes of CO2e to be sequestered or avoided over the life of the project",
@@ -7939,7 +7939,7 @@
                           "id": 1337,
                           "name": "emissionSourcesTable-dataTable-dataTable",
                           "rows": null,
-                          "tier": 1,
+                          "tier": -1,
                           "type": "object",
                           "label": "Emission sources included in the project boundary",
                           "columns": [
@@ -8248,7 +8248,7 @@
                           "id": 1349,
                           "name": "lcaTable-dataTable-dataTable",
                           "rows": null,
-                          "tier": 1,
+                          "tier": -1,
                           "type": "object",
                           "label": "LCA repository",
                           "columns": [
@@ -8316,7 +8316,7 @@
                           "tooltip": "",
                           "elements": null,
                           "component": "data-table",
-                          "attributes": null,
+                          "attributes": {},
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 2,
@@ -8548,7 +8548,7 @@
                           "id": 1350,
                           "name": "lcaPuroResultsTable-dataTable-dataTable",
                           "rows": null,
-                          "tier": 1,
+                          "tier": -1,
                           "type": "object",
                           "label": "LCA results",
                           "columns": [
@@ -8655,7 +8655,7 @@
                           "tooltip": "The results from the most recent life cycle assessment",
                           "elements": null,
                           "component": "data-table",
-                          "attributes": null,
+                          "attributes": {},
                           "half_width": false,
                           "helper_text": "Outline the results from the most recent LCA",
                           "display_order": 1,
@@ -9264,7 +9264,7 @@
                           "id": 1340,
                           "name": "parametersFixedTable-dataTable-dataTable",
                           "rows": null,
-                          "tier": 1,
+                          "tier": -1,
                           "type": "object",
                           "label": "Ex-ante fixed parameters",
                           "columns": [
@@ -9396,7 +9396,7 @@
                           "id": 1341,
                           "name": "parametersMonitoredTable-dataTable-dataTable",
                           "rows": null,
-                          "tier": 1,
+                          "tier": -1,
                           "type": "object",
                           "label": "Monitored parameters overview",
                           "columns": [
@@ -10018,7 +10018,7 @@
                           "id": 1342,
                           "name": "avoidableRiskTable-dataTable-dataTable",
                           "rows": null,
-                          "tier": 1,
+                          "tier": -1,
                           "type": "object",
                           "label": "Assessment of avoidable risks",
                           "columns": [
@@ -10078,7 +10078,7 @@
                           "id": 1343,
                           "name": "unavoidableRiskTable-dataTable-dataTable",
                           "rows": null,
-                          "tier": 1,
+                          "tier": -1,
                           "type": "object",
                           "label": "Assessment of unavoidable risks",
                           "columns": [
@@ -15436,7 +15436,7 @@
                           "id": 1695,
                           "name": "verificationBodyTeamTable-dataTable-dataTable",
                           "rows": null,
-                          "tier": 1,
+                          "tier": -1,
                           "type": "object",
                           "label": "Verification body team",
                           "columns": [
@@ -15516,7 +15516,7 @@
                           "tooltip": "",
                           "elements": null,
                           "component": "data-table",
-                          "attributes": null,
+                          "attributes": {},
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 2,
@@ -15702,7 +15702,7 @@
                           "id": 1345,
                           "name": "verificationTable-dataTable-dataTable",
                           "rows": null,
-                          "tier": 2,
+                          "tier": -1,
                           "type": "object",
                           "label": "Verification events and reporting periods",
                           "columns": [
@@ -15795,7 +15795,7 @@
                           "tooltip": "",
                           "elements": null,
                           "component": "data-table",
-                          "attributes": null,
+                          "attributes": {},
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 0,
