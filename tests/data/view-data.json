@@ -1,7 +1,7 @@
 {
   "dataSchema": "QA-ACR1.3-cgV1.0.0",
   "navigation": "view2.0-config",
-  "versionDate": "2025-08-11T15:56:21-07:00",
+  "versionDate": "2025-08-19T11:29:21-07:00",
   "methodology": {
     "id": 13,
     "nickname": "QA-ACR1.3",
@@ -3603,12 +3603,37 @@
               "label": "Carbon summary",
               "sections": [
                 {
+                  "id": 1247,
+                  "name": "integrityDecisions",
+                  "label": "Integrity measures",
+                  "parent_id": 41,
+                  "attributes": {},
+                  "description": "Decisions and measures ensuring scientifically rigorous carbon credit quantification",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1248,
+                      "name": "integrityDecisions",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1247,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 0
+                },
+                {
                   "id": 87,
                   "name": "forecastActualsSummary",
-                  "label": "Forecast and actuals summary",
+                  "label": "Forecast and actuals",
                   "parent_id": 41,
                   "attributes": null,
-                  "description": null,
+                  "description": "Summary of the project's expected versus actual credit issuance ",
                   "nav_type_id": 2,
                   "field_groups": [
                     {
@@ -4306,117 +4331,12 @@
                   "display_order": 1
                 },
                 {
-                  "id": 1081,
-                  "name": "carbonStockSummary",
-                  "label": "Carbon stock summary",
-                  "parent_id": 41,
-                  "attributes": {},
-                  "description": "",
-                  "nav_type_id": 2,
-                  "field_groups": [
-                    {
-                      "id": 1083,
-                      "name": "carbonSummarydefault",
-                      "label": "",
-                      "fields": [
-                        {
-                          "id": 1849,
-                          "name": "stockSummaryStaticChart-dataGrid-dataGrid",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "object",
-                          "label": "Baseline stock vs project stock",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "",
-                          "elements": [
-                            {
-                              "id": 7,
-                              "order": 1,
-                              "series_sets": [
-                                {
-                                  "id": 12,
-                                  "color": "amber6",
-                                  "label": "Baseline forecast",
-                                  "order": 0,
-                                  "set_type": "forecast",
-                                  "data_series": [
-                                    "estimatedBaseline"
-                                  ],
-                                  "truncation_type": "none"
-                                }
-                              ],
-                              "element_type": "dottedLine"
-                            },
-                            {
-                              "id": 8,
-                              "order": 2,
-                              "series_sets": [
-                                {
-                                  "id": 13,
-                                  "color": "navy5",
-                                  "label": "Project measured",
-                                  "order": 0,
-                                  "set_type": "actual",
-                                  "data_series": [
-                                    "actualProjectStocks"
-                                  ],
-                                  "truncation_type": "future"
-                                }
-                              ],
-                              "element_type": "line"
-                            },
-                            {
-                              "id": 9,
-                              "order": 3,
-                              "series_sets": [
-                                {
-                                  "id": 14,
-                                  "color": "navy5",
-                                  "label": "Project forecast",
-                                  "order": 0,
-                                  "set_type": "forecast",
-                                  "data_series": [
-                                    "estimatedProjectStocks"
-                                  ],
-                                  "truncation_type": "past"
-                                }
-                              ],
-                              "element_type": "dottedLine"
-                            }
-                          ],
-                          "component": "modular-chart",
-                          "attributes": {
-                            "endYear": null,
-                            "startYear": null,
-                            "useDataSeries": true
-                          },
-                          "half_width": false,
-                          "helper_text": "",
-                          "display_order": 1,
-                          "view_component": "modular-chart",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        }
-                      ],
-                      "parent_id": 1081,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 0
-                    }
-                  ],
-                  "nav_level_id": 4,
-                  "display_order": 1
-                },
-                {
                   "id": 1082,
                   "name": "emissionsSummary",
-                  "label": "Emissions summary",
+                  "label": "Emissions overview",
                   "parent_id": 41,
                   "attributes": {},
-                  "description": "",
+                  "description": "Summary of the project's baseline versus project emissions",
                   "nav_type_id": 2,
                   "field_groups": [
                     {
@@ -4678,11 +4598,116 @@
                   ],
                   "nav_level_id": 4,
                   "display_order": 2
+                },
+                {
+                  "id": 1081,
+                  "name": "carbonStockSummary",
+                  "label": "Carbon stock overview",
+                  "parent_id": 41,
+                  "attributes": {},
+                  "description": "Summary of the project's baseline versus project carbon stocks",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1083,
+                      "name": "carbonSummarydefault",
+                      "label": "",
+                      "fields": [
+                        {
+                          "id": 1849,
+                          "name": "stockSummaryStaticChart-dataGrid-dataGrid",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "object",
+                          "label": "Baseline stock vs project stock",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "",
+                          "elements": [
+                            {
+                              "id": 7,
+                              "order": 1,
+                              "series_sets": [
+                                {
+                                  "id": 12,
+                                  "color": "amber6",
+                                  "label": "Baseline forecast",
+                                  "order": 0,
+                                  "set_type": "forecast",
+                                  "data_series": [
+                                    "estimatedBaseline"
+                                  ],
+                                  "truncation_type": "none"
+                                }
+                              ],
+                              "element_type": "dottedLine"
+                            },
+                            {
+                              "id": 8,
+                              "order": 2,
+                              "series_sets": [
+                                {
+                                  "id": 13,
+                                  "color": "navy5",
+                                  "label": "Project measured",
+                                  "order": 0,
+                                  "set_type": "actual",
+                                  "data_series": [
+                                    "actualProjectStocks"
+                                  ],
+                                  "truncation_type": "future"
+                                }
+                              ],
+                              "element_type": "line"
+                            },
+                            {
+                              "id": 9,
+                              "order": 3,
+                              "series_sets": [
+                                {
+                                  "id": 14,
+                                  "color": "navy5",
+                                  "label": "Project forecast",
+                                  "order": 0,
+                                  "set_type": "forecast",
+                                  "data_series": [
+                                    "estimatedProjectStocks"
+                                  ],
+                                  "truncation_type": "past"
+                                }
+                              ],
+                              "element_type": "dottedLine"
+                            }
+                          ],
+                          "component": "modular-chart",
+                          "attributes": {
+                            "endYear": null,
+                            "startYear": null,
+                            "useDataSeries": true
+                          },
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 1,
+                          "view_component": "modular-chart",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        }
+                      ],
+                      "parent_id": 1081,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 3
                 }
               ],
               "parent_id": 1060,
               "attributes": null,
-              "description": "The project's carbon impact",
+              "description": "High-level overview of the project's key carbon data points",
               "nav_type_id": 2,
               "nav_level_id": 3,
               "display_order": 0
@@ -4980,7 +5005,7 @@
               ],
               "parent_id": 1060,
               "attributes": null,
-              "description": "Sales and pricing of project credits",
+              "description": "Summary of the project's credit inventory, average pricing, and relevant sales history ",
               "nav_type_id": 2,
               "nav_level_id": 3,
               "display_order": 1
@@ -5339,7 +5364,7 @@
               ],
               "parent_id": 1060,
               "attributes": null,
-              "description": "Methodology-specific eligibility criteria",
+              "description": "Project compliance with methodology-specific eligibility criteria",
               "nav_type_id": 2,
               "nav_level_id": 3,
               "display_order": 3
@@ -6526,7 +6551,7 @@
                           "rows": null,
                           "tier": -1,
                           "type": "string",
-                          "label": "Summary of initiatives undertaken to ensure the project's integrity and scientific robustness",
+                          "label": "Summary of initiatives ensuring project integrity and scientific robustness",
                           "columns": null,
                           "options": [],
                           "tooltip": "Overview of measures taken to ensure that the GHG emission reductions or removals from the mitigation activity are be robustly quantified, based on conservative approaches, completeness, and scientific methods",
@@ -6535,7 +6560,7 @@
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "Outline the steps taken to ensure the scientific rigor and integrity of the project",
-                          "display_order": 1,
+                          "display_order": 3,
                           "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -8059,7 +8084,7 @@
         {
           "id": 1245,
           "name": "cookstoveEnergyQuantification",
-          "label": "Energy consumption quantification",
+          "label": "Energy use quantification",
           "steps": [
             {
               "id": 1067,
@@ -8253,7 +8278,7 @@
               ],
               "parent_id": 1245,
               "attributes": {},
-              "description": "",
+              "description": "How baseline fuel and energy consumption are measured and quantified",
               "nav_type_id": 2,
               "nav_level_id": 3,
               "display_order": 3
@@ -8291,7 +8316,7 @@
                 {
                   "id": 1107,
                   "name": "heroDefault",
-                  "label": "",
+                  "label": "Overview",
                   "parent_id": 1071,
                   "attributes": {},
                   "description": "",
@@ -8426,7 +8451,7 @@
               ],
               "parent_id": 1245,
               "attributes": {},
-              "description": "",
+              "description": "How project fuel and energy consumption are measured and quantified",
               "nav_type_id": 2,
               "nav_level_id": 3,
               "display_order": 4
@@ -8852,7 +8877,7 @@
                       "fields": [
                         {
                           "id": 2483,
-                          "name": "projectBoundaryImage-nameValue-nameValue",
+                          "name": "projectBoundaryImage-projectFile-storage",
                           "rows": null,
                           "tier": -1,
                           "type": "array",
@@ -9246,26 +9271,6 @@
                       "label": "",
                       "fields": [
                         {
-                          "id": 628,
-                          "name": "systemBoundaryFigure-projectFile-storage",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "array",
-                          "label": "System boundary figure",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "Relevant figures depicting the process flows and system boundaries",
-                          "elements": null,
-                          "component": "file-upload-multiple",
-                          "attributes": {},
-                          "half_width": false,
-                          "helper_text": "Upload a diagram depicting the project's system boundaries, such as a project-specific process flow diagram outlining the stages included within the system boundary",
-                          "display_order": 0,
-                          "view_component": "key-value-table",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        },
-                        {
                           "id": 627,
                           "name": "systemBoundaryDetails-nameValue-nameValue",
                           "rows": null,
@@ -9280,8 +9285,28 @@
                           "attributes": null,
                           "half_width": false,
                           "helper_text": "",
-                          "display_order": 1,
+                          "display_order": 0,
                           "view_component": "rich-text",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
+                          "id": 628,
+                          "name": "systemBoundaryFigure-projectFile-storage",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "array",
+                          "label": "System boundary figure",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "Relevant figures depicting the process flows and system boundaries",
+                          "elements": null,
+                          "component": "file-upload-multiple",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "Upload a diagram depicting the project's system boundaries, such as a project-specific process flow diagram outlining the stages included within the system boundary",
+                          "display_order": 1,
+                          "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
                         }
@@ -15238,7 +15263,7 @@
                               "attributes": {},
                               "helper_text": "",
                               "column_order": 1,
-                              "view_component": "truncated-text",
+                              "view_component": "key-value-table",
                               "validation_schema": null
                             },
                             {
@@ -15689,7 +15714,7 @@
                               "attributes": {},
                               "helper_text": "",
                               "column_order": 1,
-                              "view_component": "truncated-text",
+                              "view_component": "key-value-table",
                               "validation_schema": null
                             },
                             {
@@ -16148,6 +16173,205 @@
       "attributes": null,
       "step_groups": [
         {
+          "id": 1238,
+          "name": "impactStories",
+          "label": "Impact stories",
+          "steps": [
+            {
+              "id": 1181,
+              "name": "cobenefitSummaryStep",
+              "label": "Story highlights",
+              "sections": [
+                {
+                  "id": 1186,
+                  "name": "default",
+                  "label": "",
+                  "parent_id": 1181,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1187,
+                      "name": "default",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1186,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 0
+                },
+                {
+                  "id": 1190,
+                  "name": "impactStory1",
+                  "label": "",
+                  "parent_id": 1181,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1231,
+                      "name": "default",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1190,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    },
+                    {
+                      "id": 1191,
+                      "name": "impactStoryOne",
+                      "label": "Details of first impact story",
+                      "fields": null,
+                      "parent_id": 1190,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 1
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 0
+                },
+                {
+                  "id": 1228,
+                  "name": "impactStory2",
+                  "label": "",
+                  "parent_id": 1181,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1232,
+                      "name": "default",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1228,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    },
+                    {
+                      "id": 1233,
+                      "name": "impactStoryTwo",
+                      "label": "Details of second impact story",
+                      "fields": null,
+                      "parent_id": 1228,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 0
+                },
+                {
+                  "id": 1229,
+                  "name": "impactStory3",
+                  "label": "",
+                  "parent_id": 1181,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1234,
+                      "name": "default",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1229,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    },
+                    {
+                      "id": 1202,
+                      "name": "impactStoryThree",
+                      "label": "Details of third impact story",
+                      "fields": null,
+                      "parent_id": 1229,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 2
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 0
+                },
+                {
+                  "id": 1230,
+                  "name": "impactStory4",
+                  "label": "",
+                  "parent_id": 1181,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1235,
+                      "name": "default",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1230,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    },
+                    {
+                      "id": 1203,
+                      "name": "impactStoryFour",
+                      "label": "Details of fourth impact story",
+                      "fields": null,
+                      "parent_id": 1230,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 3
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 0
+                }
+              ],
+              "parent_id": 1238,
+              "attributes": {},
+              "description": "",
+              "nav_type_id": 2,
+              "nav_level_id": 3,
+              "display_order": 0
+            }
+          ],
+          "parent_id": 15,
+          "attributes": {},
+          "description": "",
+          "nav_type_id": 2,
+          "nav_level_id": 2,
+          "display_order": 0
+        },
+        {
           "id": 27,
           "name": "sdg",
           "label": "SDGs",
@@ -16409,7 +16633,7 @@
         {
           "id": 28,
           "name": "socioeconomicImpacts",
-          "label": "Socio-economic impacts",
+          "label": "Socioeconomic impacts",
           "steps": [
             {
               "id": 868,
@@ -25485,205 +25709,6 @@
           "nav_type_id": 2,
           "nav_level_id": 2,
           "display_order": 3
-        },
-        {
-          "id": 1238,
-          "name": "impactStories",
-          "label": "Impact stories",
-          "steps": [
-            {
-              "id": 1181,
-              "name": "cobenefitSummaryStep",
-              "label": "Story highlights",
-              "sections": [
-                {
-                  "id": 1186,
-                  "name": "default",
-                  "label": "",
-                  "parent_id": 1181,
-                  "attributes": {},
-                  "description": "",
-                  "nav_type_id": 2,
-                  "field_groups": [
-                    {
-                      "id": 1187,
-                      "name": "default",
-                      "label": "",
-                      "fields": null,
-                      "parent_id": 1186,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 0
-                    }
-                  ],
-                  "nav_level_id": 4,
-                  "display_order": 0
-                },
-                {
-                  "id": 1190,
-                  "name": "impactStory1",
-                  "label": "",
-                  "parent_id": 1181,
-                  "attributes": {},
-                  "description": "",
-                  "nav_type_id": 2,
-                  "field_groups": [
-                    {
-                      "id": 1231,
-                      "name": "default",
-                      "label": "",
-                      "fields": null,
-                      "parent_id": 1190,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 0
-                    },
-                    {
-                      "id": 1191,
-                      "name": "impactStoryOne",
-                      "label": "Details of first impact story",
-                      "fields": null,
-                      "parent_id": 1190,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 1
-                    }
-                  ],
-                  "nav_level_id": 4,
-                  "display_order": 0
-                },
-                {
-                  "id": 1228,
-                  "name": "impactStory2",
-                  "label": "",
-                  "parent_id": 1181,
-                  "attributes": {},
-                  "description": "",
-                  "nav_type_id": 2,
-                  "field_groups": [
-                    {
-                      "id": 1232,
-                      "name": "default",
-                      "label": "",
-                      "fields": null,
-                      "parent_id": 1228,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 0
-                    },
-                    {
-                      "id": 1233,
-                      "name": "impactStoryTwo",
-                      "label": "Details of second impact story",
-                      "fields": null,
-                      "parent_id": 1228,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 0
-                    }
-                  ],
-                  "nav_level_id": 4,
-                  "display_order": 0
-                },
-                {
-                  "id": 1229,
-                  "name": "impactStory3",
-                  "label": "",
-                  "parent_id": 1181,
-                  "attributes": {},
-                  "description": "",
-                  "nav_type_id": 2,
-                  "field_groups": [
-                    {
-                      "id": 1234,
-                      "name": "default",
-                      "label": "",
-                      "fields": null,
-                      "parent_id": 1229,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 0
-                    },
-                    {
-                      "id": 1202,
-                      "name": "impactStoryThree",
-                      "label": "Details of third impact story",
-                      "fields": null,
-                      "parent_id": 1229,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 2
-                    }
-                  ],
-                  "nav_level_id": 4,
-                  "display_order": 0
-                },
-                {
-                  "id": 1230,
-                  "name": "impactStory4",
-                  "label": "",
-                  "parent_id": 1181,
-                  "attributes": {},
-                  "description": "",
-                  "nav_type_id": 2,
-                  "field_groups": [
-                    {
-                      "id": 1235,
-                      "name": "default",
-                      "label": "",
-                      "fields": null,
-                      "parent_id": 1230,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 0
-                    },
-                    {
-                      "id": 1203,
-                      "name": "impactStoryFour",
-                      "label": "Details of fourth impact story",
-                      "fields": null,
-                      "parent_id": 1230,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 3
-                    }
-                  ],
-                  "nav_level_id": 4,
-                  "display_order": 0
-                }
-              ],
-              "parent_id": 1238,
-              "attributes": {},
-              "description": "",
-              "nav_type_id": 2,
-              "nav_level_id": 3,
-              "display_order": 0
-            }
-          ],
-          "parent_id": 15,
-          "attributes": {},
-          "description": "",
-          "nav_type_id": 2,
-          "nav_level_id": 2,
-          "display_order": 4
         }
       ]
     },

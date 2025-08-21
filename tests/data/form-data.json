@@ -1,7 +1,7 @@
 {
   "dataSchema": "QA-ACR1.3-cgV1.0.0",
   "navigation": "form2.0-config",
-  "versionDate": "2025-08-11T15:56:20-07:00",
+  "versionDate": "2025-08-19T11:29:21-07:00",
   "methodology": {
     "id": 13,
     "nickname": "QA-ACR1.3",
@@ -5666,7 +5666,7 @@
                           "label": "Current fixed baseline period or historical look-back period",
                           "columns": null,
                           "options": [],
-                          "tooltip": "If applicable. Some standards or methodologies require that the baseline scenrio is based on a fixed (\"static\") historical lookback period or schedule of previous land management activities.",
+                          "tooltip": "If applicable. Some standards or methodologies require that the baseline scenario is based on a fixed (\"static\") historical lookback period or schedule of previous land management activities.",
                           "elements": null,
                           "component": "rich-text",
                           "attributes": {},
@@ -7110,7 +7110,7 @@
                           "rows": null,
                           "tier": -1,
                           "type": "string",
-                          "label": "Summary of initiatives undertaken to ensure the project's integrity and scientific robustness",
+                          "label": "Summary of initiatives ensuring project integrity and scientific robustness",
                           "columns": null,
                           "options": [],
                           "tooltip": "Overview of measures taken to ensure that the GHG emission reductions or removals from the mitigation activity are be robustly quantified, based on conservative approaches, completeness, and scientific methods",
@@ -7655,7 +7655,7 @@
                         },
                         {
                           "id": 2483,
-                          "name": "projectBoundaryImage-nameValue-nameValue",
+                          "name": "projectBoundaryImage-projectFile-storage",
                           "rows": null,
                           "tier": -1,
                           "type": "array",
@@ -12699,7 +12699,7 @@
                               "attributes": {},
                               "helper_text": "",
                               "column_order": 1,
-                              "view_component": "truncated-text",
+                              "view_component": "key-value-table",
                               "validation_schema": null
                             },
                             {
@@ -15601,7 +15601,7 @@
                               "attributes": {},
                               "helper_text": "",
                               "column_order": 1,
-                              "view_component": "truncated-text",
+                              "view_component": "key-value-table",
                               "validation_schema": null
                             },
                             {
