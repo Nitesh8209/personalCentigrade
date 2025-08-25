@@ -100,7 +100,7 @@ test.describe('Verify Topic and Step Visibility in Project Workflow', { tag: '@U
 
           // Verify step visibility and text
           await safeExpect(`Step '${step.label}' should be visible, enabled, and correctly labeled`, async () => {
-            const stepElement = await fieldHandler.findStep(step.label);
+            const stepElement = await fieldHandler.findStep(step.name);
             await expect(stepElement).toBeVisible();
             await expect(stepElement).toHaveText(step.label);
             await expect(stepElement).toBeEnabled();

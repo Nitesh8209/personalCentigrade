@@ -152,7 +152,7 @@ test.describe('After Topic 1 - Fill Remaining Required Fields and Save', { tag: 
           // Iterate over each step in the step group
           test.describe(`Step: ${step.label}`, () => {
             test.beforeEach(async () => {
-              const stepElement = await fieldHandler.findStep(step.label);
+              const stepElement = await fieldHandler.findStep(step.name);
 
               // Check step visibility before proceeding
               await fieldHandler.checkStepVisibility(stepElement, step, test);
@@ -679,7 +679,7 @@ test.describe('Verify the all Fileds are saved', { tag: '@UI' }, () => {
           // Iterate over each step in the step group
           test.describe(`Step: ${step.label}`, () => {
             test.beforeEach(async () => {
-              const stepElement = await fieldHandler.findStep(step.label);
+              const stepElement = await fieldHandler.findStep(step.name);
 
               // Check step visibility before proceeding
               await fieldHandler.checkStepVisibility(stepElement, step, test);

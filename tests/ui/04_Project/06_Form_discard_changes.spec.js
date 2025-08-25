@@ -64,7 +64,7 @@ test.describe('Button Level Validations', { tag: '@UI' }, () => {
           test.describe(`Step: ${step.label}`, () => {
             test.beforeEach(async () => {
               // Find and click on the step label if visible
-              const stepElement = await fieldHandler.findStep(step.label);
+              const stepElement = await fieldHandler.findStep(step.name);
 
               // Check the step is visible or not 
               await fieldHandler.checkStepVisibility(stepElement, step, test);

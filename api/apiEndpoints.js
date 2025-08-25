@@ -20,7 +20,7 @@ export const API_ENDPOINTS = {
   modularbenefitproject: `${API_BASE_URL}/modular-benefit-project`,
   organizationtype: `${API_BASE_URL}/organization-types`,
   publicProject: `${API_BASE_URL}/public/projects`,
-  getMethodologies: `${API_BASE_URL}/methodologies`,
+  getMethodologies: `${API_BASE_URL}/v2/methodologies`,
   getPublic:`${API_BASE_URL}/public/project`,
   fileUpload: `${API_BASE_URL}/project/${draftProjectId}/file`,
   dataRoom: `${API_BASE_URL}/project/${draftProjectId}/room`,

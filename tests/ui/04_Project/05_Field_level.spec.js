@@ -68,7 +68,7 @@ test.describe('Field level validation', { tag: '@UI' }, async () => {
           test.describe(`Step: ${step.label}`, () => {
             test.beforeAll(async () => {
               // Find and click on the step label if visible
-              const stepElement = await fieldHandler.findStep(step.label);
+              const stepElement = await fieldHandler.findStep(step.name);
 
               // Check the step is visible or not 
               await fieldHandler.checkStepVisibility(stepElement, step, test);
@@ -125,8 +125,7 @@ test.describe('Field level validation', { tag: '@UI' }, async () => {
                         await safeExpect(
                           `Helper text: ${field.label}`,
                           async () => {
-                            const labelElement = await fieldHandler.validateLabel(field);
-                            const helperElement = await fieldHandler.validateHelperText(labelElement, field.helper_text);
+                            const helperElement = await fieldHandler.validateHelperText(field.label, field.helper_text);
                             await expect(helperElement).not.toBeVisible();
                           },
                           errors
@@ -185,8 +184,7 @@ test.describe('Field level validation', { tag: '@UI' }, async () => {
                       await safeExpect(
                         `Helper text: ${field.label}`,
                         async () => {
-                          const labelElement = await fieldHandler.validateLabel(field);
-                          const helperElement = await fieldHandler.validateHelperText(labelElement, field.helper_text);
+                          const helperElement = await fieldHandler.validateHelperText(field.label, field.helper_text);
                           await expect(helperElement).toBeVisible();
                           await expect(helperElement).toHaveText(field.helper_text);
                         },
@@ -263,8 +261,7 @@ test.describe('Field level validation', { tag: '@UI' }, async () => {
                         await safeExpect(
                           `Helper text: ${field.label}`,
                           async () => {
-                            const labelElement = await fieldHandler.validateLabel(field);
-                            const helperElement = await fieldHandler.validateHelperText(labelElement, field.helper_text);
+                            const helperElement = await fieldHandler.validateHelperText(field.label, field.helper_text);
                             await expect(helperElement).toBeVisible();
                             await expect(helperElement).toHaveText(field.helper_text);
                           },
@@ -297,14 +294,16 @@ test.describe('Field level validation', { tag: '@UI' }, async () => {
 
                   // Iterate over each field in the field group
                   for (const field of fieldGroup.fields) {
-                          if(field.label == "Other project type") continue;
+                    if (field.label == "Other project type") continue;
+                  
+                    const requireField = await fieldHandler.validateRequiredField(field);
 
                     if (field.tier == 0) {
                       // Validate field label
                       await safeExpect(
                         `Validate required Field asterisk is visible: ${field.label}`,
                         async () => {
-                          await expect(await fieldHandler.validateRequiredField(field)).toBeVisible();
+                          expect(requireField).toBeTruthy();
                         },
                         errors
                       );
@@ -312,7 +311,7 @@ test.describe('Field level validation', { tag: '@UI' }, async () => {
                       await safeExpect(
                         `Validate Unrequired Field asterisk is not visible: ${field.label}`,
                         async () => {
-                          await expect(await fieldHandler.validateRequiredField(field)).not.toBeVisible();
+                          expect(requireField).toBeFalsy();
                         },
                         errors
                       );
