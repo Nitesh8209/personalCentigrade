@@ -1,7 +1,7 @@
 {
   "dataSchema": "QA-ACR1.3-cgV1.0.0",
   "navigation": "view2.0-config",
-  "versionDate": "2025-07-23T16:53:44-07:00",
+  "versionDate": "2025-08-19T11:29:21-07:00",
   "methodology": {
     "id": 13,
     "nickname": "QA-ACR1.3",
@@ -577,7 +577,7 @@
                           "type": "string",
                           "label": "",
                           "columns": null,
-                          "options": [],
+                          "options": null,
                           "tooltip": "",
                           "elements": null,
                           "component": "media-location",
@@ -992,7 +992,7 @@
                           "rows": null,
                           "tier": -1,
                           "type": "array",
-                          "label": "Additional certifications",
+                          "label": "Certifications",
                           "columns": null,
                           "options": [
                             "ICVCM CCP Label",
@@ -1234,17 +1234,17 @@
               "label": "Project details",
               "sections": [
                 {
-                  "id": 76,
-                  "name": "default",
+                  "id": 1207,
+                  "name": "aiSummaryDefault",
                   "label": "",
                   "parent_id": 36,
-                  "attributes": null,
-                  "description": null,
+                  "attributes": {},
+                  "description": "",
                   "nav_type_id": 2,
                   "field_groups": [
                     {
-                      "id": 416,
-                      "name": "activitiesView",
+                      "id": 1208,
+                      "name": "aiSummaryHeroDefault",
                       "label": "",
                       "fields": [
                         {
@@ -1266,7 +1266,33 @@
                           "view_component": "ai-summary",
                           "validation_schema": null,
                           "display_dependencies": null
-                        },
+                        }
+                      ],
+                      "parent_id": 1207,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 0
+                },
+                {
+                  "id": 76,
+                  "name": "heroDefault",
+                  "label": "Overview",
+                  "parent_id": 36,
+                  "attributes": null,
+                  "description": null,
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 416,
+                      "name": "heroDefault",
+                      "label": "",
+                      "fields": [
                         {
                           "id": 7,
                           "name": "projectMedia-projectFile-storage",
@@ -1442,7 +1468,7 @@
                           "rows": null,
                           "tier": -1,
                           "type": "string",
-                          "label": "Additional details on project timeline",
+                          "label": "Details on project timeline",
                           "columns": null,
                           "options": [],
                           "tooltip": "Additional details might include an implementation schedule, indicating key dates and milestones in the project's development as well as justification for that schedule",
@@ -1538,10 +1564,10 @@
                           "label": "Project scale",
                           "columns": null,
                           "options": [
-                            "Micro (fewer than 1,000 tCO2e)",
-                            "Small (1,000 - 10,000 tCO2e)",
-                            "Medium (10,000 - 100,000 tCO2e)",
-                            "Large (100,000+ tCO2e)",
+                            "Micro (fewer than 1k tCO2e)",
+                            "Small (1k - 10k tCO2e)",
+                            "Medium (10k - 100k tCO2e)",
+                            "Large (100k+ tCO2e)",
                             "Unknown"
                           ],
                           "tooltip": "An indication of the estimated tonnes of CO2e to be sequestered or avoided over the life of the project",
@@ -1585,7 +1611,7 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 0
+                  "display_order": 1
                 },
                 {
                   "id": 1013,
@@ -1916,12 +1942,12 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 1
+                  "display_order": 2
                 }
               ],
               "parent_id": 19,
               "attributes": null,
-              "description": null,
+              "description": "Fundamental project information",
               "nav_type_id": 2,
               "nav_level_id": 3,
               "display_order": 1
@@ -1934,7 +1960,7 @@
                 {
                   "id": 77,
                   "name": "locationDetails",
-                  "label": "Location details",
+                  "label": "Overview",
                   "parent_id": 37,
                   "attributes": null,
                   "description": null,
@@ -1942,7 +1968,7 @@
                   "field_groups": [
                     {
                       "id": 418,
-                      "name": "locationDetails",
+                      "name": "default",
                       "label": "",
                       "fields": [
                         {
@@ -1971,7 +1997,20 @@
                           "view_component": "location-map",
                           "validation_schema": null,
                           "display_dependencies": null
-                        },
+                        }
+                      ],
+                      "parent_id": 77,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    },
+                    {
+                      "id": 1241,
+                      "name": "locationDetails",
+                      "label": "Details",
+                      "fields": [
                         {
                           "id": 17,
                           "name": "conflictAreas-nameValue-nameValue",
@@ -2089,7 +2128,7 @@
                       "description": "",
                       "nav_type_id": 2,
                       "nav_level_id": 5,
-                      "display_order": 0
+                      "display_order": 1
                     }
                   ],
                   "nav_level_id": 4,
@@ -2098,7 +2137,7 @@
               ],
               "parent_id": 19,
               "attributes": null,
-              "description": null,
+              "description": "Where the project is located and its boundaries",
               "nav_type_id": 2,
               "nav_level_id": 3,
               "display_order": 2
@@ -2110,7 +2149,7 @@
               "sections": [
                 {
                   "id": 1088,
-                  "name": "default",
+                  "name": "aiSummaryDefault",
                   "label": "",
                   "parent_id": 38,
                   "attributes": {},
@@ -2119,7 +2158,7 @@
                   "field_groups": [
                     {
                       "id": 1089,
-                      "name": "default",
+                      "name": "aiSummaryHeroDefault",
                       "label": "",
                       "fields": [
                         {
@@ -2408,26 +2447,6 @@
                           "helper_text": "Explain how legislation informed and/or influenced project design",
                           "display_order": 1,
                           "view_component": "data-table",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        },
-                        {
-                          "id": 24,
-                          "name": "nationalLawsUpload-projectFile-storage",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "array",
-                          "label": "Legal compliance documentation",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "Evidence that supports the claims above (e.g., background checks conducted, etc.)",
-                          "elements": null,
-                          "component": "file-upload-multiple",
-                          "attributes": null,
-                          "half_width": false,
-                          "helper_text": "",
-                          "display_order": 2,
-                          "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
                         },
@@ -3015,7 +3034,7 @@
               ],
               "parent_id": 19,
               "attributes": null,
-              "description": null,
+              "description": "Project compliance with national, labor, and carbon rights",
               "nav_type_id": 2,
               "nav_level_id": 3,
               "display_order": 3
@@ -3089,17 +3108,17 @@
               "label": "Organization overview",
               "sections": [
                 {
-                  "id": 84,
-                  "name": "organizationOverview",
+                  "id": 1209,
+                  "name": "aiSummaryDefault",
                   "label": "",
                   "parent_id": 39,
-                  "attributes": null,
-                  "description": null,
+                  "attributes": {},
+                  "description": "",
                   "nav_type_id": 2,
                   "field_groups": [
                     {
-                      "id": 1120,
-                      "name": "default",
+                      "id": 1210,
+                      "name": "aiSummaryHeroDefault",
                       "label": "",
                       "fields": [
                         {
@@ -3121,7 +3140,33 @@
                           "view_component": "ai-summary",
                           "validation_schema": null,
                           "display_dependencies": null
-                        },
+                        }
+                      ],
+                      "parent_id": 1209,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 0
+                },
+                {
+                  "id": 84,
+                  "name": "organizationOverview",
+                  "label": "Overview",
+                  "parent_id": 39,
+                  "attributes": null,
+                  "description": null,
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1120,
+                      "name": "heroDefault",
+                      "label": "",
+                      "fields": [
                         {
                           "id": 2048,
                           "name": "orgExperienceBlockTable-dataTable-dataTable",
@@ -3483,7 +3528,7 @@
               ],
               "parent_id": 964,
               "attributes": null,
-              "description": null,
+              "description": "The organization's history and structure",
               "nav_type_id": 2,
               "nav_level_id": 3,
               "display_order": 0
@@ -3558,12 +3603,37 @@
               "label": "Carbon summary",
               "sections": [
                 {
+                  "id": 1247,
+                  "name": "integrityDecisions",
+                  "label": "Integrity measures",
+                  "parent_id": 41,
+                  "attributes": {},
+                  "description": "Decisions and measures ensuring scientifically rigorous carbon credit quantification",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1248,
+                      "name": "integrityDecisions",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1247,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 0
+                },
+                {
                   "id": 87,
                   "name": "forecastActualsSummary",
-                  "label": "Forecast and actuals summary",
+                  "label": "Forecast and actuals",
                   "parent_id": 41,
                   "attributes": null,
-                  "description": null,
+                  "description": "Summary of the project's expected versus actual credit issuance ",
                   "nav_type_id": 2,
                   "field_groups": [
                     {
@@ -4261,117 +4331,12 @@
                   "display_order": 1
                 },
                 {
-                  "id": 1081,
-                  "name": "carbonStockSummary",
-                  "label": "Carbon stock summary",
-                  "parent_id": 41,
-                  "attributes": {},
-                  "description": "",
-                  "nav_type_id": 2,
-                  "field_groups": [
-                    {
-                      "id": 1083,
-                      "name": "carbonSummarydefault",
-                      "label": "",
-                      "fields": [
-                        {
-                          "id": 1849,
-                          "name": "stockSummaryStaticChart-dataGrid-dataGrid",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "object",
-                          "label": "Baseline stock vs project stock",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "",
-                          "elements": [
-                            {
-                              "id": 7,
-                              "order": 1,
-                              "series_sets": [
-                                {
-                                  "id": 12,
-                                  "color": "amber6",
-                                  "label": "Baseline forecast",
-                                  "order": 0,
-                                  "set_type": "forecast",
-                                  "data_series": [
-                                    "estimatedBaseline"
-                                  ],
-                                  "truncation_type": "none"
-                                }
-                              ],
-                              "element_type": "dottedLine"
-                            },
-                            {
-                              "id": 8,
-                              "order": 2,
-                              "series_sets": [
-                                {
-                                  "id": 13,
-                                  "color": "navy5",
-                                  "label": "Project measured",
-                                  "order": 0,
-                                  "set_type": "actual",
-                                  "data_series": [
-                                    "actualProjectStocks"
-                                  ],
-                                  "truncation_type": "future"
-                                }
-                              ],
-                              "element_type": "line"
-                            },
-                            {
-                              "id": 9,
-                              "order": 3,
-                              "series_sets": [
-                                {
-                                  "id": 14,
-                                  "color": "navy5",
-                                  "label": "Project forecast",
-                                  "order": 0,
-                                  "set_type": "forecast",
-                                  "data_series": [
-                                    "estimatedProjectStocks"
-                                  ],
-                                  "truncation_type": "past"
-                                }
-                              ],
-                              "element_type": "dottedLine"
-                            }
-                          ],
-                          "component": "modular-chart",
-                          "attributes": {
-                            "endYear": null,
-                            "startYear": null,
-                            "useDataSeries": true
-                          },
-                          "half_width": false,
-                          "helper_text": "",
-                          "display_order": 1,
-                          "view_component": "modular-chart",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        }
-                      ],
-                      "parent_id": 1081,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 0
-                    }
-                  ],
-                  "nav_level_id": 4,
-                  "display_order": 1
-                },
-                {
                   "id": 1082,
                   "name": "emissionsSummary",
-                  "label": "Emissions summary",
+                  "label": "Emissions overview",
                   "parent_id": 41,
                   "attributes": {},
-                  "description": "",
+                  "description": "Summary of the project's baseline versus project emissions",
                   "nav_type_id": 2,
                   "field_groups": [
                     {
@@ -4391,11 +4356,11 @@
                           "tooltip": "",
                           "elements": [
                             {
-                              "id": 17,
+                              "id": 29,
                               "order": 0,
                               "series_sets": [
                                 {
-                                  "id": 37,
+                                  "id": 56,
                                   "color": "amber6",
                                   "label": "Baseline emissions",
                                   "order": 0,
@@ -4404,36 +4369,22 @@
                                     "baselineEmissions"
                                   ],
                                   "truncation_type": "none"
-                                }
-                              ],
-                              "element_type": "line"
-                            },
-                            {
-                              "id": 18,
-                              "order": 1,
-                              "series_sets": [
+                                },
                                 {
-                                  "id": 38,
-                                  "color": "navy5",
+                                  "id": 57,
+                                  "color": "sky5",
                                   "label": "Forecasted project emissions",
-                                  "order": 0,
+                                  "order": 1,
                                   "set_type": "forecast",
                                   "data_series": [
                                     "estimatedProjectEmissions"
                                   ],
                                   "truncation_type": "past"
-                                }
-                              ],
-                              "element_type": "dottedLine"
-                            },
-                            {
-                              "id": 19,
-                              "order": 2,
-                              "series_sets": [
+                                },
                                 {
-                                  "id": 39,
+                                  "id": 58,
                                   "color": "navy5",
-                                  "label": "Actual project emissions",
+                                  "label": "Project emissions",
                                   "order": 2,
                                   "set_type": "actual",
                                   "data_series": [
@@ -4442,7 +4393,7 @@
                                   "truncation_type": "future"
                                 }
                               ],
-                              "element_type": "line"
+                              "element_type": "bar"
                             }
                           ],
                           "component": "modular-chart",
@@ -4647,11 +4598,116 @@
                   ],
                   "nav_level_id": 4,
                   "display_order": 2
+                },
+                {
+                  "id": 1081,
+                  "name": "carbonStockSummary",
+                  "label": "Carbon stock overview",
+                  "parent_id": 41,
+                  "attributes": {},
+                  "description": "Summary of the project's baseline versus project carbon stocks",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1083,
+                      "name": "carbonSummarydefault",
+                      "label": "",
+                      "fields": [
+                        {
+                          "id": 1849,
+                          "name": "stockSummaryStaticChart-dataGrid-dataGrid",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "object",
+                          "label": "Baseline stock vs project stock",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "",
+                          "elements": [
+                            {
+                              "id": 7,
+                              "order": 1,
+                              "series_sets": [
+                                {
+                                  "id": 12,
+                                  "color": "amber6",
+                                  "label": "Baseline forecast",
+                                  "order": 0,
+                                  "set_type": "forecast",
+                                  "data_series": [
+                                    "estimatedBaseline"
+                                  ],
+                                  "truncation_type": "none"
+                                }
+                              ],
+                              "element_type": "dottedLine"
+                            },
+                            {
+                              "id": 8,
+                              "order": 2,
+                              "series_sets": [
+                                {
+                                  "id": 13,
+                                  "color": "navy5",
+                                  "label": "Project measured",
+                                  "order": 0,
+                                  "set_type": "actual",
+                                  "data_series": [
+                                    "actualProjectStocks"
+                                  ],
+                                  "truncation_type": "future"
+                                }
+                              ],
+                              "element_type": "line"
+                            },
+                            {
+                              "id": 9,
+                              "order": 3,
+                              "series_sets": [
+                                {
+                                  "id": 14,
+                                  "color": "navy5",
+                                  "label": "Project forecast",
+                                  "order": 0,
+                                  "set_type": "forecast",
+                                  "data_series": [
+                                    "estimatedProjectStocks"
+                                  ],
+                                  "truncation_type": "past"
+                                }
+                              ],
+                              "element_type": "dottedLine"
+                            }
+                          ],
+                          "component": "modular-chart",
+                          "attributes": {
+                            "endYear": null,
+                            "startYear": null,
+                            "useDataSeries": true
+                          },
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 1,
+                          "view_component": "modular-chart",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        }
+                      ],
+                      "parent_id": 1081,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 3
                 }
               ],
               "parent_id": 1060,
               "attributes": null,
-              "description": null,
+              "description": "High-level overview of the project's key carbon data points",
               "nav_type_id": 2,
               "nav_level_id": 3,
               "display_order": 0
@@ -4949,7 +5005,7 @@
               ],
               "parent_id": 1060,
               "attributes": null,
-              "description": null,
+              "description": "Summary of the project's credit inventory, average pricing, and relevant sales history ",
               "nav_type_id": 2,
               "nav_level_id": 3,
               "display_order": 1
@@ -5308,7 +5364,7 @@
               ],
               "parent_id": 1060,
               "attributes": null,
-              "description": null,
+              "description": "Project compliance with methodology-specific eligibility criteria",
               "nav_type_id": 2,
               "nav_level_id": 3,
               "display_order": 3
@@ -5332,8 +5388,8 @@
               "label": "Summary",
               "sections": [
                 {
-                  "id": 1111,
-                  "name": "default",
+                  "id": 1211,
+                  "name": "aiSummaryDefault",
                   "label": "",
                   "parent_id": 1064,
                   "attributes": {},
@@ -5341,11 +5397,11 @@
                   "nav_type_id": 2,
                   "field_groups": [
                     {
-                      "id": 1112,
-                      "name": "default",
+                      "id": 1212,
+                      "name": "aiSummaryHeroDefault",
                       "label": "",
                       "fields": null,
-                      "parent_id": 1111,
+                      "parent_id": 1211,
                       "attributes": {},
                       "description": "",
                       "nav_type_id": 2,
@@ -5355,6 +5411,43 @@
                   ],
                   "nav_level_id": 4,
                   "display_order": 0
+                },
+                {
+                  "id": 1111,
+                  "name": "default",
+                  "label": "Overview",
+                  "parent_id": 1064,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1112,
+                      "name": "heroDefault",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1111,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    },
+                    {
+                      "id": 1206,
+                      "name": "dacDefault",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1111,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 1
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 1
                 },
                 {
                   "id": 92,
@@ -5986,7 +6079,7 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 1
+                  "display_order": 2
                 },
                 {
                   "id": 93,
@@ -6059,7 +6152,7 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 2
+                  "display_order": 3
                 },
                 {
                   "id": 94,
@@ -6084,231 +6177,15 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 3
+                  "display_order": 4
                 }
               ],
               "parent_id": 1061,
               "attributes": {},
-              "description": "",
+              "description": "The project's starting point",
               "nav_type_id": 2,
               "nav_level_id": 3,
               "display_order": 0
-            },
-            {
-              "id": 1065,
-              "name": "bslSamplingApproach",
-              "label": "Sampling approach",
-              "sections": [
-                {
-                  "id": 1045,
-                  "name": "bslSamplingOverviewView",
-                  "label": "Sampling overview",
-                  "parent_id": 1065,
-                  "attributes": {},
-                  "description": "",
-                  "nav_type_id": 2,
-                  "field_groups": [
-                    {
-                      "id": 1095,
-                      "name": "bslSamplingOverviewDefault",
-                      "label": "",
-                      "fields": [
-                        {
-                          "id": 1919,
-                          "name": "bslSamplingOverviewTable-dataTable-dataTable",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "object",
-                          "label": "Baseline sampling overview",
-                          "columns": [
-                            {
-                              "name": "bslSamplingOverviewTableParameter",
-                              "type": "string",
-                              "label": "Parameter",
-                              "options": [],
-                              "tooltip": "The parameter monitored through the representative sample",
-                              "column_id": 1924,
-                              "component": "text-input",
-                              "attributes": {},
-                              "helper_text": "",
-                              "column_order": 0,
-                              "view_component": "truncated-text",
-                              "validation_schema": null
-                            },
-                            {
-                              "name": "bslSamplingOverviewTableApproach",
-                              "type": "string",
-                              "label": "Monitoring approach",
-                              "options": [],
-                              "tooltip": "The approach used to monitor the sampled parameter (e.g., survey, Stove Use Monitor, etc)",
-                              "column_id": 1923,
-                              "component": "text-input",
-                              "attributes": {},
-                              "helper_text": "",
-                              "column_order": 0,
-                              "view_component": "truncated-text",
-                              "validation_schema": null
-                            },
-                            {
-                              "name": "bslSamplingOverviewTableSampleSize",
-                              "type": "string",
-                              "label": "Sample size",
-                              "options": [],
-                              "tooltip": "",
-                              "column_id": 1925,
-                              "component": "text-input",
-                              "attributes": {},
-                              "helper_text": "",
-                              "column_order": 1,
-                              "view_component": "truncated-text",
-                              "validation_schema": null
-                            },
-                            {
-                              "name": "bslSamplingOverviewTablePopulationSize",
-                              "type": "string",
-                              "label": "Population size",
-                              "options": [],
-                              "tooltip": "",
-                              "column_id": 1926,
-                              "component": "text-input",
-                              "attributes": {},
-                              "helper_text": "",
-                              "column_order": 2,
-                              "view_component": "truncated-text",
-                              "validation_schema": null
-                            },
-                            {
-                              "name": "bslSamplingOverviewTablePeriod",
-                              "type": "string",
-                              "label": "Monitoring period",
-                              "options": [],
-                              "tooltip": "",
-                              "column_id": 1927,
-                              "component": "textarea",
-                              "attributes": {},
-                              "helper_text": "",
-                              "column_order": 3,
-                              "view_component": "truncated-text",
-                              "validation_schema": null
-                            }
-                          ],
-                          "options": [],
-                          "tooltip": "An overview of the different instances in which the sampling approach is employed to collect data on the parameters used to establish and quantify the baseline",
-                          "elements": null,
-                          "component": "data-table",
-                          "attributes": {},
-                          "half_width": false,
-                          "helper_text": "Indicate the various instances of sampling undertaken to establish the baseline scenario and  quantification (e.g., if relevant, list the different surveys deployed in the baseline scenario, their purpose, the sample size, etc.)",
-                          "display_order": 1,
-                          "view_component": "data-table",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        }
-                      ],
-                      "parent_id": 1045,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 0
-                    },
-                    {
-                      "id": 1051,
-                      "name": "bslSamplingOverviewView",
-                      "label": "Soil sampling overview",
-                      "fields": null,
-                      "parent_id": 1045,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 1
-                    }
-                  ],
-                  "nav_level_id": 4,
-                  "display_order": 0
-                },
-                {
-                  "id": 1046,
-                  "name": "bslSamplingDesignView",
-                  "label": "Sampling design",
-                  "parent_id": 1065,
-                  "attributes": {},
-                  "description": "",
-                  "nav_type_id": 2,
-                  "field_groups": [
-                    {
-                      "id": 1096,
-                      "name": "bslSamplingDesignDefault",
-                      "label": "",
-                      "fields": null,
-                      "parent_id": 1046,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 0
-                    },
-                    {
-                      "id": 1052,
-                      "name": "bslSoilSamplingDesign",
-                      "label": "Soil sampling design",
-                      "fields": null,
-                      "parent_id": 1046,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 1
-                    }
-                  ],
-                  "nav_level_id": 4,
-                  "display_order": 1
-                },
-                {
-                  "id": 1047,
-                  "name": "bslSamplingCollectionView",
-                  "label": "Collection and processing procedures",
-                  "parent_id": 1065,
-                  "attributes": {},
-                  "description": "",
-                  "nav_type_id": 2,
-                  "field_groups": [
-                    {
-                      "id": 1097,
-                      "name": "bslSamplingProcessingDefault",
-                      "label": "",
-                      "fields": null,
-                      "parent_id": 1047,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 0
-                    },
-                    {
-                      "id": 1053,
-                      "name": "bslSoilSamplingProcessing",
-                      "label": "Soil sampling processing",
-                      "fields": null,
-                      "parent_id": 1047,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 1
-                    }
-                  ],
-                  "nav_level_id": 4,
-                  "display_order": 2
-                }
-              ],
-              "parent_id": 1061,
-              "attributes": {},
-              "description": "",
-              "nav_type_id": 2,
-              "nav_level_id": 3,
-              "display_order": 1
             },
             {
               "id": 1066,
@@ -6560,182 +6437,10 @@
               ],
               "parent_id": 1061,
               "attributes": {},
-              "description": "",
+              "description": "Status of carbon stocks in the without-project scenario",
               "nav_type_id": 2,
               "nav_level_id": 3,
               "display_order": 2
-            },
-            {
-              "id": 1067,
-              "name": "bslQuantification",
-              "label": "Baseline quantification",
-              "sections": [
-                {
-                  "id": 1113,
-                  "name": "default",
-                  "label": "",
-                  "parent_id": 1067,
-                  "attributes": {},
-                  "description": "",
-                  "nav_type_id": 2,
-                  "field_groups": [
-                    {
-                      "id": 1114,
-                      "name": "default",
-                      "label": "",
-                      "fields": null,
-                      "parent_id": 1113,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 0
-                    }
-                  ],
-                  "nav_level_id": 4,
-                  "display_order": 0
-                },
-                {
-                  "id": 1090,
-                  "name": "bslEnergyUse",
-                  "label": "Energy consumption overview",
-                  "parent_id": 1067,
-                  "attributes": {},
-                  "description": "",
-                  "nav_type_id": 2,
-                  "field_groups": [
-                    {
-                      "id": 176,
-                      "name": "baselineEnergyUseView",
-                      "label": "",
-                      "fields": null,
-                      "parent_id": 1090,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 0
-                    },
-                    {
-                      "id": 177,
-                      "name": "fnrbView",
-                      "label": "Fraction of non-renewable biomass",
-                      "fields": null,
-                      "parent_id": 1090,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 1
-                    },
-                    {
-                      "id": 1177,
-                      "name": "bslBiomassCookstove",
-                      "label": "Baseline biomass details",
-                      "fields": null,
-                      "parent_id": 1090,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 2
-                    }
-                  ],
-                  "nav_level_id": 4,
-                  "display_order": 1
-                },
-                {
-                  "id": 95,
-                  "name": "baselineEnergyConsumption",
-                  "label": "Energy consumption quantification",
-                  "parent_id": 1067,
-                  "attributes": null,
-                  "description": null,
-                  "nav_type_id": 2,
-                  "field_groups": [
-                    {
-                      "id": 175,
-                      "name": "baselineEnergyConsumptionView",
-                      "label": "Energy consumption quantification approach",
-                      "fields": null,
-                      "parent_id": 95,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 2
-                    },
-                    {
-                      "id": 793,
-                      "name": "bslKpt",
-                      "label": "Baseline kitchen performance test",
-                      "fields": null,
-                      "parent_id": 95,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 3
-                    },
-                    {
-                      "id": 1036,
-                      "name": "bslCct",
-                      "label": "Baseline controlled cooking test",
-                      "fields": null,
-                      "parent_id": 95,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 5
-                    },
-                    {
-                      "id": 1037,
-                      "name": "bslWaterBoilingTest",
-                      "label": "Baseline water boiling test",
-                      "fields": null,
-                      "parent_id": 95,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 6
-                    },
-                    {
-                      "id": 1038,
-                      "name": "bslDefaultValues",
-                      "label": "Baseline default values",
-                      "fields": null,
-                      "parent_id": 95,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 7
-                    },
-                    {
-                      "id": 1039,
-                      "name": "bslSurveys",
-                      "label": "Baseline energy use surveys",
-                      "fields": null,
-                      "parent_id": 95,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 8
-                    }
-                  ],
-                  "nav_level_id": 4,
-                  "display_order": 2
-                }
-              ],
-              "parent_id": 1061,
-              "attributes": {},
-              "description": "",
-              "nav_type_id": 2,
-              "nav_level_id": 3,
-              "display_order": 3
             }
           ],
           "parent_id": 14,
@@ -6756,9 +6461,55 @@
               "label": "Summary",
               "sections": [
                 {
-                  "id": 105,
-                  "name": "default",
+                  "id": 1215,
+                  "name": "aiSummaryDefault",
                   "label": "",
+                  "parent_id": 1068,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1216,
+                      "name": "aiSummaryHeroDefault",
+                      "label": "",
+                      "fields": [
+                        {
+                          "id": 2058,
+                          "name": "projectSummaryAiSummary-nameValue-nameValue",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "string",
+                          "label": "",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "ai-summary",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": null,
+                          "view_component": "ai-summary",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        }
+                      ],
+                      "parent_id": 1215,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 0
+                },
+                {
+                  "id": 105,
+                  "name": "heroDefault",
+                  "label": "Overview",
                   "parent_id": 1068,
                   "attributes": null,
                   "description": null,
@@ -6766,7 +6517,7 @@
                   "field_groups": [
                     {
                       "id": 1025,
-                      "name": "default",
+                      "name": "heroDefault",
                       "label": "",
                       "fields": null,
                       "parent_id": 105,
@@ -6778,7 +6529,7 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 0
+                  "display_order": 1
                 },
                 {
                   "id": 97,
@@ -6800,7 +6551,7 @@
                           "rows": null,
                           "tier": -1,
                           "type": "string",
-                          "label": "Summary of initiatives undertaken to ensure the project's integrity and scientific robustness",
+                          "label": "Summary of initiatives ensuring project integrity and scientific robustness",
                           "columns": null,
                           "options": [],
                           "tooltip": "Overview of measures taken to ensure that the GHG emission reductions or removals from the mitigation activity are be robustly quantified, based on conservative approaches, completeness, and scientific methods",
@@ -6809,7 +6560,7 @@
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "Outline the steps taken to ensure the scientific rigor and integrity of the project",
-                          "display_order": 1,
+                          "display_order": 3,
                           "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -7074,7 +6825,7 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 1
+                  "display_order": 2
                 },
                 {
                   "id": 99,
@@ -7237,7 +6988,7 @@
                     {
                       "id": 1006,
                       "name": "dacUpdates",
-                      "label": "",
+                      "label": "Project updates overview",
                       "fields": null,
                       "parent_id": 99,
                       "attributes": {},
@@ -7248,7 +6999,7 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 2
+                  "display_order": 3
                 },
                 {
                   "id": 1102,
@@ -7309,7 +7060,7 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 3
+                  "display_order": 4
                 },
                 {
                   "id": 102,
@@ -7382,7 +7133,7 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 4
+                  "display_order": 5
                 },
                 {
                   "id": 103,
@@ -7431,7 +7182,7 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 5
+                  "display_order": 6
                 },
                 {
                   "id": 104,
@@ -7492,7 +7243,7 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 6
+                  "display_order": 7
                 },
                 {
                   "id": 100,
@@ -7517,12 +7268,12 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 7
+                  "display_order": 8
                 }
               ],
               "parent_id": 1062,
               "attributes": {},
-              "description": "",
+              "description": "Takeaways from the project intervention",
               "nav_type_id": 2,
               "nav_level_id": 3,
               "display_order": 0
@@ -7533,16 +7284,66 @@
               "label": "Project technology",
               "sections": [
                 {
+                  "id": 1217,
+                  "name": "aiSummaryDefault",
+                  "label": "",
+                  "parent_id": 1072,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1218,
+                      "name": "aiSummaryHeroDefault",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1217,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 0
+                },
+                {
+                  "id": 1219,
+                  "name": "heroDefault",
+                  "label": "Overview",
+                  "parent_id": 1072,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1092,
+                      "name": "heroDefault",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1219,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 0
+                },
+                {
                   "id": 98,
                   "name": "technologyDefault",
-                  "label": "",
+                  "label": "Details",
                   "parent_id": 1072,
                   "attributes": null,
                   "description": null,
                   "nav_type_id": 2,
                   "field_groups": [
                     {
-                      "id": 1092,
+                      "id": 192,
                       "name": "techDefault",
                       "label": "",
                       "fields": null,
@@ -7552,6 +7353,30 @@
                       "nav_type_id": 2,
                       "nav_level_id": 5,
                       "display_order": 0
+                    },
+                    {
+                      "id": 1165,
+                      "name": "cookstoveTechDetails",
+                      "label": "Cookstove technical details",
+                      "fields": null,
+                      "parent_id": 98,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 1
+                    },
+                    {
+                      "id": 1110,
+                      "name": "thermalEfficiency",
+                      "label": "Thermal efficiency",
+                      "fields": null,
+                      "parent_id": 98,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 2
                     },
                     {
                       "id": 974,
@@ -7584,7 +7409,7 @@
                       "description": "",
                       "nav_type_id": 2,
                       "nav_level_id": 5,
-                      "display_order": 1
+                      "display_order": 3
                     },
                     {
                       "id": 975,
@@ -7596,7 +7421,7 @@
                       "description": "",
                       "nav_type_id": 2,
                       "nav_level_id": 5,
-                      "display_order": 3
+                      "display_order": 4
                     },
                     {
                       "id": 773,
@@ -7608,7 +7433,7 @@
                       "description": "",
                       "nav_type_id": 2,
                       "nav_level_id": 5,
-                      "display_order": 4
+                      "display_order": 5
                     },
                     {
                       "id": 775,
@@ -7620,7 +7445,7 @@
                       "description": "",
                       "nav_type_id": 2,
                       "nav_level_id": 5,
-                      "display_order": 5
+                      "display_order": 6
                     },
                     {
                       "id": 776,
@@ -7632,7 +7457,7 @@
                       "description": "",
                       "nav_type_id": 2,
                       "nav_level_id": 5,
-                      "display_order": 6
+                      "display_order": 7
                     },
                     {
                       "id": 777,
@@ -7681,61 +7506,12 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 0
-                },
-                {
-                  "id": 1164,
-                  "name": "technologiesInvolved",
-                  "label": "Technologies in the project activity",
-                  "parent_id": 1072,
-                  "attributes": {},
-                  "description": "",
-                  "nav_type_id": 2,
-                  "field_groups": [
-                    {
-                      "id": 192,
-                      "name": "techDefault",
-                      "label": "",
-                      "fields": null,
-                      "parent_id": 1164,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 0
-                    },
-                    {
-                      "id": 1165,
-                      "name": "cookstoveTechDetails",
-                      "label": "Cookstove technical details",
-                      "fields": null,
-                      "parent_id": 1164,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 1
-                    },
-                    {
-                      "id": 1110,
-                      "name": "thermalEfficiency",
-                      "label": "Thermal efficiency",
-                      "fields": null,
-                      "parent_id": 1164,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 2
-                    }
-                  ],
-                  "nav_level_id": 4,
                   "display_order": 1
                 }
               ],
               "parent_id": 1062,
               "attributes": {},
-              "description": "",
+              "description": "Technical details of project approach",
               "nav_type_id": 2,
               "nav_level_id": 3,
               "display_order": 1
@@ -7949,338 +7725,10 @@
               ],
               "parent_id": 1062,
               "attributes": {},
-              "description": "",
+              "description": "Status of carbon stocks with project action",
               "nav_type_id": 2,
               "nav_level_id": 3,
               "display_order": 2
-            },
-            {
-              "id": 1070,
-              "name": "projSamplingApproach",
-              "label": "Sampling approach",
-              "sections": [
-                {
-                  "id": 1075,
-                  "name": "projSamplingOverview",
-                  "label": "Sampling overview",
-                  "parent_id": 1070,
-                  "attributes": {},
-                  "description": "",
-                  "nav_type_id": 2,
-                  "field_groups": [
-                    {
-                      "id": 1077,
-                      "name": "projSamplingOverview",
-                      "label": "",
-                      "fields": [
-                        {
-                          "id": 1928,
-                          "name": "projSamplingOverviewTable-dataTable-dataTable",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "object",
-                          "label": "Project sampling overview",
-                          "columns": [
-                            {
-                              "name": "projSamplingOverviewTableParameter",
-                              "type": "string",
-                              "label": "Parameter",
-                              "options": [],
-                              "tooltip": "The parameter monitored through the representative sample",
-                              "column_id": 1930,
-                              "component": "text-input",
-                              "attributes": {},
-                              "helper_text": "",
-                              "column_order": 0,
-                              "view_component": "truncated-text",
-                              "validation_schema": null
-                            },
-                            {
-                              "name": "projSamplingOverviewTableApproach",
-                              "type": "string",
-                              "label": "Monitoring approach",
-                              "options": [],
-                              "tooltip": "The method used to monitor the parameter (e.g. survey, stove use monitor, Kitchen Performance Test, default values etc.)",
-                              "column_id": 1929,
-                              "component": "text-input",
-                              "attributes": {},
-                              "helper_text": "",
-                              "column_order": 0,
-                              "view_component": "truncated-text",
-                              "validation_schema": null
-                            },
-                            {
-                              "name": "projSamplingOverviewTableSampleSize",
-                              "type": "string",
-                              "label": "Sample size",
-                              "options": [],
-                              "tooltip": "",
-                              "column_id": 1931,
-                              "component": "text-input",
-                              "attributes": {},
-                              "helper_text": "",
-                              "column_order": 1,
-                              "view_component": "truncated-text",
-                              "validation_schema": null
-                            },
-                            {
-                              "name": "projSamplingOverviewTablePopulationSize",
-                              "type": "string",
-                              "label": "Population size",
-                              "options": [],
-                              "tooltip": "",
-                              "column_id": 1932,
-                              "component": "textarea",
-                              "attributes": {},
-                              "helper_text": "",
-                              "column_order": 2,
-                              "view_component": "truncated-text",
-                              "validation_schema": null
-                            },
-                            {
-                              "name": "projSamplingOverviewTablePeriod",
-                              "type": "string",
-                              "label": "Monitoring period",
-                              "options": [],
-                              "tooltip": "The monitoring period in which the parameter was monitoring from the identified  representative sample",
-                              "column_id": 1933,
-                              "component": "textarea",
-                              "attributes": {},
-                              "helper_text": "",
-                              "column_order": 3,
-                              "view_component": "truncated-text",
-                              "validation_schema": null
-                            }
-                          ],
-                          "options": [],
-                          "tooltip": "An overview of the different instances in which the sampling approach is employed to collect data on the parameters used to establish and quantify the project's impact",
-                          "elements": null,
-                          "component": "data-table",
-                          "attributes": {},
-                          "half_width": false,
-                          "helper_text": "Indicate the various instances of sampling undertaken during the project's implementation and  quantification",
-                          "display_order": 1,
-                          "view_component": "data-table",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        }
-                      ],
-                      "parent_id": 1075,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 0
-                    }
-                  ],
-                  "nav_level_id": 4,
-                  "display_order": 0
-                },
-                {
-                  "id": 1076,
-                  "name": "projSamplingDesign",
-                  "label": "Sampling design",
-                  "parent_id": 1070,
-                  "attributes": {},
-                  "description": "",
-                  "nav_type_id": 2,
-                  "field_groups": [
-                    {
-                      "id": 1078,
-                      "name": "projectSamplingDesign",
-                      "label": "",
-                      "fields": null,
-                      "parent_id": 1076,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 0
-                    }
-                  ],
-                  "nav_level_id": 4,
-                  "display_order": 1
-                },
-                {
-                  "id": 1074,
-                  "name": "projCollection",
-                  "label": "Collection and processing procedures",
-                  "parent_id": 1070,
-                  "attributes": {},
-                  "description": "",
-                  "nav_type_id": 2,
-                  "field_groups": [
-                    {
-                      "id": 1079,
-                      "name": "projCollection",
-                      "label": "",
-                      "fields": null,
-                      "parent_id": 1074,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 0
-                    }
-                  ],
-                  "nav_level_id": 4,
-                  "display_order": 2
-                }
-              ],
-              "parent_id": 1062,
-              "attributes": {},
-              "description": "",
-              "nav_type_id": 2,
-              "nav_level_id": 3,
-              "display_order": 3
-            },
-            {
-              "id": 1071,
-              "name": "projQuantification",
-              "label": "Project quantification",
-              "sections": [
-                {
-                  "id": 1107,
-                  "name": "projQuantificationDefault",
-                  "label": "",
-                  "parent_id": 1071,
-                  "attributes": {},
-                  "description": "",
-                  "nav_type_id": 2,
-                  "field_groups": [
-                    {
-                      "id": 1108,
-                      "name": "defaultProjQuant",
-                      "label": "",
-                      "fields": null,
-                      "parent_id": 1107,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 0
-                    }
-                  ],
-                  "nav_level_id": 4,
-                  "display_order": 0
-                },
-                {
-                  "id": 1091,
-                  "name": "projEnergyUse",
-                  "label": "Energy consumption overview",
-                  "parent_id": 1071,
-                  "attributes": {},
-                  "description": "",
-                  "nav_type_id": 2,
-                  "field_groups": [
-                    {
-                      "id": 186,
-                      "name": "projectFuelViewDefault",
-                      "label": "",
-                      "fields": null,
-                      "parent_id": 1091,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 0
-                    },
-                    {
-                      "id": 1154,
-                      "name": "projectEnergyDetails",
-                      "label": "Project energy consumption details",
-                      "fields": null,
-                      "parent_id": 1091,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 1
-                    },
-                    {
-                      "id": 188,
-                      "name": "projectElectricityView",
-                      "label": "Electricity usage",
-                      "fields": null,
-                      "parent_id": 1091,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 1
-                    }
-                  ],
-                  "nav_level_id": 4,
-                  "display_order": 1
-                },
-                {
-                  "id": 768,
-                  "name": "projectEnergyConsumptionCookstoves",
-                  "label": "Energy consumption quantification",
-                  "parent_id": 1071,
-                  "attributes": {},
-                  "description": "",
-                  "nav_type_id": 2,
-                  "field_groups": [
-                    {
-                      "id": 187,
-                      "name": "projectEnergyQuantificationView",
-                      "label": "Project energy consumption quantification approach",
-                      "fields": null,
-                      "parent_id": 768,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 3
-                    },
-                    {
-                      "id": 801,
-                      "name": "projectKpt",
-                      "label": "Project kitchen performance tests",
-                      "fields": null,
-                      "parent_id": 768,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 4
-                    },
-                    {
-                      "id": 1058,
-                      "name": "cctProjectView",
-                      "label": "Project controlled cooking tests",
-                      "fields": null,
-                      "parent_id": 768,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 5
-                    },
-                    {
-                      "id": 1059,
-                      "name": "sumProject",
-                      "label": "Project stove use monitoring",
-                      "fields": null,
-                      "parent_id": 768,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 6
-                    }
-                  ],
-                  "nav_level_id": 4,
-                  "display_order": 2
-                }
-              ],
-              "parent_id": 1062,
-              "attributes": {},
-              "description": "",
-              "nav_type_id": 2,
-              "nav_level_id": 3,
-              "display_order": 4
             },
             {
               "id": 1073,
@@ -8305,7 +7753,7 @@
                           "id": 1349,
                           "name": "lcaTable-dataTable-dataTable",
                           "rows": null,
-                          "tier": 1,
+                          "tier": -1,
                           "type": "object",
                           "label": "LCA repository",
                           "columns": [
@@ -8373,7 +7821,7 @@
                           "tooltip": "",
                           "elements": null,
                           "component": "data-table",
-                          "attributes": null,
+                          "attributes": {},
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 0,
@@ -8485,7 +7933,7 @@
                           "id": 1350,
                           "name": "lcaPuroResultsTable-dataTable-dataTable",
                           "rows": null,
-                          "tier": 1,
+                          "tier": -1,
                           "type": "object",
                           "label": "LCA results",
                           "columns": [
@@ -8592,7 +8040,7 @@
                           "tooltip": "The results from the most recent life cycle assessment",
                           "elements": null,
                           "component": "data-table",
-                          "attributes": null,
+                          "attributes": {},
                           "half_width": false,
                           "helper_text": "Outline the results from the most recent LCA",
                           "display_order": 1,
@@ -8620,7 +8068,7 @@
               ],
               "parent_id": 1062,
               "attributes": {},
-              "description": "",
+              "description": "Key information from the project's LCA",
               "nav_type_id": 2,
               "nav_level_id": 3,
               "display_order": 5
@@ -8634,6 +8082,776 @@
           "display_order": 2
         },
         {
+          "id": 1245,
+          "name": "cookstoveEnergyQuantification",
+          "label": "Energy use quantification",
+          "steps": [
+            {
+              "id": 1067,
+              "name": "bslQuantification",
+              "label": "Baseline quantification",
+              "sections": [
+                {
+                  "id": 1213,
+                  "name": "aiSummaryDefault",
+                  "label": "",
+                  "parent_id": 1067,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1214,
+                      "name": "aiSummaryHeroDefault",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1213,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 0
+                },
+                {
+                  "id": 1113,
+                  "name": "heroDefault",
+                  "label": "Overview",
+                  "parent_id": 1067,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1114,
+                      "name": "heroDefault",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1113,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 1
+                },
+                {
+                  "id": 1090,
+                  "name": "bslEnergyUse",
+                  "label": "Energy consumption overview",
+                  "parent_id": 1067,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 176,
+                      "name": "baselineEnergyUseView",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1090,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    },
+                    {
+                      "id": 177,
+                      "name": "fnrbView",
+                      "label": "Fraction of non-renewable biomass",
+                      "fields": null,
+                      "parent_id": 1090,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 1
+                    },
+                    {
+                      "id": 1177,
+                      "name": "bslBiomassCookstove",
+                      "label": "Baseline biomass details",
+                      "fields": null,
+                      "parent_id": 1090,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 2
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 2
+                },
+                {
+                  "id": 95,
+                  "name": "baselineEnergyConsumption",
+                  "label": "Energy consumption quantification",
+                  "parent_id": 1067,
+                  "attributes": null,
+                  "description": null,
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 175,
+                      "name": "baselineEnergyConsumptionView",
+                      "label": "Energy consumption quantification approach",
+                      "fields": null,
+                      "parent_id": 95,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 2
+                    },
+                    {
+                      "id": 793,
+                      "name": "bslKpt",
+                      "label": "Baseline kitchen performance test",
+                      "fields": null,
+                      "parent_id": 95,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 3
+                    },
+                    {
+                      "id": 1036,
+                      "name": "bslCct",
+                      "label": "Baseline controlled cooking test",
+                      "fields": null,
+                      "parent_id": 95,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 5
+                    },
+                    {
+                      "id": 1037,
+                      "name": "bslWaterBoilingTest",
+                      "label": "Baseline water boiling test",
+                      "fields": null,
+                      "parent_id": 95,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 6
+                    },
+                    {
+                      "id": 1038,
+                      "name": "bslDefaultValues",
+                      "label": "Baseline default values",
+                      "fields": null,
+                      "parent_id": 95,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 7
+                    },
+                    {
+                      "id": 1039,
+                      "name": "bslSurveys",
+                      "label": "Baseline energy use surveys",
+                      "fields": null,
+                      "parent_id": 95,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 8
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 3
+                }
+              ],
+              "parent_id": 1245,
+              "attributes": {},
+              "description": "How baseline fuel and energy consumption are measured and quantified",
+              "nav_type_id": 2,
+              "nav_level_id": 3,
+              "display_order": 3
+            },
+            {
+              "id": 1071,
+              "name": "projQuantification",
+              "label": "Project quantification",
+              "sections": [
+                {
+                  "id": 1220,
+                  "name": "aiSummaryDefault",
+                  "label": "",
+                  "parent_id": 1071,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1221,
+                      "name": "aiSummaryDefault",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1220,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 0
+                },
+                {
+                  "id": 1107,
+                  "name": "heroDefault",
+                  "label": "Overview",
+                  "parent_id": 1071,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1108,
+                      "name": "heroDefault",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1107,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 1
+                },
+                {
+                  "id": 1091,
+                  "name": "projEnergyUse",
+                  "label": "Energy consumption overview",
+                  "parent_id": 1071,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 186,
+                      "name": "projectFuelViewDefault",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1091,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    },
+                    {
+                      "id": 1154,
+                      "name": "projectEnergyDetails",
+                      "label": "Project energy consumption details",
+                      "fields": null,
+                      "parent_id": 1091,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 1
+                    },
+                    {
+                      "id": 188,
+                      "name": "projectElectricityView",
+                      "label": "Electricity usage",
+                      "fields": null,
+                      "parent_id": 1091,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 1
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 2
+                },
+                {
+                  "id": 768,
+                  "name": "projectEnergyConsumptionCookstoves",
+                  "label": "Energy consumption quantification",
+                  "parent_id": 1071,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 187,
+                      "name": "projectEnergyQuantificationView",
+                      "label": "Project energy consumption quantification approach",
+                      "fields": null,
+                      "parent_id": 768,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 3
+                    },
+                    {
+                      "id": 801,
+                      "name": "projectKpt",
+                      "label": "Project kitchen performance tests",
+                      "fields": null,
+                      "parent_id": 768,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 4
+                    },
+                    {
+                      "id": 1058,
+                      "name": "cctProjectView",
+                      "label": "Project controlled cooking tests",
+                      "fields": null,
+                      "parent_id": 768,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 5
+                    },
+                    {
+                      "id": 1059,
+                      "name": "sumProject",
+                      "label": "Project stove use monitoring",
+                      "fields": null,
+                      "parent_id": 768,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 6
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 3
+                }
+              ],
+              "parent_id": 1245,
+              "attributes": {},
+              "description": "How project fuel and energy consumption are measured and quantified",
+              "nav_type_id": 2,
+              "nav_level_id": 3,
+              "display_order": 4
+            }
+          ],
+          "parent_id": 14,
+          "attributes": {},
+          "description": "How the project measures the amount of fuel or energy consumed by a cookstove",
+          "nav_type_id": 2,
+          "nav_level_id": 2,
+          "display_order": 3
+        },
+        {
+          "id": 1236,
+          "name": "sampling",
+          "label": "Sampling",
+          "steps": [
+            {
+              "id": 1237,
+              "name": "overviewSampling",
+              "label": "Sampling approach",
+              "sections": [
+                {
+                  "id": 1239,
+                  "name": "heroDefault",
+                  "label": "",
+                  "parent_id": 1237,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1240,
+                      "name": "heroDefault",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1239,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 0
+                },
+                {
+                  "id": 1045,
+                  "name": "samplingOverview",
+                  "label": "Overview",
+                  "parent_id": 1237,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1051,
+                      "name": "bslSamplingOverviewView",
+                      "label": "Soil sampling overview",
+                      "fields": null,
+                      "parent_id": 1045,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 1
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 1
+                },
+                {
+                  "id": 1046,
+                  "name": "generalSamplingDesign",
+                  "label": "Details",
+                  "parent_id": 1237,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1078,
+                      "name": "generalSamplingDesign",
+                      "label": "Sampling design",
+                      "fields": null,
+                      "parent_id": 1046,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    },
+                    {
+                      "id": 1052,
+                      "name": "bslSoilSamplingDesign",
+                      "label": "Soil sampling design",
+                      "fields": null,
+                      "parent_id": 1046,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 1
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 2
+                },
+                {
+                  "id": 1074,
+                  "name": "projCollection",
+                  "label": "Collection and processing procedures",
+                  "parent_id": 1237,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1053,
+                      "name": "soilSamplingProcessing",
+                      "label": "Soil sampling processing",
+                      "fields": null,
+                      "parent_id": 1074,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 1
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 3
+                }
+              ],
+              "parent_id": 1236,
+              "attributes": {},
+              "description": "General project approach to sampling",
+              "nav_type_id": 2,
+              "nav_level_id": 3,
+              "display_order": 0
+            },
+            {
+              "id": 1242,
+              "name": "samplingParameters",
+              "label": "Sampling parameters",
+              "sections": [
+                {
+                  "id": 1243,
+                  "name": "default",
+                  "label": "",
+                  "parent_id": 1242,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1095,
+                      "name": "generalSamplingOverviewDefault",
+                      "label": "",
+                      "fields": [
+                        {
+                          "id": 1928,
+                          "name": "projSamplingOverviewTable-dataTable-dataTable",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "object",
+                          "label": "Project sampling overview",
+                          "columns": [
+                            {
+                              "name": "projSamplingOverviewTableParameter",
+                              "type": "string",
+                              "label": "Parameter",
+                              "options": [],
+                              "tooltip": "The parameter monitored through the representative sample",
+                              "column_id": 1930,
+                              "component": "text-input",
+                              "attributes": {},
+                              "helper_text": "",
+                              "column_order": 0,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            },
+                            {
+                              "name": "projSamplingOverviewTableApproach",
+                              "type": "string",
+                              "label": "Monitoring approach",
+                              "options": [],
+                              "tooltip": "The method used to monitor the parameter (e.g. survey, stove use monitor, Kitchen Performance Test, default values etc.)",
+                              "column_id": 1929,
+                              "component": "text-input",
+                              "attributes": {},
+                              "helper_text": "",
+                              "column_order": 0,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            },
+                            {
+                              "name": "projSamplingOverviewTableSampleSize",
+                              "type": "string",
+                              "label": "Sample size",
+                              "options": [],
+                              "tooltip": "",
+                              "column_id": 1931,
+                              "component": "text-input",
+                              "attributes": {},
+                              "helper_text": "",
+                              "column_order": 1,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            },
+                            {
+                              "name": "projSamplingOverviewTablePopulationSize",
+                              "type": "string",
+                              "label": "Population size",
+                              "options": [],
+                              "tooltip": "",
+                              "column_id": 1932,
+                              "component": "textarea",
+                              "attributes": {},
+                              "helper_text": "",
+                              "column_order": 2,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            },
+                            {
+                              "name": "projSamplingOverviewTablePrecision",
+                              "type": "string",
+                              "label": "Precision achieved",
+                              "options": [],
+                              "tooltip": "",
+                              "column_id": 2492,
+                              "component": "text-input",
+                              "attributes": {},
+                              "helper_text": "",
+                              "column_order": 3,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            },
+                            {
+                              "name": "projSamplingOverviewTablePeriod",
+                              "type": "string",
+                              "label": "Monitoring period",
+                              "options": [],
+                              "tooltip": "The monitoring period in which the parameter was monitoring from the identified  representative sample",
+                              "column_id": 1933,
+                              "component": "textarea",
+                              "attributes": {},
+                              "helper_text": "",
+                              "column_order": 4,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            }
+                          ],
+                          "options": [],
+                          "tooltip": "An overview of the different instances in which the sampling approach is employed to collect data on the parameters used to establish and quantify the project's impact",
+                          "elements": null,
+                          "component": "data-table",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "Indicate the various instances of sampling undertaken during the project's implementation and  quantification",
+                          "display_order": 1,
+                          "view_component": "data-table",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
+                          "id": 1919,
+                          "name": "bslSamplingOverviewTable-dataTable-dataTable",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "object",
+                          "label": "Baseline sampling overview",
+                          "columns": [
+                            {
+                              "name": "bslSamplingOverviewTableParameter",
+                              "type": "string",
+                              "label": "Parameter",
+                              "options": [],
+                              "tooltip": "The parameter monitored through the representative sample",
+                              "column_id": 1924,
+                              "component": "text-input",
+                              "attributes": {},
+                              "helper_text": "",
+                              "column_order": 0,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            },
+                            {
+                              "name": "bslSamplingOverviewTableApproach",
+                              "type": "string",
+                              "label": "Monitoring approach",
+                              "options": [],
+                              "tooltip": "The approach used to monitor the sampled parameter (e.g., survey, Stove Use Monitor, etc)",
+                              "column_id": 1923,
+                              "component": "text-input",
+                              "attributes": {},
+                              "helper_text": "",
+                              "column_order": 0,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            },
+                            {
+                              "name": "bslSamplingOverviewTableSampleSize",
+                              "type": "string",
+                              "label": "Sample size",
+                              "options": [],
+                              "tooltip": "",
+                              "column_id": 1925,
+                              "component": "text-input",
+                              "attributes": {},
+                              "helper_text": "",
+                              "column_order": 1,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            },
+                            {
+                              "name": "bslSamplingOverviewTablePopulationSize",
+                              "type": "string",
+                              "label": "Population size",
+                              "options": [],
+                              "tooltip": "",
+                              "column_id": 1926,
+                              "component": "text-input",
+                              "attributes": {},
+                              "helper_text": "",
+                              "column_order": 2,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            },
+                            {
+                              "name": "bslSamplingOverviewTablePrecision",
+                              "type": "string",
+                              "label": "Precision achieved",
+                              "options": [],
+                              "tooltip": "",
+                              "column_id": 2491,
+                              "component": "text-input",
+                              "attributes": {},
+                              "helper_text": "",
+                              "column_order": 3,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            },
+                            {
+                              "name": "bslSamplingOverviewTablePeriod",
+                              "type": "string",
+                              "label": "Monitoring period",
+                              "options": [],
+                              "tooltip": "",
+                              "column_id": 1927,
+                              "component": "textarea",
+                              "attributes": {},
+                              "helper_text": "",
+                              "column_order": 4,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            }
+                          ],
+                          "options": [],
+                          "tooltip": "An overview of the different instances in which the sampling approach is employed to collect data on the parameters used to establish and quantify the baseline",
+                          "elements": null,
+                          "component": "data-table",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "Indicate the various instances of sampling undertaken to establish the baseline scenario and  quantification (e.g., if relevant, list the different surveys deployed in the baseline scenario, their purpose, the sample size, etc.)",
+                          "display_order": 1,
+                          "view_component": "data-table",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        }
+                      ],
+                      "parent_id": 1243,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 0
+                }
+              ],
+              "parent_id": 1236,
+              "attributes": {},
+              "description": "",
+              "nav_type_id": 2,
+              "nav_level_id": 3,
+              "display_order": 1
+            }
+          ],
+          "parent_id": 14,
+          "attributes": {},
+          "description": "",
+          "nav_type_id": 2,
+          "nav_level_id": 2,
+          "display_order": 4
+        },
+        {
           "id": 1063,
           "name": "boundariesView",
           "label": "Boundaries",
@@ -8643,6 +8861,52 @@
               "name": "spatialBoundaries",
               "label": "Spatial boundaries",
               "sections": [
+                {
+                  "id": 1224,
+                  "name": "defaultHero",
+                  "label": "",
+                  "parent_id": 48,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1225,
+                      "name": "defaultHero",
+                      "label": "",
+                      "fields": [
+                        {
+                          "id": 2483,
+                          "name": "projectBoundaryImage-projectFile-storage",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "array",
+                          "label": "Project boundary image(s)",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "media-carousel",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "Upload relevant maps or geographic images. These images will be used to highlight your project's spatial boundaries.",
+                          "display_order": 1,
+                          "view_component": "media-carousel",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        }
+                      ],
+                      "parent_id": 1224,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 0
+                },
                 {
                   "id": 119,
                   "name": "spatialBoundaries",
@@ -8679,7 +8943,7 @@
                         },
                         {
                           "id": 481,
-                          "name": "uploadGeo-projectFile-storage",
+                          "name": "uploadGeoAcr-projectFile-storage",
                           "rows": null,
                           "tier": -1,
                           "type": "array",
@@ -8689,9 +8953,9 @@
                           "tooltip": "Information to delineate the project boundary may include: project area map, general location map, property parcel map or recognized equivalent, vicinity map with topography, HUC with drainage map, canopy cover map, land cover map, wildfire risk map, designated waterbodies map, etc.)",
                           "elements": null,
                           "component": "file-upload-multiple",
-                          "attributes": null,
+                          "attributes": {},
                           "half_width": false,
-                          "helper_text": "Upload relevant maps and geographic documents",
+                          "helper_text": "Upload any additional geographic documents",
                           "display_order": 4,
                           "view_component": "key-value-table",
                           "validation_schema": null,
@@ -8982,7 +9246,7 @@
               ],
               "parent_id": 1063,
               "attributes": null,
-              "description": null,
+              "description": "Project geographic scope",
               "nav_type_id": 2,
               "nav_level_id": 3,
               "display_order": 6
@@ -9021,7 +9285,7 @@
                           "attributes": null,
                           "half_width": false,
                           "helper_text": "",
-                          "display_order": 1,
+                          "display_order": 0,
                           "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -9038,10 +9302,10 @@
                           "tooltip": "Relevant figures depicting the process flows and system boundaries",
                           "elements": null,
                           "component": "file-upload-multiple",
-                          "attributes": null,
+                          "attributes": {},
                           "half_width": false,
                           "helper_text": "Upload a diagram depicting the project's system boundaries, such as a project-specific process flow diagram outlining the stages included within the system boundary",
-                          "display_order": 2,
+                          "display_order": 1,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -9080,93 +9344,7 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 1
-                },
-                {
-                  "id": 122,
-                  "name": "temporalBoundaries",
-                  "label": "Temporal boundaries",
-                  "parent_id": 49,
-                  "attributes": null,
-                  "description": null,
-                  "nav_type_id": 2,
-                  "field_groups": [
-                    {
-                      "id": 1005,
-                      "name": "defaultDac",
-                      "label": "",
-                      "fields": null,
-                      "parent_id": 122,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 0
-                    },
-                    {
-                      "id": 259,
-                      "name": "processTimelineView",
-                      "label": "Overall process timeline",
-                      "fields": null,
-                      "parent_id": 122,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 0
-                    },
-                    {
-                      "id": 260,
-                      "name": "weatheringTimeline",
-                      "label": "Weathering timeline",
-                      "fields": null,
-                      "parent_id": 122,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 1
-                    },
-                    {
-                      "id": 261,
-                      "name": "bicarbonateTimelineView",
-                      "label": "Bicarbonate movement timeline",
-                      "fields": null,
-                      "parent_id": 122,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 2
-                    }
-                  ],
-                  "nav_level_id": 4,
-                  "display_order": 2
-                },
-                {
-                  "id": 123,
-                  "name": "carbonPools",
-                  "label": "Carbon pools",
-                  "parent_id": 49,
-                  "attributes": null,
-                  "description": null,
-                  "nav_type_id": 2,
-                  "field_groups": [
-                    {
-                      "id": 253,
-                      "name": "carbonPoolsView",
-                      "label": "",
-                      "fields": null,
-                      "parent_id": 123,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 0
-                    }
-                  ],
-                  "nav_level_id": 4,
-                  "display_order": 3
+                  "display_order": 0
                 },
                 {
                   "id": 124,
@@ -9186,7 +9364,7 @@
                           "id": 1337,
                           "name": "emissionSourcesTable-dataTable-dataTable",
                           "rows": null,
-                          "tier": 1,
+                          "tier": -1,
                           "type": "object",
                           "label": "Emission sources included in the project boundary",
                           "columns": [
@@ -9219,11 +9397,13 @@
                               ],
                               "tooltip": "",
                               "column_id": 1364,
-                              "component": "select",
-                              "attributes": null,
+                              "component": "select-multiple",
+                              "attributes": {
+                                "field": ""
+                              },
                               "helper_text": "",
                               "column_order": 0,
-                              "view_component": "truncated-text",
+                              "view_component": "pill",
                               "validation_schema": null
                             },
                             {
@@ -9306,12 +9486,98 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 4
+                  "display_order": 1
+                },
+                {
+                  "id": 122,
+                  "name": "temporalBoundaries",
+                  "label": "Temporal boundaries",
+                  "parent_id": 49,
+                  "attributes": null,
+                  "description": null,
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1005,
+                      "name": "defaultDac",
+                      "label": "Duration of activities",
+                      "fields": null,
+                      "parent_id": 122,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    },
+                    {
+                      "id": 259,
+                      "name": "processTimelineView",
+                      "label": "Overall process timeline",
+                      "fields": null,
+                      "parent_id": 122,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    },
+                    {
+                      "id": 260,
+                      "name": "weatheringTimeline",
+                      "label": "Weathering timeline",
+                      "fields": null,
+                      "parent_id": 122,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 1
+                    },
+                    {
+                      "id": 261,
+                      "name": "bicarbonateTimelineView",
+                      "label": "Bicarbonate movement timeline",
+                      "fields": null,
+                      "parent_id": 122,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 2
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 2
+                },
+                {
+                  "id": 123,
+                  "name": "carbonPools",
+                  "label": "Carbon pools",
+                  "parent_id": 49,
+                  "attributes": null,
+                  "description": null,
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 253,
+                      "name": "carbonPoolsView",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 123,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 3
                 }
               ],
               "parent_id": 1063,
               "attributes": null,
-              "description": null,
+              "description": "Project boundaries for carbon accounting",
               "nav_type_id": 2,
               "nav_level_id": 3,
               "display_order": 7
@@ -9322,7 +9588,7 @@
           "description": "",
           "nav_type_id": 2,
           "nav_level_id": 2,
-          "display_order": 3
+          "display_order": 5
         },
         {
           "id": 24,
@@ -9336,7 +9602,7 @@
               "sections": [
                 {
                   "id": 1130,
-                  "name": "default",
+                  "name": "aiSummaryDefault",
                   "label": "",
                   "parent_id": 53,
                   "attributes": {},
@@ -9345,9 +9611,30 @@
                   "field_groups": [
                     {
                       "id": 1131,
-                      "name": "default",
+                      "name": "aiSummaryDefault",
                       "label": "",
-                      "fields": null,
+                      "fields": [
+                        {
+                          "id": 2062,
+                          "name": "monitoringPlanAiSummary-nameValue-nameValue",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "string",
+                          "label": "",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "ai-summary",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": null,
+                          "view_component": "ai-summary",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        }
+                      ],
                       "parent_id": 1130,
                       "attributes": {},
                       "description": "",
@@ -9372,28 +9659,7 @@
                       "id": 979,
                       "name": "defaultMrvPlan",
                       "label": "",
-                      "fields": [
-                        {
-                          "id": 555,
-                          "name": "monitoringPlan-nameValue-nameValue",
-                          "rows": null,
-                          "tier": 1,
-                          "type": "string",
-                          "label": "MRV protocol and monitoring plan overview",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "The monitoring plan may include: technical description of the monitoring tasks, data to be collected, overview of data collection procedures, quality control and quality assurance procedures, data archiving and organization and responsibilities of the parties involved",
-                          "elements": null,
-                          "component": "rich-text",
-                          "attributes": {},
-                          "half_width": false,
-                          "helper_text": "Describe the planned MRV protocol, including any monitoring plans",
-                          "display_order": 0,
-                          "view_component": "rich-text",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        }
-                      ],
+                      "fields": null,
                       "parent_id": 134,
                       "attributes": {},
                       "description": "",
@@ -9406,6 +9672,26 @@
                       "name": "monitoringPlan",
                       "label": "Monitoring plan and approach",
                       "fields": [
+                        {
+                          "id": 555,
+                          "name": "monitoringPlan-nameValue-nameValue",
+                          "rows": null,
+                          "tier": 1,
+                          "type": "string",
+                          "label": "MRV protocol and monitoring plan overview",
+                          "columns": null,
+                          "options": null,
+                          "tooltip": "The monitoring plan may include: technical description of the monitoring tasks, data to be collected, overview of data collection procedures, quality control and quality assurance procedures, data archiving and organization and responsibilities of the parties involved",
+                          "elements": null,
+                          "component": "rich-text",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "Describe the planned MRV protocol, including any monitoring plans",
+                          "display_order": 3,
+                          "view_component": "rich-text",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
                         {
                           "id": 773,
                           "name": "monitoringTimeline-nameValue-nameValue",
@@ -9433,6 +9719,59 @@
                       "nav_type_id": 2,
                       "nav_level_id": 5,
                       "display_order": 1
+                    },
+                    {
+                      "id": 342,
+                      "name": "mrvProviderView",
+                      "label": "MRV providers",
+                      "fields": [
+                        {
+                          "id": 1638,
+                          "name": "mrvThirdParty-nameValue-nameValue",
+                          "rows": null,
+                          "tier": 2,
+                          "type": "boolean",
+                          "label": "MRV is conducted by an independent third party",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "radio-y-n",
+                          "attributes": null,
+                          "half_width": false,
+                          "helper_text": "Indicate whether the MRV process is handled and conducted by a third party",
+                          "display_order": 0,
+                          "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
+                          "id": 524,
+                          "name": "mrvProvider-nameValue-nameValue",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "string",
+                          "label": "MRV provider(s)",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "rich-text",
+                          "attributes": null,
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 1,
+                          "view_component": "rich-text",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        }
+                      ],
+                      "parent_id": 134,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 2
                     },
                     {
                       "id": 331,
@@ -9465,7 +9804,7 @@
                       "description": "",
                       "nav_type_id": 2,
                       "nav_level_id": 5,
-                      "display_order": 2
+                      "display_order": 3
                     },
                     {
                       "id": 808,
@@ -9477,7 +9816,7 @@
                       "description": "",
                       "nav_type_id": 2,
                       "nav_level_id": 5,
-                      "display_order": 3
+                      "display_order": 4
                     },
                     {
                       "id": 807,
@@ -9489,7 +9828,7 @@
                       "description": "",
                       "nav_type_id": 2,
                       "nav_level_id": 5,
-                      "display_order": 4
+                      "display_order": 5
                     },
                     {
                       "id": 334,
@@ -9501,7 +9840,7 @@
                       "description": "",
                       "nav_type_id": 2,
                       "nav_level_id": 5,
-                      "display_order": 5
+                      "display_order": 6
                     },
                     {
                       "id": 333,
@@ -9513,7 +9852,7 @@
                       "description": "",
                       "nav_type_id": 2,
                       "nav_level_id": 5,
-                      "display_order": 6
+                      "display_order": 7
                     },
                     {
                       "id": 332,
@@ -9546,12 +9885,12 @@
                       "description": "",
                       "nav_type_id": 2,
                       "nav_level_id": 5,
-                      "display_order": 7
+                      "display_order": 8
                     },
                     {
                       "id": 335,
                       "name": "monitoringEvidenceView",
-                      "label": "Monitoring supporting documents ",
+                      "label": "Monitoring design supporting documents ",
                       "fields": [
                         {
                           "id": 641,
@@ -9582,7 +9921,7 @@
                       "description": "",
                       "nav_type_id": 2,
                       "nav_level_id": 5,
-                      "display_order": 8
+                      "display_order": 9
                     }
                   ],
                   "nav_level_id": 4,
@@ -9591,12 +9930,65 @@
                 {
                   "id": 135,
                   "name": "mrvUpdates",
-                  "label": "Monitoring and reporting updates",
+                  "label": "MRV updates and results",
                   "parent_id": 53,
                   "attributes": null,
                   "description": null,
                   "nav_type_id": 2,
                   "field_groups": [
+                    {
+                      "id": 341,
+                      "name": "mrvResultsView",
+                      "label": "MRV results documentation",
+                      "fields": [
+                        {
+                          "id": 620,
+                          "name": "mrvResultsLinks-nameValue-nameValue",
+                          "rows": null,
+                          "tier": 2,
+                          "type": "string",
+                          "label": "MRV results links",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "rich-text",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "Paste links out to the dMRV data if applicable",
+                          "display_order": 0,
+                          "view_component": "rich-text",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
+                          "id": 619,
+                          "name": "mrvResultsDocs-projectFile-storage",
+                          "rows": null,
+                          "tier": 2,
+                          "type": "array",
+                          "label": "MRV results documentation",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "Documents may include monitoring reports, MRV workbooks, images, or other data types, etc.",
+                          "elements": null,
+                          "component": "file-upload-multiple",
+                          "attributes": null,
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 1,
+                          "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        }
+                      ],
+                      "parent_id": 135,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    },
                     {
                       "id": 336,
                       "name": "mrvProtocolUpdatesView",
@@ -9653,7 +10045,7 @@
                       "description": "",
                       "nav_type_id": 2,
                       "nav_level_id": 5,
-                      "display_order": 0
+                      "display_order": 1
                     },
                     {
                       "id": 337,
@@ -9665,7 +10057,7 @@
                       "description": "",
                       "nav_type_id": 2,
                       "nav_level_id": 5,
-                      "display_order": 1
+                      "display_order": 2
                     },
                     {
                       "id": 339,
@@ -9693,12 +10085,12 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 2
+                  "display_order": 4
                 }
               ],
               "parent_id": 24,
               "attributes": null,
-              "description": null,
+              "description": "Method for tracking project performance ",
               "nav_type_id": 2,
               "nav_level_id": 3,
               "display_order": 0
@@ -9726,7 +10118,7 @@
                           "id": 1340,
                           "name": "parametersFixedTable-dataTable-dataTable",
                           "rows": null,
-                          "tier": 1,
+                          "tier": -1,
                           "type": "object",
                           "label": "Ex-ante fixed parameters",
                           "columns": [
@@ -9871,7 +10263,7 @@
                           "id": 1341,
                           "name": "parametersMonitoredTable-dataTable-dataTable",
                           "rows": null,
-                          "tier": 1,
+                          "tier": -1,
                           "type": "object",
                           "label": "Monitored parameters overview",
                           "columns": [
@@ -10079,155 +10471,10 @@
               ],
               "parent_id": 24,
               "attributes": {},
-              "description": "",
+              "description": "Identified project data points",
               "nav_type_id": 2,
               "nav_level_id": 3,
               "display_order": 1
-            },
-            {
-              "id": 963,
-              "name": "monitoringResults",
-              "label": "Monitoring and reporting results",
-              "sections": [
-                {
-                  "id": 136,
-                  "name": "mrvProcess",
-                  "label": "MRV process",
-                  "parent_id": 963,
-                  "attributes": null,
-                  "description": null,
-                  "nav_type_id": 2,
-                  "field_groups": [
-                    {
-                      "id": 342,
-                      "name": "mrvProviderView",
-                      "label": "",
-                      "fields": [
-                        {
-                          "id": 1638,
-                          "name": "mrvThirdParty-nameValue-nameValue",
-                          "rows": null,
-                          "tier": 2,
-                          "type": "boolean",
-                          "label": "MRV is conducted by an independent third party",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "",
-                          "elements": null,
-                          "component": "radio-y-n",
-                          "attributes": null,
-                          "half_width": false,
-                          "helper_text": "Indicate whether the MRV process is handled and conducted by a third party",
-                          "display_order": 0,
-                          "view_component": "key-value-table",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        },
-                        {
-                          "id": 524,
-                          "name": "mrvProvider-nameValue-nameValue",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "string",
-                          "label": "MRV provider(s)",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "",
-                          "elements": null,
-                          "component": "rich-text",
-                          "attributes": null,
-                          "half_width": false,
-                          "helper_text": "",
-                          "display_order": 1,
-                          "view_component": "rich-text",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        }
-                      ],
-                      "parent_id": 136,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 0
-                    }
-                  ],
-                  "nav_level_id": 4,
-                  "display_order": 0
-                },
-                {
-                  "id": 966,
-                  "name": "mrvResults",
-                  "label": "MRV results",
-                  "parent_id": 963,
-                  "attributes": {},
-                  "description": "",
-                  "nav_type_id": 2,
-                  "field_groups": [
-                    {
-                      "id": 341,
-                      "name": "mrvResultsView",
-                      "label": "MRV results documentation",
-                      "fields": [
-                        {
-                          "id": 619,
-                          "name": "mrvResultsDocs-projectFile-storage",
-                          "rows": null,
-                          "tier": 2,
-                          "type": "array",
-                          "label": "MRV results documentation",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "Documents may include monitoring reports, MRV workbooks, images, or other data types, etc.",
-                          "elements": null,
-                          "component": "file-upload-multiple",
-                          "attributes": null,
-                          "half_width": false,
-                          "helper_text": "",
-                          "display_order": 1,
-                          "view_component": "key-value-table",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        },
-                        {
-                          "id": 620,
-                          "name": "mrvResultsLinks-nameValue-nameValue",
-                          "rows": null,
-                          "tier": 2,
-                          "type": "string",
-                          "label": "MRV results external links",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "",
-                          "elements": null,
-                          "component": "rich-text",
-                          "attributes": {},
-                          "half_width": false,
-                          "helper_text": "",
-                          "display_order": 2,
-                          "view_component": "rich-text",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        }
-                      ],
-                      "parent_id": 966,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 1
-                    }
-                  ],
-                  "nav_level_id": 4,
-                  "display_order": 1
-                }
-              ],
-              "parent_id": 24,
-              "attributes": {},
-              "description": "",
-              "nav_type_id": 2,
-              "nav_level_id": 3,
-              "display_order": 2
             },
             {
               "id": 1156,
@@ -10466,7 +10713,7 @@
           "description": null,
           "nav_type_id": 2,
           "nav_level_id": 2,
-          "display_order": 4
+          "display_order": 6
         },
         {
           "id": 21,
@@ -10487,6 +10734,88 @@
                   "description": "",
                   "nav_type_id": 2,
                   "field_groups": [
+                    {
+                      "id": 1246,
+                      "name": "heroDefault",
+                      "label": "",
+                      "fields": [
+                        {
+                          "id": 2498,
+                          "name": "permanenceBlockTable-dataTable-dataTable",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "object",
+                          "label": "",
+                          "columns": [
+                            {
+                              "name": "permanenceBlockComponentOne",
+                              "type": null,
+                              "label": "Permanence",
+                              "options": [],
+                              "tooltip": "",
+                              "column_id": 2499,
+                              "component": "select",
+                              "attributes": {
+                                "field": "permanenceNumber-namevalue-namevalue"
+                              },
+                              "helper_text": "",
+                              "column_order": 0,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            },
+                            {
+                              "name": "permanenceBlockComponentTwo",
+                              "type": null,
+                              "label": "Storage type",
+                              "options": null,
+                              "tooltip": "",
+                              "column_id": 2500,
+                              "component": "select-multiple",
+                              "attributes": {
+                                "field": "storageType-namevalue-namevalue"
+                              },
+                              "helper_text": "",
+                              "column_order": 1,
+                              "view_component": "pill",
+                              "validation_schema": null
+                            },
+                            {
+                              "name": "permanenceBlockComponentThree",
+                              "type": null,
+                              "label": "Carbon removal process",
+                              "options": [],
+                              "tooltip": "",
+                              "column_id": 2501,
+                              "component": "select-multiple",
+                              "attributes": {
+                                "field": "removalProcess-namevalue-namevalue"
+                              },
+                              "helper_text": "",
+                              "column_order": 2,
+                              "view_component": "pill",
+                              "validation_schema": null
+                            }
+                          ],
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "data-table",
+                          "attributes": [],
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": null,
+                          "view_component": "block-table",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        }
+                      ],
+                      "parent_id": 962,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    },
                     {
                       "id": 287,
                       "name": "storagePermanence",
@@ -10509,71 +10838,6 @@
                           "helper_text": "Describe the project's carbon permanence, including references to external sources",
                           "display_order": 0,
                           "view_component": "rich-text",
-                          "validation_schema": null,
-                          "display_dependencies": [
-                            {
-                              "field": "classificationCategory-modularBenefitProject-iwa",
-                              "pattern": "Carbon removal"
-                            }
-                          ]
-                        },
-                        {
-                          "id": 945,
-                          "name": "permanenceNumber-nameValue-nameValue",
-                          "rows": null,
-                          "tier": 1,
-                          "type": "string",
-                          "label": "Permanence",
-                          "columns": null,
-                          "options": [
-                            "10-100 years",
-                            "101-1,000 years",
-                            "1,001-10,000 years",
-                            "10,000+ years"
-                          ],
-                          "tooltip": "The projected duration (in years) over which removed carbon will be stored or prevented from entering the atmosphere, accounting for risks of reversal over time",
-                          "elements": null,
-                          "component": "select",
-                          "attributes": {
-                            "field": ""
-                          },
-                          "half_width": true,
-                          "helper_text": "",
-                          "display_order": 1,
-                          "view_component": "key-value-table",
-                          "validation_schema": null,
-                          "display_dependencies": [
-                            {
-                              "field": "classificationCategory-modularBenefitProject-iwa",
-                              "pattern": "Carbon removal"
-                            }
-                          ]
-                        },
-                        {
-                          "id": 64,
-                          "name": "storageType-nameValue-nameValue",
-                          "rows": null,
-                          "tier": 1,
-                          "type": "array",
-                          "label": "Storage type",
-                          "columns": null,
-                          "options": [
-                            "Terrestrial",
-                            "Marine",
-                            "Geologic",
-                            "Engineered product",
-                            "Other"
-                          ],
-                          "tooltip": "Carbon storage type refers to the form and location in which removed carbon is stored, categorized by the IPCC as terrestrial/biological (e.g., biomass, soil), geological (e.g., rock formations), marine/oceanic, or product-based (e.g., durable materials), each with varying levels of stability and permanence",
-                          "elements": null,
-                          "component": "select-multiple",
-                          "attributes": {
-                            "field": ""
-                          },
-                          "half_width": true,
-                          "helper_text": "",
-                          "display_order": 3,
-                          "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -10608,39 +10872,6 @@
                           ]
                         },
                         {
-                          "id": 757,
-                          "name": "removalProcess-nameValue-nameValue",
-                          "rows": null,
-                          "tier": 1,
-                          "type": "array",
-                          "label": "Carbon removal process",
-                          "columns": null,
-                          "options": [
-                            "Land-based biological",
-                            "Ocean-based biological",
-                            "Geochemical",
-                            "Chemical",
-                            "Other"
-                          ],
-                          "tooltip": "Carbon removal process refers to the specific mechanism by which a carbon dioxide removal (CDR) method sequesters CO₂ from the atmosphere, categorized according to the IPCC AR6 framework based on its role in the carbon cycle (e.g., biological, geochemical, ocean-based, or chemical pathways)",
-                          "elements": null,
-                          "component": "select-multiple",
-                          "attributes": {
-                            "field": ""
-                          },
-                          "half_width": true,
-                          "helper_text": "",
-                          "display_order": 5,
-                          "view_component": "key-value-table",
-                          "validation_schema": null,
-                          "display_dependencies": [
-                            {
-                              "field": "classificationCategory-modularBenefitProject-iwa",
-                              "pattern": "Carbon removal"
-                            }
-                          ]
-                        },
-                        {
                           "id": 1223,
                           "name": "removalProcessOther-nameValue-nameValue",
                           "rows": null,
@@ -10671,7 +10902,7 @@
                       "description": "",
                       "nav_type_id": 2,
                       "nav_level_id": 5,
-                      "display_order": 0
+                      "display_order": 1
                     }
                   ],
                   "nav_level_id": 4,
@@ -10680,7 +10911,7 @@
               ],
               "parent_id": 21,
               "attributes": null,
-              "description": null,
+              "description": "Longevity of carbon intervention",
               "nav_type_id": 2,
               "nav_level_id": 3,
               "display_order": 1
@@ -10692,7 +10923,7 @@
               "sections": [
                 {
                   "id": 1133,
-                  "name": "default",
+                  "name": "aiSummaryDefault",
                   "label": "",
                   "parent_id": 961,
                   "attributes": {},
@@ -10701,7 +10932,7 @@
                   "field_groups": [
                     {
                       "id": 1135,
-                      "name": "default",
+                      "name": "aiSummaryDefault",
                       "label": "",
                       "fields": [
                         {
@@ -10754,7 +10985,7 @@
                           "id": 1343,
                           "name": "unavoidableRiskTable-dataTable-dataTable",
                           "rows": null,
-                          "tier": 1,
+                          "tier": -1,
                           "type": "object",
                           "label": "Assessment of unavoidable risks",
                           "columns": [
@@ -10817,7 +11048,7 @@
                           "id": 1342,
                           "name": "avoidableRiskTable-dataTable-dataTable",
                           "rows": null,
-                          "tier": 1,
+                          "tier": -1,
                           "type": "object",
                           "label": "Assessment of avoidable risks",
                           "columns": [
@@ -11452,7 +11683,7 @@
               ],
               "parent_id": 21,
               "attributes": {},
-              "description": "",
+              "description": "Potential pitfalls for the project",
               "nav_type_id": 2,
               "nav_level_id": 3,
               "display_order": 1
@@ -11463,7 +11694,7 @@
           "description": null,
           "nav_type_id": 2,
           "nav_level_id": 2,
-          "display_order": 5
+          "display_order": 7
         },
         {
           "id": 23,
@@ -12122,7 +12353,7 @@
               ],
               "parent_id": 23,
               "attributes": null,
-              "description": null,
+              "description": "Accounting for emissions outside the project boundary",
               "nav_type_id": 2,
               "nav_level_id": 3,
               "display_order": 1
@@ -12293,7 +12524,7 @@
               ],
               "parent_id": 23,
               "attributes": null,
-              "description": null,
+              "description": "Carbon quantities deducted due to uncertainty in measurements",
               "nav_type_id": 2,
               "nav_level_id": 3,
               "display_order": 2
@@ -12532,7 +12763,7 @@
               ],
               "parent_id": 23,
               "attributes": null,
-              "description": null,
+              "description": "Carbon quantities deducted for buffer allocation",
               "nav_type_id": 2,
               "nav_level_id": 3,
               "display_order": 3
@@ -12543,7 +12774,7 @@
           "description": null,
           "nav_type_id": 2,
           "nav_level_id": 2,
-          "display_order": 6
+          "display_order": 8
         },
         {
           "id": 22,
@@ -12569,6 +12800,26 @@
                       "name": "default",
                       "label": "",
                       "fields": [
+                        {
+                          "id": 2063,
+                          "name": "additionalityAiSummary-nameValue-nameValue",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "string",
+                          "label": "",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "ai-summary",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 0,
+                          "view_component": "ai-summary",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
                         {
                           "id": 2052,
                           "name": "additionalityBlockTable-dataTable-dataTable",
@@ -12601,28 +12852,8 @@
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "",
-                          "display_order": 8,
+                          "display_order": 1,
                           "view_component": "block-table",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        },
-                        {
-                          "id": 2063,
-                          "name": "additionalityAiSummary-nameValue-nameValue",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "string",
-                          "label": "",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "",
-                          "elements": null,
-                          "component": "ai-summary",
-                          "attributes": {},
-                          "half_width": false,
-                          "helper_text": "",
-                          "display_order": null,
-                          "view_component": "ai-summary",
                           "validation_schema": null,
                           "display_dependencies": null
                         }
@@ -14251,7 +14482,7 @@
                     {
                       "id": 1162,
                       "name": "positiveList",
-                      "label": "",
+                      "label": "Positive list analysis",
                       "fields": null,
                       "parent_id": 1161,
                       "attributes": {},
@@ -14418,7 +14649,7 @@
               ],
               "parent_id": 22,
               "attributes": null,
-              "description": null,
+              "description": "What makes the project additional",
               "nav_type_id": 2,
               "nav_level_id": 3,
               "display_order": 0
@@ -14670,7 +14901,7 @@
               ],
               "parent_id": 22,
               "attributes": null,
-              "description": null,
+              "description": "Measuring the project's financial impact over time",
               "nav_type_id": 2,
               "nav_level_id": 3,
               "display_order": 1
@@ -14681,7 +14912,7 @@
           "description": null,
           "nav_type_id": 2,
           "nav_level_id": 2,
-          "display_order": 7
+          "display_order": 9
         },
         {
           "id": 25,
@@ -14693,6 +14924,106 @@
               "name": "validation",
               "label": "Validation",
               "sections": [
+                {
+                  "id": 1222,
+                  "name": "heroDefault",
+                  "label": "",
+                  "parent_id": 56,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1223,
+                      "name": "heroDefault",
+                      "label": "",
+                      "fields": [
+                        {
+                          "id": 2479,
+                          "name": "validationBlockTable-dataTable-dataTable",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "object",
+                          "label": "",
+                          "columns": [
+                            {
+                              "name": "validationBlockComponentOne",
+                              "type": null,
+                              "label": "Validation body",
+                              "options": null,
+                              "tooltip": "",
+                              "column_id": 2480,
+                              "component": "text-input",
+                              "attributes": {
+                                "field": "validationBody-namevalue-namevalue"
+                              },
+                              "helper_text": "",
+                              "column_order": 0,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            },
+                            {
+                              "name": "validationBlockComponentTwo",
+                              "type": null,
+                              "label": "Validation body founding year",
+                              "options": null,
+                              "tooltip": "",
+                              "column_id": 2481,
+                              "component": "text-input",
+                              "attributes": {
+                                "field": "validationBodyFounding-namevalue-namevalue"
+                              },
+                              "helper_text": "",
+                              "column_order": 1,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            },
+                            {
+                              "name": "validationBlockComponentThree",
+                              "type": null,
+                              "label": "Validation date",
+                              "options": null,
+                              "tooltip": "",
+                              "column_id": 2482,
+                              "component": "text-input",
+                              "attributes": {
+                                "field": "validationDate-namevalue-namevalue"
+                              },
+                              "helper_text": "",
+                              "column_order": 2,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            }
+                          ],
+                          "options": null,
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "data-table",
+                          "attributes": [],
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": null,
+                          "view_component": "block-table",
+                          "validation_schema": null,
+                          "display_dependencies": [
+                            {
+                              "field": "projectValidation-nameValue-nameValue",
+                              "pattern": "Yes"
+                            }
+                          ]
+                        }
+                      ],
+                      "parent_id": 1222,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 0
+                },
                 {
                   "id": 138,
                   "name": "validation",
@@ -14932,7 +15263,7 @@
                               "attributes": {},
                               "helper_text": "",
                               "column_order": 1,
-                              "view_component": "truncated-text",
+                              "view_component": "key-value-table",
                               "validation_schema": null
                             },
                             {
@@ -15166,7 +15497,7 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 0
+                  "display_order": 1
                 },
                 {
                   "id": 139,
@@ -15196,7 +15527,7 @@
               ],
               "parent_id": 25,
               "attributes": null,
-              "description": null,
+              "description": "Third-party validation of project plan",
               "nav_type_id": 2,
               "nav_level_id": 3,
               "display_order": 0
@@ -15206,6 +15537,52 @@
               "name": "verification",
               "label": "Verification",
               "sections": [
+                {
+                  "id": 1226,
+                  "name": "heroDefault",
+                  "label": "",
+                  "parent_id": 1080,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1227,
+                      "name": "heroDefault",
+                      "label": "",
+                      "fields": [
+                        {
+                          "id": 2484,
+                          "name": "verificationAiSummary-nameValue-nameValue",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "string",
+                          "label": "",
+                          "columns": null,
+                          "options": null,
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "ai-summary",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": null,
+                          "view_component": "ai-summary",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        }
+                      ],
+                      "parent_id": 1226,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 0
+                },
                 {
                   "id": 140,
                   "name": "verification",
@@ -15299,7 +15676,7 @@
                           "id": 1695,
                           "name": "verificationBodyTeamTable-dataTable-dataTable",
                           "rows": null,
-                          "tier": 1,
+                          "tier": -1,
                           "type": "object",
                           "label": "Verification body team",
                           "columns": [
@@ -15337,7 +15714,7 @@
                               "attributes": {},
                               "helper_text": "",
                               "column_order": 1,
-                              "view_component": "truncated-text",
+                              "view_component": "key-value-table",
                               "validation_schema": null
                             },
                             {
@@ -15379,7 +15756,7 @@
                           "tooltip": "",
                           "elements": null,
                           "component": "data-table",
-                          "attributes": null,
+                          "attributes": {},
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 4,
@@ -15434,7 +15811,7 @@
                           "id": 1345,
                           "name": "verificationTable-dataTable-dataTable",
                           "rows": null,
-                          "tier": 2,
+                          "tier": -1,
                           "type": "object",
                           "label": "Verification events and reporting periods",
                           "columns": [
@@ -15527,7 +15904,7 @@
                           "tooltip": "",
                           "elements": null,
                           "component": "data-table",
-                          "attributes": null,
+                          "attributes": {},
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 0,
@@ -15739,7 +16116,7 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 0
+                  "display_order": 1
                 },
                 {
                   "id": 141,
@@ -15764,12 +16141,12 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 1
+                  "display_order": 2
                 }
               ],
               "parent_id": 25,
               "attributes": {},
-              "description": "",
+              "description": "Third-party verification of project claims",
               "nav_type_id": 2,
               "nav_level_id": 3,
               "display_order": 1
@@ -15780,7 +16157,7 @@
           "description": null,
           "nav_type_id": 2,
           "nav_level_id": 2,
-          "display_order": 8
+          "display_order": 10
         }
       ]
     },
@@ -15796,9 +16173,208 @@
       "attributes": null,
       "step_groups": [
         {
+          "id": 1238,
+          "name": "impactStories",
+          "label": "Impact stories",
+          "steps": [
+            {
+              "id": 1181,
+              "name": "cobenefitSummaryStep",
+              "label": "Story highlights",
+              "sections": [
+                {
+                  "id": 1186,
+                  "name": "default",
+                  "label": "",
+                  "parent_id": 1181,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1187,
+                      "name": "default",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1186,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 0
+                },
+                {
+                  "id": 1190,
+                  "name": "impactStory1",
+                  "label": "",
+                  "parent_id": 1181,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1231,
+                      "name": "default",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1190,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    },
+                    {
+                      "id": 1191,
+                      "name": "impactStoryOne",
+                      "label": "Details of first impact story",
+                      "fields": null,
+                      "parent_id": 1190,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 1
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 0
+                },
+                {
+                  "id": 1228,
+                  "name": "impactStory2",
+                  "label": "",
+                  "parent_id": 1181,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1232,
+                      "name": "default",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1228,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    },
+                    {
+                      "id": 1233,
+                      "name": "impactStoryTwo",
+                      "label": "Details of second impact story",
+                      "fields": null,
+                      "parent_id": 1228,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 0
+                },
+                {
+                  "id": 1229,
+                  "name": "impactStory3",
+                  "label": "",
+                  "parent_id": 1181,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1234,
+                      "name": "default",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1229,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    },
+                    {
+                      "id": 1202,
+                      "name": "impactStoryThree",
+                      "label": "Details of third impact story",
+                      "fields": null,
+                      "parent_id": 1229,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 2
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 0
+                },
+                {
+                  "id": 1230,
+                  "name": "impactStory4",
+                  "label": "",
+                  "parent_id": 1181,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1235,
+                      "name": "default",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1230,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    },
+                    {
+                      "id": 1203,
+                      "name": "impactStoryFour",
+                      "label": "Details of fourth impact story",
+                      "fields": null,
+                      "parent_id": 1230,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 3
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 0
+                }
+              ],
+              "parent_id": 1238,
+              "attributes": {},
+              "description": "",
+              "nav_type_id": 2,
+              "nav_level_id": 3,
+              "display_order": 0
+            }
+          ],
+          "parent_id": 15,
+          "attributes": {},
+          "description": "",
+          "nav_type_id": 2,
+          "nav_level_id": 2,
+          "display_order": 0
+        },
+        {
           "id": 27,
           "name": "sdg",
-          "label": "Sustainable development goals",
+          "label": "SDGs",
           "steps": [
             {
               "id": 58,
@@ -16057,7 +16633,7 @@
         {
           "id": 28,
           "name": "socioeconomicImpacts",
-          "label": "Socio-economic impacts",
+          "label": "Socioeconomic impacts",
           "steps": [
             {
               "id": 868,
@@ -16066,7 +16642,7 @@
               "sections": [
                 {
                   "id": 1136,
-                  "name": "default",
+                  "name": "aiSummaryDefault",
                   "label": "",
                   "parent_id": 868,
                   "attributes": {},
@@ -16075,7 +16651,7 @@
                   "field_groups": [
                     {
                       "id": 1137,
-                      "name": "default",
+                      "name": "aiSummaryDefault",
                       "label": "",
                       "fields": [
                         {
@@ -17529,7 +18105,7 @@
               "sections": [
                 {
                   "id": 1138,
-                  "name": "default",
+                  "name": "aiSummaryDefault",
                   "label": "",
                   "parent_id": 869,
                   "attributes": {},
@@ -17538,7 +18114,7 @@
                   "field_groups": [
                     {
                       "id": 1139,
-                      "name": "default",
+                      "name": "aiSummaryDefault",
                       "label": "",
                       "fields": [
                         {
@@ -20663,7 +21239,7 @@
         },
         {
           "id": 29,
-          "name": "EcologicalImpacts",
+          "name": "ecologicalImpacts",
           "label": "Ecological impacts",
           "steps": [
             {
@@ -20671,6 +21247,52 @@
               "name": "ecologicalDueDiligenceView",
               "label": "Ecological due diligence",
               "sections": [
+                {
+                  "id": 1140,
+                  "name": "aiSummaryDefault",
+                  "label": "",
+                  "parent_id": 870,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1141,
+                      "name": "aiSummaryDefault",
+                      "label": "",
+                      "fields": [
+                        {
+                          "id": 2068,
+                          "name": "ecologicalDiligenceAiSummary-nameValue-nameValue",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "string",
+                          "label": "",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "ai-summary",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": null,
+                          "view_component": "ai-summary",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        }
+                      ],
+                      "parent_id": 1140,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 0
+                },
                 {
                   "id": 905,
                   "name": "airDiligenceView",
@@ -20948,52 +21570,6 @@
                       "nav_type_id": 2,
                       "nav_level_id": 5,
                       "display_order": 2
-                    }
-                  ],
-                  "nav_level_id": 4,
-                  "display_order": 0
-                },
-                {
-                  "id": 1140,
-                  "name": "default",
-                  "label": "",
-                  "parent_id": 870,
-                  "attributes": {},
-                  "description": "",
-                  "nav_type_id": 2,
-                  "field_groups": [
-                    {
-                      "id": 1141,
-                      "name": "default",
-                      "label": "",
-                      "fields": [
-                        {
-                          "id": 2068,
-                          "name": "ecologicalDiligenceAiSummary-nameValue-nameValue",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "string",
-                          "label": "",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "",
-                          "elements": null,
-                          "component": "ai-summary",
-                          "attributes": {},
-                          "half_width": false,
-                          "helper_text": "",
-                          "display_order": null,
-                          "view_component": "ai-summary",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        }
-                      ],
-                      "parent_id": 1140,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 0
                     }
                   ],
                   "nav_level_id": 4,
@@ -21975,7 +22551,7 @@
               "sections": [
                 {
                   "id": 1142,
-                  "name": "default",
+                  "name": "aiSummaryDefault",
                   "label": "",
                   "parent_id": 871,
                   "attributes": {},
@@ -21984,7 +22560,7 @@
                   "field_groups": [
                     {
                       "id": 1143,
-                      "name": "default",
+                      "name": "aiSummaryDefault",
                       "label": "",
                       "fields": [
                         {

@@ -8,14 +8,14 @@ import { getData } from '../../utils/apiHelper';
 import { setupPage } from '../../utils/listingsProjectHelper';
 import { AiSearch } from '../../../pages/aiSearch';
 
-test.describe('AI search Test cases', () => {
+test.describe('AI Search Functionality Tests', () => {
   const { newEmail } = getData('UI');
   const credentials = {
     email: newEmail,
     password: ValidTestData.newPassword
   };
 
-  const authStoragePath = path.join(__dirname, '..', '..', 'data', 'project-Publish-auth.json');
+  const authStoragePath = path.join(__dirname, '..', '..', 'data', 'project-buyer-auth.json');
   test.use({ storageState: authStoragePath });
 
   let page;
@@ -31,98 +31,226 @@ test.describe('AI search Test cases', () => {
     await setupPage(page, loginPage, credentials, listingPage, baseURL);
   })
 
-  test('User can view Ask Centigrade.AI CTA on the header of the project overview page and also on the top of the pages', async () => {
-    const errors = [];
+  test.afterAll(async () => {
+    await page?.close();
+  });
 
-    await safeExpect('Verify the CTA', async () => {
-      await expect(await aiSearch.centigradeAiButton()).toBeVisible({ timeout: 20000 });
-    }, errors);
+  test.describe('AI Search UI Elements', () => {
 
-    await safeExpect('Verify the search box', async () => {
-      await expect(await aiSearch.AiSearchBar()).toBeVisible({ timeout: 20000 });
-      await expect(await aiSearch.AiSearchBarHeading()).toBeVisible();
-      await expect(await aiSearch.AiSearchBarInput()).toBeVisible();
-      await expect(await aiSearch.AiSearchBarInput()).toHaveAttribute('type', 'text');
-      await expect(await aiSearch.AiSearchBarInputIcon()).toBeVisible();
-    }, errors);
+    test('should display Ask Centigrade.AI CTA and search components', async () => {
+      const errors = [];
 
-    await safeExpect('verify the suggestion shown for AI search', async () => {
-      await expect(await aiSearch.AIQuestionsWrapper()).toBeVisible();
-      await expect(await aiSearch.AIQuestionsFirst()).toBeVisible();
-      await expect(await aiSearch.AIQuestionsSecond()).toBeVisible();
-      await expect(await aiSearch.AIQuestionsThird()).toBeVisible();
-    }, errors);
+      // Verify main CTA button
+      await safeExpect('CTA button should be visible', async () => {
+        const ctaButton = await aiSearch.centigradeAiButton();
+        await expect(ctaButton).toBeVisible({ timeout: 20000 });
+      }, errors);
 
-    if (errors.length > 0) {
-      throw new Error(`AI search CTA error \n${errors.join('\n')}`)
-    }
+      // Verify search bar components
+      await safeExpect('Search bar components should be visible and functional', async () => {
+        const searchBar = await aiSearch.AiSearchBar();
+        const searchBarHeading = await aiSearch.AiSearchBarHeading();
+        const searchBarInput = await aiSearch.AiSearchBarInput();
+        const searchBarIcon = await aiSearch.AiSearchBarInputIcon();
 
-  })
+        await expect(searchBar).toBeVisible({ timeout: 20000 });
+        await expect(searchBarHeading).toBeVisible();
+        await expect(searchBarInput).toBeVisible();
+        await expect(searchBarInput).toHaveAttribute('type', 'text');
+        await expect(searchBarIcon).toBeVisible();
+      }, errors);
 
-  test('User can see side drawer when click on the Ask Centigrade.AI CTA', async () => {
-    const errors = [];
+      // Verify suggestion questions
+      await safeExpect('AI search suggestions should be visible', async () => {
+        const questionsWrapper = await aiSearch.AIQuestionsWrapper();
+        const firstQuestion = await aiSearch.AIQuestionsFirst();
+        const secondQuestion = await aiSearch.AIQuestionsSecond();
+        const thirdQuestion = await aiSearch.AIQuestionsThird();
 
-    await safeExpect('Verify the Drawer opened', async () => {
-      await expect(await aiSearch.centigradeAiButton()).toBeVisible({ timeout: 20000 });
-      const aiButton = await aiSearch.centigradeAiButton()
-      await aiButton.click();
-      await expect(await aiSearch.drawer()).toBeVisible();
-      await expect(await aiSearch.drawerContent()).toBeVisible();
-    }, errors)
+        await expect(questionsWrapper).toBeVisible();
+        await expect(firstQuestion).toBeVisible();
+        await expect(secondQuestion).toBeVisible();
+        await expect(thirdQuestion).toBeVisible();
+      }, errors);
 
-    await safeExpect('Close the Ai Drawer', async () => {
-      const closeDrawerButton = await aiSearch.closeDrawerButton();
-      await expect(closeDrawerButton).toBeVisible();
-      await closeDrawerButton.click();
-      await expect(await aiSearch.drawer()).not.toBeVisible();
-    }, errors)
+      if (errors.length > 0) {
+        throw new Error(`AI search UI elements validation failed:\n${errors.join('\n')}`);
+      }
+    });
 
-    if (errors.length > 0) {
-      throw new Error(`AI search CTA error \n${errors.join('\n')}`)
-    }
-  })
+  });
 
-  test('User can see side drawer when hit enter after adding search text', async () => {
-    const errors = [];
+  test.describe('AI Search Drawer Functionality', () => {
 
-    await safeExpect('Verify the Drawer opened', async () => {
-      const AiSearchBarInput = await aiSearch.AiSearchBarInput();
-      await AiSearchBarInput.click();
-      await AiSearchBarInput.fill('what is the use of project?');
-      await AiSearchBarInput.press('Enter');
-      await expect(await aiSearch.drawer()).toBeVisible();
-      await expect(await aiSearch.drawerContent()).toBeVisible();
-      await expect(await aiSearch.drawerAiSearchInput()).toBeVisible();
-      await expect(await aiSearch.drawerAiSearchInput()).toHaveValue('what is the use of project?');
-    }, errors)
+    test('should open and close drawer when clicking CTA button', async () => {
+      const errors = [];
 
-    await safeExpect('Verify the search result is specific to the search', async () => {
+      await safeExpect('Drawer should open when CTA button is clicked', async () => {
+        const ctaButton = await aiSearch.centigradeAiButton();
+        await expect(ctaButton).toBeVisible({ timeout: 20000 });
 
-    }, errors)
+        await ctaButton.click();
 
-    if (errors.length > 0) {
-      throw new Error(`AI search CTA error \n${errors.join('\n')}`)
-    }
-  })
+        const drawer = await aiSearch.drawer();
+        const drawerContent = await aiSearch.drawerContent();
 
-  test('User can see the keyword search and AI search is part of the drawer', async () => {
-    const errors = [];
+        await expect(drawer).toBeVisible();
+        await expect(drawerContent).toBeVisible();
+      }, errors);
 
-    if (!(await (await aiSearch.drawer()).isVisible())) {
-      const centigradeAiButton = await aiSearch.centigradeAiButton();
-      await centigradeAiButton.click();
-    }
+      await safeExpect('Drawer should close when close button is clicked', async () => {
+        const closeButton = await aiSearch.closeDrawerButton();
+        await expect(closeButton).toBeVisible();
 
-    await safeExpect('Verify that the two tabs AI search and KeyWord search', async () => {
-      await expect(await aiSearch.drawerHeader()).toBeVisible();
-      await expect(await aiSearch.centigradeAiTab()).toBeVisible();
-      await expect(await aiSearch.searchTab()).toBeVisible();
-    }, errors)
+        await closeButton.click();
 
-    if (errors.length > 0) {
-      throw new Error(`AI search CTA error \n${errors.join('\n')}`)
-    }
+        const drawer = await aiSearch.drawer();
+        await expect(drawer).not.toBeVisible();
+      }, errors);
 
-  })
+      if (errors.length > 0) {
+        throw new Error(`Drawer functionality test failed:\n${errors.join('\n')}`);
+      }
+    });
+
+    test('should open drawer and populate search when entering text and pressing Enter', async () => {
+      const errors = [];
+      const searchQuery = 'what is the use of project?';
+
+      await safeExpect('Drawer should open with search results when Enter is pressed', async () => {
+        const searchInput = await aiSearch.AiSearchBarInput();
+        await searchInput.click();
+        await searchInput.fill(searchQuery);
+        await searchInput.press('Enter');
+
+        const drawer = await aiSearch.drawer();
+        const drawerContent = await aiSearch.drawerContent();
+        const drawerSearchInput = await aiSearch.drawerAiSearchInput();
+
+        await expect(drawer).toBeVisible();
+        await expect(drawerContent).toBeVisible();
+        await expect(drawerSearchInput).toBeVisible();
+        await expect(drawerSearchInput).toHaveValue(searchQuery);
+      }, errors);
+
+      await safeExpect('Search results should display with proper components', async () => {
+        const prose = await aiSearch.prose();
+        const sources = await aiSearch.aiSources();
+        const sourceLabel = await aiSearch.sourceLabel();
+        const thumbsUp = await aiSearch.thumbsUp();
+        const thumbsDown = await aiSearch.thumbsDown();
+
+        await expect(prose).toBeVisible();
+        await expect(sources).toBeVisible();
+        await expect(sourceLabel).toBeVisible();
+        await expect(sourceLabel).toHaveText('Sources');
+        await expect(thumbsUp).toBeVisible();
+        await expect(thumbsDown).toBeVisible();
+      }, errors);
+
+      if (errors.length > 0) {
+        throw new Error(`Search functionality test failed:\n${errors.join('\n')}`);
+      }
+    });
+
+    test('should display both AI search and keyword search tabs', async () => {
+      const errors = [];
+
+      // Ensure drawer is open
+      await aiSearch.ensureDrawerIsOpen();
+
+      await safeExpect('Both search tabs should be visible', async () => {
+        const drawerHeader = await aiSearch.drawerHeader();
+        const aiTab = await aiSearch.centigradeAiTab();
+        const searchTab = await aiSearch.searchTab();
+
+        await expect(drawerHeader).toBeVisible();
+        await expect(aiTab).toBeVisible();
+        await expect(searchTab).toBeVisible();
+      }, errors);
+
+      if (errors.length > 0) {
+        throw new Error(`Search tabs validation failed:\n${errors.join('\n')}`);
+      }
+    });
+
+  });
+
+  test.describe('AI Search Interaction Features', () => {
+
+    test('should display search results when clicking suggested questions', async () => {
+      const errors = [];
+
+      // Ensure drawer is closed first
+      await aiSearch.ensureDrawerIsClosed();
+
+      await safeExpect('Clicking suggested question should open drawer with results', async () => {
+        const firstQuestion = await aiSearch.AIQuestionsFirst();
+        await firstQuestion.click();
+
+        const drawer = await aiSearch.drawer();
+        const drawerContent = await aiSearch.drawerContent();
+        const prose = await aiSearch.prose();
+        const sources = await aiSearch.aiSources();
+        const sourceLabel = await aiSearch.sourceLabel();
+        const thumbsUp = await aiSearch.thumbsUp();
+        const thumbsDown = await aiSearch.thumbsDown();
+
+        await expect(drawer).toBeVisible();
+        await expect(drawerContent).toBeVisible();
+        await expect(prose).toBeVisible();
+        await expect(sources).toBeVisible();
+        await expect(sourceLabel).toBeVisible();
+        await expect(sourceLabel).toHaveText('Sources');
+        await expect(thumbsUp).toBeVisible();
+        await expect(thumbsDown).toBeVisible();
+      }, errors);
+
+      if (errors.length > 0) {
+        throw new Error(`Suggested questions interaction failed:\n${errors.join('\n')}`);
+      }
+    });
+
+    test('should allow users to provide feedback via thumbs up/down', async () => {
+      const errors = [];
+
+      // Ensure drawer is open with search results
+      await aiSearch.ensureDrawerHasSearchResults();
+
+      await safeExpect('Feedback buttons should work correctly', async () => {
+        // Test thumbs up
+        const thumbsUp = await aiSearch.thumbsUp();
+        const thumbsDown = await aiSearch.thumbsDown();
+
+        await expect(thumbsUp).toBeVisible({ timeout: 20000 });
+        await expect(thumbsDown).toBeVisible();
+
+        // Click thumbs up
+        await thumbsUp.click();
+        const thumbsUpSolid = await aiSearch.thumbsUpSolid();
+        await expect(thumbsUpSolid).toBeVisible();
+
+        // Click thumbs down
+        await thumbsDown.click();
+        const thumbsDownSolid = await aiSearch.thumbsDownSolid();
+        await expect(thumbsDownSolid).toBeVisible();
+      }, errors);
+
+      await safeExpect('Feedback modal should open and close properly', async () => {
+        const dialog = await aiSearch.dialog();
+        await expect(dialog).toBeVisible();
+
+        const modalClose = await aiSearch.modalClose();
+        await modalClose.click();
+
+        await expect(dialog).not.toBeVisible();
+      }, errors);
+
+      if (errors.length > 0) {
+        throw new Error(`Feedback functionality test failed:\n${errors.join('\n')}`);
+      }
+    });
+
+  });
 
 })

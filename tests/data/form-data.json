@@ -1,7 +1,7 @@
 {
   "dataSchema": "QA-ACR1.3-cgV1.0.0",
   "navigation": "form2.0-config",
-  "versionDate": "2025-07-23T16:53:44-07:00",
+  "versionDate": "2025-08-19T11:29:21-07:00",
   "methodology": {
     "id": 13,
     "nickname": "QA-ACR1.3",
@@ -62,7 +62,9 @@
                           "tooltip": "Name used to refer to the carbon project being developed",
                           "elements": null,
                           "component": "text-input",
-                          "attributes": null,
+                          "attributes": {
+                            "field": ""
+                          },
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 0,
@@ -337,7 +339,7 @@
                           "rows": null,
                           "tier": -1,
                           "type": "string",
-                          "label": "Additional details on project timeline",
+                          "label": "Details on project timeline",
                           "columns": null,
                           "options": [],
                           "tooltip": "Additional details might include an implementation schedule, indicating key dates and milestones in the project's development as well as justification for that schedule",
@@ -483,10 +485,10 @@
                           "label": "Project scale",
                           "columns": null,
                           "options": [
-                            "Micro (fewer than 1,000 tCO2e)",
-                            "Small (1,000 - 10,000 tCO2e)",
-                            "Medium (10,000 - 100,000 tCO2e)",
-                            "Large (100,000+ tCO2e)",
+                            "Micro (fewer than 1k tCO2e)",
+                            "Small (1k - 10k tCO2e)",
+                            "Medium (10k - 100k tCO2e)",
+                            "Large (100k+ tCO2e)",
                             "Unknown"
                           ],
                           "tooltip": "An indication of the estimated tonnes of CO2e to be sequestered or avoided over the life of the project",
@@ -672,7 +674,7 @@
                           "rows": null,
                           "tier": -1,
                           "type": "array",
-                          "label": "Additional certifications",
+                          "label": "Certifications",
                           "columns": null,
                           "options": [
                             "ICVCM CCP Label",
@@ -2597,6 +2599,31 @@
               "label": "Socioeconomic due diligence",
               "sections": [
                 {
+                  "id": 1182,
+                  "name": "default",
+                  "label": "",
+                  "parent_id": 809,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 1,
+                  "field_groups": [
+                    {
+                      "id": 1183,
+                      "name": "default",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1182,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 1,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 0
+                },
+                {
                   "id": 811,
                   "name": "involuntaryDisplacementProvForm",
                   "label": "Involuntary displacement",
@@ -4064,6 +4091,31 @@
               "label": "Ecological due diligence",
               "sections": [
                 {
+                  "id": 1184,
+                  "name": "default",
+                  "label": "",
+                  "parent_id": 810,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 1,
+                  "field_groups": [
+                    {
+                      "id": 1185,
+                      "name": "default",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1184,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 1,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 0
+                },
+                {
                   "id": 819,
                   "name": "airProvForm",
                   "label": "Air",
@@ -4317,7 +4369,7 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 0
+                  "display_order": 1
                 },
                 {
                   "id": 820,
@@ -4615,7 +4667,7 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 1
+                  "display_order": 2
                 },
                 {
                   "id": 821,
@@ -4955,7 +5007,7 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 2
+                  "display_order": 3
                 },
                 {
                   "id": 822,
@@ -5149,7 +5201,7 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 3
+                  "display_order": 4
                 },
                 {
                   "id": 1173,
@@ -5174,7 +5226,7 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 4
+                  "display_order": 5
                 },
                 {
                   "id": 992,
@@ -5199,7 +5251,7 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 5
+                  "display_order": 6
                 }
               ],
               "parent_id": 434,
@@ -5614,7 +5666,7 @@
                           "label": "Current fixed baseline period or historical look-back period",
                           "columns": null,
                           "options": [],
-                          "tooltip": "If applicable. Some standards or methodologies require that the baseline scenrio is based on a fixed (\"static\") historical lookback period or schedule of previous land management activities.",
+                          "tooltip": "If applicable. Some standards or methodologies require that the baseline scenario is based on a fixed (\"static\") historical lookback period or schedule of previous land management activities.",
                           "elements": null,
                           "component": "rich-text",
                           "attributes": {},
@@ -6532,6 +6584,20 @@
                               "validation_schema": null
                             },
                             {
+                              "name": "projSamplingOverviewTablePrecision",
+                              "type": "string",
+                              "label": "Precision achieved",
+                              "options": [],
+                              "tooltip": "",
+                              "column_id": 2492,
+                              "component": "text-input",
+                              "attributes": {},
+                              "helper_text": "",
+                              "column_order": 3,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            },
+                            {
                               "name": "projSamplingOverviewTablePeriod",
                               "type": "string",
                               "label": "Monitoring period",
@@ -6541,7 +6607,7 @@
                               "component": "textarea",
                               "attributes": {},
                               "helper_text": "",
-                              "column_order": 3,
+                              "column_order": 4,
                               "view_component": "truncated-text",
                               "validation_schema": null
                             }
@@ -6623,6 +6689,20 @@
                               "validation_schema": null
                             },
                             {
+                              "name": "bslSamplingOverviewTablePrecision",
+                              "type": "string",
+                              "label": "Precision achieved",
+                              "options": [],
+                              "tooltip": "",
+                              "column_id": 2491,
+                              "component": "text-input",
+                              "attributes": {},
+                              "helper_text": "",
+                              "column_order": 3,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            },
+                            {
                               "name": "bslSamplingOverviewTablePeriod",
                               "type": "string",
                               "label": "Monitoring period",
@@ -6632,7 +6712,7 @@
                               "component": "textarea",
                               "attributes": {},
                               "helper_text": "",
-                              "column_order": 3,
+                              "column_order": 4,
                               "view_component": "truncated-text",
                               "validation_schema": null
                             }
@@ -6738,7 +6818,7 @@
               ],
               "parent_id": 435,
               "attributes": {},
-              "description": "",
+              "description": "Method of acquiring field-level data",
               "nav_type_id": 1,
               "nav_level_id": 3,
               "display_order": 2
@@ -6919,7 +6999,7 @@
               ],
               "parent_id": 435,
               "attributes": null,
-              "description": "",
+              "description": "Measuring the project’s financial impact over time",
               "nav_type_id": 1,
               "nav_level_id": 3,
               "display_order": 2
@@ -7030,7 +7110,7 @@
                           "rows": null,
                           "tier": -1,
                           "type": "string",
-                          "label": "Summary of initiatives undertaken to ensure the project's integrity and scientific robustness",
+                          "label": "Summary of initiatives ensuring project integrity and scientific robustness",
                           "columns": null,
                           "options": [],
                           "tooltip": "Overview of measures taken to ensure that the GHG emission reductions or removals from the mitigation activity are be robustly quantified, based on conservative approaches, completeness, and scientific methods",
@@ -7454,7 +7534,7 @@
               ],
               "parent_id": 435,
               "attributes": null,
-              "description": "",
+              "description": "Insight into the project's intervention",
               "nav_type_id": 1,
               "nav_level_id": 3,
               "display_order": 3
@@ -7511,49 +7591,6 @@
                           "display_dependencies": null
                         },
                         {
-                          "id": 2037,
-                          "name": "spatialInformation-projectFile-storage",
-                          "rows": null,
-                          "tier": 1,
-                          "type": null,
-                          "label": "Spatial information on stratified project area",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "Stratification helps improve the accuracy of carbon stock and GHG flux estimates, based on specifics of the project's land use characteristics. Individual strata areas must be spatially discrete, identifiable with accurate spatial data, and sum to the total project area. Land use/land cover maps must be ground-truthed, less than 10 years old, or proven to be accurate.",
-                          "elements": null,
-                          "component": "file-upload-multiple",
-                          "attributes": {
-                            "accept": "",
-                            "isPublic": ""
-                          },
-                          "half_width": false,
-                          "helper_text": "",
-                          "display_order": 1,
-                          "view_component": null,
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        },
-                        {
-                          "id": 2040,
-                          "name": "projectBoundaries-nameValue-nameValue",
-                          "rows": null,
-                          "tier": 1,
-                          "type": "string",
-                          "label": "Total area within project boundaries",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "",
-                          "elements": null,
-                          "component": "rich-text",
-                          "attributes": {},
-                          "half_width": false,
-                          "helper_text": "",
-                          "display_order": 1,
-                          "view_component": "rich-text",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        },
-                        {
                           "id": 2041,
                           "name": "stratificationStrategy-nameValue-nameValue",
                           "rows": null,
@@ -7574,6 +7611,69 @@
                           "display_dependencies": null
                         },
                         {
+                          "id": 2040,
+                          "name": "projectBoundaries-nameValue-nameValue",
+                          "rows": null,
+                          "tier": 1,
+                          "type": "string",
+                          "label": "Total area within project boundaries",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "rich-text",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 2,
+                          "view_component": "rich-text",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
+                          "id": 2037,
+                          "name": "spatialInformation-projectFile-storage",
+                          "rows": null,
+                          "tier": 1,
+                          "type": null,
+                          "label": "Spatial information on stratified project area",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "Stratification helps improve the accuracy of carbon stock and GHG flux estimates, based on specifics of the project's land use characteristics. Individual strata areas must be spatially discrete, identifiable with accurate spatial data, and sum to the total project area. Land use/land cover maps must be ground-truthed, less than 10 years old, or proven to be accurate.",
+                          "elements": null,
+                          "component": "file-upload-multiple",
+                          "attributes": {
+                            "accept": "",
+                            "isPublic": ""
+                          },
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 3,
+                          "view_component": null,
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
+                          "id": 2483,
+                          "name": "projectBoundaryImage-projectFile-storage",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "array",
+                          "label": "Project boundary image(s)",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "media-carousel",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "Upload relevant maps or geographic images. These images will be used to highlight your project's spatial boundaries.",
+                          "display_order": 7,
+                          "view_component": "media-carousel",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
                           "id": 480,
                           "name": "descriptionGeo-nameValue-nameValue",
                           "rows": null,
@@ -7588,14 +7688,14 @@
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "",
-                          "display_order": 8,
+                          "display_order": 12,
                           "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
                         },
                         {
                           "id": 481,
-                          "name": "uploadGeo-projectFile-storage",
+                          "name": "uploadGeoAcr-projectFile-storage",
                           "rows": null,
                           "tier": -1,
                           "type": "array",
@@ -7605,10 +7705,10 @@
                           "tooltip": "Information to delineate the project boundary may include: project area map, general location map, property parcel map or recognized equivalent, vicinity map with topography, HUC with drainage map, canopy cover map, land cover map, wildfire risk map, designated waterbodies map, etc.)",
                           "elements": null,
                           "component": "file-upload-multiple",
-                          "attributes": null,
+                          "attributes": {},
                           "half_width": false,
-                          "helper_text": "Upload relevant maps and geographic documents",
-                          "display_order": 9,
+                          "helper_text": "Upload any additional geographic documents",
+                          "display_order": 13,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -7939,7 +8039,7 @@
                           "id": 1337,
                           "name": "emissionSourcesTable-dataTable-dataTable",
                           "rows": null,
-                          "tier": 1,
+                          "tier": -1,
                           "type": "object",
                           "label": "Emission sources included in the project boundary",
                           "columns": [
@@ -7972,11 +8072,13 @@
                               ],
                               "tooltip": "",
                               "column_id": 1364,
-                              "component": "select",
-                              "attributes": null,
+                              "component": "select-multiple",
+                              "attributes": {
+                                "field": ""
+                              },
                               "helper_text": "",
                               "column_order": 0,
-                              "view_component": "truncated-text",
+                              "view_component": "pill",
                               "validation_schema": null
                             },
                             {
@@ -8248,7 +8350,7 @@
                           "id": 1349,
                           "name": "lcaTable-dataTable-dataTable",
                           "rows": null,
-                          "tier": 1,
+                          "tier": -1,
                           "type": "object",
                           "label": "LCA repository",
                           "columns": [
@@ -8316,7 +8418,7 @@
                           "tooltip": "",
                           "elements": null,
                           "component": "data-table",
-                          "attributes": null,
+                          "attributes": {},
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 2,
@@ -8412,7 +8514,7 @@
                           "tooltip": "Relevant figures depicting the process flows and system boundaries",
                           "elements": null,
                           "component": "file-upload-multiple",
-                          "attributes": null,
+                          "attributes": {},
                           "half_width": false,
                           "helper_text": "Upload a diagram depicting the project's system boundaries, such as a project-specific process flow diagram outlining the stages included within the system boundary",
                           "display_order": 2,
@@ -8548,7 +8650,7 @@
                           "id": 1350,
                           "name": "lcaPuroResultsTable-dataTable-dataTable",
                           "rows": null,
-                          "tier": 1,
+                          "tier": -1,
                           "type": "object",
                           "label": "LCA results",
                           "columns": [
@@ -8655,7 +8757,7 @@
                           "tooltip": "The results from the most recent life cycle assessment",
                           "elements": null,
                           "component": "data-table",
-                          "attributes": null,
+                          "attributes": {},
                           "half_width": false,
                           "helper_text": "Outline the results from the most recent LCA",
                           "display_order": 1,
@@ -9264,7 +9366,7 @@
                           "id": 1340,
                           "name": "parametersFixedTable-dataTable-dataTable",
                           "rows": null,
-                          "tier": 1,
+                          "tier": -1,
                           "type": "object",
                           "label": "Ex-ante fixed parameters",
                           "columns": [
@@ -9396,7 +9498,7 @@
                           "id": 1341,
                           "name": "parametersMonitoredTable-dataTable-dataTable",
                           "rows": null,
-                          "tier": 1,
+                          "tier": -1,
                           "type": "object",
                           "label": "Monitored parameters overview",
                           "columns": [
@@ -9631,7 +9733,7 @@
                           "type": "string",
                           "label": "MRV protocol and monitoring plan overview",
                           "columns": null,
-                          "options": [],
+                          "options": null,
                           "tooltip": "The monitoring plan may include: technical description of the monitoring tasks, data to be collected, overview of data collection procedures, quality control and quality assurance procedures, data archiving and organization and responsibilities of the parties involved",
                           "elements": null,
                           "component": "rich-text",
@@ -9804,7 +9906,7 @@
               ],
               "parent_id": 435,
               "attributes": null,
-              "description": "Project design, technology, and monitoring plan",
+              "description": "Method for tracking project performance",
               "nav_type_id": 1,
               "nav_level_id": 3,
               "display_order": 13
@@ -10018,7 +10120,7 @@
                           "id": 1342,
                           "name": "avoidableRiskTable-dataTable-dataTable",
                           "rows": null,
-                          "tier": 1,
+                          "tier": -1,
                           "type": "object",
                           "label": "Assessment of avoidable risks",
                           "columns": [
@@ -10078,7 +10180,7 @@
                           "id": 1343,
                           "name": "unavoidableRiskTable-dataTable-dataTable",
                           "rows": null,
-                          "tier": 1,
+                          "tier": -1,
                           "type": "object",
                           "label": "Assessment of unavoidable risks",
                           "columns": [
@@ -12335,7 +12437,7 @@
               ],
               "parent_id": 435,
               "attributes": null,
-              "description": "",
+              "description": "What makes the project truly additional",
               "nav_type_id": 1,
               "nav_level_id": 3,
               "display_order": 15
@@ -12597,7 +12699,7 @@
                               "attributes": {},
                               "helper_text": "",
                               "column_order": 1,
-                              "view_component": "truncated-text",
+                              "view_component": "key-value-table",
                               "validation_schema": null
                             },
                             {
@@ -12799,6 +12901,31 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 6,
+                          "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": [
+                            {
+                              "field": "projectValidation-nameValue-nameValue",
+                              "pattern": "Yes"
+                            }
+                          ]
+                        },
+                        {
+                          "id": 2478,
+                          "name": "validationBodyFounding-nameValue-nameValue",
+                          "rows": null,
+                          "tier": 1,
+                          "type": "string",
+                          "label": "Validation body founding year",
+                          "columns": null,
+                          "options": null,
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "text-input",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": null,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": [
@@ -13529,7 +13656,7 @@
                           "rows": null,
                           "tier": 2,
                           "type": "string",
-                          "label": "MRV results external links",
+                          "label": "MRV results links",
                           "columns": null,
                           "options": [],
                           "tooltip": "",
@@ -13537,7 +13664,7 @@
                           "component": "rich-text",
                           "attributes": {},
                           "half_width": false,
-                          "helper_text": "",
+                          "helper_text": "Paste links out to the dMRV data if applicable",
                           "display_order": 2,
                           "view_component": "rich-text",
                           "validation_schema": null,
@@ -15154,7 +15281,7 @@
               ],
               "parent_id": 436,
               "attributes": null,
-              "description": "Buffer credits deducted",
+              "description": "Carbon quantities deducted for buffer allocation",
               "nav_type_id": 1,
               "nav_level_id": 3,
               "display_order": 7
@@ -15436,7 +15563,7 @@
                           "id": 1695,
                           "name": "verificationBodyTeamTable-dataTable-dataTable",
                           "rows": null,
-                          "tier": 1,
+                          "tier": -1,
                           "type": "object",
                           "label": "Verification body team",
                           "columns": [
@@ -15474,7 +15601,7 @@
                               "attributes": {},
                               "helper_text": "",
                               "column_order": 1,
-                              "view_component": "truncated-text",
+                              "view_component": "key-value-table",
                               "validation_schema": null
                             },
                             {
@@ -15516,7 +15643,7 @@
                           "tooltip": "",
                           "elements": null,
                           "component": "data-table",
-                          "attributes": null,
+                          "attributes": {},
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 2,
@@ -15702,7 +15829,7 @@
                           "id": 1345,
                           "name": "verificationTable-dataTable-dataTable",
                           "rows": null,
-                          "tier": 2,
+                          "tier": -1,
                           "type": "object",
                           "label": "Verification events and reporting periods",
                           "columns": [
@@ -15795,7 +15922,7 @@
                           "tooltip": "",
                           "elements": null,
                           "component": "data-table",
-                          "attributes": null,
+                          "attributes": {},
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 0,
@@ -16132,7 +16259,7 @@
               ],
               "parent_id": 436,
               "attributes": null,
-              "description": "",
+              "description": "Key information on credit transactions",
               "nav_type_id": 1,
               "nav_level_id": 3,
               "display_order": 10
@@ -22458,6 +22585,144 @@
               "description": "Key differentiators of the project",
               "nav_type_id": 1,
               "nav_level_id": 3,
+              "display_order": 0
+            },
+            {
+              "id": 1192,
+              "name": "impactStories",
+              "label": "Impact stories",
+              "sections": [
+                {
+                  "id": 1204,
+                  "name": "default",
+                  "label": "",
+                  "parent_id": 1192,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 1,
+                  "field_groups": [
+                    {
+                      "id": 1205,
+                      "name": "default",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1204,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 1,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 0
+                },
+                {
+                  "id": 1193,
+                  "name": "impactStoryOne",
+                  "label": "Impact story 1",
+                  "parent_id": 1192,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 1,
+                  "field_groups": [
+                    {
+                      "id": 1197,
+                      "name": "impactStoryOne",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1193,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 1,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 0
+                },
+                {
+                  "id": 1194,
+                  "name": "impactStoryTwo",
+                  "label": "Impact story 2",
+                  "parent_id": 1192,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 1,
+                  "field_groups": [
+                    {
+                      "id": 1198,
+                      "name": "impactStoryTwo",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1194,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 1,
+                      "nav_level_id": 5,
+                      "display_order": 1
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 1
+                },
+                {
+                  "id": 1195,
+                  "name": "impactStoryThree",
+                  "label": "Impact story 3",
+                  "parent_id": 1192,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 1,
+                  "field_groups": [
+                    {
+                      "id": 1199,
+                      "name": "impactStoryThree",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1195,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 1,
+                      "nav_level_id": 5,
+                      "display_order": 2
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 2
+                },
+                {
+                  "id": 1196,
+                  "name": "impactStoryFour",
+                  "label": "Impact story 4",
+                  "parent_id": 1192,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 1,
+                  "field_groups": [
+                    {
+                      "id": 1200,
+                      "name": "impactStoryFour",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1196,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 1,
+                      "nav_level_id": 5,
+                      "display_order": 3
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 3
+                }
+              ],
+              "parent_id": 437,
+              "attributes": {},
+              "description": "Share compelling examples showcasing your project's positive influence beyond carbon",
+              "nav_type_id": 1,
+              "nav_level_id": 3,
               "display_order": 1
             },
             {
@@ -22583,7 +22848,7 @@
                           "attributes": null,
                           "half_width": false,
                           "helper_text": "",
-                          "display_order": 0,
+                          "display_order": 1,
                           "view_component": "data-table",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -22603,7 +22868,7 @@
                           "attributes": null,
                           "half_width": false,
                           "helper_text": "Upload relevant SDG documentation (e.g., registry-specific templates etc.)",
-                          "display_order": 1,
+                          "display_order": 2,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -22623,7 +22888,7 @@
                           "attributes": null,
                           "half_width": false,
                           "helper_text": "",
-                          "display_order": 2,
+                          "display_order": 3,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -22643,7 +22908,7 @@
                           "attributes": null,
                           "half_width": false,
                           "helper_text": "",
-                          "display_order": 3,
+                          "display_order": 4,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": [
@@ -22668,7 +22933,7 @@
                           "attributes": null,
                           "half_width": false,
                           "helper_text": "",
-                          "display_order": 4,
+                          "display_order": 5,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
