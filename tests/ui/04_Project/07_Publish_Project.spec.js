@@ -131,7 +131,7 @@ test.describe('Fill All Required Fields and Save', { tag: ['@UI', '@SMOKE'] }, (
       // Iterate over each step in the step group
       test.describe(`Step: ${step.label}`, () => {
         test.beforeEach(async () => {
-          const stepElement = await fieldHandler.findStep(step.label);
+          const stepElement = await fieldHandler.findStep(step.name);
 
           // Check step visibility before proceeding
           await fieldHandler.checkStepVisibility(stepElement, step, test);
@@ -495,9 +495,9 @@ test.describe('Project after approve Project', { tag: ['@UI', '@SMOKE'] }, () =>
     await safeExpect('Open copied URL and verify project title',
       async () => {
         const newPage = await context.newPage();
-        await newPage.goto(copiedUrl);
+        await newPage.goto(`https://${copiedUrl}`);
         const newProjectPage = new ProjectsPage(newPage, baseURL);
-        await expect(newPage.url()).toBe(copiedUrl);
+        await expect(newPage.url()).toBe(`https://${copiedUrl}`);
         await expect(await newProjectPage.listingprojectTitle()).toBeVisible();
         await expect(await newProjectPage.listingprojectTitle()).toHaveText(project.uiProjectName);
       },

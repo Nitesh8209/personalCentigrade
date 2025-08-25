@@ -52,7 +52,9 @@ export class FieldHandler {
     if (component === COMPONENT_TYPES.SELECT ||
       component === COMPONENT_TYPES.SELECT_MULTIPLE ||
       component === COMPONENT_TYPES.METHODOLOGY_SELECT) {
-      return this.page.getByRole('combobox', { name: fieldLabel });
+      return this.page.locator('.field').filter({
+        has: this.page.getByText(fieldLabel, { exact: true })
+      }).getByRole('combobox');
     }
 
     // Handle special input types
@@ -65,7 +67,9 @@ export class FieldHandler {
     }
 
     if (component === COMPONENT_TYPES.CHECKBOX) {
-      return this.page.locator('label').getByText(fieldLabel, { exact: true }).locator('..').locator('..').locator('.checkbox-group-options');
+      return this.page.locator('.field').filter({
+        has: this.page.getByText(fieldLabel, { exact: true })
+      }).locator('.checkbox-group-options');
     }
 
     if (component === COMPONENT_TYPES.COUNTRY_SELECT) {
@@ -77,27 +81,35 @@ export class FieldHandler {
     }
 
     if (component === COMPONENT_TYPES.DATA_TABLE) {
-      return this.page.getByText(fieldLabel, { exact: true }).locator('..').locator('..').locator('.ag-theme-quartz');
+      return this.page.locator('.field').filter({
+        has: this.page.getByText(fieldLabel, { exact: true })
+      }).locator('.ag-theme-quartz');
     }
 
     if (component === COMPONENT_TYPES.RADIOYN || component === COMPONENT_TYPES.RADIO || component === COMPONENT_TYPES.RADIOIDK) {
-      return this.page.getByRole('radiogroup', { name: fieldLabel });
+      return this.page.locator('.field').filter({
+        has: this.page.getByText(fieldLabel, { exact: true })
+      }).getByRole('radiogroup');
     }
 
     if (component === COMPONENT_TYPES.TEXT_INPUT_MULTIPLE) {
-      return this.page.locator('label').getByText(fieldLabel, { exact: true }).locator('..').locator('..');
+      return this.page.locator('.field').filter({
+        has: this.page.getByText(fieldLabel, { exact: true })
+      });
     }
 
-    if (component === COMPONENT_TYPES.TEXT_INPUT) {
-      return this.page.locator('.input').getByLabel(fieldLabel, { exact: true });;
+    if (component === COMPONENT_TYPES.TEXT_INPUT || component === COMPONENT_TYPES.DATE_PICKER) {
+      return this.page.locator(`input[name="${fieldName}"]`);
     }
 
     if (component === COMPONENT_TYPES.RICH_TEXT) {
-      return this.page.locator('label').getByText(fieldLabel, { exact: true }).locator('..').locator('..').locator('.editor-control');
+      return this.page.locator('.field').filter({
+        has: this.page.getByText(fieldLabel, { exact: true })
+      }).locator('.editor-control');
     }
 
     if (component === COMPONENT_TYPES.TEXTAREA) {
-      return this.page.locator('label').getByText(fieldLabel, { exact: true }).locator('..').locator('..').locator('textarea');
+      return this.page.locator(`textarea[name="${fieldName}"]`);
     }
 
     // Handle standard field types
@@ -119,7 +131,12 @@ export class FieldHandler {
   }
 
   async findStep(step) {
-    return this.page.locator('.nav-menu').getByRole('link', { name: step, exact: true });
+    const stepSlug = step
+      .split(/(?=[A-Z])/)  
+      .join('-')            
+      .toLowerCase();      
+
+    return this.page.locator(`a[href*="/${stepSlug}"]`);
   }
 
   async breadCrumps() {
@@ -239,7 +256,9 @@ export class FieldHandler {
 
       case COMPONENT_TYPES.SELECT_MULTIPLE:
         const indicator = await locator.locator('.select-indicator');
-        const listbox = await this.listBox(field.label);
+        const listbox = await this.page.locator('.field').filter({
+        has: this.page.getByText(field.label, { exact: true })
+      }).getByRole('listbox');
         if (!(await listbox.isVisible())) {
           await indicator.click();
         }
@@ -491,7 +510,9 @@ export class FieldHandler {
   }
 
   async listBox(label) {
-    return this.page.getByRole('listbox', { name: label })
+    return this.page.locator('.field').filter({
+        has: this.page.getByText(label, { exact: true })
+      }).getByRole('listbox');
   }
 
   async validateMethodologySelectField(locator) {
@@ -504,7 +525,9 @@ export class FieldHandler {
   async validateSelectField(locator, label, expectedOptions) {
     // Click to open dropdown
     await locator.click();
-    const listBox = await this.listBox(label);
+    const listBox = await this.page.locator('.field').filter({
+        has: this.page.getByText(label, { exact: true })
+      }).getByRole('listbox');
 
     // If dropdown isn't visible after first click, try clicking again
     if (!(await listBox.isVisible())) {
@@ -639,19 +662,16 @@ export class FieldHandler {
     // Validate field attributes
     switch (field.component) {
       case COMPONENT_TYPES.TEXT_INPUT:
-        return this.page.locator('.input').locator('label').getByText(field.label, { exact: true });
+        return this.page.locator('.field-label').getByText(field.label, { exact: true });
 
       case COMPONENT_TYPES.SELECT:
-        return this.page.locator('.select').locator('label').getByText(field.label, { exact: true });
+        return this.page.locator('.field-label').getByText(field.label, { exact: true });
 
       case COMPONENT_TYPES.FILE_UPLOAD:
-        const locator = this.page.locator('.project-file-upload').filter({
-          has: this.page.locator(`input[name="${field.name}"]`),
-        });
-        return locator.locator('label').getByText(field.label, { exact: true });
+        return this.page.locator('.field').getByText(field.label, { exact: true });
 
       default:
-        return this.page.locator('label').getByText(field.label, { exact: true });
+        return this.page.locator('.label-container').getByText(field.label, { exact: true });
 
     }
   }
@@ -659,15 +679,23 @@ export class FieldHandler {
 
   async validateRequiredField(field) {
     const labelElement = await this.validateLabel(field);
-    return labelElement.locator('..').locator('span.text-negative');
+
+    const hasAsterisk = await labelElement.evaluate((el) => {
+      const afterContent = window.getComputedStyle(el, '::after').content;
+      return afterContent && afterContent.includes('*');
+    });
+
+    return hasAsterisk;
   }
 
 
   /**
  * Validates helper text
  */
-  async validateHelperText(locator, helperText) {
-    return locator.locator('..').locator('..').getByText(helperText);
+  async validateHelperText(fieldLabel, helperText) {
+    return await this.page.locator('.field').filter({
+        has: this.page.getByText(fieldLabel, { exact: true })
+      }).getByText(helperText);
   }
 
   /**
@@ -1183,14 +1211,14 @@ export class FieldHandler {
       const saveButton = await this.saveButton();
       if (await saveButton.isEnabled()) {
         await saveButton.click();
-        await expect(await this.successMessageHeader()).toBeVisible();
+        await expect(await this.successMessageHeader()).toBeVisible({timeout: 20000});
         await expect(saveButton).toBeDisabled();
       }
 
       await topicElement.click();
     };
 
-    const stepElement = await this.findStep(step.label);
+    const stepElement = await this.findStep(step.name);
     const stepState = await stepElement.getAttribute('class');
     if (!stepState?.includes('active')) {
       await stepElement.click();

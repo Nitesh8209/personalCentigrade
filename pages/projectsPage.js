@@ -974,7 +974,7 @@ class ProjectsPage {
     }
 
     async methodologyLabel() {
-        return await this.page.locator('.label').getByText('Methodology');
+        return await this.page.locator('.select-label').getByText('Methodology');
     }
 
     async methodologytrigger() {
@@ -1518,7 +1518,7 @@ class ProjectsPage {
     }
 
     async projectOverviewAccordionLabel() {
-        return await this.page.locator('.label-container');
+        return await this.page.getByRole('button', { name: 'Learn more about the' })
     }
 
     async projectOverviewAccordionIndicator() {

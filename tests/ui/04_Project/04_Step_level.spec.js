@@ -20,7 +20,7 @@ test.describe('Step-Level UI Validations', { tag: '@UI' }, () => {
   let page;
   let fieldHandler;
 
-  const authStoragePath = path.join(__dirname, '..', '..', 'data', 'project-Publish-auth.json');
+  const authStoragePath = path.join(__dirname, '..', '..', 'data', 'project-auth-admin.json');
   test.use({ storageState: authStoragePath });
 
   test.beforeAll(async ({ browser, baseURL }) => {
@@ -66,7 +66,7 @@ test.describe('Step-Level UI Validations', { tag: '@UI' }, () => {
           test.describe(`Step: ${step.label}`, () => {
 
             test.beforeAll(async () => {
-              const stepElement = await fieldHandler.findStep(step.label);
+              const stepElement = await fieldHandler.findStep(step.name);
 
               // Check the step visibility and click
               await fieldHandler.checkStepVisibility(stepElement, step, test);
