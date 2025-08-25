@@ -26,7 +26,7 @@ for (const authState of authStates) {
 
     // Use storage state if authenticated
     if (authState.isAuthenticated) {
-      const authStoragePath = path.join(__dirname, '..', '..', 'data', 'project-Publish-auth.json');
+      const authStoragePath = path.join(__dirname, '..', '..', 'data', 'project-buyer-auth.json');
       test.use({ storageState: authStoragePath });
     }
 

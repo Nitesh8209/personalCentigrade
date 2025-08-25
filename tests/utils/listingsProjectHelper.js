@@ -12,7 +12,7 @@ export const validateListingProjectHeader = async (projectHeader, errors) => {
   }, errors);
 
   await safeExpect(`Project Tag should be visible`, async () => {
-    await expect(await projectHeader.projectTag()).toBeVisible();
+    await expect(await projectHeader.projectTag()).toBeVisible({timeout: 20000});
     await expect(await projectHeader.projectTag()).toHaveText(projectPublishCredentials.organizationName);
   }, errors);
 

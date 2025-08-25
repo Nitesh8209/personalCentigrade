@@ -22,7 +22,7 @@ test.describe("Fields Level Validation - after Login", { tag: '@UI' }, () => {
     password: ValidTestData.newPassword
   };
 
-  const authStoragePath = path.join(__dirname, '..', '..', 'data', 'project-Publish-auth.json');
+  const authStoragePath = path.join(__dirname, '..', '..', 'data', 'project-buyer-auth.json');
   test.use({ storageState: authStoragePath });
 
   let page;
@@ -101,7 +101,10 @@ test.describe("Fields Level Validation - after Login", { tag: '@UI' }, () => {
             test.beforeAll(async () => {
               const projectListings = new ProjectListings(page);
               const stepGroupElement = await projectListings.stepGroup(stepGroup.label);
-              await stepGroupElement.click();
+              const state = await stepGroupElement.getAttribute('data-state');
+              if (state === 'closed') {
+                await stepGroupElement.click();
+              }
             });
 
             // Iterate through each step in the step group
@@ -160,7 +163,7 @@ test.describe("Fields Level Validation - after Login", { tag: '@UI' }, () => {
                 // Navigate to the specific step and wait for network idle
                 const stepElement = await projectListings.stepLabel(step.label);
                 await stepElement.click();
-                await page.waitForLoadState("networkidle");
+                // await page.waitForLoadState("networkidle");
 
                 // Iterate through sections in the step
                 for (const section of step?.sections || []) {

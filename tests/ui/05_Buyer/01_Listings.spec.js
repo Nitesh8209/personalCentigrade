@@ -83,7 +83,7 @@ test.describe('Listings Page - UI and Navigation', { tag: '@UI' }, () => {
 test.describe('Listings Page - After Login', { tag: '@UI' }, () => {
   const { newEmail } = getData('UI');
 
-  const authStoragePath = path.join(__dirname, '..', '..', 'data', 'project-Publish-auth.json');
+  const authStoragePath = path.join(__dirname, '..', '..', 'data', 'project-buyer-auth.json');
   test.use({ storageState: authStoragePath });
 
   let page;
