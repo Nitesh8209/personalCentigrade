@@ -26,7 +26,7 @@ test.describe("Step Level Validation", { tag: '@UI' }, () => {
       } : null;
 
       if(authState.isAuthenticated){
-            const authStoragePath = path.join(__dirname, '..', '..', 'data', 'project-Publish-auth.json');
+            const authStoragePath = path.join(__dirname, '..', '..', 'data', 'project-buyer-auth.json');
             test.use({ storageState: authStoragePath });
       }
   let page;
@@ -68,7 +68,26 @@ test.describe("Step Level Validation", { tag: '@UI' }, () => {
               test.beforeAll(async () => {
                 const projectListings = new ProjectListings(page);
                 const stepGroupElement = await projectListings.stepGroup(stepGroup.label)
-                await stepGroupElement.click();
+                const hasValidStepGroup = stepGroup.steps?.some(step => step?.sections?.some(section =>
+                  section?.field_groups?.some(fieldGroup =>
+                    fieldGroup?.fields &&
+                    fieldGroup.fields.length > 0 &&
+                    fieldGroup.fields.some(field => field !== null)
+                  )
+                ));
+
+                test.skip(!hasValidStepGroup, 'Skipping test');
+                await expect(stepGroupElement).toBeVisible();
+                await page.waitForTimeout(1000);
+                const state = await stepGroupElement.getAttribute('data-state');
+                if ((await (await page.getByRole('button', { name: 'Accept All' })).isVisible())) {
+                  const acceptAll = await page.getByRole('button', { name: 'Accept All' });
+                  await acceptAll.click();
+                }
+                if (state === 'closed') {
+                  await stepGroupElement.click();
+                }
+
               });
             // Test to validate steps within the step group
             test(`Validate steps in ${stepGroup.label}`, async () => {
@@ -137,6 +156,18 @@ test.describe("Step Level Validation", { tag: '@UI' }, () => {
 
                 await navigateToStep(step, projectListings, errors);
 
+                await safeExpect(`Page title for step ${step.label}`, async () => {
+                  const expectedTitlePart =
+                    authState.isAuthenticated
+                      ? step.label
+                      : topic.name === "projectStory"
+                        ? step.label
+                        : topic.step_groups[0].steps[0].label; // fallback to first step label
+                  await expect(page).toHaveTitle(
+                    new RegExp(`${project.buyerProject} - ${expectedTitlePart} \\| Centigrade`)
+                  );
+                }, errors);
+
                 if (authState.isAuthenticated || topic.name === 'projectStory') {
                   for (const section of step?.sections) {
 
@@ -169,15 +200,27 @@ test.describe("Step Level Validation", { tag: '@UI' }, () => {
                   // For unauthenticated users, validate the first step's sections and field groups
                   const stepGroup = topic.step_groups[0];
                   const step = stepGroup.steps[0];
-                  if(step.sections[0].label){
-                    await safeExpect(`Section '${step.label}' visibility`, async () => {
-                      await expect(await projectListings.sectionLabel(step.sections[0].name)).toBeVisible();
-                      await expect(await projectListings.sectionLabel(step.sections[0].name)).toHaveText(step.sections[0].label);
-                    }, errors);
-                  }
-                  
+  
                   for (const section of step.sections) {
                     if (!section?.field_groups || section.field_groups.length === 0) continue;
+
+                    const hasValidSection = section.field_groups?.some(fieldgroup =>
+                      fieldgroup?.fields?.some(field => field !== null)
+                    );
+
+                  if(section.label && hasValidSection){
+                    await safeExpect(`Section '${section.label}' visibility`, async () => {
+                      await expect(await projectListings.sectionLabel(section.name)).toBeVisible();
+                      await expect(await projectListings.sectionLabel(section.name)).toHaveText(section.label);
+                    }, errors);
+                  }else{
+                    // Validate that sections with no valid fields are not visible
+                      await safeExpect(`Section ${section.name} should not be visible`, async () => {
+                        await expect(await projectListings.sectionLabel(section.name)).not.toBeVisible();
+                        await expect(await projectListings.contentSectionLabel(section.id)).not.toBeVisible();
+                      }, errors);
+                      continue;
+                  }
 
                     for (const fieldGroup of section.field_groups) {
                       if (fieldGroup.label && fieldGroup.fields) {
@@ -198,23 +241,27 @@ test.describe("Step Level Validation", { tag: '@UI' }, () => {
 
             });
 
-            if(!(authState.isAuthenticated)){
-              const firstStepName = topic.step_groups[0].steps[0].label;
+            // if(!(authState.isAuthenticated)){
+            //   const firstStepName = topic.step_groups[0].steps[0].label;
 
-              test(`Validate Title of Step Group ${stepGroup.label}`, async () => {
-              const errors = [];
+            //   test(`Validate Title of Step Group ${stepGroup.label}`, async () => {
+            //     const errors = [];
+            //     const expectedTitlePart =
+            //       topic.name === "projectStory"
+            //         ? stepGroup.label   // show step group label for projectStory
+            //         : firstStepName; 
 
-              const projectListings = new ProjectListings(page);
-              const stepGroupElement = await projectListings.stepGroup(stepGroup.label);
-              await safeExpect(`Step Group ${stepGroup.label} title visibility`, async () => {
-                await expect(await page.title()).toContain(`${project.buyerProject} - ${firstStepName} | Centigrade`);
-              }, errors);
+            //   const projectListings = new ProjectListings(page);
+            //   const stepGroupElement = await projectListings.stepGroup(stepGroup.label);
+            //   await safeExpect(`Step Group ${stepGroup.label} title visibility`, async () => {
+            //     await expect(await page.title()).toContain(`${project.buyerProject} - ${expectedTitlePart} | Centigrade`);
+            //   }, errors);
 
-              if (errors.length > 0) {
-                throw new Error(`Validation errors:\n${errors.join('\n')}`);
-              }
-            });
-            }
+            //   if (errors.length > 0) {
+            //     throw new Error(`Validation errors:\n${errors.join('\n')}`);
+            //   }
+            // });
+            // }
 
           });
           }

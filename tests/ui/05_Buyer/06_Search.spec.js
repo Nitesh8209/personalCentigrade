@@ -41,7 +41,7 @@ test.describe('Search Functionlity in the buyer view', async () => {
     password: ValidTestData.newPassword
   };
 
-  const authStoragePath = path.join(__dirname, '..', '..', 'data', 'project-Publish-auth.json');
+  const authStoragePath = path.join(__dirname, '..', '..', 'data', 'project-buyer-auth.json');
   test.use({ storageState: authStoragePath });
 
   let page;

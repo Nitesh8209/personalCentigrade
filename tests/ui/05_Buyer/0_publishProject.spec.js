@@ -3,7 +3,8 @@ import { API_ENDPOINTS } from "../../../api/apiEndpoints";
 import path from "path";
 import { getData, postRequest, putRequest, saveData } from "../../utils/apiHelper";
 import { project } from "../../data/projectData";
-import { apiProjectCreadentials, Credentials } from "../../data/testData";
+import { apiProjectCreadentials, Credentials, projectPublishCredentials } from "../../data/testData";
+import { LoginPage } from '../../../pages/loginPage';
 const fs = require("fs");
 
 test.describe("fill all fields For validate listings buyer page", { tag: ['@UI', '@SMOKE'] }, async () => {
@@ -83,7 +84,7 @@ test.describe("fill all fields For validate listings buyer page", { tag: ['@UI',
       classificationCategory: '["Carbon avoidance","Carbon reduction","Carbon removal","Undefined"]',
       classificationMethod:
         "Natural - The activity claim uses natural methods (e.g. IFM)",
-      projectScale: "Micro (fewer than 1,000 tCO2e)",
+      projectScale: "Micro (fewer than 1k tCO2e)",
       projectType: "ifm",
     };
     const modularUrl = API_ENDPOINTS.modularbenefitprojectguid(BuyerprojectGuid);
@@ -182,7 +183,21 @@ test.describe('publish project after for validate listings buyer page', { tag: [
   let projectId;
   let projectGuid;
 
-  test.beforeAll(async () => {
+  test.beforeAll(async ({ browser, baseURL }) => {
+    const context = await browser.newContext();
+    const page = await context.newPage();
+
+    // Login via UI and save storage state
+    const loginPage = new LoginPage(page, baseURL);
+    await loginPage.navigate();
+    await loginPage.login(projectPublishCredentials.email, projectPublishCredentials.password);
+
+    await page.waitForURL('**/projects');
+    const authStoragePath = path.join(__dirname, '..', '..', 'data', 'project-buyer-auth.json');
+    await context.storageState({ path: authStoragePath });
+
+    await context.close();
+
     const { projectAccessToken, BuyerprojectId ,BuyerprojectGuid} = getData("UI");
     projectId = BuyerprojectId;
     projectGuid = BuyerprojectGuid;

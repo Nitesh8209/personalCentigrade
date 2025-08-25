@@ -40,7 +40,7 @@ export class ProjectListings {
   }
 
   async inputLabel() {
-    return await (await this.input()).locator('.label');
+    return await (await this.input()).locator('label');
   }
 
   async inputHelperText() {
@@ -160,7 +160,7 @@ export class ProjectListings {
   }
 
   async stepGroup(label){
-    return await this.page.locator('.sidebar').locator('.collapsible-trigger.menu-item').getByText(label);
+    return await this.page.locator('.sidebar').locator('.collapsible-trigger.menu-item').filter({ hasText: label });
   }
 
   async fieldGroupcontent(){

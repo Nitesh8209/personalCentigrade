@@ -88,7 +88,7 @@ test.describe("Data room for authenticated user", { tag: ['@UI', '@SMOKE'] }, ()
     "..",
     "..",
     "data",
-    "project-Publish-auth.json"
+    "project-buyer-auth.json"
   );
   test.use({ storageState: authStoragePath });
 
@@ -674,7 +674,7 @@ test.describe("After Delete Data Room", { tag: ['@UI', '@SMOKE'] }, () => {
     "..",
     "..",
     "data",
-    "project-Publish-auth.json"
+    "project-buyer-auth.json"
   );
   test.use({ storageState: authStoragePath });
 

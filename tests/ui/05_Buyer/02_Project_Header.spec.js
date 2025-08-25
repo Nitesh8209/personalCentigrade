@@ -116,7 +116,7 @@ test.describe('Project Header - UI and Navigation for Unauthenticated Users', { 
 // after Login 
 test.describe('Project Header - UI and Navigation for Authenticated Users', { tag: '@UI' }, async () => {
   const { newEmail } = getData('UI');
-  const authStoragePath = path.join(__dirname, '..', '..', 'data', 'project-Publish-auth.json');
+  const authStoragePath = path.join(__dirname, '..', '..', 'data', 'project-buyer-auth.json');
 
   test.use({
     storageState: authStoragePath,
@@ -126,10 +126,11 @@ test.describe('Project Header - UI and Navigation for Authenticated Users', { ta
   });
 
   let page;
+  let context;
 
   test.beforeAll(async ({ browser, baseURL }) => {
     // Initialize page objects
-    const context = await browser.newContext();
+    context = await browser.newContext();
     page = await context.newPage();
 
     const loginPage = new LoginPage(page, baseURL);
@@ -238,7 +239,7 @@ test.describe('Project Header - UI and Navigation for Authenticated Users', { ta
   })
 
   // Test case for verifying share modal functionality for authenticated users
-  test('Share Modal should be visible when click on the share button', async ({ context, baseURL }) => {
+  test('Share Modal should be visible when click on the share button', async ({ baseURL }) => {
     const errors = [];
     let copiedUrl;
     const projectHeader = new ProjectListings(page);
@@ -363,7 +364,7 @@ test.describe('Project Header - UI and Navigation for Authenticated Users', { ta
     await safeExpect('Verify the email received',
       async () => {
         const {subject} = await getGmailMessages(projectPublishCredentials.email);
-        await expect(subject).toContain('automationProject2 has shared a project with you');
+        await expect(subject).toContain('automationProject1 has shared a project with you');
       },
       errors
     );
