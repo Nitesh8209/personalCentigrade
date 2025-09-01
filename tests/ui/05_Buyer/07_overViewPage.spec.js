@@ -3,12 +3,14 @@ import { LoginPage } from "../../../pages/loginPage";
 import fs from 'fs';
 import path from 'path';
 import { ListingPage } from '../../../pages/listingsPage';
-import { checkDisplayDependencyField, setupPage } from '../../utils/listingsProjectHelper';
+import { checkDisplayDependencyField, getFileValue, setupPage } from '../../utils/listingsProjectHelper';
 import { ProjectListings } from '../../../pages/projectListingPage';
 import { safeExpect } from '../../utils/authHelper';
-import { authStates } from '../../data/projectData';
+import { authStates, project } from '../../data/projectData';
 import { ValidTestData } from '../../data/SignUpData';
 import { getData } from '../../utils/apiHelper';
+import { ListingOverviewPage } from '../../../pages/listingsOverviewPage';
+import { apiProjectCreadentials, quickLinkGroupData } from '../../data/testData';
 
 // Load view data from JSON file
 const viewDatapath = path.join(__dirname, '..', '..', 'data', 'view-data.json');
@@ -31,18 +33,29 @@ for (const authState of authStates) {
     }
 
     let page;
+    let overviewPage;
     test.beforeAll(async ({ browser, baseURL }) => {
       const context = await browser.newContext();
       page = await context.newPage();
 
       // Navigate to project details
       const listingPage = new ListingPage(page);
+      overviewPage = new ListingOverviewPage(page);
+
       const loginPage = authState.isAuthenticated ? new LoginPage(page, baseURL) : null;
       await setupPage(page, loginPage, credentials, listingPage, baseURL);
     });
 
     const overviewTopic = viewData.topics[0];
     const stepGroup = overviewTopic.step_groups[0];
+
+    test('Verify org and project name are visible', async () => {
+      await expect.soft(await overviewPage.aISearchOverview()).toBeVisible();
+      await expect.soft(await overviewPage.mainContent()).toBeVisible();
+      await expect.soft(await overviewPage.orgName(apiProjectCreadentials.organizationName)).toBeVisible();
+      await expect.soft(await overviewPage.projectName(project.buyerProject)).toBeVisible();
+      await expect.soft(await overviewPage.projectDiscription()).toBeVisible();
+    });
 
     test(`Validate fields label and value in step group: ${stepGroup.label}`, async () => {
 
@@ -84,10 +97,10 @@ for (const authState of authStates) {
                   if (field.label) {
                     await safeExpect(`In dependency field verify the label and value ${field.label}`, async () => {
                       const locator = await projectListings.contentOverviewFieldLocator(field, step);
-                    if (locator) {
-                      await expect(locator).toBeVisible({ timeout: 20000 });
-                      await projectListings.overViewFieldValue(field, locator, step)
-                    }
+                      if (locator) {
+                        await expect(locator).toBeVisible({ timeout: 20000 });
+                        await projectListings.overViewFieldValue(field, locator, step)
+                      }
                     }, errors);
                   }
                 }
@@ -102,70 +115,47 @@ for (const authState of authStates) {
       }
     });
 
-    // Test for verifying the brief project summary and location map on the Overview Page
-    test('Verify brief project summary on Overview Page', async () => {
-      const errors = [];
-      const projectListings = new ProjectListings(page);
+    test('Verify Quick Links functionality', async () => {
+      await expect.soft(await overviewPage.summaryPanel()).toBeVisible();
+      await expect.soft(await overviewPage.quickLinkGroup()).toBeVisible();
+      await expect.soft(await overviewPage.quickLinkGroupHeading()).toBeVisible();
+      await expect.soft(await overviewPage.quickLinkGroupHeading()).toHaveText('Quick links');
 
-      await safeExpect('Verify brief project summary elements', async () => {
-        const ProjectSummary = await projectListings.ProjectSummary();
-        await expect(ProjectSummary).toBeVisible({ timeout: 20000 });
-        await expect(await projectListings.headingProjectSummary()).toBeVisible();
-        await expect(await projectListings.headingProjectSummary()).toHaveText('Brief project summary');
-        await expect(await projectListings.missionStatement()).toBeVisible();
-        await expect(await projectListings.headingMissionStatement()).toHaveText('Mission statement');
-        await expect(await projectListings.contentMissionStatement()).toBeVisible();
-        await expect(await projectListings.learnMoreButton()).toBeVisible();
-      }, errors);
+      for (const quickLink of quickLinkGroupData) {
+        const quickLinkLabel = await overviewPage.quickLinkGroupTextLink(quickLink.label)
+        await expect.soft(quickLinkLabel).toBeVisible();
+        await quickLinkLabel.click();
+        await expect.soft(await overviewPage.stepLink(quickLink.label)).toBeVisible();
+        await expect(page.url()).toContain(quickLink.path);
 
-      await safeExpect('Verify the project location elements', async () => {
-        await expect(await projectListings.locationMap()).toBeVisible();
-        await expect(await projectListings.headingLocationMap()).toBeVisible();
-        await expect(await projectListings.headingLocationMap()).toHaveText('Project location: United Kingdom, India');
-        await expect(await projectListings.map()).toBeVisible();
-
-      }, errors);
-
-      if (errors.length > 0) {
-        throw new Error(`Validation errors found:\n${errors.join('\n')}`);
+        const overView = await overviewPage.navbarOverview();
+        await overView.click();
       }
+
     })
 
-    // Test for verifying the learn more button functionality on the Overview Page
-    test('Navigate to Project Story via Learn More button', async () => {
-      const errors = [];
-      const projectListings = new ProjectListings(page);
+    test('Verify Location section', async () => {
+      await expect.soft(await overviewPage.location()).toBeVisible();
+      await expect.soft(await overviewPage.locationHeading()).toBeVisible();
+      await expect.soft(await overviewPage.locationHeading()).toHaveText('Location: United Kingdom, India');
+      await expect.soft(await overviewPage.locationMap()).toBeVisible();
 
-      await safeExpect('Verify navigation to Project Story', async () => {
-        await expect(await projectListings.learnMoreButton()).toBeVisible({ timeout: 20000 });
-        const learnMore = await projectListings.learnMoreButton();
-        await learnMore.click();
-        await expect(await page.url()).toContain('/projectStory');
-        await page.goBack();
-      }, errors);
+    })
 
-      if (errors.length > 0) {
-        throw new Error(`Validation errors found:\n${errors.join('\n')}`);
+    test('Verify Project images and videos', async () => {
+      const value = await getFileValue('projectMedia-projectFile-storage');
+      await expect.soft(await overviewPage.navbarOverview()).toBeVisible();
+      if (value) {
+        await expect.soft(await overviewPage.projectImage()).toBeVisible();
+        await expect.soft(await overviewPage.projectImageHeading()).toBeVisible();
+        await expect.soft(await overviewPage.projectImageHeading()).toHaveText('Project images and videos');
+        await expect.soft(await overviewPage.projectImageView()).toBeVisible();
+      } else {
+        await expect.soft(await overviewPage.projectImage()).not.toBeVisible();
+        await expect.soft(await overviewPage.projectImageView()).not.toBeVisible();
       }
-    });
 
-    // Test for verifying the view data link functionality on the Overview Page
-    test('Navigate to Project Data via View Data link', async () => {
-      const errors = [];
-      const projectListings = new ProjectListings(page);
-
-      await safeExpect('Verify navigation to Project Data', async () => {
-        await expect(await projectListings.linkViewData()).toBeVisible({ timeout: 20000 });
-        const linkViewData = await projectListings.linkViewData();
-        await linkViewData.click();
-        await expect(await page.url()).toContain('/projectData');
-      }, errors);
-
-      if (errors.length > 0) {
-        throw new Error(`Validation errors found:\n${errors.join('\n')}`);
-      }
-    });
-
+    })
 
   });
 }
