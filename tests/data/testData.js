@@ -65,6 +65,14 @@ export const DataRoomTestdata = {
   
 }
 
+export const quickLinkGroupData = [
+  { label: "Project details", path: "/projectDetails" },
+  { label: "Baseline summary", path: "/bslSummary" },
+  { label: "Project summary", path: "/projectSummary" },
+  { label: "Additionality", path: "/additionality" },
+  { label: "Cookstove monitoring", path: "/cookstoveMonitoring" },
+];
+
 export const API_BASE_URL =
   process.env.PLATFORM === 'local'
     ? process.env.API_BASE_URL_LOCAL

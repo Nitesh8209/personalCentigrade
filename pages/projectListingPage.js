@@ -254,7 +254,7 @@ export class ProjectListings {
 
   async contentOverviewFieldLocator(field, step){
     if(step.name === 'keyFactors'){
-      return this.page.locator('.KeyFactors').getByText(field.label, { exact: true }).locator('..').locator('..');
+      return this.page.locator('.flex.flex-col.gap-sm', { hasText: 'Key factors' });
     }else if(step.name === 'keyDifferentiators'){
       return this.page.locator('.KeyDifferentiatorContainer');
     }else if(step.name === 'creditSummary' && field.view_component === 'block-table'){
@@ -265,23 +265,40 @@ export class ProjectListings {
 
   }
 
+
+  async keyFactorRow(label) {
+    // Locate label cell
+    const rowLabel = await this.page.locator('.key-value-table .flex.bg-subtle', { hasText: label });
+    // Its next sibling is the value cell
+    const rowValue = await rowLabel.locator('xpath=following-sibling::div[1]');
+    return { rowLabel, rowValue };
+    }
+
   async overViewFieldValue(field, locator, step) {
 
     switch (step.name) {
       case 'keyFactors':
-         await expect(await locator.getByText(field.label)).toBeVisible();
-          await expect(await locator.getByText(field.label)).toHaveText(field.label);
-          const value = await getFieldValue(field.name);
-          if(value && !(field.component === 'select-multiple')){
-          await expect(await locator.locator('.KeyFactorsListItemValue')).toBeVisible();
-          await expect(await locator.locator('.KeyFactorsListItemValue')).toHaveText(value);
-          }else if(value && field.component === 'select-multiple'){
+        const { rowLabel, rowValue } = await this.keyFactorRow(field.label);
+
+        // Validate label
+        await expect(rowLabel).toBeVisible();
+        await expect(rowLabel).toHaveText(field.label);
+
+        const value = await getFieldValue(field.name);
+
+        if (value && field.component !== 'select-multiple') {
+          // For single value fields
+          await expect(rowValue).toBeVisible();
+          await expect(rowValue).toHaveText(value);
+
+        } else if (value && field.component === 'select-multiple') {
+          // For multiple values
           const parseValue = JSON.parse(value);
-          const valueLocator = await locator.locator('.KeyFactorsListItemValue > ul > li');
-          const textContent = await valueLocator.allTextContents();
+          const listItems = rowValue.locator('ul > li');
+          const textContent = await listItems.allTextContents();
           await expect(textContent).toEqual(parseValue);
-          }
-          break;
+        }
+        break;
          
       case 'keyDifferentiators':
         const value2 = await getFieldValue(field.name);

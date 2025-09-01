@@ -1,7 +1,7 @@
 {
   "dataSchema": "QA-ACR1.3-cgV1.0.0",
   "navigation": "view2.0-config",
-  "versionDate": "2025-08-19T11:29:21-07:00",
+  "versionDate": "2025-08-27T15:11:20-07:00",
   "methodology": {
     "id": 13,
     "nickname": "QA-ACR1.3",
@@ -852,114 +852,18 @@
               "sections": [
                 {
                   "id": 74,
-                  "name": "project",
-                  "label": "Project",
+                  "name": "default",
+                  "label": "",
                   "parent_id": 35,
                   "attributes": null,
                   "description": null,
                   "nav_type_id": 2,
                   "field_groups": [
                     {
-                      "id": 422,
-                      "name": "keyFactorsProject",
+                      "id": 423,
+                      "name": "keyFactors",
                       "label": "",
                       "fields": [
-                        {
-                          "id": 944,
-                          "name": "projectStatus-nameValue-nameValue",
-                          "rows": null,
-                          "tier": 0,
-                          "type": "string",
-                          "label": "Project status",
-                          "columns": null,
-                          "options": [
-                            "Under development",
-                            "Validated",
-                            "Verified"
-                          ],
-                          "tooltip": "Indicates the current stage of the project's development: (A) Under development: the project is in the early stages and has not yet completed validation; (B) Validated: The project has been reviewed and approved against the relevant methodology and standards but is not yet generating verified credits; (C) Verified: The project has undergone verification and is actively generating verified credits.",
-                          "elements": null,
-                          "component": "select",
-                          "attributes": {},
-                          "half_width": true,
-                          "helper_text": "",
-                          "display_order": 0,
-                          "view_component": "status",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        },
-                        {
-                          "id": 1156,
-                          "name": "totalForecast-nameValue-nameValue",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "number",
-                          "label": "Credit period forecast",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "The total estimated issued credits over the crediting period (i.e., tonnes of CO2e removed, avoided, or reduced)",
-                          "elements": null,
-                          "component": "text-input",
-                          "attributes": {
-                            "field": ""
-                          },
-                          "half_width": false,
-                          "helper_text": "Indicate the total estimated delivery of credits over the crediting period (i.e., tonnes of CO2e removed, avoided, or reduced)",
-                          "display_order": 1,
-                          "view_component": "key-value-table",
-                          "validation_schema": null,
-                          "display_dependencies": [
-                            {
-                              "field": "forecastConditional-nameValue-nameValue",
-                              "pattern": "Yes"
-                            }
-                          ]
-                        },
-                        {
-                          "id": 1870,
-                          "name": "acreage-nameValue-nameValue",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "string",
-                          "label": "Total acreage",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "The total acreage of forestland within the physical project boundaries",
-                          "elements": null,
-                          "component": "text-input",
-                          "attributes": [],
-                          "half_width": false,
-                          "helper_text": "Indicate the total acreage in acres or hectares",
-                          "display_order": 2,
-                          "view_component": "key-value-table",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        },
-                        {
-                          "id": 1640,
-                          "name": "primaryGhg-nameValue-nameValue",
-                          "rows": null,
-                          "tier": 0,
-                          "type": "string",
-                          "label": "Primary GHG mitigated",
-                          "columns": null,
-                          "options": [
-                            "Carbon dioxide",
-                            "Methane",
-                            "Nitrous oxide",
-                            "Other"
-                          ],
-                          "tooltip": "",
-                          "elements": null,
-                          "component": "select",
-                          "attributes": null,
-                          "half_width": true,
-                          "helper_text": "",
-                          "display_order": 3,
-                          "view_component": "key-value-table",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        },
                         {
                           "id": 12,
                           "name": "methodology-modularBenefitProject-iwa",
@@ -981,10 +885,159 @@
                           "attributes": null,
                           "half_width": true,
                           "helper_text": "",
-                          "display_order": 4,
+                          "display_order": 0,
                           "view_component": "truncated-text",
                           "validation_schema": null,
                           "display_dependencies": null
+                        },
+                        {
+                          "id": 944,
+                          "name": "projectStatus-nameValue-nameValue",
+                          "rows": null,
+                          "tier": 0,
+                          "type": "string",
+                          "label": "Project status",
+                          "columns": null,
+                          "options": [
+                            "Under development",
+                            "Validated",
+                            "Verified"
+                          ],
+                          "tooltip": "Indicates the current stage of the project's development: (A) Under development: the project is in the early stages and has not yet completed validation; (B) Validated: The project has been reviewed and approved against the relevant methodology and standards but is not yet generating verified credits; (C) Verified: The project has undergone verification and is actively generating verified credits.",
+                          "elements": null,
+                          "component": "select",
+                          "attributes": {},
+                          "half_width": true,
+                          "helper_text": "",
+                          "display_order": 1,
+                          "view_component": "status",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
+                          "id": 11,
+                          "name": "projectType-modularBenefitProject-iwa",
+                          "rows": null,
+                          "tier": 0,
+                          "type": "string",
+                          "label": "Project type",
+                          "columns": null,
+                          "options": [
+                            "Agricultural Land Management (ALM)",
+                            "Afforestation Reforestation and Revegetation (ARR)",
+                            "Avoided Conversion of Grasslands and Shrublands (ACoGS)",
+                            "Biochar",
+                            "Bioenergy with Carbon Capture and Storage (BECCS)",
+                            "Biomass-based materials",
+                            "Blue Carbon",
+                            "Cookstoves",
+                            "Concrete utilization",
+                            "Direct Air Capture (DAC)",
+                            "Enhanced Rock Weathering (ERW)",
+                            "Improved Forest Management (IFM)",
+                            "Gas beneficial reuse",
+                            "Macroalgae",
+                            "Methane Gas Leak Detection and Repair",
+                            "Ocean Alkalinity Enhancement (OAE)",
+                            "Reduced Emissions from Deforestation and Degradation (REDD)",
+                            "Wetlands Restoration and Conservation (WRC)",
+                            "Other",
+                            "Biomass Carbon Removal & Storage (BiCRS)"
+                          ],
+                          "tooltip": "Emission reduction or sequestration pathway of project (eg. IFM, REDD++, Biochar, DAC etc.)",
+                          "elements": null,
+                          "component": "select",
+                          "attributes": null,
+                          "half_width": true,
+                          "helper_text": "",
+                          "display_order": 2,
+                          "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
+                          "id": 13,
+                          "name": "creditIssuer-nameValue-nameValue",
+                          "rows": null,
+                          "tier": 0,
+                          "type": "string",
+                          "label": "Credit issuer",
+                          "columns": null,
+                          "options": [
+                            "Verra",
+                            "American Carbon Registry",
+                            "Gold Standard",
+                            "Climate Action Reserve",
+                            "Puro",
+                            "Other",
+                            "Self issuing",
+                            "Not applicable",
+                            "Isometric"
+                          ],
+                          "tooltip": "The body responsible for issuing the credits",
+                          "elements": null,
+                          "component": "select",
+                          "attributes": {},
+                          "half_width": true,
+                          "helper_text": "",
+                          "display_order": 3,
+                          "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
+                          "id": 16,
+                          "name": "countries-nameValue-nameValue",
+                          "rows": null,
+                          "tier": 0,
+                          "type": "string",
+                          "label": "Project location",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "Country or countries where the project activities take place",
+                          "elements": null,
+                          "component": "country-select",
+                          "attributes": {
+                            "locationField": [
+                              "latLongCoordinates-nameValue-nameValue",
+                              "addressLocation-nameValue-nameValue",
+                              "geoFileUpload-projectFile-storage",
+                              "countries-nameValue-nameValue"
+                            ]
+                          },
+                          "half_width": false,
+                          "helper_text": "Indicate country or countries of project activity",
+                          "display_order": 4,
+                          "view_component": "location-map",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
+                          "id": 1156,
+                          "name": "totalForecast-nameValue-nameValue",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "number",
+                          "label": "Credit period forecast",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "The total estimated issued credits over the crediting period (i.e., tonnes of CO2e removed, avoided, or reduced)",
+                          "elements": null,
+                          "component": "text-input",
+                          "attributes": {
+                            "field": ""
+                          },
+                          "half_width": false,
+                          "helper_text": "Indicate the total estimated delivery of credits over the crediting period (i.e., tonnes of CO2e removed, avoided, or reduced)",
+                          "display_order": 5,
+                          "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": [
+                            {
+                              "field": "forecastConditional-nameValue-nameValue",
+                              "pattern": "Yes"
+                            }
+                          ]
                         },
                         {
                           "id": 1330,
@@ -1043,119 +1096,7 @@
                           "attributes": {},
                           "half_width": true,
                           "helper_text": "",
-                          "display_order": 5,
-                          "view_component": "key-value-table",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        }
-                      ],
-                      "parent_id": 74,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 0
-                    }
-                  ],
-                  "nav_level_id": 4,
-                  "display_order": 1
-                },
-                {
-                  "id": 75,
-                  "name": "organization",
-                  "label": "Organization",
-                  "parent_id": 35,
-                  "attributes": null,
-                  "description": null,
-                  "nav_type_id": 2,
-                  "field_groups": [
-                    {
-                      "id": 423,
-                      "name": "keyFactorsOrg",
-                      "label": "",
-                      "fields": [
-                        {
-                          "id": 789,
-                          "name": "organizationClassification-nameValue-nameValue",
-                          "rows": null,
-                          "tier": 0,
-                          "type": "string",
-                          "label": "Organization classification",
-                          "columns": null,
-                          "options": [
-                            "501(c)(3)",
-                            "B Corporation (B-Corp)",
-                            "Cooperative (Co-op)",
-                            "Foundation",
-                            "Governmental Organization",
-                            "Non-Governmental Organization (NGO)",
-                            "Non-Profit Organization (NPO)",
-                            "Partnership",
-                            "Private Company",
-                            "Public Company",
-                            "Social Enterprise",
-                            "Sole Proprietorship",
-                            "Trust",
-                            "Other"
-                          ],
-                          "tooltip": "",
-                          "elements": null,
-                          "component": "select",
-                          "attributes": {
-                            "field": ""
-                          },
-                          "half_width": true,
-                          "helper_text": "",
-                          "display_order": 0,
-                          "view_component": "key-value-table",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        },
-                        {
-                          "id": 1637,
-                          "name": "organizationHeadquartersCountry-nameValue-nameValue",
-                          "rows": null,
-                          "tier": 0,
-                          "type": "string",
-                          "label": "Headquarters country",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "",
-                          "elements": null,
-                          "component": "country-select",
-                          "attributes": {
-                            "locationField": [
-                              "latLongCoordinates-nameValue-nameValue",
-                              "addressLocation-nameValue-nameValue",
-                              "geoFileUpload-projectFile-storage",
-                              "countries-nameValue-nameValue"
-                            ]
-                          },
-                          "half_width": true,
-                          "helper_text": "",
-                          "display_order": 2,
-                          "view_component": "location-map",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        },
-                        {
-                          "id": 1647,
-                          "name": "organizationHeadquarters-nameValue-nameValue",
-                          "rows": null,
-                          "tier": 0,
-                          "type": "string",
-                          "label": "Headquarters city and state",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "Where the main office of the organization is located",
-                          "elements": null,
-                          "component": "text-input",
-                          "attributes": {
-                            "field": ""
-                          },
-                          "half_width": true,
-                          "helper_text": "Indicate the city and state of the organization's headquarters in the format of [city], [state initials]",
-                          "display_order": 3,
+                          "display_order": 6,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -1177,13 +1118,25 @@
                           },
                           "half_width": true,
                           "helper_text": "",
-                          "display_order": 4,
+                          "display_order": 7,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
                         }
                       ],
-                      "parent_id": 75,
+                      "parent_id": 74,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    },
+                    {
+                      "id": 422,
+                      "name": "keyFactorsProject",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 74,
                       "attributes": {},
                       "description": "",
                       "nav_type_id": 2,
@@ -1192,7 +1145,7 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 2
+                  "display_order": 1
                 }
               ],
               "parent_id": 18,
@@ -1315,26 +1268,6 @@
                           "view_component": "media-carousel",
                           "validation_schema": null,
                           "display_dependencies": null
-                        },
-                        {
-                          "id": 3,
-                          "name": "projectSummary-nameValue-nameValue",
-                          "rows": null,
-                          "tier": 0,
-                          "type": "string",
-                          "label": "General project description",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "",
-                          "elements": null,
-                          "component": "rich-text",
-                          "attributes": {},
-                          "half_width": false,
-                          "helper_text": "Briefly describe the measures implemented, project location, scenario before the project, project impact on GHG removals or reductions, estimated annual average removals or reductions, and any ecological or socioeconomic impact ",
-                          "display_order": 2,
-                          "view_component": "rich-text",
-                          "validation_schema": null,
-                          "display_dependencies": null
                         }
                       ],
                       "parent_id": 76,
@@ -1350,6 +1283,26 @@
                       "label": "Project overview",
                       "fields": [
                         {
+                          "id": 3,
+                          "name": "projectSummary-nameValue-nameValue",
+                          "rows": null,
+                          "tier": 0,
+                          "type": "string",
+                          "label": "General project description",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "rich-text",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "Briefly describe the measures implemented, project location, scenario before the project, project impact on GHG removals or reductions, estimated annual average removals or reductions, and any ecological or socioeconomic impact ",
+                          "display_order": 0,
+                          "view_component": "rich-text",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
                           "id": 4,
                           "name": "projectActivities-nameValue-nameValue",
                           "rows": null,
@@ -1364,7 +1317,7 @@
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "Describe the mitigation activities that take place as a part of the project",
-                          "display_order": 1,
+                          "display_order": 2,
                           "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -1384,7 +1337,7 @@
                           "attributes": "{}",
                           "half_width": false,
                           "helper_text": "",
-                          "display_order": 2,
+                          "display_order": 4,
                           "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -1404,7 +1357,7 @@
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "",
-                          "display_order": 3,
+                          "display_order": 5,
                           "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -1741,6 +1694,33 @@
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
+                        },
+                        {
+                          "id": 1640,
+                          "name": "primaryGhg-nameValue-nameValue",
+                          "rows": null,
+                          "tier": 0,
+                          "type": "string",
+                          "label": "Primary GHG mitigated",
+                          "columns": null,
+                          "options": [
+                            "Carbon dioxide",
+                            "Methane",
+                            "Nitrous oxide",
+                            "Other"
+                          ],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "select",
+                          "attributes": {
+                            "field": ""
+                          },
+                          "half_width": true,
+                          "helper_text": "",
+                          "display_order": 5,
+                          "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": null
                         }
                       ],
                       "parent_id": 1013,
@@ -1977,7 +1957,7 @@
                           "rows": null,
                           "tier": 0,
                           "type": "string",
-                          "label": "Country or countries of project activity",
+                          "label": "Project location",
                           "columns": null,
                           "options": [],
                           "tooltip": "Country or countries where the project activities take place",
@@ -1992,7 +1972,7 @@
                             ]
                           },
                           "half_width": false,
-                          "helper_text": "",
+                          "helper_text": "Indicate country or countries of project activity",
                           "display_order": 0,
                           "view_component": "location-map",
                           "validation_schema": null,
@@ -2009,7 +1989,7 @@
                     {
                       "id": 1241,
                       "name": "locationDetails",
-                      "label": "Details",
+                      "label": "Location type details",
                       "fields": [
                         {
                           "id": 17,
@@ -2043,7 +2023,7 @@
                           "tooltip": "Additional context on the conflict-affected area(s) and the additional measures taken to implement the project",
                           "elements": null,
                           "component": "rich-text",
-                          "attributes": null,
+                          "attributes": {},
                           "half_width": false,
                           "helper_text": "Provide additional context on the conflict-affected area and the additional measures considered when implementing the project",
                           "display_order": 2,
@@ -2278,7 +2258,7 @@
                           "attributes": null,
                           "half_width": false,
                           "helper_text": "",
-                          "display_order": 1,
+                          "display_order": 0,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -3245,210 +3225,6 @@
                       "display_order": 0
                     },
                     {
-                      "id": 403,
-                      "name": "organizationStructure",
-                      "label": "Organization structure",
-                      "fields": [
-                        {
-                          "id": 787,
-                          "name": "ownershipStructure-nameValue-nameValue",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "string",
-                          "label": "Ownership structure",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "Major shareholders and/or owners of the organization",
-                          "elements": null,
-                          "component": "rich-text",
-                          "attributes": {},
-                          "half_width": false,
-                          "helper_text": "",
-                          "display_order": 1,
-                          "view_component": "rich-text",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        },
-                        {
-                          "id": 791,
-                          "name": "organizationClassificationOther-nameValue-nameValue",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "string",
-                          "label": "Organization classification",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "",
-                          "elements": null,
-                          "component": "text-input",
-                          "attributes": {},
-                          "half_width": true,
-                          "helper_text": "",
-                          "display_order": 1,
-                          "view_component": "key-value-table",
-                          "validation_schema": null,
-                          "display_dependencies": [
-                            {
-                              "field": "organizationClassification-nameValue-nameValue",
-                              "pattern": "Other"
-                            }
-                          ]
-                        },
-                        {
-                          "id": 788,
-                          "name": "governanceStructure-nameValue-nameValue",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "string",
-                          "label": "Governance structure",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "How the organization is governed; all stakeholders involved and systems that guide the organization's decision-making and operations",
-                          "elements": null,
-                          "component": "rich-text",
-                          "attributes": {},
-                          "half_width": false,
-                          "helper_text": "Include the team structure and each organization involved including their responsibilities",
-                          "display_order": 2,
-                          "view_component": "rich-text",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        },
-                        {
-                          "id": 790,
-                          "name": "organizationStructureUpload-projectFile-storage",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "array",
-                          "label": "Ownership and governance structure documentation",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "",
-                          "elements": null,
-                          "component": "file-upload-multiple",
-                          "attributes": null,
-                          "half_width": false,
-                          "helper_text": "Upload schematics or documentation to demonstrate your organization's ownership structure and governance structure",
-                          "display_order": 3,
-                          "view_component": "key-value-table",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        }
-                      ],
-                      "parent_id": 84,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 1
-                    },
-                    {
-                      "id": 404,
-                      "name": "geographicIncorporation",
-                      "label": "Geographic incorporation",
-                      "fields": [
-                        {
-                          "id": 795,
-                          "name": "organizationIncorporationCountry-nameValue-nameValue",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "string",
-                          "label": "Incorporation country",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "",
-                          "elements": null,
-                          "component": "country-select",
-                          "attributes": {},
-                          "half_width": true,
-                          "helper_text": "",
-                          "display_order": 0,
-                          "view_component": "key-value-table",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        },
-                        {
-                          "id": 796,
-                          "name": "organizationIncorporation-nameValue-nameValue",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "string",
-                          "label": "Incorporation city and state",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "Where the organization is incorporated",
-                          "elements": null,
-                          "component": "text-input",
-                          "attributes": null,
-                          "half_width": true,
-                          "helper_text": "Indicate the city and state where the organization is incorporated in the format: [city], [state initials]",
-                          "display_order": 1,
-                          "view_component": "key-value-table",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        }
-                      ],
-                      "parent_id": 84,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 2
-                    },
-                    {
-                      "id": 405,
-                      "name": "operationalScale",
-                      "label": "Operational scale",
-                      "fields": [
-                        {
-                          "id": 792,
-                          "name": "projectEmployees-nameValue-nameValue",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "number",
-                          "label": "Number of employees staffed on project",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "Full-time and part-time employees and contractors who directly work on the project ",
-                          "elements": null,
-                          "component": "text-input",
-                          "attributes": null,
-                          "half_width": true,
-                          "helper_text": "",
-                          "display_order": 1,
-                          "view_component": "key-value-table",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        },
-                        {
-                          "id": 793,
-                          "name": "projectLandowners-nameValue-nameValue",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "number",
-                          "label": "Number of landowners",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "Landowners within project activity, such as farmers",
-                          "elements": null,
-                          "component": "text-input",
-                          "attributes": null,
-                          "half_width": true,
-                          "helper_text": "",
-                          "display_order": 2,
-                          "view_component": "key-value-table",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        }
-                      ],
-                      "parent_id": 84,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 3
-                    },
-                    {
                       "id": 406,
                       "name": "organizationExperience",
                       "label": "Organizational experience",
@@ -3510,6 +3286,296 @@
                           "helper_text": "Describe an overview of the team leads' experience and technical expertise, the details and results of projects the organization has developed (if applicable), and any other significant historical aspects of the Project Proponent organization",
                           "display_order": 3,
                           "view_component": "rich-text",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        }
+                      ],
+                      "parent_id": 84,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 1
+                    },
+                    {
+                      "id": 403,
+                      "name": "organizationStructure",
+                      "label": "Organization structure",
+                      "fields": [
+                        {
+                          "id": 787,
+                          "name": "ownershipStructure-nameValue-nameValue",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "string",
+                          "label": "Ownership structure",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "Major shareholders and/or owners of the organization",
+                          "elements": null,
+                          "component": "rich-text",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 0,
+                          "view_component": "rich-text",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
+                          "id": 791,
+                          "name": "organizationClassificationOther-nameValue-nameValue",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "string",
+                          "label": "Organization classification",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "text-input",
+                          "attributes": {},
+                          "half_width": true,
+                          "helper_text": "",
+                          "display_order": 1,
+                          "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": [
+                            {
+                              "field": "organizationClassification-nameValue-nameValue",
+                              "pattern": "Other"
+                            }
+                          ]
+                        },
+                        {
+                          "id": 789,
+                          "name": "organizationClassification-nameValue-nameValue",
+                          "rows": null,
+                          "tier": 0,
+                          "type": "string",
+                          "label": "Organization classification",
+                          "columns": null,
+                          "options": [
+                            "501(c)(3)",
+                            "B Corporation (B-Corp)",
+                            "Cooperative (Co-op)",
+                            "Foundation",
+                            "Governmental Organization",
+                            "Non-Governmental Organization (NGO)",
+                            "Non-Profit Organization (NPO)",
+                            "Partnership",
+                            "Private Company",
+                            "Public Company",
+                            "Social Enterprise",
+                            "Sole Proprietorship",
+                            "Trust",
+                            "Other"
+                          ],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "select",
+                          "attributes": {
+                            "field": ""
+                          },
+                          "half_width": true,
+                          "helper_text": "",
+                          "display_order": 2,
+                          "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
+                          "id": 788,
+                          "name": "governanceStructure-nameValue-nameValue",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "string",
+                          "label": "Governance structure",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "How the organization is governed; all stakeholders involved and systems that guide the organization's decision-making and operations",
+                          "elements": null,
+                          "component": "rich-text",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "Include the team structure and each organization involved including their responsibilities",
+                          "display_order": 3,
+                          "view_component": "rich-text",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
+                          "id": 790,
+                          "name": "organizationStructureUpload-projectFile-storage",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "array",
+                          "label": "Ownership and governance structure documentation",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "file-upload-multiple",
+                          "attributes": null,
+                          "half_width": false,
+                          "helper_text": "Upload schematics or documentation to demonstrate your organization's ownership structure and governance structure",
+                          "display_order": 4,
+                          "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        }
+                      ],
+                      "parent_id": 84,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 2
+                    },
+                    {
+                      "id": 404,
+                      "name": "geographicIncorporation",
+                      "label": "Geographic incorporation",
+                      "fields": [
+                        {
+                          "id": 1637,
+                          "name": "organizationHeadquartersCountry-nameValue-nameValue",
+                          "rows": null,
+                          "tier": 0,
+                          "type": "string",
+                          "label": "Headquarters country",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "country-select",
+                          "attributes": {
+                            "locationField": [
+                              "latLongCoordinates-nameValue-nameValue",
+                              "addressLocation-nameValue-nameValue",
+                              "geoFileUpload-projectFile-storage",
+                              "countries-nameValue-nameValue"
+                            ]
+                          },
+                          "half_width": true,
+                          "helper_text": "",
+                          "display_order": 0,
+                          "view_component": "location-map",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
+                          "id": 1647,
+                          "name": "organizationHeadquarters-nameValue-nameValue",
+                          "rows": null,
+                          "tier": 0,
+                          "type": "string",
+                          "label": "Headquarters city and state",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "Where the main office of the organization is located",
+                          "elements": null,
+                          "component": "text-input",
+                          "attributes": {
+                            "field": ""
+                          },
+                          "half_width": true,
+                          "helper_text": "Indicate the city and state of the organization's headquarters in the format of [city], [state initials]",
+                          "display_order": 1,
+                          "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
+                          "id": 795,
+                          "name": "organizationIncorporationCountry-nameValue-nameValue",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "string",
+                          "label": "Incorporation country",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "country-select",
+                          "attributes": {},
+                          "half_width": true,
+                          "helper_text": "",
+                          "display_order": 2,
+                          "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
+                          "id": 796,
+                          "name": "organizationIncorporation-nameValue-nameValue",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "string",
+                          "label": "Incorporation city and state",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "Where the organization is incorporated",
+                          "elements": null,
+                          "component": "text-input",
+                          "attributes": null,
+                          "half_width": true,
+                          "helper_text": "Indicate the city and state where the organization is incorporated in the format: [city], [state initials]",
+                          "display_order": 3,
+                          "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        }
+                      ],
+                      "parent_id": 84,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 3
+                    },
+                    {
+                      "id": 405,
+                      "name": "operationalScale",
+                      "label": "Operational scale",
+                      "fields": [
+                        {
+                          "id": 792,
+                          "name": "projectEmployees-nameValue-nameValue",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "number",
+                          "label": "Number of employees staffed on project",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "Full-time and part-time employees and contractors who directly work on the project ",
+                          "elements": null,
+                          "component": "text-input",
+                          "attributes": null,
+                          "half_width": true,
+                          "helper_text": "",
+                          "display_order": 1,
+                          "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
+                          "id": 793,
+                          "name": "projectLandowners-nameValue-nameValue",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "number",
+                          "label": "Number of landowners",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "Landowners within project activity, such as farmers",
+                          "elements": null,
+                          "component": "text-input",
+                          "attributes": null,
+                          "half_width": true,
+                          "helper_text": "",
+                          "display_order": 2,
+                          "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
                         }
@@ -4310,7 +4376,10 @@
                           "tooltip": "",
                           "elements": null,
                           "component": "file-upload-multiple",
-                          "attributes": null,
+                          "attributes": {
+                            "accept": "",
+                            "isPublic": ""
+                          },
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 7,
@@ -7737,8 +7806,8 @@
               "sections": [
                 {
                   "id": 101,
-                  "name": "lifeCycleAssessment",
-                  "label": "Life cycle assessment",
+                  "name": "lcaOverview",
+                  "label": "LCA overview",
                   "parent_id": 1073,
                   "attributes": null,
                   "description": null,
@@ -7746,7 +7815,7 @@
                   "field_groups": [
                     {
                       "id": 197,
-                      "name": "lcaCompletionView",
+                      "name": "lcaHero",
                       "label": "",
                       "fields": [
                         {
@@ -7755,7 +7824,7 @@
                           "rows": null,
                           "tier": -1,
                           "type": "object",
-                          "label": "LCA repository",
+                          "label": "Assessment repository",
                           "columns": [
                             {
                               "name": "lcaTableType",
@@ -7833,6 +7902,39 @@
                               "pattern": "Yes"
                             }
                           ]
+                        }
+                      ],
+                      "parent_id": 101,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    },
+                    {
+                      "id": 1257,
+                      "name": "lcaDetails",
+                      "label": "Supporting evidence",
+                      "fields": [
+                        {
+                          "id": 1025,
+                          "name": "lcaPartial-nameValue-nameValue",
+                          "rows": null,
+                          "tier": 1,
+                          "type": "boolean",
+                          "label": "LCA is used to quantify emissions",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "radio-y-n",
+                          "attributes": null,
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 1,
+                          "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": null
                         },
                         {
                           "id": 274,
@@ -7849,7 +7951,7 @@
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "",
-                          "display_order": 1,
+                          "display_order": 2,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": [
@@ -7858,26 +7960,6 @@
                               "pattern": "Yes"
                             }
                           ]
-                        },
-                        {
-                          "id": 1025,
-                          "name": "lcaPartial-nameValue-nameValue",
-                          "rows": null,
-                          "tier": 1,
-                          "type": "boolean",
-                          "label": "LCA is used to quantify emissions",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "",
-                          "elements": null,
-                          "component": "radio-y-n",
-                          "attributes": null,
-                          "half_width": false,
-                          "helper_text": "",
-                          "display_order": 2,
-                          "view_component": "key-value-table",
-                          "validation_schema": null,
-                          "display_dependencies": null
                         },
                         {
                           "id": 276,
@@ -7910,7 +7992,7 @@
                       "description": "",
                       "nav_type_id": 2,
                       "nav_level_id": 5,
-                      "display_order": 0
+                      "display_order": 1
                     },
                     {
                       "id": 198,
@@ -7923,11 +8005,24 @@
                       "nav_type_id": 2,
                       "nav_level_id": 5,
                       "display_order": 1
-                    },
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 0
+                },
+                {
+                  "id": 1256,
+                  "name": "lcaResults",
+                  "label": "LCA results",
+                  "parent_id": 1073,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 2,
+                  "field_groups": [
                     {
-                      "id": 203,
-                      "name": "lcaResultsView",
-                      "label": "LCA results",
+                      "id": 1258,
+                      "name": "lcaResultsHero",
+                      "label": "",
                       "fields": [
                         {
                           "id": 1350,
@@ -7935,7 +8030,7 @@
                           "rows": null,
                           "tier": -1,
                           "type": "object",
-                          "label": "LCA results",
+                          "label": "Assessment outcomes",
                           "columns": [
                             {
                               "name": "llcaPuroResultsTableStartDate",
@@ -8054,16 +8149,28 @@
                           ]
                         }
                       ],
-                      "parent_id": 101,
+                      "parent_id": 1256,
                       "attributes": {},
                       "description": "",
                       "nav_type_id": 2,
                       "nav_level_id": 5,
-                      "display_order": 6
+                      "display_order": 0
+                    },
+                    {
+                      "id": 203,
+                      "name": "lcaResultsView",
+                      "label": "Supporting evidence",
+                      "fields": null,
+                      "parent_id": 1256,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 1
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 5
+                  "display_order": 1
                 }
               ],
               "parent_id": 1062,
@@ -8152,7 +8259,7 @@
                   "field_groups": [
                     {
                       "id": 176,
-                      "name": "baselineEnergyUseView",
+                      "name": "default",
                       "label": "",
                       "fields": null,
                       "parent_id": 1090,
@@ -8161,6 +8268,18 @@
                       "nav_type_id": 2,
                       "nav_level_id": 5,
                       "display_order": 0
+                    },
+                    {
+                      "id": 1259,
+                      "name": "bslEnergyUseDetails",
+                      "label": "Baseline energy consumption details",
+                      "fields": null,
+                      "parent_id": 1090,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 1
                     },
                     {
                       "id": 177,
@@ -8172,7 +8291,7 @@
                       "description": "",
                       "nav_type_id": 2,
                       "nav_level_id": 5,
-                      "display_order": 1
+                      "display_order": 2
                     },
                     {
                       "id": 1177,
@@ -8184,7 +8303,7 @@
                       "description": "",
                       "nav_type_id": 2,
                       "nav_level_id": 5,
-                      "display_order": 2
+                      "display_order": 3
                     }
                   ],
                   "nav_level_id": 4,
@@ -8862,6 +8981,52 @@
               "label": "Spatial boundaries",
               "sections": [
                 {
+                  "id": 1254,
+                  "name": "aiSummaryDefault",
+                  "label": "",
+                  "parent_id": 48,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1255,
+                      "name": "aiSummaryDefault",
+                      "label": "",
+                      "fields": [
+                        {
+                          "id": 2546,
+                          "name": "spatialBoundaryAiSummary-nameValue-nameValue",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "string",
+                          "label": "",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "ai-summary",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": null,
+                          "view_component": "ai-summary",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        }
+                      ],
+                      "parent_id": 1254,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 0
+                },
+                {
                   "id": 1224,
                   "name": "defaultHero",
                   "label": "",
@@ -8905,7 +9070,7 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 0
+                  "display_order": 1
                 },
                 {
                   "id": 119,
@@ -8921,6 +9086,26 @@
                       "name": "projectBoundaryView",
                       "label": "Project boundary",
                       "fields": [
+                        {
+                          "id": 1870,
+                          "name": "acreage-nameValue-nameValue",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "string",
+                          "label": "Total acreage",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "The total acreage of forestland within the physical project boundaries",
+                          "elements": null,
+                          "component": "text-input",
+                          "attributes": [],
+                          "half_width": false,
+                          "helper_text": "Indicate the total acreage in acres or hectares",
+                          "display_order": 0,
+                          "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
                         {
                           "id": 480,
                           "name": "descriptionGeo-nameValue-nameValue",
@@ -9192,7 +9377,7 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 1
+                  "display_order": 2
                 },
                 {
                   "id": 120,
@@ -9241,7 +9426,7 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 2
+                  "display_order": 3
                 }
               ],
               "parent_id": 1063,
@@ -9256,6 +9441,52 @@
               "name": "systemBoundaries",
               "label": "System boundaries",
               "sections": [
+                {
+                  "id": 1252,
+                  "name": "aiSummaryDefault",
+                  "label": "",
+                  "parent_id": 49,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1253,
+                      "name": "aiSummaryDefault",
+                      "label": "",
+                      "fields": [
+                        {
+                          "id": 2545,
+                          "name": "systemBoundariesAiSummary-nameValue-nameValue",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "string",
+                          "label": "",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "ai-summary",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": null,
+                          "view_component": "ai-summary",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        }
+                      ],
+                      "parent_id": 1252,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 0
+                },
                 {
                   "id": 121,
                   "name": "systemBoundaries",
@@ -9344,7 +9575,7 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 0
+                  "display_order": 1
                 },
                 {
                   "id": 124,
@@ -9486,7 +9717,7 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 1
+                  "display_order": 2
                 },
                 {
                   "id": 122,
@@ -9547,7 +9778,7 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 2
+                  "display_order": 3
                 },
                 {
                   "id": 123,
@@ -9572,7 +9803,7 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 3
+                  "display_order": 4
                 }
               ],
               "parent_id": 1063,
@@ -10423,7 +10654,20 @@
                           "view_component": "data-table",
                           "validation_schema": null,
                           "display_dependencies": null
-                        },
+                        }
+                      ],
+                      "parent_id": 968,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 1
+                    },
+                    {
+                      "id": 338,
+                      "name": "parameterUpdates",
+                      "label": "Parameter monitoring details",
+                      "fields": [
                         {
                           "id": 556,
                           "name": "dataParameters-nameValue-nameValue",
@@ -10439,24 +10683,12 @@
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "Optional space to include any additional details on the parameters used in project calculations",
-                          "display_order": 2,
+                          "display_order": 0,
                           "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
                         }
                       ],
-                      "parent_id": 968,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 1
-                    },
-                    {
-                      "id": 338,
-                      "name": "parameterUpdates",
-                      "label": "Parameter monitoring updates",
-                      "fields": null,
                       "parent_id": 968,
                       "attributes": {},
                       "description": "",
@@ -11229,14 +11461,17 @@
                           "name": "riskManagementPlanUpload-projectFile-storage",
                           "rows": null,
                           "tier": -1,
-                          "type": "object",
+                          "type": "array",
                           "label": "Risk management plan supporting documents",
                           "columns": null,
                           "options": [],
                           "tooltip": "",
                           "elements": null,
-                          "component": "file-upload",
-                          "attributes": null,
+                          "component": "file-upload-multiple",
+                          "attributes": {
+                            "accept": "",
+                            "isPublic": ""
+                          },
                           "half_width": false,
                           "helper_text": "Upload documentation of the risk management plan",
                           "display_order": 3,
@@ -11708,7 +11943,7 @@
               "sections": [
                 {
                   "id": 1029,
-                  "name": "defaultLeakage",
+                  "name": "heroDefault",
                   "label": "",
                   "parent_id": 50,
                   "attributes": {},
@@ -11717,9 +11952,29 @@
                   "field_groups": [
                     {
                       "id": 1030,
-                      "name": "defaultLeakage",
+                      "name": "heroDefault",
                       "label": "",
                       "fields": [
+                        {
+                          "id": 2065,
+                          "name": "leakageAiSummary-nameValue-nameValue",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "string",
+                          "label": "",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "ai-summary",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 0,
+                          "view_component": "ai-summary",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
                         {
                           "id": 1880,
                           "name": "leakageBlockTable-dataTable-dataTable",
@@ -11790,7 +12045,7 @@
                           "attributes": [],
                           "half_width": false,
                           "helper_text": "",
-                          "display_order": 0,
+                          "display_order": 1,
                           "view_component": "block-table",
                           "validation_schema": null,
                           "display_dependencies": [
@@ -11799,26 +12054,6 @@
                               "pattern": "Yes"
                             }
                           ]
-                        },
-                        {
-                          "id": 2065,
-                          "name": "leakageAiSummary-nameValue-nameValue",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "string",
-                          "label": "",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "",
-                          "elements": null,
-                          "component": "ai-summary",
-                          "attributes": {},
-                          "half_width": false,
-                          "helper_text": "",
-                          "display_order": null,
-                          "view_component": "ai-summary",
-                          "validation_schema": null,
-                          "display_dependencies": null
                         }
                       ],
                       "parent_id": 1029,
@@ -11846,26 +12081,6 @@
                       "name": "leakageConditionalView",
                       "label": "",
                       "fields": [
-                        {
-                          "id": 785,
-                          "name": "leakageActualsConditional-nameValue-nameValue",
-                          "rows": null,
-                          "tier": 2,
-                          "type": "boolean",
-                          "label": "Project accounts for leakage",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "",
-                          "elements": null,
-                          "component": "radio-y-n",
-                          "attributes": {},
-                          "half_width": true,
-                          "helper_text": "",
-                          "display_order": 0,
-                          "view_component": "key-value-table",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        },
                         {
                           "id": 311,
                           "name": "leakageDataGrid-dataGrid-dataGrid",
@@ -11904,7 +12119,7 @@
                         },
                         {
                           "id": 166,
-                          "name": "leakageTableUpdate-dataGrid-dataGrid",
+                          "name": "leakageGridVerra-dataGrid-dataGrid",
                           "rows": null,
                           "tier": 2,
                           "type": "object",
@@ -11944,6 +12159,39 @@
                               "pattern": "Yes"
                             }
                           ]
+                        }
+                      ],
+                      "parent_id": 126,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    },
+                    {
+                      "id": 1260,
+                      "name": "leakageCalculationDetails",
+                      "label": "Calculation details",
+                      "fields": [
+                        {
+                          "id": 785,
+                          "name": "leakageActualsConditional-nameValue-nameValue",
+                          "rows": null,
+                          "tier": 2,
+                          "type": "boolean",
+                          "label": "Project accounts for leakage",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "radio-y-n",
+                          "attributes": {},
+                          "half_width": true,
+                          "helper_text": "",
+                          "display_order": 0,
+                          "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": null
                         },
                         {
                           "id": 551,
@@ -11976,7 +12224,7 @@
                       "description": "",
                       "nav_type_id": 2,
                       "nav_level_id": 5,
-                      "display_order": 0
+                      "display_order": 1
                     }
                   ],
                   "nav_level_id": 4,
@@ -12093,6 +12341,18 @@
                       "display_order": 0
                     },
                     {
+                      "id": 1261,
+                      "name": "leakageSourceDetails",
+                      "label": "Sources of leakage details",
+                      "fields": null,
+                      "parent_id": 1100,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 1
+                    },
+                    {
                       "id": 298,
                       "name": "marketLeakageView",
                       "label": "Market leakage",
@@ -12162,7 +12422,7 @@
                       "description": "",
                       "nav_type_id": 2,
                       "nav_level_id": 5,
-                      "display_order": 1
+                      "display_order": 2
                     },
                     {
                       "id": 299,
@@ -12228,7 +12488,7 @@
                       "description": "",
                       "nav_type_id": 2,
                       "nav_level_id": 5,
-                      "display_order": 2
+                      "display_order": 3
                     },
                     {
                       "id": 295,
@@ -12240,7 +12500,7 @@
                       "description": "",
                       "nav_type_id": 2,
                       "nav_level_id": 5,
-                      "display_order": 3
+                      "display_order": 4
                     }
                   ],
                   "nav_level_id": 4,
@@ -12258,7 +12518,7 @@
                     {
                       "id": 300,
                       "name": "leakageActualsEvidence",
-                      "label": "",
+                      "label": "Supporting documents",
                       "fields": [
                         {
                           "id": 536,
@@ -12788,7 +13048,7 @@
               "sections": [
                 {
                   "id": 1132,
-                  "name": "default",
+                  "name": "aiSummaryDefault",
                   "label": "",
                   "parent_id": 46,
                   "attributes": {},
@@ -12797,7 +13057,7 @@
                   "field_groups": [
                     {
                       "id": 1134,
-                      "name": "default",
+                      "name": "aiSummaryDefault",
                       "label": "",
                       "fields": [
                         {
@@ -12819,7 +13079,33 @@
                           "view_component": "ai-summary",
                           "validation_schema": null,
                           "display_dependencies": null
-                        },
+                        }
+                      ],
+                      "parent_id": 1132,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 0
+                },
+                {
+                  "id": 108,
+                  "name": "overviewHero",
+                  "label": "Overview",
+                  "parent_id": 46,
+                  "attributes": null,
+                  "description": null,
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 267,
+                      "name": "blockTableDefault",
+                      "label": "",
+                      "fields": [
                         {
                           "id": 2052,
                           "name": "additionalityBlockTable-dataTable-dataTable",
@@ -12858,30 +13144,17 @@
                           "display_dependencies": null
                         }
                       ],
-                      "parent_id": 1132,
+                      "parent_id": 108,
                       "attributes": {},
                       "description": "",
                       "nav_type_id": 2,
                       "nav_level_id": 5,
                       "display_order": 0
-                    }
-                  ],
-                  "nav_level_id": 4,
-                  "display_order": 0
-                },
-                {
-                  "id": 108,
-                  "name": "generalDetails",
-                  "label": "General details",
-                  "parent_id": 46,
-                  "attributes": null,
-                  "description": null,
-                  "nav_type_id": 2,
-                  "field_groups": [
+                    },
                     {
                       "id": 266,
-                      "name": "additionalityMethodView",
-                      "label": "",
+                      "name": "additionalityDetails",
+                      "label": "Additionality approaches used by the project",
                       "fields": [
                         {
                           "id": 811,
@@ -12915,20 +13188,7 @@
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
-                        }
-                      ],
-                      "parent_id": 108,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 0
-                    },
-                    {
-                      "id": 267,
-                      "name": "additionalityValidation",
-                      "label": "",
-                      "fields": [
+                        },
                         {
                           "id": 226,
                           "name": "validationAdditionality-nameValue-nameValue",
@@ -12944,7 +13204,7 @@
                           "attributes": null,
                           "half_width": false,
                           "helper_text": "Confirm validation by a VVB and/or the carbon-crediting program",
-                          "display_order": 1,
+                          "display_order": 5,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -12964,37 +13224,12 @@
                           "attributes": null,
                           "half_width": true,
                           "helper_text": "",
-                          "display_order": 2,
+                          "display_order": 6,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
                               "field": "validationAdditionality-nameValue-nameValue",
-                              "pattern": "Yes"
-                            }
-                          ]
-                        },
-                        {
-                          "id": 261,
-                          "name": "recentUpdate-nameValue-nameValue",
-                          "rows": null,
-                          "tier": 3,
-                          "type": "number",
-                          "label": "Latest review",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "The most recent year that the assessment for the standardized approach was reviewed",
-                          "elements": null,
-                          "component": "year-input",
-                          "attributes": null,
-                          "half_width": true,
-                          "helper_text": "Indicate the most recent review year",
-                          "display_order": 3,
-                          "view_component": "key-value-table",
-                          "validation_schema": null,
-                          "display_dependencies": [
-                            {
-                              "field": "standardizedApproach-nameValue-nameValue",
                               "pattern": "Yes"
                             }
                           ]
@@ -13014,7 +13249,7 @@
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "",
-                          "display_order": 5,
+                          "display_order": 7,
                           "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
@@ -14510,31 +14745,6 @@
                       "label": "Other standardized approach",
                       "fields": [
                         {
-                          "id": 257,
-                          "name": "standardizedApproach-nameValue-nameValue",
-                          "rows": null,
-                          "tier": 1,
-                          "type": "boolean",
-                          "label": "The project uses another standardized approach to demonstrate additionality",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "",
-                          "elements": null,
-                          "component": "radio-y-n",
-                          "attributes": {},
-                          "half_width": false,
-                          "helper_text": "",
-                          "display_order": 1,
-                          "view_component": "key-value-table",
-                          "validation_schema": null,
-                          "display_dependencies": [
-                            {
-                              "field": "additionalityApproachUsed-nameValue-nameValue",
-                              "pattern": "Other standardized approach"
-                            }
-                          ]
-                        },
-                        {
                           "id": 136,
                           "name": "additionalAdditionality-nameValue-nameValue",
                           "rows": null,
@@ -14549,6 +14759,31 @@
                           "attributes": null,
                           "half_width": false,
                           "helper_text": "",
+                          "display_order": 1,
+                          "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": [
+                            {
+                              "field": "additionalityApproachUsed-nameValue-nameValue",
+                              "pattern": "Other standardized approach"
+                            }
+                          ]
+                        },
+                        {
+                          "id": 261,
+                          "name": "recentUpdate-nameValue-nameValue",
+                          "rows": null,
+                          "tier": 3,
+                          "type": "number",
+                          "label": "Latest review",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "The most recent year that the assessment for the standardized approach was reviewed",
+                          "elements": null,
+                          "component": "year-input",
+                          "attributes": {},
+                          "half_width": true,
+                          "helper_text": "Indicate the most recent review year",
                           "display_order": 2,
                           "view_component": "key-value-table",
                           "validation_schema": null,
@@ -14649,7 +14884,7 @@
               ],
               "parent_id": 22,
               "attributes": null,
-              "description": "What makes the project additional",
+              "description": "Analysis demonstrating the project's carbon impact would not have occurred without the project activity",
               "nav_type_id": 2,
               "nav_level_id": 3,
               "display_order": 0
@@ -14901,7 +15136,7 @@
               ],
               "parent_id": 22,
               "attributes": null,
-              "description": "Measuring the project's financial impact over time",
+              "description": "Economic assessment of the project's overall financial value and profitability over time",
               "nav_type_id": 2,
               "nav_level_id": 3,
               "display_order": 1
@@ -15011,6 +15246,26 @@
                               "pattern": "Yes"
                             }
                           ]
+                        },
+                        {
+                          "id": 2544,
+                          "name": "validationAiSummary-nameValue-nameValue",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "string",
+                          "label": "",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "ai-summary",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": null,
+                          "view_component": "ai-summary",
+                          "validation_schema": null,
+                          "display_dependencies": null
                         }
                       ],
                       "parent_id": 1222,
@@ -16173,205 +16428,6 @@
       "attributes": null,
       "step_groups": [
         {
-          "id": 1238,
-          "name": "impactStories",
-          "label": "Impact stories",
-          "steps": [
-            {
-              "id": 1181,
-              "name": "cobenefitSummaryStep",
-              "label": "Story highlights",
-              "sections": [
-                {
-                  "id": 1186,
-                  "name": "default",
-                  "label": "",
-                  "parent_id": 1181,
-                  "attributes": {},
-                  "description": "",
-                  "nav_type_id": 2,
-                  "field_groups": [
-                    {
-                      "id": 1187,
-                      "name": "default",
-                      "label": "",
-                      "fields": null,
-                      "parent_id": 1186,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 0
-                    }
-                  ],
-                  "nav_level_id": 4,
-                  "display_order": 0
-                },
-                {
-                  "id": 1190,
-                  "name": "impactStory1",
-                  "label": "",
-                  "parent_id": 1181,
-                  "attributes": {},
-                  "description": "",
-                  "nav_type_id": 2,
-                  "field_groups": [
-                    {
-                      "id": 1231,
-                      "name": "default",
-                      "label": "",
-                      "fields": null,
-                      "parent_id": 1190,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 0
-                    },
-                    {
-                      "id": 1191,
-                      "name": "impactStoryOne",
-                      "label": "Details of first impact story",
-                      "fields": null,
-                      "parent_id": 1190,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 1
-                    }
-                  ],
-                  "nav_level_id": 4,
-                  "display_order": 0
-                },
-                {
-                  "id": 1228,
-                  "name": "impactStory2",
-                  "label": "",
-                  "parent_id": 1181,
-                  "attributes": {},
-                  "description": "",
-                  "nav_type_id": 2,
-                  "field_groups": [
-                    {
-                      "id": 1232,
-                      "name": "default",
-                      "label": "",
-                      "fields": null,
-                      "parent_id": 1228,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 0
-                    },
-                    {
-                      "id": 1233,
-                      "name": "impactStoryTwo",
-                      "label": "Details of second impact story",
-                      "fields": null,
-                      "parent_id": 1228,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 0
-                    }
-                  ],
-                  "nav_level_id": 4,
-                  "display_order": 0
-                },
-                {
-                  "id": 1229,
-                  "name": "impactStory3",
-                  "label": "",
-                  "parent_id": 1181,
-                  "attributes": {},
-                  "description": "",
-                  "nav_type_id": 2,
-                  "field_groups": [
-                    {
-                      "id": 1234,
-                      "name": "default",
-                      "label": "",
-                      "fields": null,
-                      "parent_id": 1229,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 0
-                    },
-                    {
-                      "id": 1202,
-                      "name": "impactStoryThree",
-                      "label": "Details of third impact story",
-                      "fields": null,
-                      "parent_id": 1229,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 2
-                    }
-                  ],
-                  "nav_level_id": 4,
-                  "display_order": 0
-                },
-                {
-                  "id": 1230,
-                  "name": "impactStory4",
-                  "label": "",
-                  "parent_id": 1181,
-                  "attributes": {},
-                  "description": "",
-                  "nav_type_id": 2,
-                  "field_groups": [
-                    {
-                      "id": 1235,
-                      "name": "default",
-                      "label": "",
-                      "fields": null,
-                      "parent_id": 1230,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 0
-                    },
-                    {
-                      "id": 1203,
-                      "name": "impactStoryFour",
-                      "label": "Details of fourth impact story",
-                      "fields": null,
-                      "parent_id": 1230,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 3
-                    }
-                  ],
-                  "nav_level_id": 4,
-                  "display_order": 0
-                }
-              ],
-              "parent_id": 1238,
-              "attributes": {},
-              "description": "",
-              "nav_type_id": 2,
-              "nav_level_id": 3,
-              "display_order": 0
-            }
-          ],
-          "parent_id": 15,
-          "attributes": {},
-          "description": "",
-          "nav_type_id": 2,
-          "nav_level_id": 2,
-          "display_order": 0
-        },
-        {
           "id": 27,
           "name": "sdg",
           "label": "SDGs",
@@ -16442,8 +16498,8 @@
                               "options": [],
                               "tooltip": "",
                               "column_id": 1837,
-                              "component": "text-input",
-                              "attributes": null,
+                              "component": "textarea",
+                              "attributes": {},
                               "helper_text": "",
                               "column_order": 0,
                               "view_component": "truncated-text",
@@ -16484,8 +16540,8 @@
                               "options": [],
                               "tooltip": "",
                               "column_id": 1838,
-                              "component": "text-input",
-                              "attributes": null,
+                              "component": "textarea",
+                              "attributes": {},
                               "helper_text": "",
                               "column_order": 3,
                               "view_component": "truncated-text",
@@ -16626,6 +16682,244 @@
           "parent_id": 15,
           "attributes": null,
           "description": null,
+          "nav_type_id": 2,
+          "nav_level_id": 2,
+          "display_order": 0
+        },
+        {
+          "id": 1238,
+          "name": "impactStories",
+          "label": "Impact stories",
+          "steps": [
+            {
+              "id": 1181,
+              "name": "impactStory1",
+              "label": "Story 1",
+              "sections": [
+                {
+                  "id": 1186,
+                  "name": "default",
+                  "label": "",
+                  "parent_id": 1181,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1187,
+                      "name": "default",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1186,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 0
+                },
+                {
+                  "id": 1190,
+                  "name": "impactStory1",
+                  "label": "",
+                  "parent_id": 1181,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1231,
+                      "name": "default",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1190,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    },
+                    {
+                      "id": 1191,
+                      "name": "impactStoryOne",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1190,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 1
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 0
+                }
+              ],
+              "parent_id": 1238,
+              "attributes": {},
+              "description": "",
+              "nav_type_id": 2,
+              "nav_level_id": 3,
+              "display_order": 0
+            },
+            {
+              "id": 1249,
+              "name": "impactStory2",
+              "label": "Story 2",
+              "sections": [
+                {
+                  "id": 1228,
+                  "name": "impactStory2",
+                  "label": "",
+                  "parent_id": 1249,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1232,
+                      "name": "default",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1228,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    },
+                    {
+                      "id": 1233,
+                      "name": "impactStoryTwo",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1228,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 0
+                }
+              ],
+              "parent_id": 1238,
+              "attributes": {},
+              "description": "",
+              "nav_type_id": 2,
+              "nav_level_id": 3,
+              "display_order": 1
+            },
+            {
+              "id": 1250,
+              "name": "impactStory3",
+              "label": "Story 3",
+              "sections": [
+                {
+                  "id": 1229,
+                  "name": "impactStory3",
+                  "label": "",
+                  "parent_id": 1250,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1234,
+                      "name": "default",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1229,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    },
+                    {
+                      "id": 1202,
+                      "name": "impactStoryThree",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1229,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 2
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 0
+                }
+              ],
+              "parent_id": 1238,
+              "attributes": {},
+              "description": "",
+              "nav_type_id": 2,
+              "nav_level_id": 3,
+              "display_order": 2
+            },
+            {
+              "id": 1251,
+              "name": "impactStory4",
+              "label": "Story 4",
+              "sections": [
+                {
+                  "id": 1230,
+                  "name": "impactStory4",
+                  "label": "",
+                  "parent_id": 1251,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1235,
+                      "name": "default",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1230,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    },
+                    {
+                      "id": 1203,
+                      "name": "impactStoryFour",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1230,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 1
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 0
+                }
+              ],
+              "parent_id": 1238,
+              "attributes": {},
+              "description": "",
+              "nav_type_id": 2,
+              "nav_level_id": 3,
+              "display_order": 3
+            }
+          ],
+          "parent_id": 15,
+          "attributes": {},
+          "description": "",
           "nav_type_id": 2,
           "nav_level_id": 2,
           "display_order": 1
@@ -18180,34 +18474,6 @@
                           "helper_text": "Use this space to indicate the high level socioeconomic impacts due to the project. Detailed results can be reported in the sections below.",
                           "display_order": 0,
                           "view_component": "rich-text",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        },
-                        {
-                          "id": 1606,
-                          "name": "socioParentConditional-nameValue-nameValue",
-                          "rows": null,
-                          "tier": 2,
-                          "type": "array",
-                          "label": "Socioeconomic impacts monitored by the project",
-                          "columns": null,
-                          "options": [
-                            "Involuntary displacement",
-                            "Stakeholder participation",
-                            "Workforce and capacity building",
-                            "Economic and benefit sharing",
-                            "Health and sanitation"
-                          ],
-                          "tooltip": "",
-                          "elements": null,
-                          "component": "select-multiple",
-                          "attributes": {
-                            "field": ""
-                          },
-                          "half_width": false,
-                          "helper_text": "",
-                          "display_order": 0,
-                          "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
                         }
@@ -22626,37 +22892,6 @@
                           "helper_text": "Use this space to indicate the high level ecological impacts due to the project. Detailed results can be reported in the sections below.",
                           "display_order": 0,
                           "view_component": "rich-text",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        },
-                        {
-                          "id": 1567,
-                          "name": "ecoParentConditional-nameValue-nameValue",
-                          "rows": null,
-                          "tier": 2,
-                          "type": "array",
-                          "label": "Ecological impacts monitored by the project",
-                          "columns": null,
-                          "options": [
-                            "Air quality",
-                            "Water quality",
-                            "Water availability",
-                            "Biodiversity",
-                            "Soil quality",
-                            "Marine and coastal health",
-                            "Noise pollution",
-                            "Infrastructure development"
-                          ],
-                          "tooltip": "",
-                          "elements": null,
-                          "component": "select-multiple",
-                          "attributes": {
-                            "field": ""
-                          },
-                          "half_width": false,
-                          "helper_text": "",
-                          "display_order": 0,
-                          "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
                         }

@@ -1,7 +1,7 @@
 {
   "dataSchema": "QA-ACR1.3-cgV1.0.0",
   "navigation": "form2.0-config",
-  "versionDate": "2025-08-19T11:29:21-07:00",
+  "versionDate": "2025-08-27T15:11:20-07:00",
   "methodology": {
     "id": 13,
     "nickname": "QA-ACR1.3",
@@ -660,7 +660,9 @@
                           "tooltip": "",
                           "elements": null,
                           "component": "select",
-                          "attributes": null,
+                          "attributes": {
+                            "field": ""
+                          },
                           "half_width": true,
                           "helper_text": "",
                           "display_order": 10,
@@ -800,7 +802,7 @@
                           "attributes": {},
                           "half_width": true,
                           "helper_text": "",
-                          "display_order": 1,
+                          "display_order": 0,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -820,7 +822,7 @@
                           "attributes": null,
                           "half_width": true,
                           "helper_text": "",
-                          "display_order": 2,
+                          "display_order": 1,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": [
@@ -847,7 +849,7 @@
                           },
                           "half_width": true,
                           "helper_text": "Indicate which version of the carbon crediting program's standard the project was developed against (e.g., VCS Version 4.0, Puro General Rules 4.0)",
-                          "display_order": 3,
+                          "display_order": 2,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -869,7 +871,7 @@
                           },
                           "half_width": true,
                           "helper_text": "If relevant, provide the project's listing page on its given registry",
-                          "display_order": 4,
+                          "display_order": 3,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -891,7 +893,7 @@
                           },
                           "half_width": true,
                           "helper_text": "",
-                          "display_order": 5,
+                          "display_order": 4,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -911,7 +913,7 @@
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "Use this space to include any missing or additional information about the fundamental project approach",
-                          "display_order": 6,
+                          "display_order": 7,
                           "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -934,7 +936,7 @@
                           },
                           "half_width": false,
                           "helper_text": "",
-                          "display_order": 7,
+                          "display_order": 8,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -984,7 +986,7 @@
                           "rows": null,
                           "tier": 0,
                           "type": "string",
-                          "label": "Country or countries of project activity",
+                          "label": "Project location",
                           "columns": null,
                           "options": [],
                           "tooltip": "Country or countries where the project activities take place",
@@ -999,7 +1001,7 @@
                             ]
                           },
                           "half_width": false,
-                          "helper_text": "",
+                          "helper_text": "Indicate country or countries of project activity",
                           "display_order": 0,
                           "view_component": "location-map",
                           "validation_schema": null,
@@ -1036,7 +1038,7 @@
                           "rows": null,
                           "tier": -1,
                           "type": "array",
-                          "label": "Enter coordinates",
+                          "label": "Coordinates",
                           "columns": null,
                           "options": [],
                           "tooltip": "",
@@ -1044,7 +1046,7 @@
                           "component": "text-input-multiple",
                           "attributes": {},
                           "half_width": false,
-                          "helper_text": "e.g 37.448056, -122.161240",
+                          "helper_text": "Enter latitude and longitude coordinates (e.g., 37.448056, -122.161240)",
                           "display_order": 2,
                           "view_component": "media-loaction",
                           "validation_schema": null,
@@ -1061,7 +1063,7 @@
                           "rows": null,
                           "tier": -1,
                           "type": null,
-                          "label": "Upload file",
+                          "label": "Geospatial file",
                           "columns": null,
                           "options": [],
                           "tooltip": "",
@@ -1089,7 +1091,7 @@
                           "rows": null,
                           "tier": -1,
                           "type": null,
-                          "label": "Enter an address, city, state/province, or region",
+                          "label": "Address, city, state/province, or region",
                           "columns": null,
                           "options": [],
                           "tooltip": "",
@@ -1140,7 +1142,7 @@
                           "tooltip": "Additional context on the conflict-affected area(s) and the additional measures taken to implement the project",
                           "elements": null,
                           "component": "rich-text",
-                          "attributes": null,
+                          "attributes": {},
                           "half_width": false,
                           "helper_text": "Provide additional context on the conflict-affected area and the additional measures considered when implementing the project",
                           "display_order": 6,
@@ -8352,7 +8354,7 @@
                           "rows": null,
                           "tier": -1,
                           "type": "object",
-                          "label": "LCA repository",
+                          "label": "Assessment repository",
                           "columns": [
                             {
                               "name": "lcaTableType",
@@ -8652,7 +8654,7 @@
                           "rows": null,
                           "tier": -1,
                           "type": "object",
-                          "label": "LCA results",
+                          "label": "Assessment outcomes",
                           "columns": [
                             {
                               "name": "llcaPuroResultsTableStartDate",
@@ -10421,36 +10423,6 @@
                           "display_dependencies": null
                         },
                         {
-                          "id": 2178,
-                          "name": "adaptiveCapacityEvaluationSeceltionRmifw-nameValue-nameValue",
-                          "rows": null,
-                          "tier": 1,
-                          "type": "array",
-                          "label": "Adaptive capacity evaluation selection",
-                          "columns": null,
-                          "options": [
-                            "Variety",
-                            "Learning Capacity",
-                            "Room for Change",
-                            "Leadership",
-                            "Resources",
-                            "Fair Governance",
-                            "Innovation"
-                          ],
-                          "tooltip": "Adaptive capacity can be described as considerations a project proponent has taken into account when developing a project that mitigates future risk of climate change. Please refer to the Verra AFOLU Non Permanence Risk Tool for further details on the options provided.",
-                          "elements": null,
-                          "component": "select-multiple",
-                          "attributes": {
-                            "field": ""
-                          },
-                          "half_width": false,
-                          "helper_text": "Indicate if the project proponent considered the following in terms of evaluating adaptive capacity to future climate change.",
-                          "display_order": 1,
-                          "view_component": "key-value-table",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        },
-                        {
                           "id": 65,
                           "name": "reversalRiskMitigationStrategy-nameValue-nameValue",
                           "rows": null,
@@ -10484,6 +10456,36 @@
                               "pattern": "Yes"
                             }
                           ]
+                        },
+                        {
+                          "id": 2178,
+                          "name": "adaptiveCapacityEvaluationSeceltionRmifw-nameValue-nameValue",
+                          "rows": null,
+                          "tier": 1,
+                          "type": "array",
+                          "label": "Adaptive capacity evaluation selection",
+                          "columns": null,
+                          "options": [
+                            "Variety",
+                            "Learning Capacity",
+                            "Room for Change",
+                            "Leadership",
+                            "Resources",
+                            "Fair Governance",
+                            "Innovation"
+                          ],
+                          "tooltip": "Adaptive capacity can be described as considerations a project proponent has taken into account when developing a project that mitigates future risk of climate change. Please refer to the Verra AFOLU Non Permanence Risk Tool for further details on the options provided.",
+                          "elements": null,
+                          "component": "select-multiple",
+                          "attributes": {
+                            "field": ""
+                          },
+                          "half_width": false,
+                          "helper_text": "Indicate if the project proponent considered the following in terms of evaluating adaptive capacity to future climate change.",
+                          "display_order": 1,
+                          "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": null
                         },
                         {
                           "id": 2179,
@@ -10561,14 +10563,17 @@
                           "name": "riskManagementPlanUpload-projectFile-storage",
                           "rows": null,
                           "tier": -1,
-                          "type": "object",
+                          "type": "array",
                           "label": "Risk management plan supporting documents",
                           "columns": null,
                           "options": [],
                           "tooltip": "",
                           "elements": null,
-                          "component": "file-upload",
-                          "attributes": null,
+                          "component": "file-upload-multiple",
+                          "attributes": {
+                            "accept": "",
+                            "isPublic": ""
+                          },
                           "half_width": false,
                           "helper_text": "Upload documentation of the risk management plan",
                           "display_order": 3,
@@ -10771,31 +10776,6 @@
                           "display_dependencies": [
                             {
                               "field": "validationAdditionality-nameValue-nameValue",
-                              "pattern": "Yes"
-                            }
-                          ]
-                        },
-                        {
-                          "id": 261,
-                          "name": "recentUpdate-nameValue-nameValue",
-                          "rows": null,
-                          "tier": 3,
-                          "type": "number",
-                          "label": "Latest review",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "The most recent year that the assessment for the standardized approach was reviewed",
-                          "elements": null,
-                          "component": "year-input",
-                          "attributes": null,
-                          "half_width": true,
-                          "helper_text": "Indicate the most recent review year",
-                          "display_order": 7,
-                          "view_component": "key-value-table",
-                          "validation_schema": null,
-                          "display_dependencies": [
-                            {
-                              "field": "standardizedApproach-nameValue-nameValue",
                               "pattern": "Yes"
                             }
                           ]
@@ -12298,31 +12278,6 @@
                       "label": "",
                       "fields": [
                         {
-                          "id": 257,
-                          "name": "standardizedApproach-nameValue-nameValue",
-                          "rows": null,
-                          "tier": 1,
-                          "type": "boolean",
-                          "label": "The project uses another standardized approach to demonstrate additionality",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "",
-                          "elements": null,
-                          "component": "radio-y-n",
-                          "attributes": {},
-                          "half_width": false,
-                          "helper_text": "",
-                          "display_order": 1,
-                          "view_component": "key-value-table",
-                          "validation_schema": null,
-                          "display_dependencies": [
-                            {
-                              "field": "additionalityApproachUsed-nameValue-nameValue",
-                              "pattern": "Other standardized approach"
-                            }
-                          ]
-                        },
-                        {
                           "id": 136,
                           "name": "additionalAdditionality-nameValue-nameValue",
                           "rows": null,
@@ -12337,6 +12292,31 @@
                           "attributes": null,
                           "half_width": false,
                           "helper_text": "",
+                          "display_order": 1,
+                          "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": [
+                            {
+                              "field": "additionalityApproachUsed-nameValue-nameValue",
+                              "pattern": "Other standardized approach"
+                            }
+                          ]
+                        },
+                        {
+                          "id": 261,
+                          "name": "recentUpdate-nameValue-nameValue",
+                          "rows": null,
+                          "tier": 3,
+                          "type": "number",
+                          "label": "Latest review",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "The most recent year that the assessment for the standardized approach was reviewed",
+                          "elements": null,
+                          "component": "year-input",
+                          "attributes": {},
+                          "half_width": true,
+                          "helper_text": "Indicate the most recent review year",
                           "display_order": 2,
                           "view_component": "key-value-table",
                           "validation_schema": null,
@@ -14460,7 +14440,7 @@
                         },
                         {
                           "id": 166,
-                          "name": "leakageTableUpdate-dataGrid-dataGrid",
+                          "name": "leakageGridVerra-dataGrid-dataGrid",
                           "rows": null,
                           "tier": 2,
                           "type": "object",
@@ -15447,7 +15427,10 @@
                           "tooltip": "",
                           "elements": null,
                           "component": "file-upload-multiple",
-                          "attributes": null,
+                          "attributes": {
+                            "accept": "",
+                            "isPublic": ""
+                          },
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 1,
@@ -16284,26 +16267,6 @@
                       "label": "",
                       "fields": [
                         {
-                          "id": 1689,
-                          "name": "socioImpactSummary-nameValue-nameValue",
-                          "rows": null,
-                          "tier": 2,
-                          "type": "string",
-                          "label": "Summary of actual socioeconomic impacts due to project activities",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "A high-level overview of the socioeconomic impacts associated with the project activities",
-                          "elements": null,
-                          "component": "rich-text",
-                          "attributes": {},
-                          "half_width": false,
-                          "helper_text": "Use this space to indicate the high level socioeconomic impacts due to the project. Detailed results can be reported in the sections below.",
-                          "display_order": 0,
-                          "view_component": "rich-text",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        },
-                        {
                           "id": 1606,
                           "name": "socioParentConditional-nameValue-nameValue",
                           "rows": null,
@@ -16328,6 +16291,26 @@
                           "helper_text": "",
                           "display_order": 0,
                           "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
+                          "id": 1689,
+                          "name": "socioImpactSummary-nameValue-nameValue",
+                          "rows": null,
+                          "tier": 2,
+                          "type": "string",
+                          "label": "Summary of actual socioeconomic impacts due to project activities",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "A high-level overview of the socioeconomic impacts associated with the project activities",
+                          "elements": null,
+                          "component": "rich-text",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "Use this space to indicate the high level socioeconomic impacts due to the project. Detailed results can be reported in the sections below.",
+                          "display_order": 0,
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
                         }
@@ -19357,26 +19340,6 @@
                       "label": "",
                       "fields": [
                         {
-                          "id": 1688,
-                          "name": "ecoImpactsSummary-nameValue-nameValue",
-                          "rows": null,
-                          "tier": 2,
-                          "type": "string",
-                          "label": "Summary of actual ecological impacts due to project activities",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "",
-                          "elements": null,
-                          "component": "rich-text",
-                          "attributes": {},
-                          "half_width": false,
-                          "helper_text": "Use this space to indicate the high level ecological impacts due to the project. Detailed results can be reported in the sections below.",
-                          "display_order": 0,
-                          "view_component": "rich-text",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        },
-                        {
                           "id": 1567,
                           "name": "ecoParentConditional-nameValue-nameValue",
                           "rows": null,
@@ -19404,6 +19367,26 @@
                           "helper_text": "",
                           "display_order": 0,
                           "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
+                          "id": 1688,
+                          "name": "ecoImpactsSummary-nameValue-nameValue",
+                          "rows": null,
+                          "tier": 2,
+                          "type": "string",
+                          "label": "Summary of actual ecological impacts due to project activities",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "rich-text",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "Use this space to indicate the high level ecological impacts due to the project. Detailed results can be reported in the sections below.",
+                          "display_order": 0,
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
                         }
@@ -22640,7 +22623,7 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 0
+                  "display_order": 1
                 },
                 {
                   "id": 1194,
@@ -22665,7 +22648,7 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 1
+                  "display_order": 2
                 },
                 {
                   "id": 1195,
@@ -22690,7 +22673,7 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 2
+                  "display_order": 3
                 },
                 {
                   "id": 1196,
@@ -22715,7 +22698,7 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 3
+                  "display_order": 4
                 }
               ],
               "parent_id": 437,
@@ -22791,8 +22774,8 @@
                               "options": [],
                               "tooltip": "",
                               "column_id": 1837,
-                              "component": "text-input",
-                              "attributes": null,
+                              "component": "textarea",
+                              "attributes": {},
                               "helper_text": "",
                               "column_order": 0,
                               "view_component": "truncated-text",
@@ -22833,8 +22816,8 @@
                               "options": [],
                               "tooltip": "",
                               "column_id": 1838,
-                              "component": "text-input",
-                              "attributes": null,
+                              "component": "textarea",
+                              "attributes": {},
                               "helper_text": "",
                               "column_order": 3,
                               "view_component": "truncated-text",
