@@ -73,11 +73,15 @@ export class FieldHandler {
     }
 
     if (component === COMPONENT_TYPES.COUNTRY_SELECT) {
-      return this.page.getByText(fieldLabel, { exact: true });
+      return this.page.locator('.field').filter({
+        has: this.page.getByText(fieldLabel, { exact: true })
+      })    
     }
 
     if (component === COMPONENT_TYPES.DATA_GRID) {
-      return this.page.getByText(fieldLabel, { exact: true });
+      return this.page.locator('.field').filter({
+        has: this.page.getByText(fieldLabel, { exact: true })
+      })
     }
 
     if (component === COMPONENT_TYPES.DATA_TABLE) {
@@ -449,7 +453,7 @@ export class FieldHandler {
 
   //Validate the Warning Banner in Data Grid 
   async validateDataGridWarningBanner(locator) {
-    const banner = await locator.locator('..').locator('..').locator('.banner');
+    const banner = await locator.locator('.banner');
     await expect(banner).toBeVisible();
 
     const bannerHeading = await banner.getByRole('heading', { name: 'Period not defined' });
@@ -468,7 +472,7 @@ export class FieldHandler {
 
   // Validating the Data Grid Fields 
   async validateDataGridFields(locator, field, startYear, endYear) {
-    const dataGridField = await locator.locator('..').locator('..').getByRole('grid');
+    const dataGridField = await locator.getByRole('grid');
     await expect(dataGridField).toBeVisible();
     const headerLeft = await dataGridField.locator('.ag-header').locator('.ag-pinned-left-header ');
     await expect(headerLeft).toBeVisible();
@@ -477,6 +481,7 @@ export class FieldHandler {
     const headerVeiwPort = await dataGridField.locator('.ag-header-viewport ');
     await expect(headerVeiwPort).toBeVisible();
     for (let i = 0; i <= endYear - startYear; i++) {
+      await headerVeiwPort.evaluate(el => el.scrollBy({ left: 150, behavior: 'smooth' }));
       const colId = Number(startYear);
       const colheader = await headerVeiwPort.locator(`[col-id="${colId + i}"]`);
       await expect(colheader).toBeVisible();
@@ -484,10 +489,14 @@ export class FieldHandler {
     }
 
     for (const option of field.options) {
+      await headerVeiwPort.evaluate(el => el.scrollLeft = 0);
+
       const colName = await dataGridField.getByText(option.label);
       await expect(colName).toBeVisible();
       await expect(colName).toHaveText(option.label);
       for (let i = 0; i <= endYear - startYear; i++) {
+        await headerVeiwPort.evaluate(el => el.scrollBy({ left: 150, behavior: 'smooth' }));
+
         const colId = Number(startYear);
         const rowIndex = await dataGridField.locator('.ag-center-cols-viewport').locator(`[row-id="${option.name}"]`);
         await expect(rowIndex).toBeVisible();
@@ -768,9 +777,9 @@ export class FieldHandler {
 
       case COMPONENT_TYPES.COUNTRY_SELECT:
         value = 'United States of America';
-        if(!(await locator.locator('..').locator('..').locator('.autocomplete-control').innerText()).includes(value)){
-        await locator.click();
-        await locator.locator('..').locator('..').locator('input').fill(value);
+        if(!(await locator.locator('.autocomplete-control').innerText()).includes(value)){
+        await locator.locator('.autocomplete-control').click();
+        await locator.locator('input').fill(value);
         await expect(await this.page.locator('.autocomplete-menu')).toBeVisible();
         await this.page.locator('.autocomplete-option').click();
         await this.page.locator('.step-title').click();
@@ -1249,7 +1258,7 @@ export class FieldHandler {
         break;
 
       case COMPONENT_TYPES.COUNTRY_SELECT:
-        const countrySelectallText = await locator.locator('..').locator('..').locator('.autocomplete-control').allTextContents();
+        const countrySelectallText = await locator.locator('.autocomplete-control').allTextContents();
         await expect(countrySelectallText).toEqual([value]);
         break;
 
@@ -1295,14 +1304,18 @@ export class FieldHandler {
         const startYear = data["creditStart-nameValue-nameValue"];
         const endyear = data["creditEnd-nameValue-nameValue"];
 
-        const dataGridField = await locator.locator('..').locator('..').getByRole('grid');
+        const dataGridField = await locator.getByRole('grid');
         await expect(dataGridField).toBeVisible();
+        const headerVeiwPort = await dataGridField.locator('.ag-header-viewport ');
 
         for (const option of field.options) {
+          await headerVeiwPort.evaluate(el => el.scrollLeft = 0);
+
           const colName = await dataGridField.getByText(option.label);
           await expect(colName).toBeVisible();
           await expect(colName).toHaveText(option.label);
           for (let i = 0; i <= endyear - startYear; i++) {
+            await headerVeiwPort.evaluate(el => el.scrollBy({ left: 150, behavior: 'smooth' }));
             const colId = Number(startYear);
             const rowIndex = await dataGridField.locator('.ag-center-cols-viewport').locator(`[row-id="${option.name}"]`);
             await expect(rowIndex).toBeVisible();

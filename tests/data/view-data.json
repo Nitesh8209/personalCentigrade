@@ -1,7 +1,7 @@
 {
   "dataSchema": "QA-ACR1.3-cgV1.0.0",
   "navigation": "view2.0-config",
-  "versionDate": "2025-08-27T15:11:20-07:00",
+  "versionDate": "2025-09-02T16:42:19-07:00",
   "methodology": {
     "id": 13,
     "nickname": "QA-ACR1.3",
@@ -651,7 +651,7 @@
                           "attributes": null,
                           "half_width": false,
                           "helper_text": "",
-                          "display_order": 1,
+                          "display_order": 0,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -671,7 +671,7 @@
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "",
-                          "display_order": 2,
+                          "display_order": 1,
                           "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -694,7 +694,7 @@
                           },
                           "half_width": false,
                           "helper_text": "Upload an image or a video to complement this first differentiator",
-                          "display_order": 3,
+                          "display_order": 2,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -714,7 +714,7 @@
                           "attributes": null,
                           "half_width": false,
                           "helper_text": "",
-                          "display_order": 4,
+                          "display_order": 3,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -734,7 +734,7 @@
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "",
-                          "display_order": 5,
+                          "display_order": 4,
                           "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -756,8 +756,8 @@
                             "isPublic": "true"
                           },
                           "half_width": false,
-                          "helper_text": "Upload an image or a video to complement this second differentator",
-                          "display_order": 6,
+                          "helper_text": "Upload an image or a video to complement this second differentiator",
+                          "display_order": 5,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -777,7 +777,7 @@
                           "attributes": null,
                           "half_width": false,
                           "helper_text": "",
-                          "display_order": 7,
+                          "display_order": 6,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -797,7 +797,7 @@
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "",
-                          "display_order": 8,
+                          "display_order": 7,
                           "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -819,8 +819,73 @@
                             "isPublic": "true"
                           },
                           "half_width": false,
-                          "helper_text": "Upload an image or a video to complement this third differentator",
+                          "helper_text": "Upload an image or a video to complement this third differentiator",
+                          "display_order": 8,
+                          "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
+                          "id": 2547,
+                          "name": "kd4Title-nameValue-nameValue",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "string",
+                          "label": "Fourth key differentiator title",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "text-input",
+                          "attributes": {
+                            "field": ""
+                          },
+                          "half_width": false,
+                          "helper_text": "",
                           "display_order": 9,
+                          "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
+                          "id": 2548,
+                          "name": "kd4Details-nameValue-nameValue",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "string",
+                          "label": "Details about the fourth differentiator",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "rich-text",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 10,
+                          "view_component": "rich-text",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
+                          "id": 2549,
+                          "name": "kd4Media-projectFile-storage",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "object",
+                          "label": "Key differentiator image or video",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "file-upload",
+                          "attributes": {
+                            "accept": "image/*, video/*",
+                            "isPublic": "true"
+                          },
+                          "half_width": false,
+                          "helper_text": "Upload an image or a video to complement this fourth differentiator",
+                          "display_order": 11,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -2006,7 +2071,7 @@
                           "attributes": null,
                           "half_width": false,
                           "helper_text": "",
-                          "display_order": 1,
+                          "display_order": 0,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -2026,7 +2091,7 @@
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "Provide additional context on the conflict-affected area and the additional measures considered when implementing the project",
-                          "display_order": 2,
+                          "display_order": 1,
                           "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
@@ -2053,7 +2118,7 @@
                           },
                           "half_width": false,
                           "helper_text": "",
-                          "display_order": 3,
+                          "display_order": 2,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -2073,7 +2138,7 @@
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "",
-                          "display_order": 4,
+                          "display_order": 3,
                           "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -2097,7 +2162,7 @@
                           "attributes": null,
                           "half_width": false,
                           "helper_text": "",
-                          "display_order": 6,
+                          "display_order": 5,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -3264,7 +3329,7 @@
                           "attributes": null,
                           "half_width": true,
                           "helper_text": "Indicate the number of projects developed by the organization within the specific pathway",
-                          "display_order": 2,
+                          "display_order": 1,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -3284,7 +3349,7 @@
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "Describe an overview of the team leads' experience and technical expertise, the details and results of projects the organization has developed (if applicable), and any other significant historical aspects of the Project Proponent organization",
-                          "display_order": 3,
+                          "display_order": 2,
                           "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -16552,7 +16617,7 @@
                           "tooltip": "",
                           "elements": null,
                           "component": "data-table",
-                          "attributes": null,
+                          "attributes": {},
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 0,
@@ -22428,7 +22493,7 @@
                           "attributes": {},
                           "half_width": true,
                           "helper_text": "",
-                          "display_order": 1,
+                          "display_order": 0,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": [

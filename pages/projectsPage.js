@@ -27,19 +27,25 @@ class ProjectsPage {
         await this.page.goto(`${this.baseURL}/projects`);
     }
 
+    async iframeContent() {
+        return await this.page.locator('iframe').contentFrame();
+    }
+
     async selectOrg(organization) {
-        await this.page.getByRole('combobox', { name: 'Select org' }).click();
-        await this.page.getByRole('combobox', { name: 'Select org' }).fill('');
-        await this.page.getByRole('combobox', { name: 'Select org' }).fill(organization);
-        await this.page.locator('.autocomplete-option').first().click();
+        await expect (await this.page.locator('.jedi-panel')).toBeVisible();
+        await expect(await this.page.locator('.autocomplete-control > input')).toHaveValue('GreenTest', {timeout: 20000});
+        await this.page.locator('.autocomplete-control').click();
+        await this.page.locator('.autocomplete-control > input').fill('');
+        await this.page.locator('.autocomplete-control > input').fill(organization);
+        await this.page.locator('.autocomplete-option').click();
     }
 
     async setting() {
-        await this.page.locator(".nav-items > a:last-child").click();
+        await (await this.iframeContent()).locator('a.nav-btn[href="/settings"]').click();
     }
 
     async teamButton() {
-        await this.page.locator('button.tab-item[data-value="team"]').click();
+        await (await this.iframeContent()).getByRole('tab', { name: 'Team' }).click();
     }
 
     async organizationButton() {
@@ -58,17 +64,18 @@ class ProjectsPage {
     }
 
     async UpdateinAdmin(targetEmail) {
-        const row = this.page.getByRole('row', { name: targetEmail });
+        const row = (await this.iframeContent()).getByRole('row', { name: targetEmail });
+        await expect(row).toBeVisible();
         await row.hover();
         await row.locator('.ag-action-cell').click();
-        await this.page.getByRole('menuitem', { name: 'Edit' }).click();
-        await this.page.getByRole('combobox', { name: 'Member type' }).click();
-        await this.page.getByRole('listbox').getByText('Admin').click();
-        await this.page.getByRole('button', { name: 'Save' }).click();
+        await (await this.iframeContent()).getByRole('menuitem', { name: 'Edit' }).click();
+        await (await this.iframeContent()).getByRole('combobox', { name: 'Member type' }).click();
+        await (await this.iframeContent()).getByRole('listbox').getByText('Admin').click();
+        await (await this.iframeContent()).getByRole('button', { name: 'Save' }).click();
     }
 
     async adminrole(targetEmail) {
-        const row = this.page.getByRole('row', { name: targetEmail });
+        const row = (await this.iframeContent()).getByRole('row', { name: targetEmail });
         return await row.locator('[col-id="memberType"]').innerText();
     }
 
@@ -115,8 +122,8 @@ class ProjectsPage {
         return await this.page.locator('.project-name').innerText();
     }
 
-    async listingprojectTitle() {
-        return await this.page.locator('.content-header-title');
+    async listingprojectTitle(name) {
+        return await this.page.getByRole('heading', { name: name });
     }
 
     async proveneceStartGuide() {
@@ -129,6 +136,11 @@ class ProjectsPage {
 
     async uploadfileSuccessMsg() {
         return this.page.locator('.selected-files > :nth-child(1) > .file-name-container > .file-name').innerText();
+    }
+
+    async viewProjectFromSuperUser() {
+        // await this.page.locator('.project-list > div:nth-child(1) > .actions > .btn').click();
+        await (await this.iframeContent()).locator('.project-list > .project-card').filter({hasText: project.uiProjectName}).first().locator('.actions > .btn').click();
     }
 
     async viewProject() {
@@ -780,15 +792,15 @@ class ProjectsPage {
     }
 
     async approveProject() {
-        return await this.page.getByRole('button', { name: 'Approve project' });
+        return await (await this.iframeContent()).getByRole('button', { name: 'Approve project' });
     }
 
     async approveModal() {
-        return await this.page.locator('.modal.modal-sm');
+        return await (await this.iframeContent()).locator('.modal.modal-sm');
     }
 
     async approveButton() {
-        return await this.page.getByRole('button', { name: 'Approve' , expect: true});
+        return await (await this.iframeContent()).getByRole('button', { name: 'Approve' , expect: true});
     }
 
     async draftPublishButton() {
@@ -818,7 +830,7 @@ class ProjectsPage {
     }
 
     async resetButton() {
-        return await this.page.getByRole('button', { name: 'Reset' });
+        return await this.page.getByRole('button', { name: 'Reset' }).first();
     }
 
     async organizationrole() {
@@ -870,15 +882,15 @@ class ProjectsPage {
     }
 
     async projectsHomeButton() {
-        return await this.page.locator('a.nav-link[href="/projects"]');
+        return await this.page.locator('a.nav-btn[href="/projects"]');
     }
 
     async listingsButton() {
-        return await this.page.locator('a.nav-link[href="/listings"]');
+        return await this.page.locator('a.nav-btn[href="/listings"]');
     }
 
     async SettingsButton() {
-        return await this.page.locator('a.nav-link[href="/settings"]');
+        return await this.page.locator('a.nav-btn[href="/settings"]');
     }
 
     async ErrorBoundryPage() {
@@ -1113,6 +1125,10 @@ class ProjectsPage {
 
     async overviewHeader() {
         return await this.page.locator('.project-navbar');
+    }
+
+    async overviewtitleInSuperUser() {
+        return await (await this.iframeContent()).locator('h1.project-name');
     }
 
     async overviewtitle() {

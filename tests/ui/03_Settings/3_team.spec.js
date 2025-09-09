@@ -357,6 +357,8 @@ test.describe('Settings - Team Page UI Tests', { tag: '@UI' }, () => {
     const visibleModal = await modal.isVisible();
     if (!visibleModal) {
       const userEditDeleteButton = await settingsPage.usereditdeletebutton(InviteEmail);
+      await expect(await settingsPage.usertype(InviteEmail)).toBeVisible();
+      await expect(await settingsPage.usertype(InviteEmail)).toHaveText('Member');
       await userEditDeleteButton.click();
       const Edituser = await settingsPage.useredit();
       await Edituser.click();
@@ -701,6 +703,7 @@ test.describe('Settings - Team Page Functional Tests for Reject', { tag: ['@UI',
     await signUpPage.createAccount();
     await page.waitForURL('**/awaiting-approval');
     expect(page.url()).toContain('/awaiting-approval');
+    await expect(await signUpPage.awaitingApprovalheading()).toBeVisible();
 
     // Log in as an admin and navigate to Settings
     const settingsPage = new SettingsPage(page, baseURL);
