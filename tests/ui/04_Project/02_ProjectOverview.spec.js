@@ -196,7 +196,7 @@ test.describe('Project Overview Page', { tag: '@UI' }, () => {
         await expect(await projectsPage.projectOverviewguidecontentstep1heading()).toBeVisible();
         await expect(await projectsPage.projectOverviewguidecontentstep1heading()).toHaveText('Enter project data');
         await expect(await projectsPage.projectOverviewguidecontentstep1content()).toBeVisible();
-        await expect(await projectsPage.projectOverviewguidecontentstep1content()).toHaveText('Start with basic project details in Tier 0. Add more information like forecast, baseline, actuals, monitoring data and more in Tier 1 or Tier 2.');
+        await expect(await projectsPage.projectOverviewguidecontentstep1content()).toHaveText('Start with basic project details in Tier 0. Add information like forecast, baseline, actuals, monitoring data and more in Tier 1 or Tier 2.');
       },
       errors
     )
@@ -222,7 +222,7 @@ test.describe('Project Overview Page', { tag: '@UI' }, () => {
         await expect(await projectsPage.projectOverviewguidecontentstep3heading()).toBeVisible();
         await expect(await projectsPage.projectOverviewguidecontentstep3heading()).toHaveText('Differentiate your project');
         await expect(await projectsPage.projectOverviewguidecontentstep3content()).toBeVisible();
-        await expect(await projectsPage.projectOverviewguidecontentstep3content()).toHaveText('Use Tier 3, Community impacts, and Ecological impacts to showcase what sets your project apart and its benefits to the community and environment');
+        await expect(await projectsPage.projectOverviewguidecontentstep3content()).toHaveText('Use Tier 3, and the Socioeconomic impacts and Ecological impacts found in Tier 2 to showcase what sets your project apart and its benefits to the community and environment.');
       },
       errors
     )

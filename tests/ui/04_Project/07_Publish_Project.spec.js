@@ -328,7 +328,7 @@ test.describe('Approve project by superuser', { tag: ['@UI', '@SMOKE'] }, () => 
     await page.waitForLoadState('networkidle');
     await projectsPage.selectOrg(projectPublishCredentials.organizationName);
 
-    await projectsPage.viewProject();
+    await projectsPage.viewProjectFromSuperUser();
     await page.waitForURL(`**/overview`);
 
     // Validat project title
@@ -498,8 +498,8 @@ test.describe('Project after approve Project', { tag: ['@UI', '@SMOKE'] }, () =>
         await newPage.goto(`https://${copiedUrl}`);
         const newProjectPage = new ProjectsPage(newPage, baseURL);
         await expect(newPage.url()).toBe(`https://${copiedUrl}`);
-        await expect(await newProjectPage.listingprojectTitle()).toBeVisible();
-        await expect(await newProjectPage.listingprojectTitle()).toHaveText(project.uiProjectName);
+        await expect(await newProjectPage.listingprojectTitle(project.uiProjectName)).toBeVisible({timeout: 30000});
+        await expect(await newProjectPage.listingprojectTitle(project.uiProjectName)).toHaveText(project.uiProjectName);
       },
       errors
     );

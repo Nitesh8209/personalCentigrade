@@ -379,7 +379,7 @@ export class SettingsPage {
   }
 
   async Editmodalmembertype() {
-    return await this.page.locator('.label.select-label');
+    return await this.page.getByLabel('Edit Member').getByText('Member type', { exact: true });
   }
 
   async Editmodalmembertypedropdown() {
