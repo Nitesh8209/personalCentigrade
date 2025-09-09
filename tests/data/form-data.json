@@ -1,7 +1,7 @@
 {
   "dataSchema": "QA-ACR1.3-cgV1.0.0",
   "navigation": "form2.0-config",
-  "versionDate": "2025-08-27T15:11:20-07:00",
+  "versionDate": "2025-09-02T16:42:18-07:00",
   "methodology": {
     "id": 13,
     "nickname": "QA-ACR1.3",
@@ -1581,7 +1581,7 @@
                           },
                           "half_width": true,
                           "helper_text": "",
-                          "display_order": 3,
+                          "display_order": 2,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -1601,7 +1601,7 @@
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "Describe an overview of the team leads' experience and technical expertise, the details and results of projects the organization has developed (if applicable), and any other significant historical aspects of the Project Proponent organization",
-                          "display_order": 4,
+                          "display_order": 3,
                           "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -1846,7 +1846,7 @@
                           "attributes": null,
                           "half_width": false,
                           "helper_text": "",
-                          "display_order": 3,
+                          "display_order": 4,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -2942,7 +2942,7 @@
                           },
                           "half_width": false,
                           "helper_text": "",
-                          "display_order": 4,
+                          "display_order": 5,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -7161,7 +7161,7 @@
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "",
-                          "display_order": 3,
+                          "display_order": 4,
                           "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -7181,7 +7181,7 @@
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "",
-                          "display_order": 12,
+                          "display_order": 13,
                           "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -7201,7 +7201,7 @@
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "",
-                          "display_order": 17,
+                          "display_order": 18,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -7221,7 +7221,7 @@
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "",
-                          "display_order": 18,
+                          "display_order": 19,
                           "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -17722,27 +17722,27 @@
                       "label": "Education impacts",
                       "fields": [
                         {
-                          "id": 1533,
-                          "name": "educationTrainingSessions-nameValue-nameValue",
+                          "id": 1530,
+                          "name": "educationImpact-nameValue-nameValue",
                           "rows": null,
                           "tier": 2,
-                          "type": "string",
-                          "label": "Overview of training sessions for community members focused on knowledge and skill transfer",
+                          "type": "boolean",
+                          "label": "Project has created additional opportunities for education or skills-building",
                           "columns": null,
                           "options": [],
-                          "tooltip": "",
+                          "tooltip": "Opportunities such as educational webinars, on-site training on implementing project technologies or practices, and skill-sharing sessions, etc.",
                           "elements": null,
-                          "component": "rich-text",
+                          "component": "radio-y-n",
                           "attributes": {},
-                          "half_width": false,
+                          "half_width": true,
                           "helper_text": "",
                           "display_order": 0,
-                          "view_component": "rich-text",
+                          "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
-                              "field": "educationImpact-nameValue-nameValue",
-                              "pattern": "Yes"
+                              "field": "socioParentConditional-nameValue-nameValue",
+                              "pattern": "Workforce and capacity building"
                             }
                           ]
                         },
@@ -17763,7 +17763,7 @@
                           },
                           "half_width": true,
                           "helper_text": "",
-                          "display_order": 0,
+                          "display_order": 1,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": [
@@ -17790,7 +17790,7 @@
                           },
                           "half_width": true,
                           "helper_text": "",
-                          "display_order": 0,
+                          "display_order": 2,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": [
@@ -17801,22 +17801,47 @@
                           ]
                         },
                         {
-                          "id": 1536,
-                          "name": "educationScholarship-nameValue-nameValue",
+                          "id": 1533,
+                          "name": "educationTrainingSessions-nameValue-nameValue",
                           "rows": null,
                           "tier": 2,
-                          "type": "number",
-                          "label": "Number of scholarships created through project activities",
+                          "type": "string",
+                          "label": "Overview of training sessions for community members focused on knowledge and skill transfer",
                           "columns": null,
                           "options": [],
                           "tooltip": "",
                           "elements": null,
-                          "component": "text-input",
-                          "attributes": null,
-                          "half_width": true,
+                          "component": "rich-text",
+                          "attributes": {},
+                          "half_width": false,
                           "helper_text": "",
-                          "display_order": 0,
-                          "view_component": "key-value-table",
+                          "display_order": 3,
+                          "view_component": "rich-text",
+                          "validation_schema": null,
+                          "display_dependencies": [
+                            {
+                              "field": "educationImpact-nameValue-nameValue",
+                              "pattern": "Yes"
+                            }
+                          ]
+                        },
+                        {
+                          "id": 1534,
+                          "name": "educationTrainingChildren-nameValue-nameValue",
+                          "rows": null,
+                          "tier": 2,
+                          "type": "string",
+                          "label": "Engagement activities for local children to explore project resources, opportunities, and environmental benefits",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "Examples include outreach to schools, organizing school visits to the project site, or collaborating on the development of environmentally-conscious curriculum",
+                          "elements": null,
+                          "component": "rich-text",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "List any engagement activities for local school-aged children to learn more about project resources, opportunities, or environmental benefits of project activities",
+                          "display_order": 4,
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -17849,7 +17874,7 @@
                           },
                           "half_width": true,
                           "helper_text": "",
-                          "display_order": 0,
+                          "display_order": 5,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": [
@@ -17860,52 +17885,27 @@
                           ]
                         },
                         {
-                          "id": 1534,
-                          "name": "educationTrainingChildren-nameValue-nameValue",
+                          "id": 1536,
+                          "name": "educationScholarship-nameValue-nameValue",
                           "rows": null,
                           "tier": 2,
-                          "type": "string",
-                          "label": "Engagement activities for local children to explore project resources, opportunities, and environmental benefits",
+                          "type": "number",
+                          "label": "Number of scholarships created through project activities",
                           "columns": null,
                           "options": [],
-                          "tooltip": "Examples include outreach to schools, organizing school visits to the project site, or collaborating on the development of environmentally-conscious curriculum",
+                          "tooltip": "",
                           "elements": null,
-                          "component": "rich-text",
-                          "attributes": {},
-                          "half_width": false,
-                          "helper_text": "List any engagement activities for local school-aged children to learn more about project resources, opportunities, or environmental benefits of project activities",
-                          "display_order": 0,
-                          "view_component": "rich-text",
-                          "validation_schema": null,
-                          "display_dependencies": [
-                            {
-                              "field": "educationImpact-nameValue-nameValue",
-                              "pattern": "Yes"
-                            }
-                          ]
-                        },
-                        {
-                          "id": 1530,
-                          "name": "educationImpact-nameValue-nameValue",
-                          "rows": null,
-                          "tier": 2,
-                          "type": "boolean",
-                          "label": "Project has created additional opportunities for education or skills-building",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "Opportunities such as educational webinars, on-site training on implementing project technologies or practices, and skill-sharing sessions, etc.",
-                          "elements": null,
-                          "component": "radio-y-n",
-                          "attributes": {},
+                          "component": "text-input",
+                          "attributes": null,
                           "half_width": true,
                           "helper_text": "",
-                          "display_order": 0,
+                          "display_order": 6,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
-                              "field": "socioParentConditional-nameValue-nameValue",
-                              "pattern": "Workforce and capacity building"
+                              "field": "educationImpact-nameValue-nameValue",
+                              "pattern": "Yes"
                             }
                           ]
                         }
@@ -22382,7 +22382,7 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 1
+                  "display_order": 0
                 },
                 {
                   "id": 565,
@@ -22455,7 +22455,7 @@
                             "isPublic": "true"
                           },
                           "half_width": false,
-                          "helper_text": "Upload an image or a video to complement this second differentator",
+                          "helper_text": "Upload an image or a video to complement this second differentiator",
                           "display_order": 3,
                           "view_component": "key-value-table",
                           "validation_schema": null,
@@ -22471,7 +22471,7 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 2
+                  "display_order": 1
                 },
                 {
                   "id": 566,
@@ -22544,7 +22544,7 @@
                             "isPublic": "true"
                           },
                           "half_width": false,
-                          "helper_text": "Upload an image or a video to complement this third differentator",
+                          "helper_text": "Upload an image or a video to complement this third differentiator",
                           "display_order": 3,
                           "view_component": "key-value-table",
                           "validation_schema": null,
@@ -22552,6 +22552,97 @@
                         }
                       ],
                       "parent_id": 566,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 1,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 2
+                },
+                {
+                  "id": 1262,
+                  "name": "kd4",
+                  "label": "Differentiator 4",
+                  "parent_id": 475,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 1,
+                  "field_groups": [
+                    {
+                      "id": 1263,
+                      "name": "keyDifferentiator4",
+                      "label": "",
+                      "fields": [
+                        {
+                          "id": 2547,
+                          "name": "kd4Title-nameValue-nameValue",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "string",
+                          "label": "Fourth key differentiator title",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "text-input",
+                          "attributes": {
+                            "field": ""
+                          },
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 0,
+                          "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
+                          "id": 2548,
+                          "name": "kd4Details-nameValue-nameValue",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "string",
+                          "label": "Details about the fourth differentiator",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "rich-text",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 1,
+                          "view_component": "rich-text",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
+                          "id": 2549,
+                          "name": "kd4Media-projectFile-storage",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "object",
+                          "label": "Key differentiator image or video",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "file-upload",
+                          "attributes": {
+                            "accept": "image/*, video/*",
+                            "isPublic": "true"
+                          },
+                          "half_width": false,
+                          "helper_text": "Upload an image or a video to complement this fourth differentiator",
+                          "display_order": 2,
+                          "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        }
+                      ],
+                      "parent_id": 1262,
                       "attributes": {},
                       "description": "",
                       "nav_type_id": 1,
@@ -22828,7 +22919,7 @@
                           "tooltip": "",
                           "elements": null,
                           "component": "data-table",
-                          "attributes": null,
+                          "attributes": {},
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 1,
@@ -23002,4 +23093,4 @@
       ]
     }
   ]
-}
+} 
