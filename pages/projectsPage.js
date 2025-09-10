@@ -31,8 +31,16 @@ class ProjectsPage {
         return await this.page.locator('iframe').contentFrame();
     }
 
+    async jediPanel(){
+        return await this.page.locator('.jedi-panel');
+    }
+
+    async jediPanelTrigger(){
+        return await this.page.locator('.jedi-panel-trigger')
+    }
+
     async selectOrg(organization) {
-        await expect (await this.page.locator('.jedi-panel')).toBeVisible();
+        await expect (await this.jediPanel()).toBeVisible();
         await expect(await this.page.locator('.autocomplete-control > input')).toHaveValue('GreenTest', {timeout: 20000});
         await this.page.locator('.autocomplete-control').click();
         await this.page.locator('.autocomplete-control > input').fill('');
@@ -833,16 +841,22 @@ class ProjectsPage {
         return await this.page.getByRole('button', { name: 'Reset' }).first();
     }
 
+    async organizationLockButton() {
+        return await this.page.locator('.jedi-panel-field-header', {hasText: 'Organization role'}).getByRole('button');
+    }
+
     async organizationrole() {
-        return await this.page.getByRole('combobox', { name: 'Organization role' }).locator('.select-indicator');
+        return await this.page.locator('.jedi-panel-content').locator('.select-indicator');
     }
 
     async ViewBasicrole() {
-        return await this.page.getByRole('listbox', { name: 'Organization role' }).getByRole('option', { name: 'View - Basic' }); 
+        return await this.page.getByRole('option', { name: 'View - Basic' }); 
     }
 
+    async 
+
    async removeViewBasicrole() {
-    return await this.page.getByLabel('Organization', { exact: true }).locator('div').filter({ hasText: /^View - Basic$/ }).getByRole('button');
+    return await this.page.locator('.badge').filter({ hasText: /^View - Basic$/ }).getByRole('button');
     }
 
     async ViewProrole() {
@@ -854,7 +868,7 @@ class ProjectsPage {
     }
 
     async FormBasicrole() {
-        return await this.page.getByRole('listbox', { name: 'Organization role' }).getByRole('option', { name: 'Form - Basic' }); 
+        return await this.page.getByRole('option', { name: 'Form - Basic' }); 
     }
 
    async removeFormBasicrole() {
@@ -869,11 +883,11 @@ class ProjectsPage {
     return await this.page.getByLabel('Organization', { exact: true }).locator('div').filter({ hasText: /^Form - Pro$/ }).getByRole('button');
     }
 
-    async FromCreateorrole() {
-        return await this.page.getByRole('listbox', { name: 'Organization role' }).getByRole('option', { name: 'Form - Creator' });
+    async FormCreateorrole() {
+        return await this.page.getByRole('option', { name: 'Form - Creator' });
     }
 
-    async removefromCreateorrole() {
+    async removeformCreateorrole() {
         return await this.page.getByLabel('Organization', { exact: true }).locator('div').filter({ hasText: /^Form - Creator$/ }).getByRole('button');
     }
 
