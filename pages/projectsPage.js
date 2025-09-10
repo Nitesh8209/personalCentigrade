@@ -853,8 +853,6 @@ class ProjectsPage {
         return await this.page.getByRole('option', { name: 'View - Basic' }); 
     }
 
-    async 
-
    async removeViewBasicrole() {
     return await this.page.locator('.badge').filter({ hasText: /^View - Basic$/ }).getByRole('button');
     }
