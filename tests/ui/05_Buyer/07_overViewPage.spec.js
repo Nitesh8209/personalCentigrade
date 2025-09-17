@@ -19,6 +19,7 @@ export const viewData = JSON.parse(fs.readFileSync(viewDatapath, 'utf-8'));
 // Iterate through authentication states
 for (const authState of authStates) {
   test.describe(`Buyer Overview Page - ${authState.name}`, { tag: ['@UI', '@SMOKE'] }, () => {
+  const { newEmail, BuyerprojectGuid } = getData('UI');
 
     // Determine credentials based on authentication state
     const credentials = authState.isAuthenticated ? {
@@ -44,6 +45,8 @@ for (const authState of authStates) {
 
       const loginPage = authState.isAuthenticated ? new LoginPage(page, baseURL) : null;
       await setupPage(page, loginPage, credentials, listingPage, baseURL);
+        await page.goto(`${baseURL}/listings/${BuyerprojectGuid}/overview`);
+
     });
 
     const overviewTopic = viewData.topics[0];

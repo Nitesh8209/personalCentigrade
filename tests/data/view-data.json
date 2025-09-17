@@ -1,7 +1,7 @@
 {
   "dataSchema": "QA-ACR1.3-cgV1.0.0",
   "navigation": "view2.0-config",
-  "versionDate": "2025-09-02T16:42:19-07:00",
+  "versionDate": "2025-09-16T10:23:40-07:00",
   "methodology": {
     "id": 13,
     "nickname": "QA-ACR1.3",
@@ -966,7 +966,8 @@
                           "options": [
                             "Under development",
                             "Validated",
-                            "Verified"
+                            "Verified",
+                            "Registered"
                           ],
                           "tooltip": "Indicates the current stage of the project's development: (A) Under development: the project is in the early stages and has not yet completed validation; (B) Validated: The project has been reviewed and approved against the relevant methodology and standards but is not yet generating verified credits; (C) Verified: The project has undergone verification and is actively generating verified credits.",
                           "elements": null,
@@ -1153,7 +1154,9 @@
                             "Renoster - Good",
                             "Renoster - Poor",
                             "Renoster - Neutral",
-                            "Renoster - Suspect"
+                            "Renoster - Suspect",
+                            "LoA obtained",
+                            "CORSIA eligible"
                           ],
                           "tooltip": "",
                           "elements": null,
@@ -3276,8 +3279,31 @@
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "",
-                          "display_order": null,
+                          "display_order": 0,
                           "view_component": "block-table",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
+                          "id": 4817,
+                          "name": "leadershipImage-projectFile-storage",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "array",
+                          "label": "Leadership team",
+                          "columns": null,
+                          "options": null,
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "media-carousel",
+                          "attributes": {
+                            "accept": "image/*, video/*",
+                            "isPublic": "true"
+                          },
+                          "half_width": false,
+                          "helper_text": "Upload relevant photos or headshots of team leadership. These images will be used to highlight your project's organizational history and experience.",
+                          "display_order": 1,
+                          "view_component": "media-carousel",
                           "validation_schema": null,
                           "display_dependencies": null
                         }
@@ -3516,10 +3542,7 @@
                           "component": "country-select",
                           "attributes": {
                             "locationField": [
-                              "latLongCoordinates-nameValue-nameValue",
-                              "addressLocation-nameValue-nameValue",
-                              "geoFileUpload-projectFile-storage",
-                              "countries-nameValue-nameValue"
+                              "organizationHeadquartersCountry-nameValue-nameValue"
                             ]
                           },
                           "half_width": true,
@@ -3958,63 +3981,6 @@
                           "helper_text": "Describe the forecasting mechanism used including relevant assumptions or parameters held static to calculate future emission reductions or removals",
                           "display_order": 1,
                           "view_component": "rich-text",
-                          "validation_schema": null,
-                          "display_dependencies": [
-                            {
-                              "field": "forecastConditional-nameValue-nameValue",
-                              "pattern": "Yes"
-                            }
-                          ]
-                        },
-                        {
-                          "id": 1015,
-                          "name": "partialForecast-dataGrid-dataGrid",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "object",
-                          "label": "Credit forecast by vintage",
-                          "columns": null,
-                          "options": [
-                            {
-                              "id": 25,
-                              "name": "estimatedNetReductions",
-                              "type": "forecast",
-                              "label": "Estimated net reductions",
-                              "format": "number"
-                            },
-                            {
-                              "id": 26,
-                              "name": "estimatedNetRemovals",
-                              "type": "forecast",
-                              "label": "Estimated net removals",
-                              "format": "number"
-                            },
-                            {
-                              "id": 55,
-                              "name": "estimatedAvoidance",
-                              "type": "forecast",
-                              "label": "Estimated net avoided emissions",
-                              "format": "number"
-                            },
-                            {
-                              "id": 56,
-                              "name": "partialCredits",
-                              "type": "forecast",
-                              "label": "Estimated total credits",
-                              "format": "number"
-                            }
-                          ],
-                          "tooltip": "The estimated credits per vintage year throughout the crediting period",
-                          "elements": null,
-                          "component": "data-grid",
-                          "attributes": {
-                            "endYear": "$creditEnd-nameValue-nameValue",
-                            "startYear": "$creditStart-nameValue-nameValue"
-                          },
-                          "half_width": false,
-                          "helper_text": "",
-                          "display_order": 3,
-                          "view_component": "data-grid",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -5007,58 +4973,6 @@
                       "name": "creditHistoryView",
                       "label": "Credit sales details",
                       "fields": [
-                        {
-                          "id": 805,
-                          "name": "creditsInventory-dataGrid-dataGrid",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "object",
-                          "label": "Carbon credit inventory by vintage",
-                          "columns": null,
-                          "options": [
-                            {
-                              "id": 49,
-                              "name": "creditsSold",
-                              "type": "sold",
-                              "label": "Issued - sold",
-                              "format": "number"
-                            },
-                            {
-                              "id": 48,
-                              "name": "creditsAvailable",
-                              "type": "ex-post-available",
-                              "label": "Issued - available",
-                              "format": "number"
-                            },
-                            {
-                              "id": 53,
-                              "name": "creditsForward",
-                              "type": "sold",
-                              "label": "Forwards - sold",
-                              "format": "number"
-                            },
-                            {
-                              "id": 54,
-                              "name": "exAnteAvailable",
-                              "type": "ex-ante-available",
-                              "label": "Forwards - available",
-                              "format": "number"
-                            }
-                          ],
-                          "tooltip": "",
-                          "elements": null,
-                          "component": "data-grid",
-                          "attributes": {
-                            "endYear": "$creditEnd-nameValue-nameValue",
-                            "startYear": "$creditStart-nameValue-nameValue"
-                          },
-                          "half_width": false,
-                          "helper_text": "",
-                          "display_order": 0,
-                          "view_component": "data-grid",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        },
                         {
                           "id": 808,
                           "name": "creditSalesStage-nameValue-nameValue",
@@ -9117,7 +9031,10 @@
                           "tooltip": "",
                           "elements": null,
                           "component": "media-carousel",
-                          "attributes": {},
+                          "attributes": {
+                            "accept": "image/*, video/*",
+                            "isPublic": "true"
+                          },
                           "half_width": false,
                           "helper_text": "Upload relevant maps or geographic images. These images will be used to highlight your project's spatial boundaries.",
                           "display_order": 1,
@@ -10392,9 +10309,240 @@
               "display_order": 0
             },
             {
+              "id": 1156,
+              "name": "cookstoveMonitoring",
+              "label": "Cookstoves monitoring",
+              "sections": [
+                {
+                  "id": 1157,
+                  "name": "cookstoveOverview",
+                  "label": "",
+                  "parent_id": 1156,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1158,
+                      "name": "defaultCookstove",
+                      "label": "",
+                      "fields": [
+                        {
+                          "id": 2090,
+                          "name": "cookstoveOverviewBlock-overview-events",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "object",
+                          "label": "Overview",
+                          "columns": [
+                            {
+                              "name": "cookstoveOverviewBlockTotalDeployedSensors",
+                              "type": null,
+                              "label": "Total deployed sensors",
+                              "options": [],
+                              "tooltip": "",
+                              "column_id": 2091,
+                              "component": "text-input",
+                              "attributes": {
+                                "field": "totalProjectsIssued-overview-events"
+                              },
+                              "helper_text": "",
+                              "column_order": 6,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            },
+                            {
+                              "name": "cookstoveOverviewBlockPercentReporting",
+                              "type": null,
+                              "label": "% of sensors reporting data",
+                              "options": [],
+                              "tooltip": "Percentage of cookstoves that have reported on their event data in the last 20 weeks. This is not the percentage of cookstoves that have been used. ",
+                              "column_id": 2092,
+                              "component": "text-input",
+                              "attributes": {
+                                "field": "percentReporting-overview-events"
+                              },
+                              "helper_text": "",
+                              "column_order": 7,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            },
+                            {
+                              "name": "cookstoveOverviewBlockDailyEventsPerHousehold",
+                              "type": null,
+                              "label": "Avg. daily events per household",
+                              "options": [],
+                              "tooltip": "",
+                              "column_id": 2093,
+                              "component": "text-input",
+                              "attributes": {
+                                "field": "dailyEventsPerHousehold-overview-events"
+                              },
+                              "helper_text": "",
+                              "column_order": 8,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            }
+                          ],
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "data-table",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 0,
+                          "view_component": "block-table",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
+                          "id": 2100,
+                          "name": "cookstoveBubbleMap-nameValue-nameValue",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "array",
+                          "label": "Monitored cookstoves by region",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "select-multiple",
+                          "attributes": {
+                            "bubbleMap": true
+                          },
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 1,
+                          "view_component": "location-map",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
+                          "id": 2094,
+                          "name": "cookstoveRegionTable-overview-events",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "object",
+                          "label": "Breakdown of cookstoves by region",
+                          "columns": [
+                            {
+                              "name": "cookstoveRegionTableName",
+                              "type": null,
+                              "label": "Region",
+                              "options": [],
+                              "tooltip": "",
+                              "column_id": 2095,
+                              "component": "text-input",
+                              "attributes": {
+                                "field": "regionName-overview-events"
+                              },
+                              "helper_text": "",
+                              "column_order": 0,
+                              "view_component": "table-link",
+                              "validation_schema": null
+                            },
+                            {
+                              "name": "cookstoveRegionTableDeployedSensors",
+                              "type": "number",
+                              "label": "Deployed sensors",
+                              "options": [],
+                              "tooltip": "",
+                              "column_id": 2096,
+                              "component": "text-input",
+                              "attributes": {
+                                "field": "deployedSensors-overview-events"
+                              },
+                              "helper_text": "",
+                              "column_order": 0,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            },
+                            {
+                              "name": "cookstoveRegionTablePercentReporting",
+                              "type": null,
+                              "label": "% sensors reporting data",
+                              "options": [],
+                              "tooltip": "",
+                              "column_id": 2097,
+                              "component": "text-input",
+                              "attributes": {
+                                "field": "percentReporting-overview-events"
+                              },
+                              "helper_text": "",
+                              "column_order": 1,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            },
+                            {
+                              "name": "cookstoveRegionTableDailyEventsPerHousehols",
+                              "type": null,
+                              "label": "Avg. daily events per household",
+                              "options": [],
+                              "tooltip": "",
+                              "column_id": 2098,
+                              "component": "text-input",
+                              "attributes": {
+                                "field": "dailyEventsPerHousehold-overview-events"
+                              },
+                              "helper_text": "",
+                              "column_order": 2,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            },
+                            {
+                              "name": "cookstoveRegionTableAvgEventDuration",
+                              "type": null,
+                              "label": "Avg. duration of event (hours)",
+                              "options": [],
+                              "tooltip": "",
+                              "column_id": 2099,
+                              "component": "text-input",
+                              "attributes": {
+                                "field": "avgEventDuration-overview-events"
+                              },
+                              "helper_text": "",
+                              "column_order": 3,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            }
+                          ],
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "data-table",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 2,
+                          "view_component": "data-table",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        }
+                      ],
+                      "parent_id": 1157,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 0
+                }
+              ],
+              "parent_id": 24,
+              "attributes": {},
+              "description": "Powered by Geocene",
+              "nav_type_id": 2,
+              "nav_level_id": 3,
+              "display_order": 1
+            },
+            {
               "id": 1144,
               "name": "parameters",
-              "label": "Data and parameters",
+              "label": "Parameters",
               "sections": [
                 {
                   "id": 1145,
@@ -10771,238 +10919,7 @@
               "description": "Identified project data points",
               "nav_type_id": 2,
               "nav_level_id": 3,
-              "display_order": 1
-            },
-            {
-              "id": 1156,
-              "name": "cookstoveMonitoring",
-              "label": "Cookstoves monitoring",
-              "sections": [
-                {
-                  "id": 1157,
-                  "name": "cookstoveOverview",
-                  "label": "",
-                  "parent_id": 1156,
-                  "attributes": {},
-                  "description": "",
-                  "nav_type_id": 2,
-                  "field_groups": [
-                    {
-                      "id": 1158,
-                      "name": "defaultCookstove",
-                      "label": "",
-                      "fields": [
-                        {
-                          "id": 2090,
-                          "name": "cookstoveOverviewBlock-overview-events",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "object",
-                          "label": "Overview",
-                          "columns": [
-                            {
-                              "name": "cookstoveOverviewBlockTotalDeployedSensors",
-                              "type": null,
-                              "label": "Total deployed sensors",
-                              "options": [],
-                              "tooltip": "",
-                              "column_id": 2091,
-                              "component": "text-input",
-                              "attributes": {
-                                "field": "totalProjectsIssued-overview-events"
-                              },
-                              "helper_text": "",
-                              "column_order": 6,
-                              "view_component": "truncated-text",
-                              "validation_schema": null
-                            },
-                            {
-                              "name": "cookstoveOverviewBlockPercentReporting",
-                              "type": null,
-                              "label": "% of sensors reporting data",
-                              "options": [],
-                              "tooltip": "Percentage of cookstoves that have reported on their event data in the last 20 weeks. This is not the percentage of cookstoves that have been used. ",
-                              "column_id": 2092,
-                              "component": "text-input",
-                              "attributes": {
-                                "field": "percentReporting-overview-events"
-                              },
-                              "helper_text": "",
-                              "column_order": 7,
-                              "view_component": "truncated-text",
-                              "validation_schema": null
-                            },
-                            {
-                              "name": "cookstoveOverviewBlockDailyEventsPerHousehold",
-                              "type": null,
-                              "label": "Avg. daily events per household",
-                              "options": [],
-                              "tooltip": "",
-                              "column_id": 2093,
-                              "component": "text-input",
-                              "attributes": {
-                                "field": "dailyEventsPerHousehold-overview-events"
-                              },
-                              "helper_text": "",
-                              "column_order": 8,
-                              "view_component": "truncated-text",
-                              "validation_schema": null
-                            }
-                          ],
-                          "options": [],
-                          "tooltip": "",
-                          "elements": null,
-                          "component": "data-table",
-                          "attributes": {},
-                          "half_width": false,
-                          "helper_text": "",
-                          "display_order": 0,
-                          "view_component": "block-table",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        },
-                        {
-                          "id": 2100,
-                          "name": "cookstoveBubbleMap-nameValue-nameValue",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "array",
-                          "label": "Monitored cookstoves by region",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "",
-                          "elements": null,
-                          "component": "select-multiple",
-                          "attributes": {
-                            "bubbleMap": true
-                          },
-                          "half_width": false,
-                          "helper_text": "",
-                          "display_order": 1,
-                          "view_component": "location-map",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        },
-                        {
-                          "id": 2094,
-                          "name": "cookstoveRegionTable-overview-events",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "object",
-                          "label": "Breakdown of cookstoves by region",
-                          "columns": [
-                            {
-                              "name": "cookstoveRegionTableName",
-                              "type": null,
-                              "label": "Region",
-                              "options": [],
-                              "tooltip": "",
-                              "column_id": 2095,
-                              "component": "text-input",
-                              "attributes": {
-                                "field": "regionName-overview-events"
-                              },
-                              "helper_text": "",
-                              "column_order": 0,
-                              "view_component": "table-link",
-                              "validation_schema": null
-                            },
-                            {
-                              "name": "cookstoveRegionTableDeployedSensors",
-                              "type": "number",
-                              "label": "Deployed sensors",
-                              "options": [],
-                              "tooltip": "",
-                              "column_id": 2096,
-                              "component": "text-input",
-                              "attributes": {
-                                "field": "deployedSensors-overview-events"
-                              },
-                              "helper_text": "",
-                              "column_order": 0,
-                              "view_component": "truncated-text",
-                              "validation_schema": null
-                            },
-                            {
-                              "name": "cookstoveRegionTablePercentReporting",
-                              "type": null,
-                              "label": "% sensors reporting data",
-                              "options": [],
-                              "tooltip": "",
-                              "column_id": 2097,
-                              "component": "text-input",
-                              "attributes": {
-                                "field": "percentReporting-overview-events"
-                              },
-                              "helper_text": "",
-                              "column_order": 1,
-                              "view_component": "truncated-text",
-                              "validation_schema": null
-                            },
-                            {
-                              "name": "cookstoveRegionTableDailyEventsPerHousehols",
-                              "type": null,
-                              "label": "Avg. daily events per household",
-                              "options": [],
-                              "tooltip": "",
-                              "column_id": 2098,
-                              "component": "text-input",
-                              "attributes": {
-                                "field": "dailyEventsPerHousehold-overview-events"
-                              },
-                              "helper_text": "",
-                              "column_order": 2,
-                              "view_component": "truncated-text",
-                              "validation_schema": null
-                            },
-                            {
-                              "name": "cookstoveRegionTableAvgEventDuration",
-                              "type": null,
-                              "label": "Avg. duration of event (hours)",
-                              "options": [],
-                              "tooltip": "",
-                              "column_id": 2099,
-                              "component": "text-input",
-                              "attributes": {
-                                "field": "avgEventDuration-overview-events"
-                              },
-                              "helper_text": "",
-                              "column_order": 3,
-                              "view_component": "truncated-text",
-                              "validation_schema": null
-                            }
-                          ],
-                          "options": [],
-                          "tooltip": "",
-                          "elements": null,
-                          "component": "data-table",
-                          "attributes": {},
-                          "half_width": false,
-                          "helper_text": "",
-                          "display_order": 2,
-                          "view_component": "data-table",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        }
-                      ],
-                      "parent_id": 1157,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 0
-                    }
-                  ],
-                  "nav_level_id": 4,
-                  "display_order": 0
-                }
-              ],
-              "parent_id": 24,
-              "attributes": {},
-              "description": "Powered by Geocene • Updated nightly",
-              "nav_type_id": 2,
-              "nav_level_id": 3,
-              "display_order": 4
+              "display_order": 2
             }
           ],
           "parent_id": 14,
@@ -14949,7 +14866,7 @@
               ],
               "parent_id": 22,
               "attributes": null,
-              "description": "Analysis demonstrating the project's carbon impact would not have occurred without the project activity",
+              "description": "Demonstration that the project's carbon impact would not have occurred without the project intervention. A project's additionality ensures that credits represent genuine, additional climate benefits beyond what would have happened in a business-as-usual scenario.",
               "nav_type_id": 2,
               "nav_level_id": 3,
               "display_order": 0
@@ -18885,31 +18802,6 @@
                           ]
                         },
                         {
-                          "id": 1492,
-                          "name": "grievanceMechanismPublic-nameValue-nameValue",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "boolean",
-                          "label": "Grievance reporting mechanism is publicly available",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "Grievance mechanism for submitted complaints is available and accessible to the public",
-                          "elements": null,
-                          "component": "radio-y-n",
-                          "attributes": {},
-                          "half_width": true,
-                          "helper_text": "",
-                          "display_order": 0,
-                          "view_component": "key-value-table",
-                          "validation_schema": null,
-                          "display_dependencies": [
-                            {
-                              "field": "grievanceReporting-nameValue-nameValue",
-                              "pattern": "Yes"
-                            }
-                          ]
-                        },
-                        {
                           "id": 1491,
                           "name": "grievanceReporting-nameValue-nameValue",
                           "rows": null,
@@ -18931,6 +18823,31 @@
                             {
                               "field": "socioParentConditional-nameValue-nameValue",
                               "pattern": "Stakeholder participation"
+                            }
+                          ]
+                        },
+                        {
+                          "id": 1492,
+                          "name": "grievanceMechanismPublic-nameValue-nameValue",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "boolean",
+                          "label": "Grievance reporting mechanism is publicly available",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "Grievance mechanism for submitted complaints is available and accessible to the public",
+                          "elements": null,
+                          "component": "radio-y-n",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 0,
+                          "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": [
+                            {
+                              "field": "grievanceReporting-nameValue-nameValue",
+                              "pattern": "Yes"
                             }
                           ]
                         }
@@ -20407,13 +20324,13 @@
                           "type": "boolean",
                           "label": "Project engages in fairtrade pricing",
                           "columns": null,
-                          "options": [],
+                          "options": null,
                           "tooltip": "As outlined by FCC price methodology https://files.fairtrade.net/standards/FCC_price_methodology.pdf",
                           "elements": null,
                           "component": "radio-y-n",
                           "attributes": {},
                           "half_width": true,
-                          "helper_text": "Please refer to FCC price methodology for more information https://files.fairtrade.net/standards/FCC_price_methodology.pdf",
+                          "helper_text": "",
                           "display_order": 8,
                           "view_component": "key-value-table",
                           "validation_schema": null,
@@ -22496,12 +22413,7 @@
                           "display_order": 0,
                           "view_component": "key-value-table",
                           "validation_schema": null,
-                          "display_dependencies": [
-                            {
-                              "field": "biodiversityMonitoring-nameValue-nameValue",
-                              "pattern": "Yes"
-                            }
-                          ]
+                          "display_dependencies": null
                         },
                         {
                           "id": 1477,

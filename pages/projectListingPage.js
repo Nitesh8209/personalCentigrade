@@ -15,8 +15,8 @@ export class ProjectListings {
     return await this.page.locator('.project-organization');
   }
 
-  async projectTitle() {
-    return await this.page.locator('.content-header > h1');
+  async projectTitle(name) {
+    return await this.page.getByRole('heading', { name: name });
   }
 
   async shareButton() {
@@ -79,8 +79,8 @@ export class ProjectListings {
     return this.page.locator('.toast-content > div');
   }
 
-  async listingprojectTitle() {
-    return await this.page.locator('.content-header-title');
+  async listingprojectTitle(name) {
+    return await this.page.getByRole('heading', { name: name });
   }
 
   async getInTouch() {
@@ -152,9 +152,10 @@ export class ProjectListings {
   }
 
   async fieldGroupLabel(label){
-    return await this.page.locator('.step-content-nav .nav-item.pl-gutter').getByText(label , { exact: true });
+    // return await this.page.locator('.step-content-nav .nav-item.pl-gutter').getByText(label , { exact: true });
+    return await this.page.getByRole('button', { name: label , exact: true});
   }
-
+  
   async contentFieldGroupLabel(label){
     return await this.page.locator('.content').getByRole('button', { name: label , exact: true});
   }

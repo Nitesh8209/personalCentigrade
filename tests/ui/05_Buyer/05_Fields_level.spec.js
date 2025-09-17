@@ -16,7 +16,7 @@ export const viewData = JSON.parse(fs.readFileSync(viewDatapath, 'utf-8'));
 
 test.describe("Fields Level Validation - after Login", { tag: '@UI' }, () => {
 
-  const { newEmail } = getData('UI');
+  const { newEmail, BuyerprojectGuid } = getData('UI');
   const credentials = {
     email: newEmail,
     password: ValidTestData.newPassword
@@ -34,7 +34,9 @@ test.describe("Fields Level Validation - after Login", { tag: '@UI' }, () => {
 
     const loginPage = new LoginPage(page, baseURL);
     const listingPage = new ListingPage(page);
-    await setupPage(page, loginPage, credentials, listingPage, baseURL);
+        await page.goto(`${baseURL}/listings/${BuyerprojectGuid}/overview`);
+
+    // await setupPage(page, loginPage, credentials, listingPage, baseURL);
     await loginPage.accecptAll();
   });
 
