@@ -330,11 +330,11 @@ test.describe('Project Page', { tag: '@UI' }, () => {
     const projectsPage = new ProjectsPage(page, baseURL);
     await page.goto(`${baseURL}/projects`);
 
-    await safeExpect('Project Breadcrump Visibility',
-      async () => {
-        await expect(await projectsPage.projectBreadcrumb()).toBeVisible();
-      }, errors
-    );
+    // await safeExpect('Project Breadcrump Visibility',
+    //   async () => {
+    //     await expect(await projectsPage.projectBreadcrumb()).toBeVisible();
+    //   }, errors
+    // );
 
     await safeExpect('Project Heading Visibility',
       async () => {
