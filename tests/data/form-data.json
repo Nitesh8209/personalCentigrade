@@ -1,7 +1,7 @@
 {
   "dataSchema": "QA-ACR1.3-cgV1.0.0",
   "navigation": "form2.0-config",
-  "versionDate": "2025-09-16T10:23:40-07:00",
+  "versionDate": "2025-09-18T15:42:12-07:00",
   "methodology": {
     "id": 13,
     "nickname": "QA-ACR1.3",
@@ -7071,7 +7071,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 0,
-                          "view_component": "key-value-table",
+                          "view_component": "data-grid",
                           "validation_schema": null,
                           "display_dependencies": null
                         }
@@ -13260,7 +13260,7 @@
                     {
                       "id": 707,
                       "name": "fuelUseChanges",
-                      "label": "Observed fuel use patterns",
+                      "label": "Fuel patterns and updates",
                       "fields": null,
                       "parent_id": 545,
                       "attributes": {},
@@ -19442,8 +19442,8 @@
                           "validation_schema": null,
                           "display_dependencies": [
                             {
-                              "field": "ecoParentConditional-nameValue-nameValue",
-                              "pattern": "Air quality"
+                              "field": "airMonitoringStatus-nameValue-nameValue",
+                              "pattern": "Project monitors air pollution and has specific reduction targets|Project monitors air pollution and has met specific reduction targets during the last year of operations|Project monitors and records air pollution (no reduction targets)|Project has eliminated hazardous and toxic air pollutants from project activities entirely"
                             }
                           ]
                         },
@@ -19469,7 +19469,9 @@
                           "tooltip": "Pollutants that are monitored as part of the project activity",
                           "elements": null,
                           "component": "select-multiple",
-                          "attributes": null,
+                          "attributes": {
+                            "field": ""
+                          },
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 2,
@@ -19477,8 +19479,8 @@
                           "validation_schema": null,
                           "display_dependencies": [
                             {
-                              "field": "ecoParentConditional-nameValue-nameValue",
-                              "pattern": "Air quality"
+                              "field": "airMonitoringStatus-nameValue-nameValue",
+                              "pattern": "Project monitors air pollution and has specific reduction targets|Project monitors air pollution and has met specific reduction targets during the last year of operations|Project monitors and records air pollution (no reduction targets)|Project has eliminated hazardous and toxic air pollutants from project activities entirely"
                             }
                           ]
                         },
@@ -19527,8 +19529,8 @@
                           "validation_schema": null,
                           "display_dependencies": [
                             {
-                              "field": "ecoParentConditional-nameValue-nameValue",
-                              "pattern": "Air quality"
+                              "field": "airMonitoringStatus-nameValue-nameValue",
+                              "pattern": "Project monitors air pollution and has specific reduction targets|Project monitors air pollution and has met specific reduction targets during the last year of operations|Project monitors and records air pollution (no reduction targets)|Project has eliminated hazardous and toxic air pollutants from project activities entirely"
                             }
                           ]
                         },
@@ -19552,8 +19554,8 @@
                           "validation_schema": null,
                           "display_dependencies": [
                             {
-                              "field": "ecoParentConditional-nameValue-nameValue",
-                              "pattern": "Air quality"
+                              "field": "airMonitoringStatus-nameValue-nameValue",
+                              "pattern": "Project monitors air pollution and has specific reduction targets|Project monitors air pollution and has met specific reduction targets during the last year of operations|Project monitors and records air pollution (no reduction targets)|Project has eliminated hazardous and toxic air pollutants from project activities entirely"
                             }
                           ]
                         },
@@ -19590,7 +19592,7 @@
                           "type": "string",
                           "label": "Assessment of health risks from air pollutant exposure linked to project activities",
                           "columns": null,
-                          "options": [],
+                          "options": null,
                           "tooltip": "Detailed assessment of health risks associated with exposure to air pollutants resulting from project activities, including any documented or observed impacts on affected populations",
                           "elements": null,
                           "component": "rich-text",
@@ -19677,8 +19679,8 @@
                           "validation_schema": null,
                           "display_dependencies": [
                             {
-                              "field": "ecoParentConditional-nameValue-nameValue",
-                              "pattern": "Air quality"
+                              "field": "airMonitoringStatus-nameValue-nameValue",
+                              "pattern": "Project monitors air pollution and has specific reduction targets|Project monitors air pollution and has met specific reduction targets during the last year of operations|Project monitors and records air pollution (no reduction targets)|Project has eliminated hazardous and toxic air pollutants from project activities entirely"
                             }
                           ]
                         },
@@ -19730,8 +19732,8 @@
                           "validation_schema": null,
                           "display_dependencies": [
                             {
-                              "field": "ecoParentConditional-nameValue-nameValue",
-                              "pattern": "Air quality"
+                              "field": "airMonitoringStatus-nameValue-nameValue",
+                              "pattern": "Project monitors air pollution and has specific reduction targets|Project monitors air pollution and has met specific reduction targets during the last year of operations|Project monitors and records air pollution (no reduction targets)|Project has eliminated hazardous and toxic air pollutants from project activities entirely"
                             }
                           ]
                         },
@@ -19769,7 +19771,7 @@
                           "rows": null,
                           "tier": 2,
                           "type": "string",
-                          "label": "Summary of quantifiable project air quality impacts",
+                          "label": "Summary of project air quality impacts",
                           "columns": null,
                           "options": [],
                           "tooltip": "Assessment of cumulative air quality impacts attributable to project-related activities",
@@ -19808,8 +19810,8 @@
                           "validation_schema": null,
                           "display_dependencies": [
                             {
-                              "field": "ecoParentConditional-nameValue-nameValue",
-                              "pattern": "Air quality"
+                              "field": "airMonitoringStatus-nameValue-nameValue",
+                              "pattern": "Project monitors air pollution and has specific reduction targets|Project monitors air pollution and has met specific reduction targets during the last year of operations|Project monitors and records air pollution (no reduction targets)|Project has eliminated hazardous and toxic air pollutants from project activities entirely"
                             }
                           ]
                         },
@@ -19835,6 +19837,31 @@
                             {
                               "field": "airVerification-nameValue-nameValue",
                               "pattern": "Yes"
+                            }
+                          ]
+                        },
+                        {
+                          "id": 4818,
+                          "name": "estimatedHealthRisksPollutants-nameValue-nameValue",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "string",
+                          "label": "Assessment of air quality-related health impacts",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "Overview of the modeled or estimated air quality-related health impacts as a result of the project activity",
+                          "elements": null,
+                          "component": "rich-text",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "Provide an overview of the modeled or estimated air quality-related health impacts as a result of the project activity",
+                          "display_order": null,
+                          "view_component": "rich-text",
+                          "validation_schema": null,
+                          "display_dependencies": [
+                            {
+                              "field": "airMonitoringStatus-nameValue-nameValue",
+                              "pattern": "Project models and estimates air quality impacts"
                             }
                           ]
                         }

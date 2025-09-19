@@ -23,9 +23,11 @@ export class ListingOverviewPage {
     return await this.page.getByRole('heading', { name: name });
   }
 
-  async projectDiscription() {
-    return await this.page.locator('.TruncatedText')
+
+  async projectDiscription(name) {
+    return await this.page.locator('.TruncatedText').filter({ hasText: name });
   }
+
 
   async keyFactor() {
     return await this.page.locator('.flex.flex-col.gap-sm', { hasText: 'Key factors' });

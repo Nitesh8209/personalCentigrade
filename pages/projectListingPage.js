@@ -155,7 +155,7 @@ export class ProjectListings {
     // return await this.page.locator('.step-content-nav .nav-item.pl-gutter').getByText(label , { exact: true });
     return await this.page.getByRole('button', { name: label , exact: true});
   }
-  
+
   async contentFieldGroupLabel(label){
     return await this.page.locator('.content').getByRole('button', { name: label , exact: true});
   }
@@ -231,7 +231,7 @@ export class ProjectListings {
         return this.page.locator('.content').locator('.ComponentContainer').getByText(field.label, { exact: true }).locator('..').locator('..');
         
       case 'location-map':
-        return this.page.locator('.content').locator('.ComponentContainer').filter({ hasText: field.label });
+        return this.page.locator('.content').locator('[data-component="location-map"]').filter({ hasText: field.label });
 
       case 'modular-chart':
         return this.page.locator('.content').locator('.DynamicChart').filter({ hasText: field.label });
@@ -517,8 +517,8 @@ export class ProjectListings {
   }
 
   async validateModularChart(field, locator){
-    await expect(await locator.locator('h2')).toBeVisible();
-    await expect(await locator.locator('h2')).toHaveText(field.label);
+    await expect(await locator.locator('label')).toBeVisible();
+    await expect(await locator.locator('label')).toHaveText(field.label);
     const value = await getFieldValue(field.name);
     if(value){
       await expect(await locator.locator('.recharts-responsive-container').locator('svg.recharts-surface')).toBeVisible(); 

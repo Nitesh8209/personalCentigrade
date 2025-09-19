@@ -105,15 +105,15 @@ class LoginPage {
     }
 
     async createAccountNavigation() {
-        await expect(this.page.getByRole('navigation')).toBeVisible();
+        return await expect(this.page.getByRole('navigation'));
     }
 
     async createAccountLogo() {
-        await expect(this.page.getByRole('img')).toBeVisible();
+        return await expect(this.page.getByRole('img'));
     }
 
     async createAccountCard() {
-        await expect(this.page.locator('.card.elevate.create-account-container')).toBeVisible();
+        return await expect(this.page.locator('.create-account'));
     }
 
     async createAccountheading() {

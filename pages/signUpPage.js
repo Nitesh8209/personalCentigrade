@@ -123,7 +123,7 @@ class SignUpPage {
   }
 
   async verificationCodecard() {
-    await expect(await this.page.locator('.verification')).toBeVisible();
+    await expect(this.page.locator('.card.elevate.create-account-container.gap-xl')).toBeVisible();
   }
 
   async verificationCodeheading() {

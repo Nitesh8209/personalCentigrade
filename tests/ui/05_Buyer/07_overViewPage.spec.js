@@ -128,8 +128,13 @@ for (const authState of authStates) {
         const quickLinkLabel = await overviewPage.quickLinkGroupTextLink(quickLink.label)
         await expect.soft(quickLinkLabel).toBeVisible();
         await quickLinkLabel.click();
-        await expect.soft(await overviewPage.stepLink(quickLink.label)).toBeVisible();
-        await expect(page.url()).toContain(quickLink.path);
+        if(authState.isAuthenticated){
+          await expect.soft(await overviewPage.stepLink(quickLink.stepLabel)).toBeVisible();
+          await expect(page.url()).toContain(quickLink.path);
+        }else{
+          await expect(page.url()).toContain(quickLink.unAuthPath);
+        }
+
 
         const overView = await overviewPage.navbarOverview();
         await overView.click();

@@ -1,7 +1,7 @@
 {
   "dataSchema": "QA-ACR1.3-cgV1.0.0",
   "navigation": "view2.0-config",
-  "versionDate": "2025-09-16T10:23:40-07:00",
+  "versionDate": "2025-09-18T15:42:12-07:00",
   "methodology": {
     "id": 13,
     "nickname": "QA-ACR1.3",
@@ -1995,7 +1995,7 @@
               ],
               "parent_id": 19,
               "attributes": null,
-              "description": "Fundamental project information",
+              "description": "Key project fundamentals including activities, registration details, and timeline for implementation",
               "nav_type_id": 2,
               "nav_level_id": 3,
               "display_order": 1
@@ -2185,7 +2185,7 @@
               ],
               "parent_id": 19,
               "attributes": null,
-              "description": "Where the project is located and its boundaries",
+              "description": "High-level geographic overview of the project",
               "nav_type_id": 2,
               "nav_level_id": 3,
               "display_order": 2
@@ -3082,7 +3082,7 @@
               ],
               "parent_id": 19,
               "attributes": null,
-              "description": "Project compliance with national, labor, and carbon rights",
+              "description": "Project compliance overview covering labor rights protections, local regulatory adherence, and carbon rights ownership",
               "nav_type_id": 2,
               "nav_level_id": 3,
               "display_order": 3
@@ -3682,7 +3682,7 @@
               ],
               "parent_id": 964,
               "attributes": null,
-              "description": "The organization's history and structure",
+              "description": "Project developer profile including organizational background, relevant experience, and capacity",
               "nav_type_id": 2,
               "nav_level_id": 3,
               "display_order": 0
@@ -4652,7 +4652,7 @@
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 2,
-                          "view_component": "key-value-table",
+                          "view_component": "data-grid",
                           "validation_schema": null,
                           "display_dependencies": null
                         },
@@ -10338,48 +10338,48 @@
                             {
                               "name": "cookstoveOverviewBlockTotalDeployedSensors",
                               "type": null,
-                              "label": "Total deployed sensors",
-                              "options": [],
-                              "tooltip": "",
+                              "label": "Total deployed households",
+                              "options": null,
+                              "tooltip": "Households with a cookstove and an active stove use monitor (SUM) attached",
                               "column_id": 2091,
                               "component": "text-input",
                               "attributes": {
-                                "field": "totalProjectsIssued-overview-events"
+                                "field": "totalDeployedHouseholds-overview-events"
                               },
                               "helper_text": "",
-                              "column_order": 6,
-                              "view_component": "truncated-text",
-                              "validation_schema": null
-                            },
-                            {
-                              "name": "cookstoveOverviewBlockPercentReporting",
-                              "type": null,
-                              "label": "% of sensors reporting data",
-                              "options": [],
-                              "tooltip": "Percentage of cookstoves that have reported on their event data in the last 20 weeks. This is not the percentage of cookstoves that have been used. ",
-                              "column_id": 2092,
-                              "component": "text-input",
-                              "attributes": {
-                                "field": "percentReporting-overview-events"
-                              },
-                              "helper_text": "",
-                              "column_order": 7,
+                              "column_order": 0,
                               "view_component": "truncated-text",
                               "validation_schema": null
                             },
                             {
                               "name": "cookstoveOverviewBlockDailyEventsPerHousehold",
                               "type": null,
-                              "label": "Avg. daily events per household",
-                              "options": [],
-                              "tooltip": "",
+                              "label": "Total households reporting data",
+                              "options": null,
+                              "tooltip": "Households where one or both of their cookstove sensors have reported event data in the last 20 weeks",
                               "column_id": 2093,
                               "component": "text-input",
                               "attributes": {
-                                "field": "dailyEventsPerHousehold-overview-events"
+                                "field": "totalHouseholdsReportingData-overview-events"
                               },
                               "helper_text": "",
-                              "column_order": 8,
+                              "column_order": 1,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            },
+                            {
+                              "name": "cookstoveOverviewBlockPercentReporting",
+                              "type": null,
+                              "label": "Adoption rate",
+                              "options": null,
+                              "tooltip": "Sum(household/weeks with a cooking event)/Sum(household/weeks)",
+                              "column_id": 2092,
+                              "component": "text-input",
+                              "attributes": {
+                                "field": "adoptionRate-overview-events"
+                              },
+                              "helper_text": "",
+                              "column_order": 2,
                               "view_component": "truncated-text",
                               "validation_schema": null
                             }
@@ -10445,13 +10445,13 @@
                             {
                               "name": "cookstoveRegionTableDeployedSensors",
                               "type": "number",
-                              "label": "Deployed sensors",
-                              "options": [],
-                              "tooltip": "",
+                              "label": "Total deployed households",
+                              "options": null,
+                              "tooltip": "Households with a cookstove and a stove use monitor (SUM) attached",
                               "column_id": 2096,
                               "component": "text-input",
                               "attributes": {
-                                "field": "deployedSensors-overview-events"
+                                "field": "totalDeployedHouseholds-overview-events"
                               },
                               "helper_text": "",
                               "column_order": 0,
@@ -10461,16 +10461,32 @@
                             {
                               "name": "cookstoveRegionTablePercentReporting",
                               "type": null,
-                              "label": "% sensors reporting data",
-                              "options": [],
-                              "tooltip": "",
+                              "label": "Total households reporting data",
+                              "options": null,
+                              "tooltip": "Households where one or both of their cookstove sensors have reported event data in the last 20 weeks",
                               "column_id": 2097,
                               "component": "text-input",
                               "attributes": {
-                                "field": "percentReporting-overview-events"
+                                "field": "totalHouseholdsReportingData-overview-events"
                               },
                               "helper_text": "",
                               "column_order": 1,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            },
+                            {
+                              "name": "cookstoveRegionTableAvgEventDuration",
+                              "type": null,
+                              "label": "Adoption rate",
+                              "options": null,
+                              "tooltip": "Sum(household/weeks with a cooking event)/Sum(household/weeks)",
+                              "column_id": 2099,
+                              "component": "text-input",
+                              "attributes": {
+                                "field": "adoptionRate-overview-events"
+                              },
+                              "helper_text": "",
+                              "column_order": 2,
                               "view_component": "truncated-text",
                               "validation_schema": null
                             },
@@ -10484,22 +10500,6 @@
                               "component": "text-input",
                               "attributes": {
                                 "field": "dailyEventsPerHousehold-overview-events"
-                              },
-                              "helper_text": "",
-                              "column_order": 2,
-                              "view_component": "truncated-text",
-                              "validation_schema": null
-                            },
-                            {
-                              "name": "cookstoveRegionTableAvgEventDuration",
-                              "type": null,
-                              "label": "Avg. duration of event (hours)",
-                              "options": [],
-                              "tooltip": "",
-                              "column_id": 2099,
-                              "component": "text-input",
-                              "attributes": {
-                                "field": "avgEventDuration-overview-events"
                               },
                               "helper_text": "",
                               "column_order": 3,
@@ -11196,6 +11196,66 @@
                       "label": "",
                       "fields": [
                         {
+                          "id": 1342,
+                          "name": "avoidableRiskTable-dataTable-dataTable",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "object",
+                          "label": "Assessment of avoidable risks",
+                          "columns": [
+                            {
+                              "name": "avoidableRiskTableRisk",
+                              "type": "string",
+                              "label": "Intentional or avoidable reversal risk",
+                              "options": [
+                                "Project early termination",
+                                "Project mismanagement",
+                                "Financial flow disruption",
+                                "Project area loss",
+                                "Unplanned harvesting",
+                                "Unplanned tillage",
+                                "Land tenure conflict",
+                                "Operational issues",
+                                "Technological issues",
+                                "Other risks"
+                              ],
+                              "tooltip": "",
+                              "column_id": 1399,
+                              "component": "select",
+                              "attributes": null,
+                              "helper_text": "",
+                              "column_order": 0,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            },
+                            {
+                              "name": "avoidableRiskTableStrategy",
+                              "type": "string",
+                              "label": "Assessment and/or mitigation strategy",
+                              "options": [],
+                              "tooltip": "",
+                              "column_id": 1400,
+                              "component": "textarea",
+                              "attributes": null,
+                              "helper_text": "",
+                              "column_order": 1,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            }
+                          ],
+                          "options": [],
+                          "tooltip": "Avoidable or intentional risks for carbon projects are risks that can be reasonably mitigated through proper project design, implementation, and management (e.g., financial viability, operational or technical risks related to project management, project design and execution, project governance, contractual breaches, disputes, etc.)",
+                          "elements": null,
+                          "component": "data-table",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 0,
+                          "view_component": "data-table",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
                           "id": 1343,
                           "name": "unavoidableRiskTable-dataTable-dataTable",
                           "rows": null,
@@ -11253,66 +11313,6 @@
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "Unavoidable or unintentional risks for carbon projects are risks that are difficult or impossible to foresee, control, or prevent. These risks often stem from external factors beyond the control of the project developers (e.g., natural disasters, climate change impacts, environmental risks, etc.).",
-                          "display_order": 0,
-                          "view_component": "data-table",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        },
-                        {
-                          "id": 1342,
-                          "name": "avoidableRiskTable-dataTable-dataTable",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "object",
-                          "label": "Assessment of avoidable risks",
-                          "columns": [
-                            {
-                              "name": "avoidableRiskTableRisk",
-                              "type": "string",
-                              "label": "Intentional or avoidable reversal risk",
-                              "options": [
-                                "Project early termination",
-                                "Project mismanagement",
-                                "Financial flow disruption",
-                                "Project area loss",
-                                "Unplanned harvesting",
-                                "Unplanned tillage",
-                                "Land tenure conflict",
-                                "Operational issues",
-                                "Technological issues",
-                                "Other risks"
-                              ],
-                              "tooltip": "",
-                              "column_id": 1399,
-                              "component": "select",
-                              "attributes": null,
-                              "helper_text": "",
-                              "column_order": 0,
-                              "view_component": "truncated-text",
-                              "validation_schema": null
-                            },
-                            {
-                              "name": "avoidableRiskTableStrategy",
-                              "type": "string",
-                              "label": "Assessment and/or mitigation strategy",
-                              "options": [],
-                              "tooltip": "",
-                              "column_id": 1400,
-                              "component": "textarea",
-                              "attributes": null,
-                              "helper_text": "",
-                              "column_order": 1,
-                              "view_component": "truncated-text",
-                              "validation_schema": null
-                            }
-                          ],
-                          "options": [],
-                          "tooltip": "Avoidable or intentional risks for carbon projects are risks that can be reasonably mitigated through proper project design, implementation, and management (e.g., financial viability, operational or technical risks related to project management, project design and execution, project governance, contractual breaches, disputes, etc.)",
-                          "elements": null,
-                          "component": "data-table",
-                          "attributes": {},
-                          "half_width": false,
-                          "helper_text": "",
                           "display_order": 1,
                           "view_component": "data-table",
                           "validation_schema": null,
@@ -16963,231 +16963,6 @@
                   "display_order": 0
                 },
                 {
-                  "id": 872,
-                  "name": "involuntaryDisplacementView",
-                  "label": "Involuntary displacement",
-                  "parent_id": 868,
-                  "attributes": {},
-                  "description": "",
-                  "nav_type_id": 2,
-                  "field_groups": [
-                    {
-                      "id": 875,
-                      "name": "economicDisplacementView",
-                      "label": "Economic displacement",
-                      "fields": [
-                        {
-                          "id": 588,
-                          "name": "economicDisplacementExplain-nameValue-nameValue",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "string",
-                          "label": "Expected economic displacement effects",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "Possible risks or impacts to the project community that would create obstacles to the ability to find, retain, or secure economic opportunity in the project area",
-                          "elements": null,
-                          "component": "rich-text",
-                          "attributes": {},
-                          "half_width": false,
-                          "helper_text": "Describe any potential economic displacement effects. If none, provide a brief explanation justifying the absence of such impacts.",
-                          "display_order": 0,
-                          "view_component": "rich-text",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        },
-                        {
-                          "id": 37,
-                          "name": "economicDisplacementPlan-nameValue-nameValue",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "boolean",
-                          "label": "Mitigation plan in place to address economic displacement effects",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "Project plan to mitigate possible obstacles to economic opportunity for the project community due to project activities",
-                          "elements": null,
-                          "component": "radio-y-n",
-                          "attributes": {},
-                          "half_width": false,
-                          "helper_text": "",
-                          "display_order": 1,
-                          "view_component": "key-value-table",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        },
-                        {
-                          "id": 589,
-                          "name": "economicDisplacementDetails-nameValue-nameValue",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "string",
-                          "label": "Overview of activities included in the mitigation plan",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "Mitigation may include, but is not limited to, avoidance, minimization, mitigation, and/or compensation activities",
-                          "elements": null,
-                          "component": "rich-text",
-                          "attributes": {},
-                          "half_width": false,
-                          "helper_text": "Describe what type of activity the mitigation plan entails (including but not limited to avoidance, minimization, mitigation, and/or compensation)",
-                          "display_order": 2,
-                          "view_component": "rich-text",
-                          "validation_schema": null,
-                          "display_dependencies": [
-                            {
-                              "field": "economicDisplacementPlan-nameValue-nameValue",
-                              "pattern": "Yes"
-                            }
-                          ]
-                        },
-                        {
-                          "id": 30,
-                          "name": "economicDisplacementPlanEvidence-projectFile-storage",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "array",
-                          "label": "Documentation of mitigation plan for economic displacement",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "Supporting evidence of the economic displacement mitigation plan",
-                          "elements": null,
-                          "component": "file-upload-multiple",
-                          "attributes": {
-                            "accept": "",
-                            "isPublic": ""
-                          },
-                          "half_width": false,
-                          "helper_text": "",
-                          "display_order": 3,
-                          "view_component": "key-value-table",
-                          "validation_schema": null,
-                          "display_dependencies": [
-                            {
-                              "field": "economicDisplacementPlan-nameValue-nameValue",
-                              "pattern": "Yes"
-                            }
-                          ]
-                        }
-                      ],
-                      "parent_id": 872,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 0
-                    },
-                    {
-                      "id": 876,
-                      "name": "physicalDisplacementView",
-                      "label": "Physical displacement",
-                      "fields": [
-                        {
-                          "id": 587,
-                          "name": "physicalDisplacementExplain-nameValue-nameValue",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "string",
-                          "label": "Expected physical displacement effects",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "Relocation, loss of residential land, or loss of shelter as a result of involuntary acquisition of land and/or involuntary restrictions on land use or on access",
-                          "elements": null,
-                          "component": "rich-text",
-                          "attributes": {},
-                          "half_width": false,
-                          "helper_text": "Indicate any potential impacts or risks of the project activity on local physical displacement",
-                          "display_order": 0,
-                          "view_component": "rich-text",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        },
-                        {
-                          "id": 593,
-                          "name": "physicalMitigation-nameValue-nameValue",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "boolean",
-                          "label": "Mitigation plan in place to address physical displacement effects",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "Project plan to mitigate possible relocation, loss of residential land, or loss of shelter due to project activities",
-                          "elements": null,
-                          "component": "radio-y-n",
-                          "attributes": {},
-                          "half_width": false,
-                          "helper_text": "",
-                          "display_order": 1,
-                          "view_component": "key-value-table",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        },
-                        {
-                          "id": 594,
-                          "name": "physicalMitigationDetails-nameValue-nameValue",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "string",
-                          "label": "Details of mitigation plan to address physical displacement",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "Mitigation may include, but is not limited to, avoidance, minimization, mitigation, and/or compensation activities",
-                          "elements": null,
-                          "component": "rich-text",
-                          "attributes": {},
-                          "half_width": false,
-                          "helper_text": "",
-                          "display_order": 2,
-                          "view_component": "rich-text",
-                          "validation_schema": null,
-                          "display_dependencies": [
-                            {
-                              "field": "physicalMitigation-nameValue-nameValue",
-                              "pattern": "Yes"
-                            }
-                          ]
-                        },
-                        {
-                          "id": 595,
-                          "name": "physicalDisplacementSupportingEvidence-projectFile-storage",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "array",
-                          "label": "Documentation of mitigation plan for physical displacement",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "Supporting evidence of the physical displacement mitigation plan",
-                          "elements": null,
-                          "component": "file-upload-multiple",
-                          "attributes": {
-                            "accept": "",
-                            "isPublic": ""
-                          },
-                          "half_width": false,
-                          "helper_text": "",
-                          "display_order": 3,
-                          "view_component": "key-value-table",
-                          "validation_schema": null,
-                          "display_dependencies": [
-                            {
-                              "field": "physicalMitigation-nameValue-nameValue",
-                              "pattern": "Yes"
-                            }
-                          ]
-                        }
-                      ],
-                      "parent_id": 872,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 1
-                    }
-                  ],
-                  "nav_level_id": 4,
-                  "display_order": 1
-                },
-                {
                   "id": 873,
                   "name": "stakeholderAnalysisView",
                   "label": "Stakeholder analysis",
@@ -18089,7 +17864,7 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 2
+                  "display_order": 1
                 },
                 {
                   "id": 1168,
@@ -18114,7 +17889,7 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 3
+                  "display_order": 2
                 },
                 {
                   "id": 874,
@@ -18356,6 +18131,231 @@
                         }
                       ],
                       "parent_id": 874,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 1
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 3
+                },
+                {
+                  "id": 872,
+                  "name": "involuntaryDisplacementView",
+                  "label": "Involuntary displacement",
+                  "parent_id": 868,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 875,
+                      "name": "economicDisplacementView",
+                      "label": "Economic displacement",
+                      "fields": [
+                        {
+                          "id": 588,
+                          "name": "economicDisplacementExplain-nameValue-nameValue",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "string",
+                          "label": "Expected economic displacement effects",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "Possible risks or impacts to the project community that would create obstacles to the ability to find, retain, or secure economic opportunity in the project area",
+                          "elements": null,
+                          "component": "rich-text",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "Describe any potential economic displacement effects. If none, provide a brief explanation justifying the absence of such impacts.",
+                          "display_order": 0,
+                          "view_component": "rich-text",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
+                          "id": 37,
+                          "name": "economicDisplacementPlan-nameValue-nameValue",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "boolean",
+                          "label": "Mitigation plan in place to address economic displacement effects",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "Project plan to mitigate possible obstacles to economic opportunity for the project community due to project activities",
+                          "elements": null,
+                          "component": "radio-y-n",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 1,
+                          "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
+                          "id": 589,
+                          "name": "economicDisplacementDetails-nameValue-nameValue",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "string",
+                          "label": "Overview of activities included in the mitigation plan",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "Mitigation may include, but is not limited to, avoidance, minimization, mitigation, and/or compensation activities",
+                          "elements": null,
+                          "component": "rich-text",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "Describe what type of activity the mitigation plan entails (including but not limited to avoidance, minimization, mitigation, and/or compensation)",
+                          "display_order": 2,
+                          "view_component": "rich-text",
+                          "validation_schema": null,
+                          "display_dependencies": [
+                            {
+                              "field": "economicDisplacementPlan-nameValue-nameValue",
+                              "pattern": "Yes"
+                            }
+                          ]
+                        },
+                        {
+                          "id": 30,
+                          "name": "economicDisplacementPlanEvidence-projectFile-storage",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "array",
+                          "label": "Documentation of mitigation plan for economic displacement",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "Supporting evidence of the economic displacement mitigation plan",
+                          "elements": null,
+                          "component": "file-upload-multiple",
+                          "attributes": {
+                            "accept": "",
+                            "isPublic": ""
+                          },
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 3,
+                          "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": [
+                            {
+                              "field": "economicDisplacementPlan-nameValue-nameValue",
+                              "pattern": "Yes"
+                            }
+                          ]
+                        }
+                      ],
+                      "parent_id": 872,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    },
+                    {
+                      "id": 876,
+                      "name": "physicalDisplacementView",
+                      "label": "Physical displacement",
+                      "fields": [
+                        {
+                          "id": 587,
+                          "name": "physicalDisplacementExplain-nameValue-nameValue",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "string",
+                          "label": "Expected physical displacement effects",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "Relocation, loss of residential land, or loss of shelter as a result of involuntary acquisition of land and/or involuntary restrictions on land use or on access",
+                          "elements": null,
+                          "component": "rich-text",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "Indicate any potential impacts or risks of the project activity on local physical displacement",
+                          "display_order": 0,
+                          "view_component": "rich-text",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
+                          "id": 593,
+                          "name": "physicalMitigation-nameValue-nameValue",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "boolean",
+                          "label": "Mitigation plan in place to address physical displacement effects",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "Project plan to mitigate possible relocation, loss of residential land, or loss of shelter due to project activities",
+                          "elements": null,
+                          "component": "radio-y-n",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 1,
+                          "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
+                          "id": 594,
+                          "name": "physicalMitigationDetails-nameValue-nameValue",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "string",
+                          "label": "Details of mitigation plan to address physical displacement",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "Mitigation may include, but is not limited to, avoidance, minimization, mitigation, and/or compensation activities",
+                          "elements": null,
+                          "component": "rich-text",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 2,
+                          "view_component": "rich-text",
+                          "validation_schema": null,
+                          "display_dependencies": [
+                            {
+                              "field": "physicalMitigation-nameValue-nameValue",
+                              "pattern": "Yes"
+                            }
+                          ]
+                        },
+                        {
+                          "id": 595,
+                          "name": "physicalDisplacementSupportingEvidence-projectFile-storage",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "array",
+                          "label": "Documentation of mitigation plan for physical displacement",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "Supporting evidence of the physical displacement mitigation plan",
+                          "elements": null,
+                          "component": "file-upload-multiple",
+                          "attributes": {
+                            "accept": "",
+                            "isPublic": ""
+                          },
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 3,
+                          "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": [
+                            {
+                              "field": "physicalMitigation-nameValue-nameValue",
+                              "pattern": "Yes"
+                            }
+                          ]
+                        }
+                      ],
+                      "parent_id": 872,
                       "attributes": {},
                       "description": "",
                       "nav_type_id": 2,
@@ -22959,8 +22959,8 @@
                           "validation_schema": null,
                           "display_dependencies": [
                             {
-                              "field": "ecoParentConditional-nameValue-nameValue",
-                              "pattern": "Air quality"
+                              "field": "airMonitoringStatus-nameValue-nameValue",
+                              "pattern": "Project monitors air pollution and has specific reduction targets|Project monitors air pollution and has met specific reduction targets during the last year of operations|Project monitors and records air pollution (no reduction targets)|Project has eliminated hazardous and toxic air pollutants from project activities entirely"
                             }
                           ]
                         },
@@ -22986,7 +22986,9 @@
                           "tooltip": "Pollutants that are monitored as part of the project activity",
                           "elements": null,
                           "component": "select-multiple",
-                          "attributes": null,
+                          "attributes": {
+                            "field": ""
+                          },
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 2,
@@ -22994,8 +22996,8 @@
                           "validation_schema": null,
                           "display_dependencies": [
                             {
-                              "field": "ecoParentConditional-nameValue-nameValue",
-                              "pattern": "Air quality"
+                              "field": "airMonitoringStatus-nameValue-nameValue",
+                              "pattern": "Project monitors air pollution and has specific reduction targets|Project monitors air pollution and has met specific reduction targets during the last year of operations|Project monitors and records air pollution (no reduction targets)|Project has eliminated hazardous and toxic air pollutants from project activities entirely"
                             }
                           ]
                         },
@@ -23044,8 +23046,8 @@
                           "validation_schema": null,
                           "display_dependencies": [
                             {
-                              "field": "ecoParentConditional-nameValue-nameValue",
-                              "pattern": "Air quality"
+                              "field": "airMonitoringStatus-nameValue-nameValue",
+                              "pattern": "Project monitors air pollution and has specific reduction targets|Project monitors air pollution and has met specific reduction targets during the last year of operations|Project monitors and records air pollution (no reduction targets)|Project has eliminated hazardous and toxic air pollutants from project activities entirely"
                             }
                           ]
                         },
@@ -23069,8 +23071,33 @@
                           "validation_schema": null,
                           "display_dependencies": [
                             {
-                              "field": "ecoParentConditional-nameValue-nameValue",
-                              "pattern": "Air quality"
+                              "field": "airMonitoringStatus-nameValue-nameValue",
+                              "pattern": "Project monitors air pollution and has specific reduction targets|Project monitors air pollution and has met specific reduction targets during the last year of operations|Project monitors and records air pollution (no reduction targets)|Project has eliminated hazardous and toxic air pollutants from project activities entirely"
+                            }
+                          ]
+                        },
+                        {
+                          "id": 1569,
+                          "name": "airQualityModeling-nameValue-nameValue",
+                          "rows": null,
+                          "tier": 2,
+                          "type": "string",
+                          "label": "Overview of the approach used to model and estimate air quality effects",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "Overview of the methodology used to model air quality and synthesize resulting impact assessments",
+                          "elements": null,
+                          "component": "rich-text",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 10,
+                          "view_component": "rich-text",
+                          "validation_schema": null,
+                          "display_dependencies": [
+                            {
+                              "field": "airMonitoringStatus-nameValue-nameValue",
+                              "pattern": "Project models and estimates air quality impacts"
                             }
                           ]
                         }
@@ -23120,7 +23147,7 @@
                           "type": "string",
                           "label": "Assessment of health risks from air pollutant exposure linked to project activities",
                           "columns": null,
-                          "options": [],
+                          "options": null,
                           "tooltip": "Detailed assessment of health risks associated with exposure to air pollutants resulting from project activities, including any documented or observed impacts on affected populations",
                           "elements": null,
                           "component": "rich-text",
@@ -23176,21 +23203,21 @@
                       "label": "Air pollution impacts",
                       "fields": [
                         {
-                          "id": 1569,
-                          "name": "airQualityModeling-nameValue-nameValue",
+                          "id": 4818,
+                          "name": "estimatedHealthRisksPollutants-nameValue-nameValue",
                           "rows": null,
-                          "tier": 2,
+                          "tier": -1,
                           "type": "string",
-                          "label": "Overview of the approach used to model and estimate air quality effects",
+                          "label": "Assessment of air quality-related health impacts",
                           "columns": null,
                           "options": [],
-                          "tooltip": "Overview of the methodology used to model air quality and synthesize resulting impact assessments",
+                          "tooltip": "Overview of the modeled or estimated air quality-related health impacts as a result of the project activity",
                           "elements": null,
                           "component": "rich-text",
                           "attributes": {},
                           "half_width": false,
-                          "helper_text": "",
-                          "display_order": 0,
+                          "helper_text": "Provide an overview of the modeled or estimated air quality-related health impacts as a result of the project activity",
+                          "display_order": 1,
                           "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
@@ -23220,8 +23247,8 @@
                           "validation_schema": null,
                           "display_dependencies": [
                             {
-                              "field": "ecoParentConditional-nameValue-nameValue",
-                              "pattern": "Air quality"
+                              "field": "airMonitoringStatus-nameValue-nameValue",
+                              "pattern": "Project monitors air pollution and has specific reduction targets|Project monitors air pollution and has met specific reduction targets during the last year of operations|Project monitors and records air pollution (no reduction targets)|Project has eliminated hazardous and toxic air pollutants from project activities entirely"
                             }
                           ]
                         },
@@ -23273,8 +23300,8 @@
                           "validation_schema": null,
                           "display_dependencies": [
                             {
-                              "field": "ecoParentConditional-nameValue-nameValue",
-                              "pattern": "Air quality"
+                              "field": "airMonitoringStatus-nameValue-nameValue",
+                              "pattern": "Project monitors air pollution and has specific reduction targets|Project monitors air pollution and has met specific reduction targets during the last year of operations|Project monitors and records air pollution (no reduction targets)|Project has eliminated hazardous and toxic air pollutants from project activities entirely"
                             }
                           ]
                         },
@@ -23312,7 +23339,7 @@
                           "rows": null,
                           "tier": 2,
                           "type": "string",
-                          "label": "Summary of quantifiable project air quality impacts",
+                          "label": "Summary of project air quality impacts",
                           "columns": null,
                           "options": [],
                           "tooltip": "Assessment of cumulative air quality impacts attributable to project-related activities",
@@ -23351,8 +23378,8 @@
                           "validation_schema": null,
                           "display_dependencies": [
                             {
-                              "field": "ecoParentConditional-nameValue-nameValue",
-                              "pattern": "Air quality"
+                              "field": "airMonitoringStatus-nameValue-nameValue",
+                              "pattern": "Project monitors air pollution and has specific reduction targets|Project monitors air pollution and has met specific reduction targets during the last year of operations|Project monitors and records air pollution (no reduction targets)|Project has eliminated hazardous and toxic air pollutants from project activities entirely"
                             }
                           ]
                         },
