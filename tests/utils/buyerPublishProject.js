@@ -45,7 +45,11 @@ const generateFieldData = (field, fileData = null, fileTierFilter = null) => {
       if (FIELD_TYPES.NUMBER === field.type || FIELD_TYPES.INTEGER === field.type) {
         return faker.number.int(100).toString();
       } else {
-        return faker.lorem.words(3);
+        if(field.name == "projectMission-nameValue-nameValue"){
+          return faker.lorem.words(75);
+        }else{
+          return faker.lorem.words(3);
+        }
       }
 
     case COMPONENT_TYPES.RICH_TEXT:

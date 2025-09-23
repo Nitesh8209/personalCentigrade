@@ -9,7 +9,8 @@ import { SearchModal } from "../../../pages/searchModal";
 import { AiSearch } from "../../../pages/aiSearch";
 
 // Test suite for search functionality in the buyer view
-test.describe('Search Functionlity in the Public view', async () => {
+test.describe('Search Functionlity in the Public view', { tag: '@UI' }, async () => {
+  const { BuyerprojectGuid } = getData('UI');
 
   let page;
 
@@ -19,7 +20,9 @@ test.describe('Search Functionlity in the Public view', async () => {
     page = await context.newPage();
 
     const listingPage = new ListingPage(page);
-    await setupPage(page, null, null, listingPage, baseURL);
+    // await setupPage(page, null, null, listingPage, baseURL);
+    await page.goto(`${baseURL}/listings/${BuyerprojectGuid}/overview`);
+
   })
 
   // Test to verify search box and button visibility and content
@@ -33,9 +36,9 @@ test.describe('Search Functionlity in the Public view', async () => {
 })
 
 // Test suite for search functionality in the buyer view
-test.describe('Search Functionlity in the buyer view', async () => {
+test.describe('Search Functionlity in the buyer view', { tag: '@UI' }, async () => {
   // Retrieve test data for new email and set up credentials object
-  const { newEmail } = getData('UI');
+  const { newEmail , BuyerprojectGuid} = getData('UI');
   const credentials = {
     email: newEmail,
     password: ValidTestData.newPassword
@@ -55,7 +58,10 @@ test.describe('Search Functionlity in the buyer view', async () => {
     const loginPage = new LoginPage(page, baseURL);
     const listingPage = new ListingPage(page);
     aiSearch = new AiSearch(page);
-    await setupPage(page, loginPage, credentials, listingPage, baseURL);
+
+    await page.goto(`${baseURL}/listings/${BuyerprojectGuid}/overview`);
+
+    // await setupPage(page, loginPage, credentials, listingPage, baseURL);
   })
 
   // Test to verify search box and button visibility and content

@@ -6,7 +6,9 @@ export class AiSearch {
    }
 
    async centigradeAiButton() {
-    return await this.myPage.getByRole('button', {name: 'Ask  Centigrade.AI'})
+    // return await this.myPage.getByRole('button', {name: 'Ask  Centigrade.AI'});
+
+    return await this.myPage.locator('.btn-icon-left');
    }
 
    async AiSearchBar() {
