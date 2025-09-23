@@ -751,13 +751,22 @@ export class FieldHandler {
         
         for (const option of field.options) {
           if (!(await listbox.isVisible())) {
-          await indicator.click();
-        }
-          const selectedValuesText = await locator.textContent();
-          if (selectedValuesText.includes(option)){
+            await indicator.click();
+          }
+          
+          // Check if option is already selected by looking for exact badge matches
+          const selectedBadges = await locator.locator('.badge').allTextContents();
+          const isAlreadySelected = selectedBadges.some(badgeText => {
+            // Remove any extra whitespace and compare exact text
+            const cleanBadgeText = badgeText.trim().replace(/\s+/g, ' ');
+            return cleanBadgeText === option;
+          });
+          
+          if (isAlreadySelected) {
             value.push(option);
             continue;
-          } 
+          }
+          
           const optionLocator = listbox.locator(`text="${option}"`);
           await expect(optionLocator).toBeVisible();
           await optionLocator.evaluate(el => {
@@ -768,10 +777,17 @@ export class FieldHandler {
           await optionLocator.click();
           value.push(option);
         }
+        
         await indicator.click();
-        const selectedValues = await locator.textContent();
-        for (const value of field.options) {
-          expect(selectedValues).toContain(value);
+        
+        // Verify all expected options are selected
+        const finalSelectedBadges = await locator.locator('.badge').allTextContents();
+        for (const expectedOption of field.options) {
+          const isSelected = finalSelectedBadges.some(badgeText => {
+            const cleanBadgeText = badgeText.trim().replace(/\s+/g, ' ');
+            return cleanBadgeText === expectedOption;
+          });
+          expect(isSelected).toBe(true);
         }
         break;
 

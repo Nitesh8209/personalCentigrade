@@ -21,8 +21,8 @@ test.describe('Field level validation', { tag: '@UI' }, async () => {
   let page;
   let fieldHandler;
 
-    const authStoragePath = path.join(__dirname, '..', '..', 'data', 'project-auth-admin.json');
-    test.use({ storageState: authStoragePath });
+  const authStoragePath = path.join(__dirname, '..', '..', 'data', 'project-auth-admin.json');
+  test.use({ storageState: authStoragePath });
 
   test.beforeAll(async ({ browser, baseURL }) => {
     // Initialize page objects
@@ -283,6 +283,7 @@ test.describe('Field level validation', { tag: '@UI' }, async () => {
 
             test(`Validate the Tier 0 fields is required for Step: ${step.label}`, async () => {
               const errors = [];
+              let selectedFields = [];
 
               // Iterate over each section in the step
               for (const section of step.sections) {
@@ -295,10 +296,21 @@ test.describe('Field level validation', { tag: '@UI' }, async () => {
                   // Iterate over each field in the field group
                   for (const field of fieldGroup.fields) {
                     if (field.label == "Other project type") continue;
-                  
+                   
+                    if (field?.display_dependencies) {
+                      await safeExpect(`Validate field ${field.label} and Fill Dependent Parent Fields`,
+                        async () => {
+                          console.log(field.label);
+                          await fieldHandler.handleDisplayDependencies(step, field, formData, selectedFields, topic);
+                        },
+                        errors
+                      );
+                    }
+
                     const requireField = await fieldHandler.validateRequiredField(field);
 
                     if (field.tier == 0) {
+
                       // Validate field label
                       await safeExpect(
                         `Validate required Field asterisk is visible: ${field.label}`,

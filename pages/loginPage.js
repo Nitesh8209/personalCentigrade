@@ -105,15 +105,15 @@ class LoginPage {
     }
 
     async createAccountNavigation() {
-        await expect(this.page.getByRole('navigation')).toBeVisible();
+        return await this.page.getByRole('navigation');
     }
 
     async createAccountLogo() {
-        await expect(this.page.getByRole('img')).toBeVisible();
+        return await this.page.getByRole('img');
     }
 
     async createAccountCard() {
-        await expect(this.page.locator('.card.elevate.create-account-container')).toBeVisible();
+        return await this.page.locator('.create-account');
     }
 
     async createAccountheading() {
@@ -121,7 +121,7 @@ class LoginPage {
     }
 
     async createAccountSubheading() {
-       return await this.page.locator('.title.flex.flex-col.gap-2xl > p');
+       return await this.page.locator('.create-account-form > p');
     } 
 
     async createAccountradiogroup() {

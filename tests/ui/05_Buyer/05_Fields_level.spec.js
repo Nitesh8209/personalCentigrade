@@ -16,7 +16,7 @@ export const viewData = JSON.parse(fs.readFileSync(viewDatapath, 'utf-8'));
 
 test.describe("Fields Level Validation - after Login", { tag: '@UI' }, () => {
 
-  const { newEmail } = getData('UI');
+  const { newEmail, BuyerprojectGuid } = getData('UI');
   const credentials = {
     email: newEmail,
     password: ValidTestData.newPassword
@@ -34,7 +34,9 @@ test.describe("Fields Level Validation - after Login", { tag: '@UI' }, () => {
 
     const loginPage = new LoginPage(page, baseURL);
     const listingPage = new ListingPage(page);
-    await setupPage(page, loginPage, credentials, listingPage, baseURL);
+        await page.goto(`${baseURL}/listings/${BuyerprojectGuid}/overview`);
+
+    // await setupPage(page, loginPage, credentials, listingPage, baseURL);
     await loginPage.accecptAll();
   });
 
@@ -96,13 +98,13 @@ test.describe("Fields Level Validation - after Login", { tag: '@UI' }, () => {
       else if (topic.step_groups && topic.step_groups.length > 1) {
 
         // Handle multiple step groups - each step is on a different page
-        for (const stepGroup of topic.step_groups) {
+        for (const [index, stepGroup] of topic.step_groups.entries()) {
           test.describe(`Step Group: ${stepGroup.label}`, () => {
             test.beforeAll(async () => {
               const projectListings = new ProjectListings(page);
               const stepGroupElement = await projectListings.stepGroup(stepGroup.label);
               const state = await stepGroupElement.getAttribute('data-state');
-              if (state === 'closed') {
+              if (index !== 0 && state === 'closed') {
                 await stepGroupElement.click();
               }
             });
