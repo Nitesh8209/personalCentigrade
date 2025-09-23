@@ -8,7 +8,7 @@ import { getData } from '../../utils/apiHelper';
 import { setupPage } from '../../utils/listingsProjectHelper';
 import { AiSearch } from '../../../pages/aiSearch';
 
-test.describe('AI Search Functionality Tests', () => {
+test.describe('AI Search Functionality Tests', { tag: '@UI' }, () => {
   const { newEmail } = getData('UI');
   const credentials = {
     email: newEmail,

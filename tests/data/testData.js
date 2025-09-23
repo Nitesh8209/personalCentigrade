@@ -66,47 +66,14 @@ export const DataRoomTestdata = {
 }
 
 export const quickLinkGroupData = [
-  { label: "Project details", path: "/projectDetails" },
-  { label: "Baseline summary", path: "/bslSummary" },
-  { label: "Project summary", path: "/projectSummary" },
-  { label: "Additionality", path: "/additionality" },
-  { label: "Cookstove monitoring", path: "/cookstoveMonitoring" },
+  { label: "Project details", path: "/projectDetails" , stepLabel: "Project details", unAuthPath: "/projectDetails"},
+  { label: "Baseline summary", path: "/bslSummary" , stepLabel: "Summary", unAuthPath: "/carbonSummary"},
+  { label: "Project summary", path: "/projSummary" , stepLabel: "Summary", unAuthPath: "/carbonSummary"},
+  { label: "Additionality", path: "/additionality" , stepLabel: "Additionality", unAuthPath: "/carbonSummary"},
+  { label: "Cookstove monitoring", path: "/cookstoveMonitoring" , stepLabel: "Cookstoves monitoring", unAuthPath: "/carbonSummary"},
 ];
 
- /**
-     * Test data configuration for feature flags
-     * Each object contains:
-     * - label: The feature flag identifier
-     * - helperText: Description text shown to users
-     * - checked: Default state of the feature flag
-     */
-export const featureFlagsTestData = [
-        {
-            label: "project.ai_summaries",
-            helperText: "Allow PDs to control/refine AI-generated summaries for buyers reviewing their project",
-            checked: true
-        },
-        {
-            label: "metrics.pd_dashboard",
-            helperText: "Enable PD dashboard metrics for projects",
-            checked: false
-        },
-        {
-            label: "project.ai_search",
-            helperText: "Allow users to search project data using natural language prompts",
-            checked: true
-        },
-        {
-            label: "project.send_google_analytics",
-            helperText: "Enable event tracking via Google Analytics",
-            checked: false
-        },
-        {
-            label: "project.credit_inventory",
-            helperText: "Enable the credit inventory management UI for projects",
-            checked: true
-        }
-    ];
+ 
 
 export const API_BASE_URL =
   process.env.PLATFORM === 'local'

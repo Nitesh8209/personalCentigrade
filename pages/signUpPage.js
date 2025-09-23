@@ -123,7 +123,7 @@ class SignUpPage {
   }
 
   async verificationCodecard() {
-    await expect(this.page.locator('.card.elevate.create-account-container.gap-xl')).toBeVisible();
+    await expect(await this.page.locator('.verification')).toBeVisible();
   }
 
   async verificationCodeheading() {
@@ -131,11 +131,11 @@ class SignUpPage {
   }
 
   async verificationCodeEmail() {
-    return await this.page.locator('span.font-semibold');
+    return await this.page.locator('b.font-semibold');
   }
 
   async verificationCodeinput() {
-    return await this.page.locator('.code-input');
+    return await this.page.locator('.pin-input-box');
    }
 
    async verificationCodepasswordInput() {
@@ -203,7 +203,7 @@ class SignUpPage {
   }
 
   async resetPasswordtempHelperText() {
-    return await this.page.locator(".content div:nth-child(2) div:nth-child(3)");
+    return await this.page.locator(".password-input").first().locator('div.helper-text');
   }
 
   async resetPasswordnewPassword() {
