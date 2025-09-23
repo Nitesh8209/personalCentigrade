@@ -152,6 +152,16 @@ globalSetup: require.resolve('./tests/global-setup'),
       fullyParallel: false,
       dependencies: ['Settings'],
     },
+        {
+      name: 'FeatureFlags',
+      testMatch: ['ui/03_Settings/5_feature_flags.spec.js'],
+      use: {
+        ...devices['Desktop Chrome'],
+        viewport: { width: 1366, height: 768 },
+      },
+      fullyParallel: false,
+      dependencies: ['Settings'],
+    },
     {
       name: 'ProjectPage',
       testMatch: ['ui/04_Project/01_ProjectPage.spec.js'],
