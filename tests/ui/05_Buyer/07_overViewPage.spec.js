@@ -168,5 +168,19 @@ for (const authState of authStates) {
 
     })
 
+    test('verify read more and read less functionality and modal', async () => {
+      const readMoreButton = await overviewPage.readMoreButton();
+      await expect.soft(readMoreButton).toBeVisible();
+      await readMoreButton.click();
+      await expect.soft(await overviewPage.readMoreModal()).toBeVisible();
+      await expect.soft(await overviewPage.readMoreModalHeading()).toBeVisible();
+      await expect.soft(await overviewPage.readMoreModalContent()).toBeVisible();
+
+      const readMoreModalCloseButton = await overviewPage.readMoreModalClose();
+      await readMoreModalCloseButton.click();
+      await expect.soft(await overviewPage.readMoreModal()).not.toBeVisible();
+      await expect.soft(await overviewPage.readMoreButton()).toBeVisible();
+    });
+    
   });
 }
