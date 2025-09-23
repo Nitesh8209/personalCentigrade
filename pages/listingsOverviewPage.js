@@ -91,4 +91,24 @@ export class ListingOverviewPage {
     return (await this.projectImage()).locator('.carousel-container');
   }
 
+  async readMoreButton() {
+    return await this.page.getByRole('button', { name: 'Read more' });
+  }
+
+  async readMoreModal() {
+    return await this.page.getByRole('dialog');
+  }
+
+  async readMoreModalHeading() {
+    return await this.page.locator('.modal-header');
+  }
+
+  async readMoreModalContent() {
+    return await this.page.locator('.modal-content');
+  }
+
+  async readMoreModalClose() {
+    return await this.page.locator('.modal-close-btn');
+  }
+
 }
