@@ -12,7 +12,7 @@ test.describe('View Basic Test cases', { tag: '@UI' }, () => {
 
     let page;
   
-    test.beforeEach(async ({ browser, baseURL }) => {
+    test.beforeAll(async ({ browser, baseURL }) => {
       const context = await browser.newContext();
       page = await context.newPage();
 
@@ -21,10 +21,15 @@ test.describe('View Basic Test cases', { tag: '@UI' }, () => {
     });
   
     // Close the browser page after all tests are complete
-    test.afterEach(async () => {
+    test.afterAll(async () => {
       await page.close();
     });
 
+  test.afterEach(async ({ baseURL }) => {
+    const loginPage = new LoginPage(page, baseURL);
+    await loginPage.logOut();
+    expect(page.url()).toBe(`${baseURL}/login`);
+  })
 
   test('Verify that the "Listed Projects" button is visible on the left Sidebar', async ({ baseURL }) => {
 
@@ -120,17 +125,13 @@ test.describe('View Basic Test cases', { tag: '@UI' }, () => {
       async () => await projectsPage.selectOrg(ValidTestData.organizationName),
       errors);
 
-    if(!(await (await projectsPage.jediPanel()).isVisible())){
-      const jediPanelTrigger = await projectsPage.jediPanelTrigger();
-      await expect(jediPanelTrigger).toBeVisible();
-      await jediPanelTrigger.click();
-    }
+    await safeExpect('Go to settings organization page', async () => {
+      await projectsPage.setting();
+      await projectsPage.organizationButton();
+    }, errors);
 
     // Update the role type for the organization
     await safeExpect('Update the Role Type', async () => {
-      const organizationLockButton = await projectsPage.organizationLockButton();
-      await organizationLockButton.click();
-
       const removeViewBasicrole = await projectsPage.removeViewBasicrole();
       await expect(removeViewBasicrole).toBeVisible();
       await removeViewBasicrole.click();
@@ -139,8 +140,16 @@ test.describe('View Basic Test cases', { tag: '@UI' }, () => {
       const FormBasicrole = await projectsPage.FormBasicrole();
       await FormBasicrole.click();
 
+      const SaveChanges = await projectsPage.SaveChanges();
+      await SaveChanges.click();
     }, errors)
 
+
+    // Get the success message displayed on the UI
+    await safeExpect('Success Message should shown', async () => {
+      const updateMessage = await projectsPage.updateMessage();
+      expect(updateMessage).toBe('Your changes have been saved.');
+    }, errors);
 
     // Reset the Organization
     await safeExpect('Reset the Organization', async () => {
@@ -197,18 +206,26 @@ test.describe('View Basic Test cases', { tag: '@UI' }, () => {
     // change the organization and navigate to the settings - organization page
     await safeExpect('Change the organization and Navigate to the settings organization', async () => {
       await projectsPage.selectOrg(ValidTestData.organizationName);
+      await page.waitForTimeout(2000);
+      await projectsPage.setting();
+      await projectsPage.organizationButton();
     }, errors);
 
     // Update the role type for the organization
     await safeExpect('Update the role type for the organization', async () => {
-      const organizationLockButton = await projectsPage.organizationLockButton();
-      await organizationLockButton.click();
-      
       const organizationrole = await projectsPage.organizationrole();
       await expect(organizationrole).toBeVisible();
       await organizationrole.click();
-      const FormCreateorrole = await projectsPage.FormCreateorrole();
-      await FormCreateorrole.click();
+      const FromCreateorrole = await projectsPage.FromCreateorrole();
+      await FromCreateorrole.click();
+      const SaveChanges = await projectsPage.SaveChanges();
+      await SaveChanges.click();
+    }, errors);
+
+    // Get the success message displayed on the UI
+    await safeExpect('success message displayed', async () => {
+      const updateMessage = await projectsPage.updateMessage();
+      expect(updateMessage).toBe('Your changes have been saved.');
     }, errors);
 
     // Reset the Organization
@@ -266,21 +283,28 @@ test.describe('View Basic Test cases', { tag: '@UI' }, () => {
     // change the organization and navigate to the settings - organization page
     await safeExpect('Change the organization and Navigate to the settings organization', async () => {
       await projectsPage.selectOrg(ValidTestData.organizationName);
+      await page.waitForTimeout(2000);
+      await projectsPage.setting();
+      await projectsPage.organizationButton();
     }, errors);
 
     // Update the role type for the organization
     await safeExpect('Update the role type for the organization', async () => {
-      const organizationLockButton = await projectsPage.organizationLockButton();
-      await organizationLockButton.click(); 
-      
       const organizationrole = await projectsPage.organizationrole();
       await expect(organizationrole).toBeVisible();
       await organizationrole.click();
       const ViewBasicrole = await projectsPage.ViewBasicrole();
       await expect(ViewBasicrole).toBeVisible();
       await ViewBasicrole.click();
+      const SaveChanges = await projectsPage.SaveChanges();
+      await SaveChanges.click();
     }, errors);
 
+    // Get the success message displayed on the UI
+    await safeExpect('success message displayed', async () => {
+      const updateMessage = await projectsPage.updateMessage();
+      expect(updateMessage).toBe('Your changes have been saved.');
+    }, errors);
 
     // Reset the Organization
     await safeExpect('Reset the Organization', async () => {

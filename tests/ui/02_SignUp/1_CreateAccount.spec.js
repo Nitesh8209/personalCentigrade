@@ -35,9 +35,9 @@ test.describe('Create Account Page UI Tests', { tag: '@UI' }, () => {
     await createAccount.click();
 
     // Check the presence of key UI elements
-    await expect(await loginPage.createAccountNavigation()).toBeVisible();
-    await expect(await loginPage.createAccountLogo()).toBeVisible();
-    await expect(await loginPage.createAccountCard()).toBeVisible();
+    await loginPage.createAccountNavigation();
+    await loginPage.createAccountLogo();
+    await loginPage.createAccountCard();
     await loginPage.createAccountradiogroup();
 
     // List of radio options to validate

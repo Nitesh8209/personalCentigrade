@@ -20,8 +20,6 @@ test.describe("Step Level Validation", { tag: '@UI' }, () => {
   for (const authState of authStates) {
     test.describe(`${authState.name} Users`, () => {
 
-      const { BuyerprojectGuid } = getData('UI');
-
       const credentials = authState.isAuthenticated ? {
         email: getData('UI').newEmail,
         password: ValidTestData.newPassword
@@ -43,9 +41,8 @@ test.describe("Step Level Validation", { tag: '@UI' }, () => {
 
      const loginPage = authState.isAuthenticated ? new LoginPage(page, baseURL) : null;
 
-    //  await setupPage(page, loginPage, credentials, listingPage, baseURL);
-    await page.goto(`${baseURL}/listings/${BuyerprojectGuid}/overview`);
-
+     await setupPage(page, loginPage, credentials, listingPage, baseURL);
+     
      if(loginPage){
      await loginPage.accecptAll();
      }
@@ -188,9 +185,9 @@ test.describe("Step Level Validation", { tag: '@UI' }, () => {
                     }
 
                     // Validate section label visibility if it exists
-                    // if (section.label) {
-                    //   await validateSectionLabelVisibility(section, projectListings, errors);
-                    // }
+                    if (section.label) {
+                      await validateSectionLabelVisibility(section, projectListings, errors);
+                    }
 
                     // Validate field group visibility
                     for (const fieldGroup of section.field_groups || []) {
@@ -207,23 +204,23 @@ test.describe("Step Level Validation", { tag: '@UI' }, () => {
                   for (const section of step.sections) {
                     if (!section?.field_groups || section.field_groups.length === 0) continue;
 
-                  //   const hasValidSection = section.field_groups?.some(fieldgroup =>
-                  //     fieldgroup?.fields?.some(field => field !== null)
-                  //   );
+                    const hasValidSection = section.field_groups?.some(fieldgroup =>
+                      fieldgroup?.fields?.some(field => field !== null)
+                    );
 
-                  // if(section.label && hasValidSection){
-                  //   await safeExpect(`Section '${section.label}' visibility`, async () => {
-                  //     await expect(await projectListings.sectionLabel(section.name)).toBeVisible();
-                  //     await expect(await projectListings.sectionLabel(section.name)).toHaveText(section.label);
-                  //   }, errors);
-                  // }else{
-                  //   // Validate that sections with no valid fields are not visible
-                  //     await safeExpect(`Section ${section.name} should not be visible`, async () => {
-                  //       await expect(await projectListings.sectionLabel(section.name)).not.toBeVisible();
-                  //       await expect(await projectListings.contentSectionLabel(section.id)).not.toBeVisible();
-                  //     }, errors);
-                  //     continue;
-                  // }
+                  if(section.label && hasValidSection){
+                    await safeExpect(`Section '${section.label}' visibility`, async () => {
+                      await expect(await projectListings.sectionLabel(section.name)).toBeVisible();
+                      await expect(await projectListings.sectionLabel(section.name)).toHaveText(section.label);
+                    }, errors);
+                  }else{
+                    // Validate that sections with no valid fields are not visible
+                      await safeExpect(`Section ${section.name} should not be visible`, async () => {
+                        await expect(await projectListings.sectionLabel(section.name)).not.toBeVisible();
+                        await expect(await projectListings.contentSectionLabel(section.id)).not.toBeVisible();
+                      }, errors);
+                      continue;
+                  }
 
                     for (const fieldGroup of section.field_groups) {
                       if (fieldGroup.label && fieldGroup.fields) {

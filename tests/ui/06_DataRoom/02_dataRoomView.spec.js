@@ -32,13 +32,11 @@ test.describe("Data Room Access for Unauthenticated User", { tag: ['@UI', '@SMOK
     listingPage = new ListingPage(page);
     dataRoomPage = new dataRoomViewPage(page);
 
-    // await page.goto(`${baseURL}/listings`);
-    // const projectTitle = await listingPage.projectItemCardContentMainTitle();
-    // await expect(projectTitle).toBeVisible();
-    // await projectTitle.click();
-    // await page.waitForURL("**/overview");
-    await page.goto(`${baseURL}/listings/${BuyerprojectGuid}/overview`);
-
+    await page.goto(`${baseURL}/listings`);
+    const projectTitle = await listingPage.projectItemCardContentMainTitle();
+    await expect(projectTitle).toBeVisible();
+    await projectTitle.click();
+    await page.waitForURL("**/overview");
   });
 
    // Teardown after all tests: Close the page

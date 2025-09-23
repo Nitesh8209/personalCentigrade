@@ -7,19 +7,19 @@ export class ListingPage {
   }
 
   async navigation(){
-    return await this.page.getByRole('banner');
+    return await this.page.locator('.navbar-header');
   }
 
   async logo(){
-    return await (await this.navigation()).getByRole('link');
+    return await (await this.navigation()).getByRole('img');
   }
 
   async login(){
-    return await (await this.navigation()).getByRole('button', { name: 'Log in' });
+    return await this.page.getByRole('link', { name: 'Log in' });
   }
 
   async createAccount(){
-    return await (await this.navigation()).getByRole('button', { name: 'Create Account' });
+    return await this.page.getByRole('link', { name: 'Create Account' });
   }
 
   async pageContent(){

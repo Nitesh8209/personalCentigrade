@@ -332,7 +332,7 @@ test.describe('Approve project by superuser', { tag: ['@UI', '@SMOKE'] }, () => 
     await page.waitForURL(`**/overview`);
 
     // Validat project title
-    const projectTitle = await projectsPage.overviewtitleInSuperUser();
+    const projectTitle = await projectsPage.overviewtitle();
     await expect(projectTitle).toBeVisible({ timeout: 20000});
     await expect(projectTitle).toHaveText(project.uiProjectName);
   });

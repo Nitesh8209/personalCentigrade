@@ -107,7 +107,7 @@ test.describe('AiSummary After Publish', { tag: '@UI' }, () => {
                 await newPage.waitForLoadState();
 
                 // Assert the URL
-                expect(newPage.url()).toContain(`/${(summary.name).toLowerCase()}/${stepGroup.name}/${step.name}`);
+                expect(newPage.url()).toContain(`/${summary.name}/${stepGroup.name}/${step.name}`);
 
                 const buyerAiSummary = new AiSummary(newPage);
                 const buyerAiSummaryContent = await buyerAiSummary.buyerAiSummaryContent(accordionItemContentText);

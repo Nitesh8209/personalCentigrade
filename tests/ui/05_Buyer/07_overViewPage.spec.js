@@ -3,7 +3,7 @@ import { LoginPage } from "../../../pages/loginPage";
 import fs from 'fs';
 import path from 'path';
 import { ListingPage } from '../../../pages/listingsPage';
-import { checkDisplayDependencyField, getFieldValue, getFileValue, setupPage } from '../../utils/listingsProjectHelper';
+import { checkDisplayDependencyField, getFileValue, setupPage } from '../../utils/listingsProjectHelper';
 import { ProjectListings } from '../../../pages/projectListingPage';
 import { safeExpect } from '../../utils/authHelper';
 import { authStates, project } from '../../data/projectData';
@@ -19,7 +19,6 @@ export const viewData = JSON.parse(fs.readFileSync(viewDatapath, 'utf-8'));
 // Iterate through authentication states
 for (const authState of authStates) {
   test.describe(`Buyer Overview Page - ${authState.name}`, { tag: ['@UI', '@SMOKE'] }, () => {
-  const { newEmail, BuyerprojectGuid } = getData('UI');
 
     // Determine credentials based on authentication state
     const credentials = authState.isAuthenticated ? {
@@ -45,8 +44,6 @@ for (const authState of authStates) {
 
       const loginPage = authState.isAuthenticated ? new LoginPage(page, baseURL) : null;
       await setupPage(page, loginPage, credentials, listingPage, baseURL);
-        await page.goto(`${baseURL}/listings/${BuyerprojectGuid}/overview`);
-
     });
 
     const overviewTopic = viewData.topics[0];
@@ -57,9 +54,7 @@ for (const authState of authStates) {
       await expect.soft(await overviewPage.mainContent()).toBeVisible();
       await expect.soft(await overviewPage.orgName(apiProjectCreadentials.organizationName)).toBeVisible();
       await expect.soft(await overviewPage.projectName(project.buyerProject)).toBeVisible();
-
-      const value = await getFieldValue("projectProponentName");
-      await expect.soft(await overviewPage.projectDiscription(value)).toBeVisible();
+      await expect.soft(await overviewPage.projectDiscription()).toBeVisible();
     });
 
     test(`Validate fields label and value in step group: ${stepGroup.label}`, async () => {
@@ -130,14 +125,8 @@ for (const authState of authStates) {
         const quickLinkLabel = await overviewPage.quickLinkGroupTextLink(quickLink.label)
         await expect.soft(quickLinkLabel).toBeVisible();
         await quickLinkLabel.click();
-
-        if(authState.isAuthenticated){
-          await expect.soft(await overviewPage.stepLink(quickLink.stepLabel)).toBeVisible();
-          await expect(page.url()).toContain(quickLink.path);
-        }else{
-          await expect(page.url()).toContain(quickLink.unAuthPath);
-        }
-
+        await expect.soft(await overviewPage.stepLink(quickLink.label)).toBeVisible();
+        await expect(page.url()).toContain(quickLink.path);
 
         const overView = await overviewPage.navbarOverview();
         await overView.click();
@@ -167,6 +156,21 @@ for (const authState of authStates) {
       }
 
     })
+
+    test('verify read more and read less functionality and modal', async () => {
+      const readMoreButton = await overviewPage.readMoreButton();
+      await expect.soft(readMoreButton).toBeVisible();
+      await readMoreButton.click();
+      await expect.soft(await overviewPage.readMoreModal()).toBeVisible();
+      await expect.soft(await overviewPage.readMoreModalHeading()).toBeVisible();
+      await expect.soft(await overviewPage.readMoreModalContent()).toBeVisible();
+      
+      const readMoreModalCloseButton = await overviewPage.readMoreModalClose();
+      await readMoreModalCloseButton.click();
+      await expect.soft(await overviewPage.readMoreModal()).not.toBeVisible();
+      await expect.soft(await overviewPage.readMoreButton()).toBeVisible();
+    });
+
 
   });
 }

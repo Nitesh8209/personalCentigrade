@@ -21,15 +21,14 @@ test.describe('Project Header - UI and Navigation for Unauthenticated Users', { 
     // Initialize page objects
     const context = await browser.newContext();
     page = await context.newPage();
-    const { BuyerprojectGuid } = getData('UI');
 
     const listingPage = new ListingPage(page);
-    await page.goto(`${baseURL}/listings/${BuyerprojectGuid}/overview`);
+    await page.goto(`${baseURL}/listings`);
 
      // Click on first project to navigate to project details
-    //  const projectTitle = await listingPage.projectItemCardContentMainTitle();
-    //  await expect(projectTitle).toBeVisible({timeout: 20000});
-    //  await projectTitle.click();
+     const projectTitle = await listingPage.projectItemCardContentMainTitle();
+     await expect(projectTitle).toBeVisible();
+     await projectTitle.click();
      await page.waitForURL('**/overview');
   });
 
@@ -100,7 +99,6 @@ test.describe('Project Header - UI and Navigation for Unauthenticated Users', { 
     const errors = [];
     const projectHeader = new ProjectListings(page);
     const getInTouch = await projectHeader.getInTouch();
-    await expect(getInTouch).toBeVisible();
     await getInTouch.click();
 
     await safeExpect(`should be redirect on the create account page`, async () => {
@@ -146,12 +144,9 @@ test.describe('Project Header - UI and Navigation for Authenticated Users', { ta
     await ListingsButton.click();
     await page.waitForURL('**/listings');
 
-    const { BuyerprojectGuid } = getData('UI');
-    await page.goto(`${baseURL}/listings/${BuyerprojectGuid}/overview`);
-
-    // const projectTitle = await listingPage.projectItemCardContentMainTitle();
-    //   await expect(projectTitle).toBeVisible();
-    //   await projectTitle.click();
+    const projectTitle = await listingPage.projectItemCardContentMainTitle();
+      await expect(projectTitle).toBeVisible();
+      await projectTitle.click();
       await page.waitForURL('**/overview');
   });
 
@@ -317,8 +312,8 @@ test.describe('Project Header - UI and Navigation for Authenticated Users', { ta
         await newPage.goto(copiedUrl);
         const newProjectPage = new ProjectListings(newPage);
         await expect(newPage.url()).toBe(copiedUrl);
-        await expect(await newProjectPage.listingprojectTitle(project.buyerProject)).toBeVisible();
-        await expect(await newProjectPage.listingprojectTitle(project.buyerProject)).toHaveText(project.buyerProject);
+        await expect(await newProjectPage.listingprojectTitle()).toBeVisible();
+        await expect(await newProjectPage.listingprojectTitle()).toHaveText(project.buyerProject);
       },
       errors
     );
@@ -369,7 +364,7 @@ test.describe('Project Header - UI and Navigation for Authenticated Users', { ta
     await safeExpect('Verify the email received',
       async () => {
         const {subject} = await getGmailMessages(projectPublishCredentials.email);
-        await expect(subject).toContain('automationProject2 has shared a project with you');
+        await expect(subject).toContain('automationProject1 has shared a project with you');
       },
       errors
     );

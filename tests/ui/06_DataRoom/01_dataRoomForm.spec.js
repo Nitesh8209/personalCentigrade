@@ -52,23 +52,23 @@ test.describe("test for data Room ",  { tag: ['@UI', '@SMOKE'] }, () => {
     const fieldValidate = new FieldHandler(page);
     const errors = [];
 
-    // await safeExpect(
-    //   "Verify Breadcrumps",
-    //   async () => {
-    //     await fieldValidate.validateBreadcrumb(0, "/projects", "Projects");
-    //     await fieldValidate.validateBreadcrumb(
-    //       1,
-    //       expect.stringContaining("/projects/"),
-    //       project.uiProjectName
-    //     );
-    //     await fieldValidate.validateBreadcrumb(
-    //       2,
-    //       expect.stringContaining("/data-rooms"),
-    //       "Data rooms"
-    //     );
-    //   },
-    //   errors
-    // );
+    await safeExpect(
+      "Verify Breadcrumps",
+      async () => {
+        await fieldValidate.validateBreadcrumb(0, "/projects", "Projects");
+        await fieldValidate.validateBreadcrumb(
+          1,
+          expect.stringContaining("/projects/"),
+          project.uiProjectName
+        );
+        await fieldValidate.validateBreadcrumb(
+          2,
+          expect.stringContaining("/data-rooms"),
+          "Data rooms"
+        );
+      },
+      errors
+    );
 
     await safeExpect(
       "Verify Heading",

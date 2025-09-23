@@ -12,13 +12,13 @@ export const validateListingProjectHeader = async (projectHeader, errors) => {
   }, errors);
 
   await safeExpect(`Project Tag should be visible`, async () => {
-    // await expect(await projectHeader.projectTag()).toBeVisible({timeout: 20000});
-    // await expect(await projectHeader.projectTag()).toHaveText(projectPublishCredentials.organizationName);
+    await expect(await projectHeader.projectTag()).toBeVisible({timeout: 20000});
+    await expect(await projectHeader.projectTag()).toHaveText(projectPublishCredentials.organizationName);
   }, errors);
 
   await safeExpect(`Project Title should be visible`, async () => {
-    await expect(await projectHeader.projectTitle(project.buyerProject)).toBeVisible();
-    await expect(await projectHeader.projectTitle(project.buyerProject)).toHaveText(project.buyerProject);
+    await expect(await projectHeader.projectTitle()).toBeVisible();
+    await expect(await projectHeader.projectTitle()).toHaveText(project.buyerProject);
   }, errors);
 
   await safeExpect(`Get in touch button should be visible`, async () => {
@@ -26,12 +26,12 @@ export const validateListingProjectHeader = async (projectHeader, errors) => {
     await expect(await projectHeader.getInTouch()).toBeEnabled();
   }, errors);
 
-  // await safeExpect(`Project Details should be visible`, async () => {
-  //   await projectHeader.validateProjectDetailsList(0, 'METHODOLOGY');
-  //   await projectHeader.validateProjectDetailsList(1, 'TYPE');
-  //   await projectHeader.validateProjectDetailsList(2, 'LOCATION');
-  //   await projectHeader.validateProjectDetailsList(3, 'CREDIT ISSUER');
-  // }, errors);
+  await safeExpect(`Project Details should be visible`, async () => {
+    await projectHeader.validateProjectDetailsList(0, 'METHODOLOGY');
+    await projectHeader.validateProjectDetailsList(1, 'TYPE');
+    await projectHeader.validateProjectDetailsList(2, 'LOCATION');
+    await projectHeader.validateProjectDetailsList(3, 'CREDIT ISSUER');
+  }, errors);
 
 }
 

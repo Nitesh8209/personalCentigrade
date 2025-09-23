@@ -18,23 +18,18 @@ test.describe('Topic and Step Group Visibility for Unauthenticated Users', { tag
   let page;
 
   test.beforeAll(async ({ browser, baseURL }) => {
-      const { BuyerprojectGuid } = getData('UI');
-
     // Initialize page objects
     const context = await browser.newContext();
     page = await context.newPage();
 
     const listingPage = new ListingPage(page);
-    // await page.goto(`${baseURL}/listings`);
+    await page.goto(`${baseURL}/listings`);
 
-    //  // Click on first project to navigate to project details
-    //  const projectTitle = await listingPage.projectItemCardContentMainTitle();
-    //  await expect(projectTitle).toBeVisible();
-    //  await projectTitle.click();
-    //  await page.waitForURL('**/overview');
-
-      await page.goto(`${baseURL}/listings/${BuyerprojectGuid}/overview`);
-
+     // Click on first project to navigate to project details
+     const projectTitle = await listingPage.projectItemCardContentMainTitle();
+     await expect(projectTitle).toBeVisible();
+     await projectTitle.click();
+     await page.waitForURL('**/overview');
   });
 
   // Loop through each topic and validate visibility
@@ -74,18 +69,6 @@ test.describe('Topic and Step Group Visibility for Unauthenticated Users', { tag
         // Loop through each step group and validate visibility
         for (const stepGroup of topic.step_groups) {
           if (!stepGroup?.steps) continue;
-          // Skip this step if all its fields are null or empty
-          const hasValidFields = stepGroup?.steps?.some(step =>
-            step?.sections?.some(section =>
-              section?.field_groups?.some(fieldGroup =>
-                fieldGroup?.fields &&
-                fieldGroup.fields.length > 0 &&
-                fieldGroup.fields.some(field => field !== null)
-              )
-            )
-          );
-          if (!hasValidFields) continue;
-
           await validateStepGroupVisiblity(projectListings, stepGroup, errors);
         }
 
@@ -101,7 +84,7 @@ test.describe('Topic and Step Group Visibility for Unauthenticated Users', { tag
 // validate the visibility of the topic and step group for authenticated users
 test.describe('Topic and StepGroup Visibility for Authenticated Users', { tag: ['@UI', '@SMOKE'] }, () => {
 
-  const { BuyerprojectGuid } = getData('UI');
+  const { newEmail } = getData('UI');
 
     const authStoragePath = path.join(__dirname, '..', '..', 'data', 'project-buyer-auth.json');
     test.use({ storageState: authStoragePath });
@@ -118,19 +101,16 @@ test.describe('Topic and StepGroup Visibility for Authenticated Users', { tag: [
 
     // Navigate to the login page and perform login
     await loginPage.navigate();
-    // await page.waitForURL('**/projects');
-    // const ListingsButton = await listingPage.listings();
-    // await expect(ListingsButton).toBeVisible();
-    // await ListingsButton.click();
-    // await page.waitForURL('**/listings');
+    await page.waitForURL('**/projects');
+    const ListingsButton = await listingPage.listings();
+    await expect(ListingsButton).toBeVisible();
+    await ListingsButton.click();
+    await page.waitForURL('**/listings');
 
-    // const projectTitle = await listingPage.projectItemCardContentMainTitle();
-    //   await expect(projectTitle).toBeVisible();
-    //   await projectTitle.click();
-    //   await page.waitForURL('**/overview');
-
-    await page.goto(`${baseURL}/listings/${BuyerprojectGuid}/overview`);
-
+    const projectTitle = await listingPage.projectItemCardContentMainTitle();
+      await expect(projectTitle).toBeVisible();
+      await projectTitle.click();
+      await page.waitForURL('**/overview');
   });
   
   // Loop through each topic and validate visibility
@@ -170,19 +150,6 @@ test.describe('Topic and StepGroup Visibility for Authenticated Users', { tag: [
         // Loop through each step group and validate visibility
         for (const stepGroup of topic.step_groups) {
           if (!stepGroup?.steps) continue;
-
-          // Skip this step if all its fields are null or empty
-          const hasValidFields = stepGroup?.steps?.some(step =>
-            step?.sections?.some(section =>
-              section?.field_groups?.some(fieldGroup =>
-                fieldGroup?.fields &&
-                fieldGroup.fields.length > 0 &&
-                fieldGroup.fields.some(field => field !== null)
-              )
-            )
-          );
-          if (!hasValidFields) continue;
-
           await validateStepGroupVisiblity(projectListings, stepGroup, errors);
         }
 

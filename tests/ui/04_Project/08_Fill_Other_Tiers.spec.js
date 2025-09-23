@@ -131,14 +131,7 @@ test.describe('After Topic 1 - Fill Remaining Required Fields and Save', { tag: 
   for (let i = 1; i < formData.topics.length; i++) {
     const topic = formData.topics[i];
     test.describe(`Topic: ${topic.label}`, () => {
-      test.beforeAll(async ({baseURL}) => {
-
-        const projectsPage = new ProjectsPage(page, baseURL);
-        if(await (await projectsPage.projectUpdateModal()).isVisible()){
-          const closeButton = await projectsPage.projectUpdateCloseButton();
-          await closeButton.click();
-        }
-
+      test.beforeAll(async () => {
         const topicElement = await fieldHandler.findLabel(topic.label);
         if (!topicElement || !(await topicElement.isVisible())) {
           test.skip(true, `Skipping all tests for topic '${topic.label}' as it's not visible`);

@@ -209,7 +209,7 @@ test.describe('Project Overview Page', { tag: '@UI' }, () => {
         await expect(await projectsPage.projectOverviewguidecontentstep2heading()).toBeVisible();
         await expect(await projectsPage.projectOverviewguidecontentstep2heading()).toHaveText('Make your project public');
         await expect(await projectsPage.projectOverviewguidecontentstep2content()).toBeVisible();
-        await expect(await projectsPage.projectOverviewguidecontentstep2content()).toHaveText('Complete the required Tier 0 fields (indicated by a red *) to publish your project on Centigrade’s platform and share it with others.');
+        await expect(await projectsPage.projectOverviewguidecontentstep2content()).toHaveText('Complete the required Tier 0 fields (indicated by a red *) to publish your project on Centigrade’s platform and share it with others');
       },
       errors
     )
