@@ -12,7 +12,7 @@ test.describe('Login Page UI Tests', { tag: '@UI' }, () => {
     page = await context.newPage();
     loginPage = new LoginPage(page, baseURL);
 
-     // Navigate to the login page
+    // Navigate to the login page
     await loginPage.navigate();
   });
 
@@ -25,48 +25,58 @@ test.describe('Login Page UI Tests', { tag: '@UI' }, () => {
   test('should display login page elements correctly', async () => {
 
     // Check various sections of the login page
-    await loginPage.leftSidebar();
-    await loginPage.rightSidebar();
-    await loginPage.images();
-    await loginPage.text();
-    await loginPage.input();
-    await loginPage.loginbutton();
+    await expect.soft(loginPage.heroSection).toBeVisible();
+    await expect.soft(loginPage.contentSection).toBeVisible();
+    await expect.soft(loginPage.firstImage).toBeVisible();
+    await expect.soft(loginPage.centigradeLogoImage).toBeVisible();
+    await expect.soft(loginPage.welcomeHeading).toBeVisible();
+    await expect.soft(loginPage.loginInstruction).toBeVisible();
+    await expect.soft(loginPage.agreementText).toBeVisible();
+    await expect.soft(loginPage.emailInput).toBeVisible();
+    await expect.soft(loginPage.passwordInput).toBeVisible();
 
-    // Verify the login page elements and their content
-    const forgotPassword = await loginPage.forgotPassword();
-    const createAccount = await loginPage.createAccount();
-    const loginButton = await loginPage.loginbutton();
-    const toS = await loginPage.toS();
-    const privacyPolicy = await loginPage.privacyPolicy();
+    await expect.soft(loginPage.forgotPasswordLink).toBeVisible();
+    await expect.soft(loginPage.tosLink).toBeVisible();
+    await expect.soft(loginPage.privacyLink).toBeVisible();
+    await expect.soft(loginPage.loginButton).toBeVisible();
+    await expect.soft(loginPage.createAccountLink).toBeVisible();
+    await expect.soft(loginPage.forgotPasswordLink).toBeEnabled();
+    await expect.soft(loginPage.tosLink).toBeEnabled();
+    await expect.soft(loginPage.privacyLink).toBeEnabled();
+    await expect.soft(loginPage.loginButton).toBeEnabled();
+    await expect.soft(loginPage.createAccountLink).toBeEnabled();
 
-    // validate the visibility of login page
-    expect(forgotPassword).toBeVisible();
-    expect(createAccount).toBeVisible();
-    expect(loginButton).toBeVisible();
-    expect(toS).toBeVisible();
-    expect(privacyPolicy).toBeVisible();
-    expect(page.url()).toBe(`${loginPage.baseURL}/login`);
-    expect(await page.title()).toBe('Centigrade');
-
-    // Verify navigation for Terms of Service link
-    const [newTab1] = await Promise.all([
-      page.waitForEvent('popup'),
-      toS.click(),
-    ]);
-    await expect(newTab1).toHaveURL(/\/terms-of-service/);
-
-    // Verify navigation for Privacy Policy link
-    const [newTab2] = await Promise.all([
-      page.waitForEvent('popup'),
-      privacyPolicy.click(),
-    ]);
-    await expect(newTab2).toHaveURL(/\/privacy/);
+    expect.soft(page.url()).toBe(`${loginPage.baseURL}/login`);
+    expect.soft(await page.title()).toBe('Centigrade');
 
     expect(await page.screenshot()).toMatchSnapshot({
       name: 'Login.png',
       omitPlatformRegex: true,
       maxDiffPixelRatio: 0.02
     });
+  });
+
+  test('should navigate to Terms of Service in new tab', async () => {
+
+    // Verify navigation for Terms of Service link
+    const [newTab] = await Promise.all([
+      page.waitForEvent('popup'),
+      await loginPage.clickTos(),
+    ]);
+    await expect.soft(newTab).toHaveURL(/\/terms-of-service/);
+
+    await newTab.close();
+  });
+
+  test('should navigate to Privacy Policy in new tab', async () => {
+    
+    // Verify navigation for Privacy Policy link
+    const [newTab] = await Promise.all([
+      page.waitForEvent('popup'),
+      await loginPage.clickPrivacyPolicy(),
+    ]);
+    await expect.soft(newTab).toHaveURL(/\/privacy/);
+    await newTab.close();
   });
 
   test('Login with Invalid Password Credential', async () => {
@@ -85,8 +95,8 @@ test.describe('Login Page UI Tests', { tag: '@UI' }, () => {
       omitPlatformRegex: true,
       maxDiffPixelRatio: 0.02
     });
-  })
-  
+  });
+
   test('Login with Invalid username Credential', async () => {
 
     // Use the login method to attempt logging in with invalid userName

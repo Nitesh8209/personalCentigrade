@@ -37,7 +37,7 @@ test.describe("Fields Level Validation - after Login", { tag: '@UI' }, () => {
         await page.goto(`${baseURL}/listings/${BuyerprojectGuid}/overview`);
 
     // await setupPage(page, loginPage, credentials, listingPage, baseURL);
-    await loginPage.accecptAll();
+    await loginPage.acceptAll();
   });
 
   // Loop through each topic and validate visibility
