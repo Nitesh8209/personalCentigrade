@@ -36,7 +36,7 @@ class ProjectsPage {
     }
 
     async jediPanelTrigger(){
-        return await this.page.locator('.jedi-panel-trigger')
+        return await (await this.iframeContent()).locator('.jedi-panel-trigger')
     }
 
     async selectOrg(organization) {

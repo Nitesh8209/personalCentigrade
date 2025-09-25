@@ -28,7 +28,7 @@ test.describe("Entities involved in a project", { tag: ['@UI'] }, () => {
 
     // Perform login and navigate to the project
     await loginPage.navigate();
-    await loginPage.accecptAll();
+    await loginPage.acceptAll();
     await projectsPage.viewProject();
     await page.waitForURL(`**/overview`);
 

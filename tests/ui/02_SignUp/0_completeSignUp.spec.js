@@ -24,7 +24,7 @@ test.describe('Create Account Page UI Tests', { tag: '@UI' }, () => {
 
     const loginPage = new LoginPage(page, baseURL);
     await loginPage.navigate();
-    await loginPage.accecptAll();
+    await loginPage.acceptAll();
   });
 
    // Close the browser page after all tests are complete

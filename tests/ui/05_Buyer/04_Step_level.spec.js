@@ -47,7 +47,7 @@ test.describe("Step Level Validation", { tag: '@UI' }, () => {
     await page.goto(`${baseURL}/listings/${BuyerprojectGuid}/overview`);
 
      if(loginPage){
-     await loginPage.accecptAll();
+     await loginPage.acceptAll();
      }
 
     });
