@@ -160,7 +160,15 @@ globalSetup: require.resolve('./tests/global-setup'),
         viewport: { width: 1366, height: 768 },
       },
       fullyParallel: false,
-      dependencies: ['Settings'],
+    },
+       {
+      name: 'ResetOrg',
+      testMatch: ['ui/03_Settings/6_reset_org.spec.js'],
+      use: {
+        ...devices['Desktop Chrome'],
+        viewport: { width: 1366, height: 768 },
+      },
+      fullyParallel: false,
     },
     {
       name: 'ProjectPage',
