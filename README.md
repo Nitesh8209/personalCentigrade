@@ -6,6 +6,7 @@ This repository contains Playwright automation tests configured to run in a Dock
 
 - [Docker](https://www.docker.com/) installed on your system.
 - [Node.js](https://nodejs.org/) installed if you want to run Playwright's report viewer locally.
+- Gmail API credentials (`CLIENT_ID`, `CLIENT_SECRET`, `REFRESH_TOKEN`) must be added to the `.env` file for email verification in tests.
 
 ## Steps to Run Tests
 
