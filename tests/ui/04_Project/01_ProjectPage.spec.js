@@ -55,7 +55,7 @@ test.describe('Project Page', { tag: '@UI' }, () => {
         await expect(await projectsPage.ProjectEmptyStateContent()).toBeVisible();
         await expect(await projectsPage.ProjectEmptyStateContent()).toHaveText("You don't have any projects.Get started by creating your first project");
         await expect(await projectsPage.createProjectButton()).toBeVisible();
-        await expect(await projectsPage.createProjectButton()).toHaveText('+ Create Project');
+        await expect(await projectsPage.createProjectButton()).toHaveText('+ Create project');
       },
       errors
     );
@@ -346,7 +346,7 @@ test.describe('Project Page', { tag: '@UI' }, () => {
     await safeExpect('Create Project Visibility',
       async () => {
         await expect(await projectsPage.createProjectButton()).toBeVisible();
-        await expect(await projectsPage.createProjectButton()).toHaveText('+ Create Project');
+        await expect(await projectsPage.createProjectButton()).toHaveText('+ Create project');
       }, errors
     );
 
