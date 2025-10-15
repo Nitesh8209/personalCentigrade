@@ -7,7 +7,7 @@ import { ProjectListings } from "../../../pages/projectListingPage";
 import { LoginPage } from "../../../pages/loginPage";
 import { ValidTestData } from "../../data/SignUpData";
 import { getData } from "../../utils/apiHelper";
-import { hasValidStepFields, navigateToStep, setupPage, validateFieldGroupVisibility, validateSectionLabelVisibility } from "../../utils/listingsProjectHelper";
+import { hasValidStepFields, navigateToStep, setupPage, validateFieldGroupsDisplayOrder, validateFieldGroupVisibility, validateSectionLabelVisibility, validateSectionsDisplayOrder } from "../../utils/listingsProjectHelper";
 import { authStates, project } from "../../data/projectData";
 
 const viewDatapath = path.join(__dirname, '..', '..', 'data', 'view-data.json');
@@ -131,6 +131,13 @@ test.describe("Step Level Validation", { tag: '@UI' }, () => {
                   await expect(page.url()).toContain(expectedUrlPart);
                 }, errors);
 
+                // Validate display order to the step
+                await safeExpect(`Step ${step.label} display order`, async () => {
+                  const stepElementByOrder = await projectListings.stepLabelDisplayOrder(step.display_order, stepGroup.label);
+                  await expect(stepElementByOrder).toBeVisible();
+                  await expect(stepElementByOrder).toHaveText(step.label);
+                }, errors);
+
                 // If authenticated, validate that step content is visible
                 if (authState.isAuthenticated) {
                   await safeExpect(`Step ${step.label} content visibility`, async () => {
@@ -172,6 +179,9 @@ test.describe("Step Level Validation", { tag: '@UI' }, () => {
                 }, errors);
 
                 if (authState.isAuthenticated || topic.name === 'projectStory') {
+
+                  await validateSectionsDisplayOrder(step, projectListings, errors);
+
                   for (const section of step?.sections) {
 
                     const hasValidSection = section.field_groups?.some(fieldgroup =>
@@ -188,9 +198,11 @@ test.describe("Step Level Validation", { tag: '@UI' }, () => {
                     }
 
                     // Validate section label visibility if it exists
-                    // if (section.label) {
-                    //   await validateSectionLabelVisibility(section, projectListings, errors);
-                    // }
+                    if (section.label) {
+                      await validateSectionLabelVisibility(section, projectListings, errors);
+                    }
+
+                    await validateFieldGroupsDisplayOrder(section, projectListings, errors);
 
                     // Validate field group visibility
                     for (const fieldGroup of section.field_groups || []) {
