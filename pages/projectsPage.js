@@ -160,6 +160,31 @@ class ProjectsPage {
         await this.page.locator('.project-list > .project-card').filter({hasText: name}).first().locator('.actions > .btn').click();
     }
 
+    async stepElement(topicName, visibleIndex) {
+        const stepElement = await this.page.locator('.collapsible', { hasText: topicName });
+        const steps = await stepElement.locator('.menu .menu-item');
+        const stepItem = await steps.nth(visibleIndex);
+        return stepItem;
+    }
+
+    async sectionElementByOrder(visibleIndex) {
+        const sectionLocator = await this.page.locator('.section-title');
+        const sectionLocatorByOrder = await sectionLocator.nth(visibleIndex);
+        return sectionLocatorByOrder;
+    }
+
+    async fieldGroupElementByOrder(visibleIndex) {
+         const fieldGroupLocator = await this.page.locator('.field-group-label');
+         const fieldGroupLocatorByOrder = await fieldGroupLocator.nth(visibleIndex);
+         return fieldGroupLocatorByOrder;
+    }
+
+    async fieldElementByOrder(visibleIndex) {
+        const fieldLocator = await this.page.locator('.field');
+        const fieldLocatorByOrder = await fieldLocator.nth(visibleIndex).locator('.field-label label');
+        return fieldLocatorByOrder;
+    }
+
     async projectDetails() {
         await this.page.locator('.menu.menu-root > div:nth-child(2)').click();
         await this.page.locator('.menu.menu-root > div:nth-child(2) > .collapsible-content > .menu> a:has-text("Project details")').click();

@@ -8,6 +8,7 @@ import * as fs from 'fs';
 import { safeExpect } from "../../utils/authHelper";
 import { project } from '../../data/projectData';
 import { ValidTestData } from '../../data/SignUpData';
+import { validateDuplicateDisplayOrder } from '../../utils/projectHelper';
 
 // Load form data from JSON file
 const formDataPath = path.join(__dirname, '..', '..', 'data', 'form-data.json');
@@ -20,6 +21,7 @@ test.describe('Field level validation', { tag: '@UI' }, async () => {
 
   let page;
   let fieldHandler;
+  let projectsPage
 
   const authStoragePath = path.join(__dirname, '..', '..', 'data', 'project-auth-admin.json');
   test.use({ storageState: authStoragePath });
@@ -29,7 +31,7 @@ test.describe('Field level validation', { tag: '@UI' }, async () => {
     const context = await browser.newContext();
     page = await context.newPage();
     const loginPage = new LoginPage(page, baseURL);
-    const projectsPage = new ProjectsPage(page, baseURL);
+    projectsPage = new ProjectsPage(page, baseURL);
     fieldHandler = new FieldHandler(page);
 
     // Navigate and setup initial state
@@ -142,6 +144,46 @@ test.describe('Field level validation', { tag: '@UI' }, async () => {
               }
             });
 
+            test(`Validate display order followed by fields for Step: ${step.label}`, async () => {
+              const errors = [];
+              let visibleIndex = 0;
+
+              // Iterate over each section in the step
+              for (const section of step.sections) {
+                if (!section?.field_groups) continue;
+
+                // Iterate over each field group in the section
+                for (const fieldGroup of section.field_groups) {
+                  if (!fieldGroup?.fields) continue;
+
+                validateDuplicateDisplayOrder(fieldGroup.fields, fieldGroup.label, errors);
+
+                  // Iterate over each field in the field group
+                  for (const field of fieldGroup.fields) {
+                    if (field?.display_dependencies){
+                      continue;
+                    }
+
+                    await safeExpect('Fields visibility follow display order', async () => {
+
+                      const fieldLocatorByOrder = await projectsPage.fieldElementByOrder(visibleIndex);
+                      await expect.soft(fieldLocatorByOrder).toBeVisible();
+                      await expect.soft(fieldLocatorByOrder).toHaveText(field.label);
+                      visibleIndex++;
+                    },
+                      errors
+                    );
+
+                  }
+                }
+              }
+
+              // If there are any errors, fail the test with all collected errors
+              if (errors.length > 0) {
+                throw new Error(`Validation errors found:\n${errors.join('\n')}`);
+              }
+            });
+
             test(`Validate Visibility of Fields for Step: ${step.label}`, async ({ }) => {
               const errors = [];
 
@@ -218,7 +260,7 @@ test.describe('Field level validation', { tag: '@UI' }, async () => {
                   // Iterate over each field in the field group
                   for (const field of fieldGroup.fields) {
                     if (field?.display_dependencies) {
-                          if(field.label == "Other project type") continue;
+                      if (field.label == "Other project type") continue;
 
                       // validate and Fill Dependent Parent Fields
                       await safeExpect(`Validate field ${field.label} and Fill Dependent Parent Fields`,
