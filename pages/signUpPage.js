@@ -39,7 +39,7 @@ class SignUpPage {
   }
 
   async codeInput(verificationCode) {
-    const codeInputs = await this.page.$$('.code-input');
+    const codeInputs = await this.page.$$('.pin-input-box');
 
     for (let i = 0; i < verificationCode.length; i++) {
       await codeInputs[i].fill(verificationCode[i]);
