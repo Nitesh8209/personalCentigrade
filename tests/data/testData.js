@@ -9,6 +9,7 @@ export const projectPublishCredentials = {
   email: 'nitesh.agarwal+test1743665610357@kreeti.com',
   password: 'Centigrade@12345',
   organizationName: 'automationProject2',
+  memberEmail: 'nitesh.agarwal+test1743665610234@kreeti.com'
 }
 
 export const projectValidationCredentials = {

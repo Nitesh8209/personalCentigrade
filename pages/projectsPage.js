@@ -160,6 +160,50 @@ class ProjectsPage {
         await this.page.locator('.project-list > .project-card').filter({hasText: name}).first().locator('.actions > .btn').click();
     }
 
+     async deleteProjectButtonSuperUser() {
+        return await (await this.iframeContent()).locator('.project-list > .project-card').filter({hasText: project.deleteProject}).first().locator('button.btn-danger');
+    }
+
+    async modalInFrame() {
+        return await (await this.iframeContent()).locator('.modal');
+    }
+
+    async modalCloseInFrame() {
+        return await (await this.iframeContent()).locator('.modal-header > button');
+    }
+
+    async modalcontentInFrame() {
+        return await (await this.iframeContent()).locator('.modal-content');
+    }
+
+    async modalHeaderInFrame() {
+        return await (await this.iframeContent()).locator('.modal-header')
+    }
+
+    async modalContentHeading(){
+        return await (await this.modalcontentInFrame()).locator('h3');
+    }
+
+    async modalContentPeraFirst(){
+        return await (await this.modalcontentInFrame()).locator('p').first();
+    }
+
+    async modalContentPeraSecond(){
+        return await (await this.modalcontentInFrame()).locator('p').nth(1);
+    }
+
+    async cancelButtonInFrame() {
+        return await (await this.iframeContent()).getByRole('button', { name: 'Cancel' });
+    }
+
+    async deleteButton() {
+        return await (await this.iframeContent()).getByRole('button', { name: 'Delete' });
+    }
+
+    async deletedProjectFromSuperUser() {
+        await (await this.iframeContent()).locator('.project-list > .project-card').filter({hasText: project.deleteProject});
+    }
+
     async projectDetails() {
         await this.page.locator('.menu.menu-root > div:nth-child(2)').click();
         await this.page.locator('.menu.menu-root > div:nth-child(2) > .collapsible-content > .menu> a:has-text("Project details")').click();
