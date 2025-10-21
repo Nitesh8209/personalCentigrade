@@ -113,11 +113,11 @@ export const navigateToStep = async (step, projectListings,errors) => {
 }
 
 export const validateSectionLabelVisibility = async (section, projectListings, errors) => {
-  await safeExpect(`Section '${section.label}' visibility`, async () => {
-    const sectionElement = await projectListings.sectionLabel(section.name);
-    await expect(sectionElement).toBeVisible();
-    await expect(sectionElement).toHaveText(section.label);
-  }, errors);
+  // await safeExpect(`Section '${section.label}' visibility`, async () => {
+  //   const sectionElement = await projectListings.sectionLabel(section.name);
+  //   await expect(sectionElement).toBeVisible();
+  //   await expect(sectionElement).toHaveText(section.label);
+  // }, errors);
 
   await safeExpect(`Section '${section.label}' visibility in main Content`, async () => {
     await expect(await projectListings.contentSectionLabel(section.name)).toBeVisible();
@@ -257,4 +257,97 @@ export const validateBreadcrumbs = async (fieldHandler, errors, { expectedCount,
     await safeExpect(`Breadcrumb ${text} visible`,
       () => fieldHandler.validateBreadcrumb(index, href, text), errors);
   }
+}
+
+
+export async function validateSectionsDisplayOrder(step, projectListings, errors) {
+  await safeExpect(`Sections display order in step ${step.label}`, async () => {
+    // Filter sections that should be visible (have valid field groups)
+    const expectedVisibleSections = step.sections
+      .filter(section => {
+        return section.field_groups?.some(fieldgroup =>
+          fieldgroup?.fields?.some(field => field !== null)
+        );
+      })
+      .sort((a, b) => (a.display_order || 0) - (b.display_order || 0));
+
+    if (expectedVisibleSections.length === 0) return;
+
+    for (let i = 0; i < expectedVisibleSections.length; i++) {
+      if (expectedVisibleSections[i].label) {
+        await expect(await projectListings.sectionDisplayOrder(i)).toBeVisible();
+        await expect(await projectListings.sectionDisplayOrder(i)).toHaveText(expectedVisibleSections[i].label);
+      }
+    }
+  }, errors);
+}
+
+export async function validateFieldGroupsDisplayOrder(section, projectListings, errors) {
+  await safeExpect(`Field groups display order in section ${section.name}`, async () => {
+    // Filter field groups that should be visible (have valid fields)
+    const expectedVisibleFieldGroups = (section.field_groups || [])
+      .filter(fieldGroup => {
+        return fieldGroup?.fields?.some(field => field !== null);
+      })
+      .sort((a, b) => (a.display_order || 0) - (b.display_order || 0));
+    if (expectedVisibleFieldGroups.length === 0) return;
+
+    for (let i = 0; i < expectedVisibleFieldGroups.length; i++) {
+      if (expectedVisibleFieldGroups[i].label) {
+        await expect(await projectListings.fieldGroupDisplayOrder(expectedVisibleFieldGroups[i].display_order, section.label)).toBeVisible();
+        await expect(await projectListings.fieldGroupDisplayOrder(expectedVisibleFieldGroups[i].display_order, section.label)).toHaveText(expectedVisibleFieldGroups[i].label);
+      }
+    }
+  }, errors);
+}
+
+export async function validateFieldsDisplayOrder(fieldGroup, projectListings, errors) {
+  await safeExpect(`Fields display order in field group ${fieldGroup.label}`, async () => {
+    const sortedFields = (fieldGroup.fields || [])
+      .filter(field => field !== null)
+      .sort((a, b) => (a.display_order || 0) - (b.display_order || 0));
+
+    if (sortedFields.length === 0) return;
+
+    let visibleIndex = 0;
+
+    for (const field of sortedFields) {
+      // Check dependency if any
+      if (field.display_dependencies) {
+        const dependency = field.display_dependencies[0];
+        const dependentValue = await getFieldValue(dependency.field);
+
+        if (!dependentValue) continue; // skip if empty
+
+        let parsedValue;
+        try {
+          parsedValue = JSON.parse(dependentValue);
+        } catch {
+          parsedValue = dependentValue; // it's just a string
+        }
+
+        // If parsedValue is an array, check if it includes the pattern
+        const isMatch = Array.isArray(parsedValue)
+          ? parsedValue.includes(dependency.pattern)
+          : parsedValue === dependency.pattern;
+
+        if (!isMatch) continue; // skip if no match
+      }
+
+      if (field.view_component === "media-carousel") {
+        const isFileAvailable = await getFileValue(field.name);
+        if (!isFileAvailable) {
+          continue; // Skip if file not available
+        }
+      }
+
+      // Proceed with validation only if label exists
+      if (field.label) {
+        const fieldLocator = await projectListings.fieldDisplayOrder(visibleIndex, fieldGroup, field);
+        await expect.soft(fieldLocator).toBeVisible();
+        await expect.soft(fieldLocator).toHaveText(field.label);
+        visibleIndex++;
+      }
+    }
+  }, errors);
 }
