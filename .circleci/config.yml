@@ -29,6 +29,9 @@ jobs:
              
             docker run --name playwright-container \
             -e PLATFORM=dev \
+            -e CLIENT_ID="$CLIENT_ID" \
+            -e CLIENT_SECRET="$CLIENT_SECRET" \
+            -e REFRESH_TOKEN="$REFRESH_TOKEN" \
             playwright-tests $TEST_CMD || EXIT_CODE=$?
             echo "Copying Playwright report..."
             docker cp playwright-container:/app/playwright-report ./playwright-report || echo "Report not found."
