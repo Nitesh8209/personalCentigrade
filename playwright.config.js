@@ -451,6 +451,14 @@ globalSetup: require.resolve('./tests/global-setup'),
           fullyParallel: false,
           dependencies: ['ProjectPage']
          },
+         {
+          name: 'DeleteProject',
+          testMatch: [ 'Ui/04_Project/10_Delete_Project.spec.js'],
+          use: { ...devices['Desktop Chrome'],
+            viewport: { width: 1366, height: 768 },
+           },
+          fullyParallel: false,
+         },
     // {
     //   name: 'firefox',
     //   use: { ...devices['Desktop Firefox'] },
