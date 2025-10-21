@@ -21,6 +21,7 @@ test.describe('Verify Topic and Step Visibility in Project Workflow', { tag: '@U
 
   let page;
   let fieldHandler;
+  let projectsPage;
 
     const authStoragePath = path.join(__dirname, '..', '..', 'data', 'project-auth-admin.json');
     test.use({ storageState: authStoragePath });
@@ -32,7 +33,7 @@ test.describe('Verify Topic and Step Visibility in Project Workflow', { tag: '@U
     page = await context.newPage();
 
     const loginPage = new LoginPage(page, baseURL);
-    const projectsPage = new ProjectsPage(page, baseURL);
+    projectsPage = new ProjectsPage(page, baseURL);
     fieldHandler = new FieldHandler(page);
 
     // Perform login and navigate to the project
@@ -73,6 +74,7 @@ test.describe('Verify Topic and Step Visibility in Project Workflow', { tag: '@U
   for(const topic of formData.topics){
     test(`Verify steps inside topic '${topic.label}'`, { tag: '@SMOKE' }, async ({ }, testInfo) => {
       const topicLabel = await fieldHandler.findLabel(topic.label);
+      let visibleIndex = 0;
 
       // Skip the Test if the Topic is not visible
       if (!await topicLabel.isVisible()) {
@@ -104,6 +106,14 @@ test.describe('Verify Topic and Step Visibility in Project Workflow', { tag: '@U
             await expect(stepElement).toBeVisible();
             await expect(stepElement).toHaveText(step.label);
             await expect(stepElement).toBeEnabled();
+          }, errors);
+
+          await safeExpect(`Step '${step.label}' should be followed by its display order`, async () => {
+            const stepItem = await projectsPage.stepElement(topic.label, visibleIndex);
+
+            await expect(stepItem).toBeVisible();
+            await expect(stepItem).toHaveText(step.label);
+            visibleIndex++;
           }, errors);
 
         }

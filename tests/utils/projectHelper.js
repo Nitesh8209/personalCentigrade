@@ -30,3 +30,22 @@ export const validateProjectFieldValues = (sentItems, responseBody) => {
     }
 
 }
+
+
+export const validateDuplicateDisplayOrder = (items, itemType, errors) => {
+  const orderMap = {};
+
+  for (const item of items) {
+    const order = item.display_order;
+    if (!orderMap[order]) {
+      orderMap[order] = [];
+    }
+    orderMap[order].push(item.label || item.keyName);
+  }
+
+  // Find duplicates
+  const duplicates = Object.entries(orderMap).filter(([order, names]) => names.length > 1);
+  if (duplicates.length > 0) {
+    errors.push(`Duplicate display_order values found in field group '${itemType}': ${duplicates.map(([order, names]) => `Order ${order}: [${names.join(', ')}]`).join('; ')}`);
+  }
+}
