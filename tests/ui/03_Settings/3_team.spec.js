@@ -692,7 +692,7 @@ test.describe('Settings - Team Page Functional Tests for Reject', { tag: ['@UI',
     const signUpPage = new SignUpPage(page, baseURL);
     const loginPage = new LoginPage(page, baseURL);
     await loginPage.navigate();
-    await loginPage.accecptAll();
+    await loginPage.acceptAll();
 
     // Sign up a new user and verify verification code
     await signUpPage.completeSignUpProcess(ValidTestData.firstName, ValidTestData.lastName, ValidTestData.organizationName, RejectEmail);

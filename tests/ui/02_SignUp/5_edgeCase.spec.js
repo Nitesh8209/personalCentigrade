@@ -36,7 +36,7 @@ import { ProjectsPage } from '../../../pages/projectsPage';
     await signUpPage.completeSignUpProcess(ValidTestData.firstName, ValidTestData.lastName, ValidTestData.organizationName, unVerifiedEmail);
   
     await loginPage.navigate();
-    await loginPage.accecptAll();
+    await loginPage.acceptAll();
     await loginPage.login(data.newEmail, ValidTestData.newPassword);
     await projectsPage.setting();
     await projectsPage.teamButton();

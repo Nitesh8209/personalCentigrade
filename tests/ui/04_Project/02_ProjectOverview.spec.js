@@ -6,6 +6,8 @@ import { ProjectsPage } from "../../../pages/projectsPage";
 import { project } from "../../data/projectData";
 import { getData } from "../../utils/apiHelper";
 import { safeExpect } from "../../utils/authHelper";
+import { ListingOverviewPage } from "../../../pages/listingsOverviewPage";
+import { projectValidationCredentials } from "../../data/testData";
 
 test.describe('Project Overview Page', { tag: '@UI' }, () => {
   const { newEmail } = getData('UI');
@@ -418,6 +420,23 @@ test.describe('Project Overview Page', { tag: '@UI' }, () => {
     if (errors.length > 0) {
       throw new Error('UI verification failed:\n' + errors.join('\n'));
     }
+  });
+
+  test('Click on the preview and should be able to see the project preview page', async () => {
+
+    const [newTab] = await Promise.all([
+      page.waitForEvent('popup'),
+      await projectsPage.clickPreviewButton()
+    ])
+    await newTab.waitForURL('**/preview/**/overview');
+
+    const overviewPage = new ListingOverviewPage(newTab);
+
+    await expect.soft(await overviewPage.aISearchOverview()).toBeVisible();
+    await expect.soft(await overviewPage.mainContent()).toBeVisible();
+    await expect.soft(await overviewPage.orgName(projectValidationCredentials.organizationName)).toBeVisible();
+    await expect.soft(await overviewPage.projectName(project.uiProjectName)).toBeVisible();
+    
   });
 
 });

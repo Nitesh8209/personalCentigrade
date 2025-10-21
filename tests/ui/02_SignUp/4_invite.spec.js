@@ -15,7 +15,7 @@ test.describe('awaiting-approval Page UI Tests', { tag: ['@UI', '@SMOKE'] }, () 
 
     const loginPage = new LoginPage(page, baseURL);
     await loginPage.navigate();
-    await loginPage.accecptAll();
+    await loginPage.acceptAll();
 
     // Complete the sign-up process
     await signUpPage.completeSignUpProcess(ValidTestData.firstName, ValidTestData.lastName, ValidTestData.organizationName, InviteEmail);

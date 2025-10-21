@@ -2,13 +2,18 @@ import { google } from 'googleapis';
 import { OAuth2Client } from 'google-auth-library';
 
 // securely load credentials from environment variables
-// const clientID = process.env.CLIENT_ID;
-// const clientSecret = process.env.CLIENT_SECRET;
-// const refreshToken = process.env.REFRESH_TOKEN;
+const clientID = process.env.CLIENT_ID;
+const clientSecret = process.env.CLIENT_SECRET;
+const refreshToken = process.env.REFRESH_TOKEN;
 
-const clientID = "851831849678-vq1748n181rjns0pp86c890n8nr0dv86.apps.googleusercontent.com";
-const clientSecret = "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";
-const refreshToken = '1//04dalNFzUuBybCgYIARAAGAQSNwF-L9IrqjoRGgJpPzKHJW3tSLTtcHCXDe_vF_WpVk745yQVNLfdTpCgpos5nBksdA1HrVSvZAA';
+// const clientID = "851831849678-eorapn5akbj35pl486t6a9dkptlmjoti.apps.googleusercontent.com";
+// const clientSecret = "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";
+// const refreshToken = '1//04hAns-Zwh5rNCgYIARAAGAQSNwF-L9IrlnEf8ddMXcWbzw970gWM6b00Wzw_BAmzyuFSRYIY-dqnlo5SDM3JDftm5ZocJD2QKS4';
+
+// Validate that all required environment variables are present
+if (!clientID || !clientSecret || !refreshToken) {
+  throw new Error('Missing required environment variables: CLIENT_ID, CLIENT_SECRET, or REFRESH_TOKEN');
+}
 
 // Initialize OAuth2 client with provided client credentials
 const oauth2Client = new OAuth2Client(clientID, clientSecret);

@@ -4,7 +4,8 @@ class LoginPage {
         this.page = page;
         this.baseURL = baseURL;
 
-        this.login = page.locator('.login');
+        
+        this.loginForm = page.locator('.login');
         this.emailInput = page.getByLabel('Email');
         this.passwordInput = page.getByLabel('Password', { exact: true });
         this.loginButton = page.getByRole('button', { name: 'Login' });
@@ -19,8 +20,8 @@ class LoginPage {
         this.privacyPolicyLink = page.getByRole('link', { name: 'Privacy Policy' });
 
         // Additional links for validation
-        this.tosLinkInLogin = this.login.getByRole('link', { name: 'Terms of Service' });
-        this.privacyLinkInLogin = this.login.getByRole('link', { name: 'Privacy Policy' });
+        this.tosLinkInLogin = this.loginForm.getByRole('link', { name: 'Terms of Service' });
+        this.privacyLinkInLogin = this.loginForm.getByRole('link', { name: 'Privacy Policy' });
         
         // Layout sections
         this.heroSection = page.locator('.hero-section');
@@ -32,7 +33,10 @@ class LoginPage {
         this.agreementText = page.getByText('By continuing, you agree to');
         this.firstImage = page.getByRole('img').first();
         this.centigradeLogoImage = page.getByRole('img', { name: 'Centigrade Logo' });
-
+        
+        this.iframeContent = page.locator('iframe').contentFrame();
+        this.superUserLogoutDropdown = this.iframeContent.locator('.dropdown-trigger > .avatar > span');
+        this.superUserLogoutButton = this.iframeContent.locator('.dropdown-item');
     }
 
     async navigate() {
@@ -53,6 +57,11 @@ class LoginPage {
 
     async getErrorMessage() {
         return await this.errorBanner.innerText();
+    }
+
+    async superUserLogout() {
+        await this.superUserLogoutDropdown.click();
+        await this.superUserLogoutButton.click();
     }
 
     async logOut() {

@@ -39,12 +39,16 @@ class ProjectsPage {
         return await (await this.iframeContent()).locator('.jedi-panel-trigger')
     }
 
+    async selectOrgInput() {
+        return await this.page.locator('.autocomplete-control > input');
+    }
+
     async selectOrg(organization) {
         await expect (await this.jediPanel()).toBeVisible();
-        await expect(await this.page.locator('.autocomplete-control > input')).toHaveValue('GreenTest', {timeout: 20000});
+        await expect(await this.selectOrgInput()).not.toHaveValue('');
         await this.page.locator('.autocomplete-control').click();
-        await this.page.locator('.autocomplete-control > input').fill('');
-        await this.page.locator('.autocomplete-control > input').fill(organization);
+        await (await this.selectOrgInput()).fill('');
+        await (await this.selectOrgInput()).fill(organization);
         await this.page.locator('.autocomplete-option').click();
     }
 
@@ -202,6 +206,29 @@ class ProjectsPage {
 
     async deletedProjectFromSuperUser() {
         await (await this.iframeContent()).locator('.project-list > .project-card').filter({hasText: project.deleteProject});
+    async stepElement(topicName, visibleIndex) {
+        const stepElement = await this.page.locator('.collapsible', { hasText: topicName });
+        const steps = await stepElement.locator('.menu .menu-item');
+        const stepItem = await steps.nth(visibleIndex);
+        return stepItem;
+    }
+
+    async sectionElementByOrder(visibleIndex) {
+        const sectionLocator = await this.page.locator('.section-title');
+        const sectionLocatorByOrder = await sectionLocator.nth(visibleIndex);
+        return sectionLocatorByOrder;
+    }
+
+    async fieldGroupElementByOrder(visibleIndex) {
+         const fieldGroupLocator = await this.page.locator('.field-group-label');
+         const fieldGroupLocatorByOrder = await fieldGroupLocator.nth(visibleIndex);
+         return fieldGroupLocatorByOrder;
+    }
+
+    async fieldElementByOrder(visibleIndex) {
+        const fieldLocator = await this.page.locator('.field');
+        const fieldLocatorByOrder = await fieldLocator.nth(visibleIndex).locator('.field-label label');
+        return fieldLocatorByOrder;
     }
 
     async projectDetails() {
@@ -1579,6 +1606,10 @@ class ProjectsPage {
 
     async previewButton() {
         return await this.page.getByRole('button', { name: 'Preview' });
+    }
+
+    async clickPreviewButton() {
+        await (await this.previewButton()).click();
     }
 
     async projectOverviewDescription() {

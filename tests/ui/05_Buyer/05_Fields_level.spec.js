@@ -5,7 +5,7 @@ import { ProjectListings } from "../../../pages/projectListingPage";
 import { ValidTestData } from "../../data/SignUpData";
 import { getData } from "../../utils/apiHelper";
 import { safeExpect } from "../../utils/authHelper";
-import { hasValidStepFields, convertToTitleCase, checkDisplayDependencyField, setupPage, validateBreadcrumbs } from "../../utils/listingsProjectHelper";
+import { hasValidStepFields, convertToTitleCase, checkDisplayDependencyField, setupPage, validateBreadcrumbs, validateFieldsDisplayOrder } from "../../utils/listingsProjectHelper";
 import path from "path";
 import fs from 'fs';
 import { FieldHandler } from "../../utils/fieldValidation";
@@ -221,6 +221,10 @@ test.describe("Fields Level Validation - after Login", { tag: '@UI' }, () => {
                         }
                       }
                     }
+
+                      // Validate display order of fields within the field group
+                    await validateFieldsDisplayOrder(fieldGroup, projectListings, errors);
+                    
                   }
                 }
 

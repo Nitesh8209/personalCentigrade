@@ -138,6 +138,33 @@ export class ProjectListings {
     return await this.page.locator('.sidebar').getByRole('link', { name: label , exact: true });
   }
 
+  async stepLabelDisplayOrder(order, stepGrouplabel){
+    return await this.page.locator('.collapsible', {hasText: stepGrouplabel}).locator('.menu .menu-item').nth(order - 1);
+  }
+
+  async sectionDisplayOrder(order) {
+    return this.page.locator('.flex.flex-col.gap-md').nth(order).locator('h2');
+  }
+
+  async fieldGroupDisplayOrder(order, sectionLabel) {
+    const accordionItems = await this.page.locator('.flex.flex-col.gap-md', {hasText: sectionLabel}).locator('> div');
+    return await accordionItems.nth(order).locator('button .label-container');
+  }
+
+async fieldDisplayOrder(order, fieldGroup, field) {
+  if(fieldGroup.label){
+  const accordionSelector = `[id="accordion:${fieldGroup.name}:content:${fieldGroup.name}"]`;
+  const accordionItems = this.page.locator(`${accordionSelector} .label-container`);
+  return accordionItems.nth(order);
+  }else{
+    const accordionItems = await this.page.locator('.flex.flex-col.gap-4.mb-1', {hasText: field.label}).locator('.field');
+    const fieldLabel = await accordionItems.nth(order).locator('label');
+    return fieldLabel;
+  }
+
+}
+
+
   async contentStepLabel(label){
     return await this.page.locator('.content').locator('.step-header').getByRole('heading', { name: label , exact: true});
   }
