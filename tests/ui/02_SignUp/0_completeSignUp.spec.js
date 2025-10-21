@@ -111,6 +111,10 @@ test.describe('Create Account Page UI Tests', { tag: '@UI' }, () => {
 
     // Test case: Successful resend of the verification code
     test('Verify with invalid code', async ({ baseURL }) => {
+        if(!newEmail) {
+          const data = getData('UI');
+          newEmail = data.newEmail;
+        }
         const signUpPage = new SignUpPage(page, baseURL);
     
         // Navigate to the verification page using the provided email

@@ -1235,7 +1235,27 @@ class ProjectsPage {
     }
 
     async projectInfo() {
-        return await this.page.locator('.project-info');
+        return await this.page.locator('.project-info h3');
+    }
+
+    async projectStatus() {
+        return await this.page.locator('.project-status');
+    }
+
+    async projectPublishedStatus() {
+        return await (await this.projectStatus()).locator('.badge-subtle');
+    }
+
+    async projectPublishedStatusInMultiProject() {
+        return await this.page.locator('.project-list > .project-card').filter({hasText: project.uiProjectName}).first().locator('.badge-subtle')
+    }
+
+    async projectMethodologystatus() {
+        return await (await this.projectStatus()).locator('span:nth-of-type(1)');
+    }
+
+    async projectTimeStatus() {
+        return await (await this.projectStatus()).locator('span:nth-of-type(2)');
     }
 
     async viewProjectButton() {

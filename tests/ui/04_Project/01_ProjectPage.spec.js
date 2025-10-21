@@ -55,7 +55,7 @@ test.describe('Project Page', { tag: '@UI' }, () => {
         await expect(await projectsPage.ProjectEmptyStateContent()).toBeVisible();
         await expect(await projectsPage.ProjectEmptyStateContent()).toHaveText("You don't have any projects.Get started by creating your first project");
         await expect(await projectsPage.createProjectButton()).toBeVisible();
-        await expect(await projectsPage.createProjectButton()).toHaveText('+ Create Project');
+        await expect(await projectsPage.createProjectButton()).toHaveText('+ Create project');
       },
       errors
     );
@@ -346,7 +346,7 @@ test.describe('Project Page', { tag: '@UI' }, () => {
     await safeExpect('Create Project Visibility',
       async () => {
         await expect(await projectsPage.createProjectButton()).toBeVisible();
-        await expect(await projectsPage.createProjectButton()).toHaveText('+ Create Project');
+        await expect(await projectsPage.createProjectButton()).toHaveText('+ Create project');
       }, errors
     );
 
@@ -356,6 +356,18 @@ test.describe('Project Page', { tag: '@UI' }, () => {
         await expect(await projectsPage.projectCard()).toBeVisible();
         await expect(await projectsPage.projectInfo()).toBeVisible();
         await expect(await projectsPage.projectInfo()).toHaveText(project.uiProjectName);
+      }, errors
+    );
+
+    await safeExpect('Project status Visibility',
+      async () => {
+        await expect(await projectsPage.projectStatus()).toBeVisible();
+       await expect(await projectsPage.projectPublishedStatus()).toBeVisible();
+        await expect(await projectsPage.projectPublishedStatus()).toHaveText('Not published');
+       await expect(await projectsPage.projectMethodologystatus()).toBeVisible();
+        await expect(await projectsPage.projectMethodologystatus()).toHaveText('QA-ACR1.3');
+      await expect(await projectsPage.projectTimeStatus()).toBeVisible();
+        await expect(await projectsPage.projectTimeStatus()).toHaveText('Last updated a few seconds ago');
       }, errors
     );
 

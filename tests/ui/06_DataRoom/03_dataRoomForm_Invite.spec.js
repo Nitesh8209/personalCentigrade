@@ -460,4 +460,22 @@ test.describe('UnPublish Project', { tag: ['@UI', '@SMOKE'] }, () => {
 
   });
 
+  test('Verify project status after unpublishing', async () => {
+    const errors = [];
+
+    await safeExpect('Check project status after unpublishing',
+      async () => {
+        await projectsPage.navigate();
+        const status = await projectsPage.projectPublishedStatusInMultiProject();
+        await expect(status).toBeVisible();
+        await expect(status).toHaveText('Not published');
+      },
+      errors
+    );
+
+    if (errors.length > 0) {
+      throw new Error(`Validation errors found:\n${errors.join('\n')}`);
+    }
+  });
+
 })

@@ -510,8 +510,22 @@ test.describe('Project after approve Project', { tag: ['@UI', '@SMOKE'] }, () =>
 
   });
 
+  test('Verify project status is Published', async () => {
+    const errors = [];
+    
+    await safeExpect('Project status should be Published',
+      async () => {
+        await projectsPage.navigate();
+        const status = await projectsPage.projectPublishedStatusInMultiProject();
+        await expect(status).toBeVisible();
+        await expect(status).toHaveText('Published');
+      },
+      errors
+    );
 
-})
+    if (errors.length > 0) {
+      throw new Error(`Validation errors found:\n${errors.join('\n')}`);
+    }
+  });
 
-
-
+});
