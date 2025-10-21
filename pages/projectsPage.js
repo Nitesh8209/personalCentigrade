@@ -39,12 +39,16 @@ class ProjectsPage {
         return await (await this.iframeContent()).locator('.jedi-panel-trigger')
     }
 
+    async selectOrgInput() {
+        return await this.page.locator('.autocomplete-control > input');
+    }
+
     async selectOrg(organization) {
         await expect (await this.jediPanel()).toBeVisible();
-        await expect(await this.page.locator('.autocomplete-control > input')).toHaveValue('GreenTest', {timeout: 20000});
+        await expect(await this.selectOrgInput()).not.toHaveValue('');
         await this.page.locator('.autocomplete-control').click();
-        await this.page.locator('.autocomplete-control > input').fill('');
-        await this.page.locator('.autocomplete-control > input').fill(organization);
+        await (await this.selectOrgInput()).fill('');
+        await (await this.selectOrgInput()).fill(organization);
         await this.page.locator('.autocomplete-option').click();
     }
 
@@ -1535,6 +1539,10 @@ class ProjectsPage {
 
     async previewButton() {
         return await this.page.getByRole('button', { name: 'Preview' });
+    }
+
+    async clickPreviewButton() {
+        await (await this.previewButton()).click();
     }
 
     async projectOverviewDescription() {
