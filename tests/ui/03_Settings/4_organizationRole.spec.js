@@ -37,8 +37,8 @@ test.describe('View Basic Test cases', { tag: '@UI' }, () => {
 
     // Ensure that the page navigates to the expected URL
     await safeExpect('Navigate to listings Page', async () => {
-      await page.waitForURL('**/listings');
-      expect(page.url()).toBe(`${baseURL}/listings`);
+      await page.waitForURL('**/listings/projects');
+      expect(page.url()).toBe(`${baseURL}/listings/projects`);
     }, errors);
 
     await safeExpect('Validate listings Button',
@@ -64,7 +64,7 @@ test.describe('View Basic Test cases', { tag: '@UI' }, () => {
 
     // Navigate to the login page and Login
     await loginPage.login(newEmail, ValidTestData.newPassword);
-    await page.waitForURL('**/listings');
+    await page.waitForURL('**/listings/projects');
 
     // Verify the Project Button on the Left sidebar
     await safeExpect('Projects Button should not displayed',

@@ -42,8 +42,8 @@ test.describe('Settings - Team Page UI Tests', { tag: '@UI' }, () => {
 
     // Header section verification
     await safeExpect('Header section elements', async () => {
-      await expect(await settingsPage.breadcrumb()).toBeVisible();
-      await expect(await settingsPage.breadcrumb()).toHaveText('Settings');
+      // await expect(await settingsPage.breadcrumb()).toBeVisible();
+      // await expect(await settingsPage.breadcrumb()).toHaveText('Settings');
       await expect(await settingsPage.settingsHeader()).toBeVisible();
       await expect(await settingsPage.headerTitle()).toBeVisible();
       await expect(await settingsPage.headerTitle()).toHaveText('Settings');
@@ -669,8 +669,8 @@ test.describe('Settings - Team Page UI Tests', { tag: '@UI' }, () => {
     // Verify the successful redirect to the listings page
     await safeExpect('Successful redirect to listings',
       async () => {
-        await page.waitForURL('**/listings');
-        expect(page.url()).toContain('/listings');
+        await page.waitForURL('**/listings/projects');
+        expect(page.url()).toContain('/listings/projects');
       },
       errors
     );

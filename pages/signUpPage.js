@@ -159,7 +159,7 @@ class SignUpPage {
   }
   
   async logo() {
-    return await this.page.locator('.centigrade-logo-container');
+    return await this.page.getByRole('img', { name: 'Centigrade Logo' });
   }
   
   async awaitingApprovalheading() {

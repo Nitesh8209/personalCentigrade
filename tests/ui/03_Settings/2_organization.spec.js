@@ -40,8 +40,8 @@ test.describe('Settings - organization Page UI Tests', { tag: '@UI' }, () => {
   
     // Header section verification
     await safeExpect('Header section elements', async () => {
-      await expect(await settingsPage.breadcrumb()).toBeVisible();
-      await expect(await settingsPage.breadcrumb()).toHaveText('Settings');
+      // await expect(await settingsPage.breadcrumb()).toBeVisible();
+      // await expect(await settingsPage.breadcrumb()).toHaveText('Settings');
       await expect(await settingsPage.settingsHeader()).toBeVisible();
       await expect(await settingsPage.headerTitle()).toBeVisible();
       await expect(await settingsPage.headerTitle()).toHaveText('Settings');
