@@ -168,8 +168,8 @@ test.describe('Create Account Page UI Tests', { tag: '@UI' }, () => {
         await signUpPage.createAccount();
     
     
-        await page.waitForURL('**/listings');
-        expect(page.url()).toContain('/listings');
+        await page.waitForURL('**/listings/projects');
+        expect(page.url()).toContain('/listings/projects');
         
         const settingButton = await settingsPage.settingButton();
         await expect(settingButton).toBeVisible();

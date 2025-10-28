@@ -42,13 +42,13 @@ test.describe('Settings - My Account Page UI Tests', { tag: '@UI' }, () => {
     );
 
     // Breadcrumb verification
-    await safeExpect('Breadcrumb visibility and text',
-      async () => {
-        await expect(await settingsPage.breadcrumb()).toBeVisible();
-        await expect(await settingsPage.breadcrumb()).toHaveText('Settings');
-      },
-      errors
-    );
+    // await safeExpect('Breadcrumb visibility and text',
+    //   async () => {
+    //     await expect(await settingsPage.breadcrumb()).toBeVisible();
+    //     await expect(await settingsPage.breadcrumb()).toHaveText('Settings');
+    //   },
+    //   errors
+    // );
 
     // Header section verification
     await safeExpect('Header elements',

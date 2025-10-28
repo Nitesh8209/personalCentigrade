@@ -38,8 +38,10 @@ import { ProjectsPage } from '../../../pages/projectsPage';
     await loginPage.navigate();
     await loginPage.acceptAll();
     await loginPage.login(data.newEmail, ValidTestData.newPassword);
-    await projectsPage.setting();
-    await projectsPage.teamButton();
+    const settingButton = await projectsPage.SettingsButton();
+    await settingButton.click();
+
+    await projectsPage.teamTabButton();
     await expect(await settingsPage.useremail(unVerifiedEmail)).toBeVisible();
     await expect(await settingsPage.usertype(unVerifiedEmail)).toBeVisible();
     await expect(await settingsPage.usertype(unVerifiedEmail)).toHaveText('Requested');

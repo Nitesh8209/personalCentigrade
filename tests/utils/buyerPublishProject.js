@@ -97,6 +97,7 @@ const generateFieldData = (field, fileData = null, fileTierFilter = null) => {
 
     case COMPONENT_TYPES.FILE_UPLOAD:
     case COMPONENT_TYPES.FILE_UPLOAD_MULTIPLE:
+    case COMPONENT_TYPES.MEDIA_CAROUSEL:
       if (fileData && (fileTierFilter === null || fileTierFilter === field.tier)) {
         const projectFileType = field.name?.split('-')[0];
         fileData.push({

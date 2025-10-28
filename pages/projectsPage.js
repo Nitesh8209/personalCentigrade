@@ -206,6 +206,7 @@ class ProjectsPage {
 
     async deletedProjectFromSuperUser() {
         await (await this.iframeContent()).locator('.project-list > .project-card').filter({hasText: project.deleteProject});
+    }
     async stepElement(topicName, visibleIndex) {
         const stepElement = await this.page.locator('.collapsible', { hasText: topicName });
         const steps = await stepElement.locator('.menu .menu-item');
@@ -213,15 +214,15 @@ class ProjectsPage {
         return stepItem;
     }
 
-    async sectionElementByOrder(visibleIndex) {
-        const sectionLocator = await this.page.locator('.section-title');
-        const sectionLocatorByOrder = await sectionLocator.nth(visibleIndex);
+    async sectionElementByOrder(sectionIndex) {
+        const sectionLocator = await this.page.locator('.section');
+        const sectionLocatorByOrder = await sectionLocator.nth(sectionIndex).locator('.section-title');
         return sectionLocatorByOrder;
     }
 
-    async fieldGroupElementByOrder(visibleIndex) {
-         const fieldGroupLocator = await this.page.locator('.field-group-label');
-         const fieldGroupLocatorByOrder = await fieldGroupLocator.nth(visibleIndex);
+    async fieldGroupElementByOrder(sectionIndex, fieldGroupIndex) {
+         const fieldGroupLocator = await this.page.locator('.section').nth(sectionIndex).locator('.field-group');
+         const fieldGroupLocatorByOrder = await fieldGroupLocator.nth(fieldGroupIndex).locator('.field-group-label');
          return fieldGroupLocatorByOrder;
     }
 
@@ -969,11 +970,15 @@ class ProjectsPage {
     }
 
     async listingsButton() {
-        return await this.page.locator('a.nav-btn[href="/listings"]');
+        return await this.page.locator('a.nav-btn[href="/listings/projects"]');
     }
 
     async SettingsButton() {
         return await this.page.locator('a.nav-btn[href="/settings"]');
+    }
+
+    async teamTabButton() {
+        await this.page.getByRole('tab', { name: 'Team' }).click();
     }
 
     async ErrorBoundryPage() {

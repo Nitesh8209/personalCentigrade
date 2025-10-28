@@ -144,85 +144,56 @@ test.describe('Step-Level UI Validations', { tag: '@UI' }, () => {
 
             test(`Section and Field Group validation for Step: ${step.label}`, async () => {
               const errors = [];
-              let visibleSectionIndex = 0;
-              let visibleFieldGroupIndex = 0;
-
 
               // Iterate over each section in the step
-              for (const section of step.sections) {
-                  
-
+              for (const [sectionIndex, section] of step.sections.entries()) {
                 if (!section?.field_groups) continue;
 
+                // Check if this section has any visible fields
                 const hasVisibleSection = section.field_groups.some(group =>
                   group.fields?.some(field => !field.display_dependencies)
                 );
 
-                if (!hasVisibleSection){
-                  if(section.label){
-                    visibleSectionIndex++;
-                  }
-                  continue;
-                } 
+
+                if (!hasVisibleSection) continue;
 
                 // Validate section labels
-                  if (section?.label) {
-                    await safeExpect('Sections visibility', async () => {
-                      await expect(await fieldHandler.section(section.label)).toBeVisible();
-                      await expect(await fieldHandler.section(section.label)).toHaveText(section.label);
-                    },
-                      errors
-                    );
+                if (section?.label) {
+                  await safeExpect(`Section "${section.label}" is visible`, async () => {
+                    const sectionLocator = await fieldHandler.section(section.label);
+                    await expect(sectionLocator).toBeVisible();
+                    await expect(sectionLocator).toHaveText(section.label);
+                  }, errors);
 
-                    await safeExpect('Sections visibility follow display order', async () => {
-
-                      const sectionLocatorByOrder = await projectsPage.sectionElementByOrder(visibleSectionIndex);
-                      visibleSectionIndex++;
-                      await expect(sectionLocatorByOrder).toBeVisible();
-                      await expect(sectionLocatorByOrder).toHaveText(section.label);
-                    },
-                      errors
-                    );
-                    
-                  }
+                  await safeExpect(`Section "${section.label}" follows display order`, async () => {
+                    const sectionLocatorByOrder = await projectsPage.sectionElementByOrder(sectionIndex);
+                    await expect(sectionLocatorByOrder).toBeVisible();
+                    await expect(sectionLocatorByOrder).toHaveText(section.label);
+                  }, errors);
+                }
 
                 // Iterate over each field group in the section
-                for (const fieldGroup of section.field_groups) {
-                  if (!fieldGroup?.fields){
-                    visibleFieldGroupIndex++;
-                    continue;
-                  } 
+                for (const [fieldGroupIndex, fieldGroup] of section.field_groups.entries()) {
+                  if (!fieldGroup) continue;
 
-                  // skip this step if all Fields display_dependencies has some value
-                  const hasVisibleFieldGroups = await fieldGroup.fields?.some(field => !field.display_dependencies);
-                  console.log(fieldGroup.label, hasVisibleFieldGroups)
-                  if (!hasVisibleFieldGroups){
-                    console.log(fieldGroup.label)
-                    if (fieldGroup.label) {
-                      visibleFieldGroupIndex++;
-                    }
-                    continue;
-                  } 
+                  const hasVisibleFields = fieldGroup.fields?.some(field => !field.display_dependencies) || false;
+
+                  if (!hasVisibleFields) continue;
 
                   // Validate field group labels
                   if (fieldGroup?.label) {
-                    await safeExpect('FieldGroup visibility', async () => {
-                      await expect(await fieldHandler.fieldGroupLabel(fieldGroup.label)).toBeVisible();
-                      await expect(await fieldHandler.fieldGroupLabel(fieldGroup.label)).toHaveText(fieldGroup.label);
-                    },
-                      errors
-                    );
+                    await safeExpect(`Field Group "${fieldGroup.label}" is visible`, async () => {
+                      const fieldGroupLabel = await fieldHandler.fieldGroupLabel(fieldGroup.label);
+                      await expect(fieldGroupLabel).toBeVisible();
+                      await expect(fieldGroupLabel).toHaveText(fieldGroup.label);
+                    }, errors);
 
-                    await safeExpect('FieldGroup visibility follow display order', async () => {
-                      const fieldGroupLocatorByOrder = await projectsPage.fieldGroupElementByOrder(visibleFieldGroupIndex);
+                    await safeExpect(`Field Group "${fieldGroup.label}" follows display order`, async () => {
+                      const fieldGroupLocatorByOrder = await projectsPage.fieldGroupElementByOrder(sectionIndex, fieldGroupIndex);
                       await expect(fieldGroupLocatorByOrder).toBeVisible();
                       await expect(fieldGroupLocatorByOrder).toHaveText(fieldGroup.label);
-                      visibleFieldGroupIndex++;
-                    },
-                      errors
-                    );
-
-                  } 
+                    }, errors);
+                  }
                 }
               }
 
@@ -231,6 +202,7 @@ test.describe('Step-Level UI Validations', { tag: '@UI' }, () => {
                 throw new Error(`Validation errors found:\n${errors.join('\n')}`);
               }
             });
+
           })
 
         }

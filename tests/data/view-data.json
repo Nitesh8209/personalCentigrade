@@ -1,7 +1,7 @@
 {
   "dataSchema": "QA-ACR1.3-cgV1.0.0",
   "navigation": "view2.0-config",
-  "versionDate": "2025-10-13T16:01:59-07:00",
+  "versionDate": "2025-10-21T10:28:29-07:00",
   "methodology": {
     "id": 13,
     "nickname": "QA-ACR1.3",
@@ -1086,7 +1086,7 @@
                           "type": "number",
                           "label": "Credit period forecast",
                           "columns": null,
-                          "options": [],
+                          "options": null,
                           "tooltip": "The total estimated issued credits over the crediting period (i.e., tonnes of CO2e removed, avoided, or reduced)",
                           "elements": null,
                           "component": "text-input",
@@ -1318,11 +1318,11 @@
                           "id": 7,
                           "name": "projectMedia-projectFile-storage",
                           "rows": null,
-                          "tier": -1,
+                          "tier": 0,
                           "type": "array",
                           "label": "Project photos or videos",
                           "columns": null,
-                          "options": [],
+                          "options": null,
                           "tooltip": "",
                           "elements": null,
                           "component": "media-carousel",
@@ -3166,16 +3166,16 @@
                 {
                   "id": 85,
                   "name": "projectFinance",
-                  "label": "Project finance",
+                  "label": "Project costs and revenue streams",
                   "parent_id": 40,
                   "attributes": null,
                   "description": null,
                   "nav_type_id": 2,
                   "field_groups": [
                     {
-                      "id": 407,
-                      "name": "projectFunding",
-                      "label": "Project funding",
+                      "id": 408,
+                      "name": "default",
+                      "label": "",
                       "fields": null,
                       "parent_id": 85,
                       "attributes": {},
@@ -3185,9 +3185,9 @@
                       "display_order": 0
                     },
                     {
-                      "id": 408,
-                      "name": "costsRevenue",
-                      "label": "Project costs and revenue streams",
+                      "id": 407,
+                      "name": "projectFunding",
+                      "label": "Project funding",
                       "fields": null,
                       "parent_id": 85,
                       "attributes": {},
@@ -5141,6 +5141,18 @@
                       "nav_type_id": 2,
                       "nav_level_id": 5,
                       "display_order": 0
+                    },
+                    {
+                      "id": 1324,
+                      "name": "almBiomeReq",
+                      "label": "Biome change applicability conditions",
+                      "fields": null,
+                      "parent_id": 996,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 1
                     }
                   ],
                   "nav_level_id": 4,
@@ -5503,7 +5515,28 @@
                       "id": 1212,
                       "name": "aiSummaryHeroDefault",
                       "label": "",
-                      "fields": null,
+                      "fields": [
+                        {
+                          "id": 2057,
+                          "name": "baselineSummaryAiSummary-nameValue-nameValue",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "string",
+                          "label": "",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "ai-summary",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 5,
+                          "view_component": "ai-summary",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        }
+                      ],
                       "parent_id": 1211,
                       "attributes": {},
                       "description": "",
@@ -6851,14 +6884,14 @@
                           "type": "string",
                           "label": "Summary of initiatives ensuring project integrity and scientific robustness",
                           "columns": null,
-                          "options": [],
-                          "tooltip": "Overview of measures taken to ensure that the GHG emission reductions or removals from the mitigation activity are be robustly quantified, based on conservative approaches, completeness, and scientific methods",
+                          "options": null,
+                          "tooltip": "Overview of measures taken to ensure that the GHG emission reductions or removals from the mitigation activity are being robustly quantified, based on conservative approaches, completeness, and scientific methods",
                           "elements": null,
                           "component": "rich-text",
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "Outline the steps taken to ensure the scientific rigor and integrity of the project",
-                          "display_order": 6,
+                          "display_order": 7,
                           "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -6878,7 +6911,7 @@
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "",
-                          "display_order": 12,
+                          "display_order": 13,
                           "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -6898,7 +6931,7 @@
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "",
-                          "display_order": 13,
+                          "display_order": 14,
                           "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": null
@@ -6924,6 +6957,18 @@
                       "display_order": 1
                     },
                     {
+                      "id": 1327,
+                      "name": "farmEnrollment",
+                      "label": "Farm enrollment procedure",
+                      "fields": null,
+                      "parent_id": 97,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 2
+                    },
+                    {
                       "id": 182,
                       "name": "projectPlotsView",
                       "label": "Project sample plots",
@@ -6933,7 +6978,7 @@
                       "description": "",
                       "nav_type_id": 2,
                       "nav_level_id": 5,
-                      "display_order": 2
+                      "display_order": 3
                     },
                     {
                       "id": 183,
@@ -6945,7 +6990,7 @@
                       "description": "",
                       "nav_type_id": 2,
                       "nav_level_id": 5,
-                      "display_order": 3
+                      "display_order": 4
                     },
                     {
                       "id": 184,
@@ -6957,7 +7002,7 @@
                       "description": "",
                       "nav_type_id": 2,
                       "nav_level_id": 5,
-                      "display_order": 4
+                      "display_order": 5
                     },
                     {
                       "id": 790,
@@ -6981,7 +7026,7 @@
                       "description": "",
                       "nav_type_id": 2,
                       "nav_level_id": 5,
-                      "display_order": 9
+                      "display_order": 7
                     },
                     {
                       "id": 424,
@@ -6993,7 +7038,7 @@
                       "description": "",
                       "nav_type_id": 2,
                       "nav_level_id": 5,
-                      "display_order": 10
+                      "display_order": 8
                     },
                     {
                       "id": 425,
@@ -7046,7 +7091,7 @@
                       "description": "",
                       "nav_type_id": 2,
                       "nav_level_id": 5,
-                      "display_order": 11
+                      "display_order": 9
                     },
                     {
                       "id": 190,
@@ -7119,120 +7164,11 @@
                       "description": "",
                       "nav_type_id": 2,
                       "nav_level_id": 5,
-                      "display_order": 12
+                      "display_order": 10
                     }
                   ],
                   "nav_level_id": 4,
                   "display_order": 2
-                },
-                {
-                  "id": 1296,
-                  "name": "almPracticesProject",
-                  "label": "Agricultural land management practices targeted by the project",
-                  "parent_id": 1068,
-                  "attributes": {},
-                  "description": "",
-                  "nav_type_id": 2,
-                  "field_groups": [
-                    {
-                      "id": 1305,
-                      "name": "almDefault",
-                      "label": "",
-                      "fields": null,
-                      "parent_id": 1296,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 0
-                    },
-                    {
-                      "id": 1297,
-                      "name": "almCropProject",
-                      "label": "Improved crop planting and harvesting",
-                      "fields": null,
-                      "parent_id": 1296,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 1
-                    },
-                    {
-                      "id": 1298,
-                      "name": "almFertilizerProject",
-                      "label": "Improved fertilizer application",
-                      "fields": null,
-                      "parent_id": 1296,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 2
-                    },
-                    {
-                      "id": 1299,
-                      "name": "almTillageProject",
-                      "label": "Reduced tillage and/or improved residue management",
-                      "fields": null,
-                      "parent_id": 1296,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 3
-                    },
-                    {
-                      "id": 1300,
-                      "name": "almWaterProject",
-                      "label": "Improved water management and irrigation",
-                      "fields": null,
-                      "parent_id": 1296,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 4
-                    },
-                    {
-                      "id": 1301,
-                      "name": "almGrazingProject",
-                      "label": "Improved grazing management",
-                      "fields": null,
-                      "parent_id": 1296,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 5
-                    },
-                    {
-                      "id": 1302,
-                      "name": "almLimingProject",
-                      "label": "Improved liming",
-                      "fields": null,
-                      "parent_id": 1296,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 6
-                    },
-                    {
-                      "id": 1303,
-                      "name": "almOtherProject",
-                      "label": "Other ALM practices",
-                      "fields": null,
-                      "parent_id": 1296,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 7
-                    }
-                  ],
-                  "nav_level_id": 4,
-                  "display_order": 3
                 },
                 {
                   "id": 99,
@@ -7406,6 +7342,115 @@
                       "nav_type_id": 2,
                       "nav_level_id": 5,
                       "display_order": 5
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 3
+                },
+                {
+                  "id": 1296,
+                  "name": "almPracticesProject",
+                  "label": "Agricultural land management practices targeted by the project",
+                  "parent_id": 1068,
+                  "attributes": {},
+                  "description": "",
+                  "nav_type_id": 2,
+                  "field_groups": [
+                    {
+                      "id": 1305,
+                      "name": "almDefault",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1296,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    },
+                    {
+                      "id": 1297,
+                      "name": "almCropProject",
+                      "label": "Improved crop planting and harvesting",
+                      "fields": null,
+                      "parent_id": 1296,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 1
+                    },
+                    {
+                      "id": 1298,
+                      "name": "almFertilizerProject",
+                      "label": "Improved fertilizer application",
+                      "fields": null,
+                      "parent_id": 1296,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 2
+                    },
+                    {
+                      "id": 1299,
+                      "name": "almTillageProject",
+                      "label": "Reduced tillage and/or improved residue management",
+                      "fields": null,
+                      "parent_id": 1296,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 3
+                    },
+                    {
+                      "id": 1300,
+                      "name": "almWaterProject",
+                      "label": "Improved water management and irrigation",
+                      "fields": null,
+                      "parent_id": 1296,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 4
+                    },
+                    {
+                      "id": 1301,
+                      "name": "almGrazingProject",
+                      "label": "Improved grazing management",
+                      "fields": null,
+                      "parent_id": 1296,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 5
+                    },
+                    {
+                      "id": 1302,
+                      "name": "almLimingProject",
+                      "label": "Improved liming",
+                      "fields": null,
+                      "parent_id": 1296,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 6
+                    },
+                    {
+                      "id": 1303,
+                      "name": "almOtherProject",
+                      "label": "Other ALM practices",
+                      "fields": null,
+                      "parent_id": 1296,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 7
                     }
                   ],
                   "nav_level_id": 4,
@@ -9059,34 +9104,9 @@
                   "display_order": 0
                 },
                 {
-                  "id": 1045,
-                  "name": "samplingOverview",
-                  "label": "Overview",
-                  "parent_id": 1237,
-                  "attributes": {},
-                  "description": "",
-                  "nav_type_id": 2,
-                  "field_groups": [
-                    {
-                      "id": 1051,
-                      "name": "bslSamplingOverviewView",
-                      "label": "Soil sampling overview",
-                      "fields": null,
-                      "parent_id": 1045,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
-                      "display_order": 1
-                    }
-                  ],
-                  "nav_level_id": 4,
-                  "display_order": 1
-                },
-                {
                   "id": 1046,
                   "name": "generalSamplingDesign",
-                  "label": "Details",
+                  "label": "Sampling protocol",
                   "parent_id": 1237,
                   "attributes": {},
                   "description": "",
@@ -9105,9 +9125,9 @@
                       "display_order": 0
                     },
                     {
-                      "id": 1052,
-                      "name": "bslSoilSamplingDesign",
-                      "label": "Soil sampling design",
+                      "id": 1326,
+                      "name": "samplingStratificationApproach",
+                      "label": "Stratification approach",
                       "fields": null,
                       "parent_id": 1046,
                       "attributes": {},
@@ -9123,12 +9143,24 @@
                 {
                   "id": 1074,
                   "name": "projCollection",
-                  "label": "Collection and processing procedures",
+                  "label": "Data collection and processing procedure",
                   "parent_id": 1237,
                   "attributes": {},
                   "description": "",
                   "nav_type_id": 2,
                   "field_groups": [
+                    {
+                      "id": 1325,
+                      "name": "samplingProcessingDefault",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 1074,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    },
                     {
                       "id": 1053,
                       "name": "soilSamplingProcessing",
@@ -11807,7 +11839,7 @@
                           "type": "boolean",
                           "label": "Risk management plan in place",
                           "columns": null,
-                          "options": [],
+                          "options": null,
                           "tooltip": "A risk management plan encompasses a strategy for managing and mitigating risks that could impact a carbon project's ability to generate valid credits",
                           "elements": null,
                           "component": "radio-y-n",
@@ -13928,8 +13960,129 @@
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "",
+                          "display_order": 0,
+                          "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": [
+                            {
+                              "field": "additionalityApproachUsed-nameValue-nameValue",
+                              "pattern": "Regulatory additionality"
+                            }
+                          ]
+                        },
+                        {
+                          "id": 4953,
+                          "name": "regulatoryAddGroupingsParent-nameValue-nameValue",
+                          "rows": null,
+                          "tier": 1,
+                          "type": "boolean",
+                          "label": "Project uses geographic groupings for the regulatory additionality assessment",
+                          "columns": null,
+                          "options": null,
+                          "tooltip": "A systematic review of regulatory surplus across all relevant countries and geographic areas is essential to confirm that the project activities are not legally mandated in any jurisdiction where the project operates",
+                          "elements": null,
+                          "component": "radio-y-n",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "",
                           "display_order": 1,
                           "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": [
+                            {
+                              "field": "additionalityApproachUsed-nameValue-nameValue",
+                              "pattern": "Regulatory additionality"
+                            }
+                          ]
+                        },
+                        {
+                          "id": 4957,
+                          "name": "regulatoryAddGroupingsTableAg-dataTable-dataTable",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "object",
+                          "label": "Relevant laws, regulations, and binding obligations that apply to geographic areas",
+                          "columns": [
+                            {
+                              "name": "regulatoryAddGroupingsTableAgLaw",
+                              "type": "string",
+                              "label": "Law, regulation, or binding obligation",
+                              "options": null,
+                              "tooltip": "",
+                              "column_id": 4959,
+                              "component": "text-input",
+                              "attributes": {},
+                              "helper_text": "",
+                              "column_order": 0,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            },
+                            {
+                              "name": "regulatoryAddGroupingsTableAgGrouping",
+                              "type": "string",
+                              "label": "Geographic grouping",
+                              "options": null,
+                              "tooltip": "",
+                              "column_id": 4961,
+                              "component": "textarea",
+                              "attributes": {},
+                              "helper_text": "",
+                              "column_order": 3,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            },
+                            {
+                              "name": "regulatoryAddGroupingsTableAgCompliance",
+                              "type": "string",
+                              "label": "Applicability Status",
+                              "options": [
+                                "Applicable",
+                                "Not applicable"
+                              ],
+                              "tooltip": "",
+                              "column_id": 4963,
+                              "component": "select",
+                              "attributes": {},
+                              "helper_text": "",
+                              "column_order": 4,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            }
+                          ],
+                          "options": [],
+                          "tooltip": "Overview of relevant laws, regulations, and obligations used in the regulatory surplus analysis to demonstrate that no existing regulatory frameworks or incentive programs mandate or encourage the project activity",
+                          "elements": null,
+                          "component": "data-table",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 2,
+                          "view_component": "data-table",
+                          "validation_schema": null,
+                          "display_dependencies": [
+                            {
+                              "field": "regulatoryAddGroupingsParent-nameValue-nameValue",
+                              "pattern": "Yes"
+                            }
+                          ]
+                        },
+                        {
+                          "id": 4955,
+                          "name": "regulatorySurplusMethodology-nameValue-nameValue",
+                          "rows": null,
+                          "tier": 1,
+                          "type": "string",
+                          "label": "Regulatory surplus assessment approach",
+                          "columns": null,
+                          "options": null,
+                          "tooltip": "Approach for identifying all applicable laws, statutes, and regulations across relevant jurisdictions that could potentially mandate implementation of the project activities",
+                          "elements": null,
+                          "component": "rich-text",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "Outline the process for identifying laws, statues, and regulations that could potentially mandate or incentivize implementation of project activities",
+                          "display_order": 3,
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -13953,7 +14106,7 @@
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "Indicate the relevant laws or regulations that support the justification of regulatory additionality (i.e., do not require the mitigation activity)",
-                          "display_order": 2,
+                          "display_order": 4,
                           "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
@@ -13978,7 +14131,7 @@
                           "attributes": null,
                           "half_width": false,
                           "helper_text": "Upload documentation demonstrating the project's legal and regulatory additionality",
-                          "display_order": 3,
+                          "display_order": 5,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": [
@@ -14040,14 +14193,39 @@
                           ]
                         },
                         {
+                          "id": 516,
+                          "name": "commonPracticeDetails-nameValue-nameValue",
+                          "rows": null,
+                          "tier": 1,
+                          "type": "string",
+                          "label": "Process for assessing whether project activities are common practice",
+                          "columns": null,
+                          "options": null,
+                          "tooltip": "Overview of the approach used to assess common practice defined by the methodology, carbon-crediting program, or equivalent entity responsible for determining the threshold for market penetration",
+                          "elements": null,
+                          "component": "rich-text",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "Describe the approach used to determine additionality and indicate the methodology, carbon-crediting program, or equivalent entity responsible for determining the threshold for market penetration",
+                          "display_order": 1,
+                          "view_component": "rich-text",
+                          "validation_schema": null,
+                          "display_dependencies": [
+                            {
+                              "field": "additionalityApproachUsed-nameValue-nameValue",
+                              "pattern": "Common practice / penetration"
+                            }
+                          ]
+                        },
+                        {
                           "id": 255,
                           "name": "threshold-nameValue-nameValue",
                           "rows": null,
                           "tier": 1,
                           "type": "string",
-                          "label": "Threshold or maximum adoption level for market penetration",
+                          "label": "Threshold or maximum adoption level allowed to meet the definition of common practice",
                           "columns": null,
-                          "options": [],
+                          "options": null,
                           "tooltip": "",
                           "elements": null,
                           "component": "text-input",
@@ -14058,31 +14236,6 @@
                           "helper_text": "",
                           "display_order": 2,
                           "view_component": "key-value-table",
-                          "validation_schema": null,
-                          "display_dependencies": [
-                            {
-                              "field": "additionalityApproachUsed-nameValue-nameValue",
-                              "pattern": "Common practice / penetration"
-                            }
-                          ]
-                        },
-                        {
-                          "id": 516,
-                          "name": "commonPracticeDetails-nameValue-nameValue",
-                          "rows": null,
-                          "tier": 1,
-                          "type": "string",
-                          "label": "Common practice test details",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "Overview of the approach used to determine additionality and the methodology, carbon-crediting program, or equivalent entity responsible for determining the threshold for market penetration",
-                          "elements": null,
-                          "component": "rich-text",
-                          "attributes": {},
-                          "half_width": false,
-                          "helper_text": "Describe the approach used to determine additionality and indicate the methodology, carbon-crediting program, or equivalent entity responsible for determining the threshold for market penetration",
-                          "display_order": 3,
-                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -14106,7 +14259,7 @@
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "",
-                          "display_order": 4,
+                          "display_order": 6,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": [
@@ -14735,8 +14888,33 @@
                           "attributes": {},
                           "half_width": false,
                           "helper_text": "",
-                          "display_order": 1,
+                          "display_order": 0,
                           "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": [
+                            {
+                              "field": "additionalityApproachUsed-nameValue-nameValue",
+                              "pattern": "Barrier analysis"
+                            }
+                          ]
+                        },
+                        {
+                          "id": 4969,
+                          "name": "barrierAnalysisMethodology-nameValue-nameValue",
+                          "rows": null,
+                          "tier": 1,
+                          "type": "string",
+                          "label": "Process for identifying barriers to implementation of project activities",
+                          "columns": null,
+                          "options": null,
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "rich-text",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "Detail the process for performing a comprehensive review of cultural and / or social barriers to implementation of project activities",
+                          "display_order": 1,
+                          "view_component": "rich-text",
                           "validation_schema": null,
                           "display_dependencies": [
                             {
@@ -14815,14 +14993,82 @@
                       "label": "Barrier demonstration",
                       "fields": [
                         {
+                          "id": 4971,
+                          "name": "barriersTable-dataTable-dataTable",
+                          "rows": null,
+                          "tier": 1,
+                          "type": "object",
+                          "label": "Barriers to diffusion of project activities",
+                          "columns": [
+                            {
+                              "name": "barriersTableBarrier",
+                              "type": "object",
+                              "label": "Barrier",
+                              "options": null,
+                              "tooltip": "",
+                              "column_id": 4973,
+                              "component": "text-input",
+                              "attributes": {},
+                              "helper_text": "",
+                              "column_order": 0,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            },
+                            {
+                              "name": "barriersTableGeography",
+                              "type": "object",
+                              "label": "Geographic area where barrier exists",
+                              "options": null,
+                              "tooltip": "",
+                              "column_id": 4975,
+                              "component": "text-input",
+                              "attributes": {},
+                              "helper_text": "",
+                              "column_order": 1,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            },
+                            {
+                              "name": "barriersTableSource",
+                              "type": "object",
+                              "label": "Peer-reviewed source of publication",
+                              "options": null,
+                              "tooltip": "",
+                              "column_id": 4977,
+                              "component": "textarea",
+                              "attributes": {},
+                              "helper_text": "",
+                              "column_order": 3,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            }
+                          ],
+                          "options": null,
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "data-table",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 0,
+                          "view_component": "data-table",
+                          "validation_schema": null,
+                          "display_dependencies": [
+                            {
+                              "field": "additionalityApproachUsed-nameValue-nameValue",
+                              "pattern": ""
+                            }
+                          ]
+                        },
+                        {
                           "id": 518,
                           "name": "fiancialBarrierDetails-nameValue-nameValue",
                           "rows": null,
                           "tier": 1,
                           "type": "string",
-                          "label": "Explanation and results of chosen barrier(s)",
+                          "label": "Explanation and results of barriers facing regions or geographic area groupings",
                           "columns": null,
-                          "options": [],
+                          "options": null,
                           "tooltip": "",
                           "elements": null,
                           "component": "rich-text",
@@ -14875,7 +15121,7 @@
                           "type": "string",
                           "label": "Alternative scenario barrier details",
                           "columns": null,
-                          "options": [],
+                          "options": null,
                           "tooltip": "Demonstration that at least one other alternative to the project does not face significant barriers, including the barriers faced by the project",
                           "elements": null,
                           "component": "rich-text",
@@ -14900,11 +15146,11 @@
                           "type": "array",
                           "label": "Supporting documentation for alternative scenario barrier(s)",
                           "columns": null,
-                          "options": [],
+                          "options": null,
                           "tooltip": "",
                           "elements": null,
                           "component": "file-upload-multiple",
-                          "attributes": null,
+                          "attributes": {},
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 4,
@@ -15717,7 +15963,7 @@
                     {
                       "id": 989,
                       "name": "default",
-                      "label": "",
+                      "label": "Details of project validation",
                       "fields": [
                         {
                           "id": 1155,
@@ -16192,7 +16438,7 @@
                     {
                       "id": 385,
                       "name": "pfaAuditDetails",
-                      "label": "",
+                      "label": "Details of the production facility audit",
                       "fields": null,
                       "parent_id": 139,
                       "attributes": {},
@@ -16274,9 +16520,207 @@
                   "nav_type_id": 2,
                   "field_groups": [
                     {
+                      "id": 388,
+                      "name": "verificationEvents",
+                      "label": "Verification events and reporting periods",
+                      "fields": [
+                        {
+                          "id": 1345,
+                          "name": "verificationTable-dataTable-dataTable",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "object",
+                          "label": "Verification events and reporting periods",
+                          "columns": [
+                            {
+                              "name": "verificationTableStart",
+                              "type": "string",
+                              "label": "Reporting period start",
+                              "options": null,
+                              "tooltip": null,
+                              "column_id": 1406,
+                              "component": "date-picker",
+                              "attributes": null,
+                              "helper_text": null,
+                              "column_order": 0,
+                              "view_component": "date",
+                              "validation_schema": null
+                            },
+                            {
+                              "name": "verificationTableEnd",
+                              "type": "string",
+                              "label": "Reporting period end",
+                              "options": null,
+                              "tooltip": null,
+                              "column_id": 1407,
+                              "component": "date-picker",
+                              "attributes": null,
+                              "helper_text": null,
+                              "column_order": 1,
+                              "view_component": "date",
+                              "validation_schema": null
+                            },
+                            {
+                              "name": "verificationTableDate",
+                              "type": "string",
+                              "label": "Verification date",
+                              "options": null,
+                              "tooltip": null,
+                              "column_id": 1408,
+                              "component": "date-picker",
+                              "attributes": null,
+                              "helper_text": null,
+                              "column_order": 2,
+                              "view_component": "date",
+                              "validation_schema": null
+                            },
+                            {
+                              "name": "verificationTableBody",
+                              "type": "string",
+                              "label": "Verification body",
+                              "options": null,
+                              "tooltip": null,
+                              "column_id": 1409,
+                              "component": "text-input",
+                              "attributes": null,
+                              "helper_text": null,
+                              "column_order": 3,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            },
+                            {
+                              "name": "verificationTableReductions",
+                              "type": "number",
+                              "label": "Emissions reductions (tCO2e)",
+                              "options": [],
+                              "tooltip": "",
+                              "column_id": 1410,
+                              "component": "text-input",
+                              "attributes": null,
+                              "helper_text": "",
+                              "column_order": 4,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            },
+                            {
+                              "name": "verificationTableRemovals",
+                              "type": "number",
+                              "label": "Emissions removals (tCO2e)",
+                              "options": [],
+                              "tooltip": "",
+                              "column_id": 1411,
+                              "component": "text-input",
+                              "attributes": null,
+                              "helper_text": "",
+                              "column_order": 5,
+                              "view_component": "truncated-text",
+                              "validation_schema": null
+                            }
+                          ],
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "data-table",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 0,
+                          "view_component": "data-table",
+                          "validation_schema": null,
+                          "display_dependencies": [
+                            {
+                              "field": "verification-nameValue-nameValue",
+                              "pattern": "Yes"
+                            }
+                          ]
+                        },
+                        {
+                          "id": 527,
+                          "name": "verificationResampling-nameValue-nameValue",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "string",
+                          "label": "Verification field visit overview",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "Description of the activities conducted during the verification site visit (e.g., resampling of the carbon stock measurements)",
+                          "elements": null,
+                          "component": "rich-text",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 1,
+                          "view_component": "rich-text",
+                          "validation_schema": null,
+                          "display_dependencies": [
+                            {
+                              "field": "verification-nameValue-nameValue",
+                              "pattern": "Yes"
+                            }
+                          ]
+                        },
+                        {
+                          "id": 528,
+                          "name": "verificationUpload-projectFile-storage",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "array",
+                          "label": "Verification documentation",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "file-upload-multiple",
+                          "attributes": null,
+                          "half_width": false,
+                          "helper_text": "Upload documentation evidencing the verification has occured",
+                          "display_order": 2,
+                          "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": [
+                            {
+                              "field": "verification-nameValue-nameValue",
+                              "pattern": "Yes"
+                            }
+                          ]
+                        },
+                        {
+                          "id": 1687,
+                          "name": "verificationReportSummary-nameValue-nameValue",
+                          "rows": null,
+                          "tier": 1,
+                          "type": "string",
+                          "label": "Most recent verification report summary",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "",
+                          "elements": null,
+                          "component": "rich-text",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 3,
+                          "view_component": "rich-text",
+                          "validation_schema": null,
+                          "display_dependencies": [
+                            {
+                              "field": "verification-nameValue-nameValue",
+                              "pattern": "Yes"
+                            }
+                          ]
+                        }
+                      ],
+                      "parent_id": 140,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 2,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    },
+                    {
                       "id": 990,
                       "name": "default",
-                      "label": "",
+                      "label": "Verification body",
                       "fields": [
                         {
                           "id": 525,
@@ -16481,204 +16925,6 @@
                       "description": "",
                       "nav_type_id": 2,
                       "nav_level_id": 5,
-                      "display_order": 0
-                    },
-                    {
-                      "id": 388,
-                      "name": "verificationEvents",
-                      "label": "Verification events and reporting periods",
-                      "fields": [
-                        {
-                          "id": 1345,
-                          "name": "verificationTable-dataTable-dataTable",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "object",
-                          "label": "Verification events and reporting periods",
-                          "columns": [
-                            {
-                              "name": "verificationTableStart",
-                              "type": "string",
-                              "label": "Reporting period start",
-                              "options": null,
-                              "tooltip": null,
-                              "column_id": 1406,
-                              "component": "date-picker",
-                              "attributes": null,
-                              "helper_text": null,
-                              "column_order": 0,
-                              "view_component": "date",
-                              "validation_schema": null
-                            },
-                            {
-                              "name": "verificationTableEnd",
-                              "type": "string",
-                              "label": "Reporting period end",
-                              "options": null,
-                              "tooltip": null,
-                              "column_id": 1407,
-                              "component": "date-picker",
-                              "attributes": null,
-                              "helper_text": null,
-                              "column_order": 1,
-                              "view_component": "date",
-                              "validation_schema": null
-                            },
-                            {
-                              "name": "verificationTableDate",
-                              "type": "string",
-                              "label": "Verification date",
-                              "options": null,
-                              "tooltip": null,
-                              "column_id": 1408,
-                              "component": "date-picker",
-                              "attributes": null,
-                              "helper_text": null,
-                              "column_order": 2,
-                              "view_component": "date",
-                              "validation_schema": null
-                            },
-                            {
-                              "name": "verificationTableBody",
-                              "type": "string",
-                              "label": "Verification body",
-                              "options": null,
-                              "tooltip": null,
-                              "column_id": 1409,
-                              "component": "text-input",
-                              "attributes": null,
-                              "helper_text": null,
-                              "column_order": 3,
-                              "view_component": "truncated-text",
-                              "validation_schema": null
-                            },
-                            {
-                              "name": "verificationTableReductions",
-                              "type": "number",
-                              "label": "Emissions reductions (tCO2e)",
-                              "options": [],
-                              "tooltip": "",
-                              "column_id": 1410,
-                              "component": "text-input",
-                              "attributes": null,
-                              "helper_text": "",
-                              "column_order": 4,
-                              "view_component": "truncated-text",
-                              "validation_schema": null
-                            },
-                            {
-                              "name": "verificationTableRemovals",
-                              "type": "number",
-                              "label": "Emissions removals (tCO2e)",
-                              "options": [],
-                              "tooltip": "",
-                              "column_id": 1411,
-                              "component": "text-input",
-                              "attributes": null,
-                              "helper_text": "",
-                              "column_order": 5,
-                              "view_component": "truncated-text",
-                              "validation_schema": null
-                            }
-                          ],
-                          "options": [],
-                          "tooltip": "",
-                          "elements": null,
-                          "component": "data-table",
-                          "attributes": {},
-                          "half_width": false,
-                          "helper_text": "",
-                          "display_order": 0,
-                          "view_component": "data-table",
-                          "validation_schema": null,
-                          "display_dependencies": [
-                            {
-                              "field": "verification-nameValue-nameValue",
-                              "pattern": "Yes"
-                            }
-                          ]
-                        },
-                        {
-                          "id": 527,
-                          "name": "verificationResampling-nameValue-nameValue",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "string",
-                          "label": "Verification field visit overview",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "Description of the activities conducted during the verification site visit (e.g., resampling of the carbon stock measurements)",
-                          "elements": null,
-                          "component": "rich-text",
-                          "attributes": {},
-                          "half_width": false,
-                          "helper_text": "",
-                          "display_order": 1,
-                          "view_component": "rich-text",
-                          "validation_schema": null,
-                          "display_dependencies": [
-                            {
-                              "field": "verification-nameValue-nameValue",
-                              "pattern": "Yes"
-                            }
-                          ]
-                        },
-                        {
-                          "id": 528,
-                          "name": "verificationUpload-projectFile-storage",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "array",
-                          "label": "Verification documentation",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "",
-                          "elements": null,
-                          "component": "file-upload-multiple",
-                          "attributes": null,
-                          "half_width": false,
-                          "helper_text": "Upload documentation evidencing the verification has occured",
-                          "display_order": 2,
-                          "view_component": "key-value-table",
-                          "validation_schema": null,
-                          "display_dependencies": [
-                            {
-                              "field": "verification-nameValue-nameValue",
-                              "pattern": "Yes"
-                            }
-                          ]
-                        },
-                        {
-                          "id": 1687,
-                          "name": "verificationReportSummary-nameValue-nameValue",
-                          "rows": null,
-                          "tier": 1,
-                          "type": "string",
-                          "label": "Most recent verification report summary",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "",
-                          "elements": null,
-                          "component": "rich-text",
-                          "attributes": {},
-                          "half_width": false,
-                          "helper_text": "",
-                          "display_order": 3,
-                          "view_component": "rich-text",
-                          "validation_schema": null,
-                          "display_dependencies": [
-                            {
-                              "field": "verification-nameValue-nameValue",
-                              "pattern": "Yes"
-                            }
-                          ]
-                        }
-                      ],
-                      "parent_id": 140,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 2,
-                      "nav_level_id": 5,
                       "display_order": 1
                     },
                     {
@@ -16811,7 +17057,7 @@
                     {
                       "id": 389,
                       "name": "outputAuditDetails",
-                      "label": "",
+                      "label": "Details of the output audit",
                       "fields": null,
                       "parent_id": 141,
                       "attributes": {},
