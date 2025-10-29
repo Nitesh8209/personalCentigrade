@@ -977,6 +977,14 @@ class ProjectsPage {
         return await this.page.locator('a.nav-btn[href="/settings"]');
     }
 
+    async rfpsButton() {
+        return await this.page.locator('a.nav-btn[href="/rfps"]');
+    }
+
+    async listingsRfpsButton() {
+        return await this.page.locator('a.nav-btn[href="/listings/rfps"]');
+    }
+
     async teamTabButton() {
         await this.page.getByRole('tab', { name: 'Team' }).click();
     }

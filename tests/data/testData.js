@@ -83,6 +83,7 @@ export const quickLinkGroupData = [
      * - helperText: Description text shown to users
      * - checked: Default state of the feature flag
      */
+export const featureFlagTestProjectGuid = "Z0EqNtflzy";
 export const featureFlagsTestData = [
         {
             label: "project.ai_summaries",
@@ -108,6 +109,11 @@ export const featureFlagsTestData = [
             label: "project.credit_inventory",
             helperText: "Enable the credit inventory management UI for projects",
             checked: true
+        },
+        {
+            label: "rfp.feature",
+            helperText: "Enable UI for managing RFPs and submitting proposals",
+            checked: false
         }
     ];
  
