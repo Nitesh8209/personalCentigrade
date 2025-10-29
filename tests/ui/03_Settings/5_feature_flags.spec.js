@@ -1,8 +1,9 @@
 import { test, expect } from "@playwright/test";
 import { LoginPage } from "../../../pages/loginPage";
 import { ProjectsPage } from "../../../pages/projectsPage";
-import { Credentials, featureFlagsTestData } from "../../data/testData";
+import { Credentials, featureFlagsTestData, projectPublishCredentials } from "../../data/testData";
 import { FeatureFlags } from "../../../pages/feature_Flags";
+import { verifyFeatureFlagByDefaultFunctionality, verifyFeatureFlagFunctionality } from "../../utils/featureFlag";
 
 
 test.describe('Feature Flags - Jedi Panel', { tag: '@UI' }, () => {
@@ -29,6 +30,8 @@ test.describe('Feature Flags - Jedi Panel', { tag: '@UI' }, () => {
 
         // Wait for successful navigation to projects page
         await page.waitForURL('**/projects');
+        await projectsPage.selectOrg(projectPublishCredentials.organizationName);
+        await expect(await page.locator('circle').nth(1)).not.toBeVisible();
 
         // Ensure Jedi panel is accessible for settings navigation
         const jediPanel = await projectsPage.jediPanel();
@@ -134,6 +137,25 @@ test.describe('Feature Flags - Jedi Panel', { tag: '@UI' }, () => {
                 await expect(switchControl).not.toBeChecked(); // Should reset to original unchecked state
             }
         });
+
+        test(`should functional test feature flag "${label}" effect on application behavior`, async () => {
+            const switchControl = await featureFlags.switchControl(label);
+
+            // Verify default functionality when feature flag is on/off
+            await verifyFeatureFlagByDefaultFunctionality(label, page);
+
+            // Toggle the feature flag
+            await switchControl.click();
+
+            // Run the corresponding functional test
+            await verifyFeatureFlagFunctionality(label, page);
+
+            await switchControl.click();
+
+            //verify the default functionality again
+            await verifyFeatureFlagByDefaultFunctionality(label, page);
+        });
+
     });
 
     /**

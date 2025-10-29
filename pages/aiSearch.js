@@ -11,6 +11,10 @@ export class AiSearch {
     return await this.myPage.locator('.btn-icon-left');
    }
 
+   async AiSearchOverview(){
+    return await this.myPage.locator('.AISearchOverview');
+   }
+
    async AiSearchBar() {
     return await this.myPage.locator('.AISearchBar');
    }

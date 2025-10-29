@@ -61,4 +61,8 @@ export class AiSummary {
     return await this.page.locator('.prose').getByText(Content);
   }
 
+  async aiSummaryModal() {
+    return await this.page.locator('.modal');
+  }
+
 }
