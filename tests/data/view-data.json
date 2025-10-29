@@ -1,7 +1,7 @@
 {
   "dataSchema": "QA-ACR1.3-cgV1.0.0",
   "navigation": "view2.0-config",
-  "versionDate": "2025-10-21T10:28:29-07:00",
+  "versionDate": "2025-10-28T16:49:09-07:00",
   "methodology": {
     "id": 13,
     "nickname": "QA-ACR1.3",
@@ -1059,7 +1059,7 @@
                           "type": "string",
                           "label": "Project location",
                           "columns": null,
-                          "options": [],
+                          "options": null,
                           "tooltip": "Country or countries where the project activities take place",
                           "elements": null,
                           "component": "country-select",
@@ -2027,7 +2027,7 @@
                           "type": "string",
                           "label": "Project location",
                           "columns": null,
-                          "options": [],
+                          "options": null,
                           "tooltip": "Country or countries where the project activities take place",
                           "elements": null,
                           "component": "country-select",
@@ -14039,7 +14039,7 @@
                                 "Applicable",
                                 "Not applicable"
                               ],
-                              "tooltip": "",
+                              "tooltip": "Laws, regulations, or obligations are applicable when they mandate the project activity",
                               "column_id": 4963,
                               "component": "select",
                               "attributes": {},
@@ -14996,7 +14996,7 @@
                           "id": 4971,
                           "name": "barriersTable-dataTable-dataTable",
                           "rows": null,
-                          "tier": 1,
+                          "tier": -1,
                           "type": "object",
                           "label": "Barriers to diffusion of project activities",
                           "columns": [
@@ -15043,7 +15043,7 @@
                               "validation_schema": null
                             }
                           ],
-                          "options": null,
+                          "options": [],
                           "tooltip": "",
                           "elements": null,
                           "component": "data-table",
@@ -15056,7 +15056,7 @@
                           "display_dependencies": [
                             {
                               "field": "additionalityApproachUsed-nameValue-nameValue",
-                              "pattern": ""
+                              "pattern": "Barrier analysis"
                             }
                           ]
                         },
@@ -18071,11 +18071,11 @@
                           "type": "boolean",
                           "label": "Project addresses harrassment or exploitation of women within the household or other project areas",
                           "columns": null,
-                          "options": [],
+                          "options": null,
                           "tooltip": "Indication of whether the project addresses exploitation, harassment of women and/or minority groups in the community",
                           "elements": null,
                           "component": "radio-y-n",
-                          "attributes": null,
+                          "attributes": {},
                           "half_width": true,
                           "helper_text": "",
                           "display_order": 1,
@@ -19467,6 +19467,31 @@
                       "label": "Grievance reporting",
                       "fields": [
                         {
+                          "id": 1491,
+                          "name": "grievanceReporting-nameValue-nameValue",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "boolean",
+                          "label": "Grievances have been reported through the established grievance mechanism",
+                          "columns": null,
+                          "options": null,
+                          "tooltip": "Indicates whether any grievances, complaints, or issues have been reported through the grievance mechanism",
+                          "elements": null,
+                          "component": "radio-y-n",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 0,
+                          "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": [
+                            {
+                              "field": "socioParentConditional-nameValue-nameValue",
+                              "pattern": "Stakeholder participation"
+                            }
+                          ]
+                        },
+                        {
                           "id": 1493,
                           "name": "grievancesDescription-nameValue-nameValue",
                           "rows": null,
@@ -19488,31 +19513,6 @@
                             {
                               "field": "grievanceReporting-nameValue-nameValue",
                               "pattern": "Yes"
-                            }
-                          ]
-                        },
-                        {
-                          "id": 1491,
-                          "name": "grievanceReporting-nameValue-nameValue",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "boolean",
-                          "label": "Grievances have been reported through the established grievance mechanism",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "Indicates whether any grievances, complaints, or issues have been reported through the grievance mechanism",
-                          "elements": null,
-                          "component": "radio-y-n",
-                          "attributes": {},
-                          "half_width": false,
-                          "helper_text": "",
-                          "display_order": 0,
-                          "view_component": "key-value-table",
-                          "validation_schema": null,
-                          "display_dependencies": [
-                            {
-                              "field": "socioParentConditional-nameValue-nameValue",
-                              "pattern": "Stakeholder participation"
                             }
                           ]
                         },
@@ -19562,7 +19562,7 @@
                           "type": "boolean",
                           "label": "Project evaluates gender impacts against specific indicators",
                           "columns": null,
-                          "options": [],
+                          "options": null,
                           "tooltip": "The project uses defined indicators to assess its gender-specific impacts",
                           "elements": null,
                           "component": "radio-y-n",
@@ -20200,11 +20200,11 @@
                           "type": "boolean",
                           "label": "Project has created employment opportunities",
                           "columns": null,
-                          "options": [],
+                          "options": null,
                           "tooltip": "This can include positions within habitat/nature restoration, technical assistance, logistics, maintenance, and/or other roles which contribute to project activities",
                           "elements": null,
                           "component": "radio-y-n",
-                          "attributes": null,
+                          "attributes": {},
                           "half_width": true,
                           "helper_text": "",
                           "display_order": 0,
@@ -20293,6 +20293,33 @@
                           ]
                         },
                         {
+                          "id": 1550,
+                          "name": "employmentPositionsWomen-nameValue-nameValue",
+                          "rows": null,
+                          "tier": 2,
+                          "type": "string",
+                          "label": "Number of positions generated occupied by women",
+                          "columns": null,
+                          "options": [],
+                          "tooltip": "The total number of roles created by the project that are currently held by women",
+                          "elements": null,
+                          "component": "text-input",
+                          "attributes": {
+                            "field": ""
+                          },
+                          "half_width": true,
+                          "helper_text": "",
+                          "display_order": 4,
+                          "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": [
+                            {
+                              "field": "employmentImpact-nameValue-nameValue",
+                              "pattern": "Yes"
+                            }
+                          ]
+                        },
+                        {
                           "id": 1546,
                           "name": "employmentInternshipNumber-nameValue-nameValue",
                           "rows": null,
@@ -20307,7 +20334,7 @@
                           "attributes": null,
                           "half_width": true,
                           "helper_text": "",
-                          "display_order": 4,
+                          "display_order": 5,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": [
@@ -20332,7 +20359,7 @@
                           "attributes": {},
                           "half_width": true,
                           "helper_text": "",
-                          "display_order": 5,
+                          "display_order": 6,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": [
@@ -20357,7 +20384,7 @@
                           "attributes": null,
                           "half_width": false,
                           "helper_text": "",
-                          "display_order": 6,
+                          "display_order": 7,
                           "view_component": "key-value-table",
                           "validation_schema": null,
                           "display_dependencies": [
@@ -20391,33 +20418,6 @@
                           },
                           "half_width": true,
                           "helper_text": "Include data on full-time employees, part-time/contracted employees, and apprentices/interns",
-                          "display_order": 7,
-                          "view_component": "key-value-table",
-                          "validation_schema": null,
-                          "display_dependencies": [
-                            {
-                              "field": "employmentImpact-nameValue-nameValue",
-                              "pattern": "Yes"
-                            }
-                          ]
-                        },
-                        {
-                          "id": 1550,
-                          "name": "employmentPositionsWomen-nameValue-nameValue",
-                          "rows": null,
-                          "tier": 2,
-                          "type": "string",
-                          "label": "Number of positions generated occupied by women",
-                          "columns": null,
-                          "options": [],
-                          "tooltip": "The total number of roles created by the project that are currently held by women",
-                          "elements": null,
-                          "component": "text-input",
-                          "attributes": {
-                            "field": ""
-                          },
-                          "half_width": true,
-                          "helper_text": "",
                           "display_order": 8,
                           "view_component": "key-value-table",
                           "validation_schema": null,
@@ -24144,7 +24144,7 @@
                           "type": "boolean",
                           "label": "Project tracks and monitors species within the project area (flora or fauna)",
                           "columns": null,
-                          "options": [],
+                          "options": null,
                           "tooltip": "Project directly tracks and monitors flora or fauna species as part of the project activity",
                           "elements": null,
                           "component": "radio-y-n",
