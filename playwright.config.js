@@ -180,6 +180,16 @@ globalSetup: require.resolve('./tests/global-setup'),
       fullyParallel: false,
     },
     {
+      name: 'verifyProjectPageAfterCreation',
+      testMatch: ['ui/04_Project/verifyProjectPageAfterCreation.spec.js'],
+      use: {
+        ...devices['Desktop Chrome'],
+        viewport: { width: 1366, height: 768 },
+      },
+      fullyParallel: false,
+      dependencies: ['ProjectPage'],
+    },
+    {
       name: 'ProjectOverview',
       testMatch: ['ui/04_Project/02_ProjectOverview.spec.js'],
       use: {
