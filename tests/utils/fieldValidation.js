@@ -582,7 +582,7 @@ export class FieldHandler {
     const radiolocator = locator.locator('.radio-container').getByText('Yes');
     await radiolocator.check();
     await expect(radiolocator).toBeChecked();
-    await radiolocator.uncheck();
+    await radiolocator.click();
     await expect(radiolocator).not.toBeChecked();
     await radiolocator.check();
   }
@@ -607,7 +607,7 @@ export class FieldHandler {
 
     // Uncheck "I don't know" and validate
     const radiolocatorIDK = locator.getByText("I don't know");
-    await radiolocatorIDK.uncheck();
+    await radiolocatorIDK.click();
     await expect(radiolocatorIDK).not.toBeChecked();
 
     // Recheck "Yes" to ensure behavior

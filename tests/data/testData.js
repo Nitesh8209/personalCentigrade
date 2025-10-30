@@ -68,11 +68,11 @@ export const DataRoomTestdata = {
 }
 
 export const quickLinkGroupData = [
-  { label: "Project details", path: "/projectDetails" , stepLabel: "Project details", unAuthPath: "/projectDetails"},
-  { label: "Baseline summary", path: "/bslSummary" , stepLabel: "Summary", unAuthPath: "/carbonSummary"},
-  { label: "Project summary", path: "/projSummary" , stepLabel: "Summary", unAuthPath: "/carbonSummary"},
-  { label: "Additionality", path: "/additionality" , stepLabel: "Additionality", unAuthPath: "/carbonSummary"},
-  { label: "Cookstove monitoring", path: "/cookstoveMonitoring" , stepLabel: "Cookstoves monitoring", unAuthPath: "/carbonSummary"},
+  { label: "Project details", path: "/projectDetails" , stepLabel: "Project details", unAuthPath: "/projectDetails", unAuthStepLabel: "Project details"},
+  { label: "Baseline summary", path: "/bslSummary" , stepLabel: "Summary", unAuthPath: "/carbonSummary", unAuthStepLabel: "Carbon summary"},
+  { label: "Project summary", path: "/projSummary" , stepLabel: "Summary", unAuthPath: "/carbonSummary", unAuthStepLabel: "Carbon summary"},
+  { label: "Additionality", path: "/additionality" , stepLabel: "Additionality", unAuthPath: "/carbonSummary", unAuthStepLabel: "Carbon summary"},
+  { label: "Cookstove monitoring", path: "/cookstoveMonitoring" , stepLabel: "Cookstoves monitoring", unAuthPath: "/carbonSummary", unAuthStepLabel: "Carbon summary"},
 ];
 
 

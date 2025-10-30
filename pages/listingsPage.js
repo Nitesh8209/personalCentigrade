@@ -138,11 +138,11 @@ export class ListingPage {
     const ListingsButton = await this.listings();
     await expect(ListingsButton).toBeVisible();
     await ListingsButton.click();
-    await this.page.waitForURL('**/listings');
+    await this.page.waitForURL('**/listings/projects');
   }
 
   async navigateToListingsProject(baseURL){  
-    await this.page.goto(`${baseURL}/listings`);
+    await this.page.goto(`${baseURL}/listings/projects`);
     const projectTitle = await this.projectItemCardContentMainTitle();
     await expect(projectTitle).toBeVisible();
     await projectTitle.click();

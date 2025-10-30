@@ -116,7 +116,7 @@ test.describe("Data room for authenticated user", { tag: ['@UI', '@SMOKE'] }, ()
     const ListingsButton = await listingPage.listings();
     await expect(ListingsButton).toBeVisible();
     await ListingsButton.click();
-    await page.waitForURL("**/listings");
+    await page.waitForURL("**/listings/projects");
 
     const projectTitle = await listingPage.projectItemCardContentMainTitle();
     await expect(projectTitle).toBeVisible();
@@ -488,7 +488,7 @@ test.describe("data room file for without access user", { tag: ['@UI', '@SMOKE']
     await expect(ListingsButton).toBeVisible();
     await ListingsButton.click();
 
-    await page.waitForURL("**/listings");
+    await page.waitForURL("**/listings/projects");
 
  // Click on first project to navigate to project details
     const projectTitle = await listingPage.projectItemCardContentMainTitle();
@@ -703,7 +703,7 @@ test.describe("After Delete Data Room", { tag: ['@UI', '@SMOKE'] }, () => {
     const ListingsButton = await listingPage.listings();
     await expect(ListingsButton).toBeVisible();
     await ListingsButton.click();
-    await page.waitForURL("**/listings");
+    await page.waitForURL("**/listings/projects");
 
     // Click on first project to navigate to project details
     const projectTitle = await listingPage.projectItemCardContentMainTitle();

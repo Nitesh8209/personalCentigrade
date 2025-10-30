@@ -247,6 +247,7 @@ test.describe("Fields Level Validation - after Login", { tag: '@UI' }, () => {
                 const stepElement = await projectListings.stepLabel(step.label);
                 await stepElement.click();
               await safeExpect(`Step Group ${step.label} title visibility`, async () => {
+                await expect(stepElement).toHaveClass(/active/);
                 await expect(await page.title()).toContain(`${project.buyerProject} - ${step.label} | Centigrade`);
               }, errors);
 

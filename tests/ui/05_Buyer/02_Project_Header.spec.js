@@ -144,7 +144,7 @@ test.describe('Project Header - UI and Navigation for Authenticated Users', { ta
     const ListingsButton = await listingPage.listings();
     await expect(ListingsButton).toBeVisible();
     await ListingsButton.click();
-    await page.waitForURL('**/listings');
+    await page.waitForURL('**/listings/projects');
 
     const { BuyerprojectGuid } = getData('UI');
     await page.goto(`${baseURL}/listings/${BuyerprojectGuid}/overview`);
