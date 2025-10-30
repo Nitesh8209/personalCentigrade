@@ -84,7 +84,7 @@ export class ListingOverviewPage {
   }
 
   async projectImageHeading() {
-    return await this.page.getByRole('heading');
+    return await this.page.getByRole('heading', { name: 'Project images and videos' });
   }
 
   async projectImageView() {
@@ -96,7 +96,7 @@ export class ListingOverviewPage {
   }
 
   async readMoreModal() {
-    return await this.page.getByRole('dialog');
+    return await this.page.locator('.modal');
   }
 
   async readMoreModalHeading() {

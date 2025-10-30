@@ -247,7 +247,7 @@ async fieldDisplayOrder(order, fieldGroup, field) {
 
       case 'key-value-table':
         if (field.component === 'file-upload-multiple' || field.component === 'file-upload') {
-          return this.page.locator('.content').locator('.key-value-list > div').filter({ hasText: field.label });
+          return this.page.locator('.content').locator('.key-value-item').filter({ hasText: field.label });
         }
           return this.page.locator('.content').locator('.ComponentContainer').getByText(field.label, { exact: true }).locator('..').locator('..');
       

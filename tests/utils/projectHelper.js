@@ -37,6 +37,10 @@ export const validateDuplicateDisplayOrder = (items, itemType, errors) => {
 
   for (const item of items) {
     const order = item.display_order;
+
+    // Skip items with null or undefined display_order
+    if (order === null || order === undefined) continue;
+
     if (!orderMap[order]) {
       orderMap[order] = [];
     }

@@ -133,9 +133,10 @@ for (const authState of authStates) {
 
         if(authState.isAuthenticated){
           await expect.soft(await overviewPage.stepLink(quickLink.stepLabel)).toBeVisible();
-          await expect(page.url()).toContain(quickLink.path);
+          await expect.soft(page.url()).toContain(quickLink.path);
         }else{
-          await expect(page.url()).toContain(quickLink.unAuthPath);
+          await expect.soft(await overviewPage.stepLink(quickLink.unAuthStepLabel)).toBeVisible();
+          await expect.soft(page.url()).toContain(quickLink.unAuthPath);
         }
 
 
