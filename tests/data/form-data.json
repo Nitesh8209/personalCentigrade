@@ -1,7 +1,7 @@
 {
   "dataSchema": "QA-ACR1.3-cgV1.0.0",
   "navigation": "form2.0-config",
-  "versionDate": "2025-10-28T16:49:09-07:00",
+  "versionDate": "2025-10-29T09:51:41-07:00",
   "methodology": {
     "id": 13,
     "nickname": "QA-ACR1.3",
@@ -8180,7 +8180,7 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 1
+                  "display_order": 0
                 },
                 {
                   "id": 513,
@@ -8307,6 +8307,84 @@
                       "nav_type_id": 1,
                       "nav_level_id": 5,
                       "display_order": 0
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 1
+                },
+                {
+                  "id": 515,
+                  "name": "lcaBoundaries",
+                  "label": "System boundaries overview",
+                  "parent_id": 453,
+                  "attributes": null,
+                  "description": "",
+                  "nav_type_id": 1,
+                  "field_groups": [
+                    {
+                      "id": 650,
+                      "name": "default",
+                      "label": "",
+                      "fields": [
+                        {
+                          "id": 627,
+                          "name": "systemBoundaryDetails-nameValue-nameValue",
+                          "rows": null,
+                          "tier": 1,
+                          "type": "string",
+                          "label": "System boundary overview and justification",
+                          "columns": null,
+                          "options": null,
+                          "tooltip": "The system boundary of the project's life cycle assessment",
+                          "elements": null,
+                          "component": "rich-text",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "",
+                          "display_order": 1,
+                          "view_component": "rich-text",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        },
+                        {
+                          "id": 628,
+                          "name": "systemBoundaryFigure-projectFile-storage",
+                          "rows": null,
+                          "tier": -1,
+                          "type": "array",
+                          "label": "System boundary figure",
+                          "columns": null,
+                          "options": null,
+                          "tooltip": "Relevant figures depicting the process flows and system boundaries",
+                          "elements": null,
+                          "component": "file-upload-multiple",
+                          "attributes": {},
+                          "half_width": false,
+                          "helper_text": "Upload a diagram depicting the project's system boundaries, such as a project-specific process flow diagram outlining the stages included within the system boundary",
+                          "display_order": 2,
+                          "view_component": "key-value-table",
+                          "validation_schema": null,
+                          "display_dependencies": null
+                        }
+                      ],
+                      "parent_id": 515,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 1,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    },
+                    {
+                      "id": 651,
+                      "name": "subSystemBoundaries",
+                      "label": "System boundary sub-stages",
+                      "fields": null,
+                      "parent_id": 515,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 1,
+                      "nav_level_id": 5,
+                      "display_order": 1
                     }
                   ],
                   "nav_level_id": 4,
@@ -8628,84 +8706,6 @@
                   ],
                   "nav_level_id": 4,
                   "display_order": 1
-                },
-                {
-                  "id": 515,
-                  "name": "lcaBoundaries",
-                  "label": "System boundaries",
-                  "parent_id": 454,
-                  "attributes": null,
-                  "description": "",
-                  "nav_type_id": 1,
-                  "field_groups": [
-                    {
-                      "id": 650,
-                      "name": "systemBoundaryOverview",
-                      "label": "System boundary overview",
-                      "fields": [
-                        {
-                          "id": 627,
-                          "name": "systemBoundaryDetails-nameValue-nameValue",
-                          "rows": null,
-                          "tier": 1,
-                          "type": "string",
-                          "label": "System boundary overview and justification",
-                          "columns": null,
-                          "options": null,
-                          "tooltip": "The system boundary of the project's life cycle assessment",
-                          "elements": null,
-                          "component": "rich-text",
-                          "attributes": {},
-                          "half_width": false,
-                          "helper_text": "",
-                          "display_order": 1,
-                          "view_component": "rich-text",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        },
-                        {
-                          "id": 628,
-                          "name": "systemBoundaryFigure-projectFile-storage",
-                          "rows": null,
-                          "tier": -1,
-                          "type": "array",
-                          "label": "System boundary figure",
-                          "columns": null,
-                          "options": null,
-                          "tooltip": "Relevant figures depicting the process flows and system boundaries",
-                          "elements": null,
-                          "component": "file-upload-multiple",
-                          "attributes": {},
-                          "half_width": false,
-                          "helper_text": "Upload a diagram depicting the project's system boundaries, such as a project-specific process flow diagram outlining the stages included within the system boundary",
-                          "display_order": 2,
-                          "view_component": "key-value-table",
-                          "validation_schema": null,
-                          "display_dependencies": null
-                        }
-                      ],
-                      "parent_id": 515,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 1,
-                      "nav_level_id": 5,
-                      "display_order": 0
-                    },
-                    {
-                      "id": 651,
-                      "name": "subSystemBoundaries",
-                      "label": "System boundary sub-stages",
-                      "fields": null,
-                      "parent_id": 515,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 1,
-                      "nav_level_id": 5,
-                      "display_order": 1
-                    }
-                  ],
-                  "nav_level_id": 4,
-                  "display_order": 2
                 },
                 {
                   "id": 516,

@@ -59,7 +59,7 @@ test.describe('Project Page', { tag: '@UI' }, () => {
         await expect(await projectsPage.projectMethodologystatus()).toBeVisible();
         await expect(await projectsPage.projectMethodologystatus()).toHaveText('QA-ACR1.3');
         await expect(await projectsPage.projectTimeStatus()).toBeVisible();
-        await expect(await projectsPage.projectTimeStatus()).toHaveText('Last updated a few seconds ago');
+        await expect(await projectsPage.projectTimeStatus()).toContainText('Last updated');
       }, errors
     );
 

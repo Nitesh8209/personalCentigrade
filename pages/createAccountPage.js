@@ -20,8 +20,8 @@ export class CreateAccountPage {
         this.createAccountCheckboxLabel = page.locator('.checkbox-label');
         this.createAccountSignupButton = page.getByRole('button', { name: 'Sign up' });
         this.createAccountLoginLink = page.getByRole('link', { name: 'Log in' });
-        this.tosLink = page.getByRole('link', { name: 'Terms of Service' });
-        this.privacyPolicyLink = page.getByRole('link', { name: 'Privacy Policy' });
+        this.tosLink = this.createAccountCard.getByRole('link', { name: 'Terms of Service' });
+        this.privacyPolicyLink = this.createAccountCard.getByRole('link', { name: 'Privacy Policy' });
     }
 
     async clickTos() {

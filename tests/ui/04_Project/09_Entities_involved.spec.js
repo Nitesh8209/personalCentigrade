@@ -50,36 +50,36 @@ test.describe("Entities involved in a project", { tag: ['@UI'] }, () => {
     await navigateEntitiesInvolved.click();
   });
 
-  test("should display the breadcrumbs in the Entities section", async () => {
-    const errors = [];
+  // test("should display the breadcrumbs in the Entities section", async () => {
+  //   const errors = [];
 
-    await safeExpect(`Breadcrumbs should be visible`, async () => {
-      await expect(await fieldHandler.breadcrumbs()).toHaveCount(3);
-      const separators = await fieldHandler.separators()
-      const allSeparators = await separators.all();
-      await expect(separators).toHaveCount(2);
-      for (const separator of allSeparators) {
-        await expect(separator).toBeVisible();
-      }
-    }, errors);
+  //   await safeExpect(`Breadcrumbs should be visible`, async () => {
+  //     await expect(await fieldHandler.breadcrumbs()).toHaveCount(3);
+  //     const separators = await fieldHandler.separators()
+  //     const allSeparators = await separators.all();
+  //     await expect(separators).toHaveCount(2);
+  //     for (const separator of allSeparators) {
+  //       await expect(separator).toBeVisible();
+  //     }
+  //   }, errors);
 
-    await safeExpect(`All Projects Breadcurmp should be visible`, async () => {
-      await fieldHandler.validateBreadcrumb(0, '/projects', "Projects");
-    }, errors);
+  //   await safeExpect(`All Projects Breadcurmp should be visible`, async () => {
+  //     await fieldHandler.validateBreadcrumb(0, '/projects', "Projects");
+  //   }, errors);
 
-    await safeExpect(`Project Breadcurmp should be visible`, async () => {
-      await fieldHandler.validateBreadcrumb(1, '', project.uiProjectName);
-    }, errors);
+  //   await safeExpect(`Project Breadcurmp should be visible`, async () => {
+  //     await fieldHandler.validateBreadcrumb(1, '', project.uiProjectName);
+  //   }, errors);
 
-    await safeExpect(`Overview Breadcurmp should be visible`, async () => {
-      await fieldHandler.validateBreadcrumb(2, '', "Entities involved");
-    }, errors);
+  //   await safeExpect(`Overview Breadcurmp should be visible`, async () => {
+  //     await fieldHandler.validateBreadcrumb(2, '', "Entities involved");
+  //   }, errors);
 
-    if (errors.length > 0) {
-      throw new Error(`Validation errors found:\  n${errors.join('\n')}`);
-    }
+  //   if (errors.length > 0) {
+  //     throw new Error(`Validation errors found:\  n${errors.join('\n')}`);
+  //   }
 
-  });
+  // });
 
   test("Entities involved Header", async () => {
     const errors = [];

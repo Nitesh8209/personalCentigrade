@@ -36,13 +36,13 @@ test.describe('Login Page UI Tests', { tag: '@UI' }, () => {
     await expect.soft(loginPage.passwordInput).toBeVisible();
 
     await expect.soft(loginPage.forgotPasswordLink).toBeVisible();
-    await expect.soft(loginPage.tosLink).toBeVisible();
-    await expect.soft(loginPage.privacyLink).toBeVisible();
+    await expect.soft(loginPage.tosLinkInLogin).toBeVisible();
+    await expect.soft(loginPage.privacyLinkInLogin).toBeVisible();
     await expect.soft(loginPage.loginButton).toBeVisible();
     await expect.soft(loginPage.createAccountLink).toBeVisible();
     await expect.soft(loginPage.forgotPasswordLink).toBeEnabled();
-    await expect.soft(loginPage.tosLink).toBeEnabled();
-    await expect.soft(loginPage.privacyLink).toBeEnabled();
+    await expect.soft(loginPage.tosLinkInLogin).toBeEnabled();
+    await expect.soft(loginPage.privacyLinkInLogin).toBeEnabled();
     await expect.soft(loginPage.loginButton).toBeEnabled();
     await expect.soft(loginPage.createAccountLink).toBeEnabled();
 

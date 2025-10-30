@@ -33,7 +33,7 @@ test.describe('Topic and Step Group Visibility for Unauthenticated Users', { tag
     //  await projectTitle.click();
     //  await page.waitForURL('**/overview');
 
-      await page.goto(`${baseURL}/listings/${BuyerprojectGuid}/overview`);
+      await page.goto(`${baseURL}/listings/projects/${BuyerprojectGuid}/overview`);
 
   });
 
@@ -129,7 +129,7 @@ test.describe('Topic and StepGroup Visibility for Authenticated Users', { tag: [
     //   await projectTitle.click();
     //   await page.waitForURL('**/overview');
 
-    await page.goto(`${baseURL}/listings/${BuyerprojectGuid}/overview`);
+    await page.goto(`${baseURL}/listings/projects/${BuyerprojectGuid}/overview`);
 
   });
   

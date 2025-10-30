@@ -21,7 +21,7 @@ test.describe('Search Functionlity in the Public view', { tag: '@UI' }, async ()
 
     const listingPage = new ListingPage(page);
     // await setupPage(page, null, null, listingPage, baseURL);
-    await page.goto(`${baseURL}/listings/${BuyerprojectGuid}/overview`);
+    await page.goto(`${baseURL}/listings/projects/${BuyerprojectGuid}/overview`);
 
   })
 
@@ -59,7 +59,7 @@ test.describe('Search Functionlity in the buyer view', { tag: '@UI' }, async () 
     const listingPage = new ListingPage(page);
     aiSearch = new AiSearch(page);
 
-    await page.goto(`${baseURL}/listings/${BuyerprojectGuid}/overview`);
+    await page.goto(`${baseURL}/listings/projects/${BuyerprojectGuid}/overview`);
 
     // await setupPage(page, loginPage, credentials, listingPage, baseURL);
   })

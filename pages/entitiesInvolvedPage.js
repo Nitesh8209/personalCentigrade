@@ -68,7 +68,7 @@ export class EntitiesInvolvedPage {
   }
 
   async addEntityOrganizationInput() {
-    return await (await this.addEntityModal()).getByRole('combobox', { name: 'Organization' });
+    return await (await this.addEntityModal()).getByRole('textbox', { name: 'Organization name' });
   }
 
   async saveButton() {

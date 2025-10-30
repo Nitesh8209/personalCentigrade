@@ -31,6 +31,12 @@ test.describe('Create Account Page UI Tests', { tag: '@UI' }, () => {
 
     await loginPage.navigate();
     await loginPage.acceptAll();
+
+    // Navigate to create account page
+    await loginPage.clickCreateAccount();
+
+    // Wait for page to load completely
+    await page.waitForLoadState('domcontentloaded');
   });
 
   // Close the browser page after all tests are complete
@@ -40,11 +46,6 @@ test.describe('Create Account Page UI Tests', { tag: '@UI' }, () => {
 
   // Test 1: Verify UI elements and functionality of the Create Account page
   test('should display all create account page elements correctly', async ({ baseURL }) => {
-    // Navigate to create account page
-    await loginPage.clickCreateAccount();
-
-    // Wait for page to load completely
-    await page.waitForLoadState('domcontentloaded');
 
     await test.step('Validate main page structure', async () => {
       await expect.soft(createAccountPage.createAccountNavigation).toBeVisible({ timeout: 5000 });
@@ -134,9 +135,7 @@ test.describe('Create Account Page UI Tests', { tag: '@UI' }, () => {
   });
 
   test('should navigate to Terms of Service in new tab', async () => {
-            await loginPage.clickCreateAccount();
-            await page.waitForLoadState('domcontentloaded');
-
+            
             const [newTab] = await Promise.all([
                 page.waitForEvent('popup'),
                 createAccountPage.clickTos()
@@ -147,8 +146,6 @@ test.describe('Create Account Page UI Tests', { tag: '@UI' }, () => {
         });
 
     test('should navigate to Privacy Policy in new tab', async () => {
-            await loginPage.clickCreateAccount();
-            await page.waitForLoadState('domcontentloaded');
 
             const [newTab] = await Promise.all([
                 page.waitForEvent('popup'),

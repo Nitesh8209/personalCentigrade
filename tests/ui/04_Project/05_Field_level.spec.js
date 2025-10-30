@@ -77,7 +77,8 @@ test.describe('Field level validation', { tag: '@UI' }, async () => {
 
               // Click on the step if visible
               await expect(stepElement).toBeVisible();
-              await stepElement.click({force: true});
+              await expect(stepElement).toBeEnabled();
+              await stepElement.click();
               await expect(await fieldHandler.title()).toBeVisible();
             })
 

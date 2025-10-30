@@ -24,7 +24,7 @@ test.describe('Project Header - UI and Navigation for Unauthenticated Users', { 
     const { BuyerprojectGuid } = getData('UI');
 
     const listingPage = new ListingPage(page);
-    await page.goto(`${baseURL}/listings/${BuyerprojectGuid}/overview`);
+    await page.goto(`${baseURL}/listings/projects/${BuyerprojectGuid}/overview`);
 
      // Click on first project to navigate to project details
     //  const projectTitle = await listingPage.projectItemCardContentMainTitle();
