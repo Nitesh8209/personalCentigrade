@@ -955,8 +955,12 @@ export class FieldHandler {
 
   // Fill Select Field
   async fillSelectField(locator, label, value) {
+    const values = value.split('|').map(v => v.trim());
     await locator.click();
     const listbox = await this.listBox(label);
+    if(values.length > 1){
+      value = values[0];
+    }
     const optionLocator = listbox.locator(`text="${value}"`);
     await expect(optionLocator).toBeVisible();
     await optionLocator.click();

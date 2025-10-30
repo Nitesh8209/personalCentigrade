@@ -119,7 +119,7 @@ export class ListingPage {
   }
 
   async listings(){
-    return await this.page.locator('a[href="/listings"]');
+    return await this.page.locator('a[href="/listings/projects"]');
   }
 
   async needHelp(){

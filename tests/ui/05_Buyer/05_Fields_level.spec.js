@@ -34,7 +34,7 @@ test.describe("Fields Level Validation - after Login", { tag: '@UI' }, () => {
 
     const loginPage = new LoginPage(page, baseURL);
     const listingPage = new ListingPage(page);
-        await page.goto(`${baseURL}/listings/${BuyerprojectGuid}/overview`);
+        await page.goto(`${baseURL}/listings/projects/${BuyerprojectGuid}/overview`);
 
     // await setupPage(page, loginPage, credentials, listingPage, baseURL);
     await loginPage.acceptAll();
