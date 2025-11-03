@@ -5,10 +5,9 @@ import { ProjectListings } from "../../../pages/projectListingPage";
 import { ValidTestData } from "../../data/SignUpData";
 import { getData } from "../../utils/apiHelper";
 import { safeExpect } from "../../utils/authHelper";
-import { hasValidStepFields, convertToTitleCase, checkDisplayDependencyField, setupPage, validateBreadcrumbs, validateFieldsDisplayOrder } from "../../utils/listingsProjectHelper";
+import { hasValidStepFields, validateFieldsDisplayOrder, hasValidStepGroupFields } from "../../utils/listingsProjectHelper";
 import path from "path";
 import fs from 'fs';
-import { FieldHandler } from "../../utils/fieldValidation";
 import { project } from "../../data/projectData";
 
 const viewDatapath = path.join(__dirname, '..', '..', 'data', 'view-data.json');
@@ -16,11 +15,7 @@ export const viewData = JSON.parse(fs.readFileSync(viewDatapath, 'utf-8'));
 
 test.describe("Fields Level Validation - after Login", { tag: '@UI' }, () => {
 
-  const { newEmail, BuyerprojectGuid } = getData('UI');
-  const credentials = {
-    email: newEmail,
-    password: ValidTestData.newPassword
-  };
+  const { BuyerprojectGuid } = getData('UI');
 
   const authStoragePath = path.join(__dirname, '..', '..', 'data', 'project-buyer-auth.json');
   test.use({ storageState: authStoragePath });
@@ -102,6 +97,11 @@ test.describe("Fields Level Validation - after Login", { tag: '@UI' }, () => {
           test.describe(`Step Group: ${stepGroup.label}`, () => {
             test.beforeAll(async () => {
               const projectListings = new ProjectListings(page);
+              const hasValidStepGroupFieldsElement = await hasValidStepGroupFields(stepGroup);
+              if (!hasValidStepGroupFieldsElement) {
+                test.skip(true, 'No Fields Available in this Step Group');
+              }
+
               const stepGroupElement = await projectListings.stepGroup(stepGroup.label);
               const state = await stepGroupElement.getAttribute('data-state');
               if (index !== 0 && state === 'closed') {

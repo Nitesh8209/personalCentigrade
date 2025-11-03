@@ -100,6 +100,7 @@ test.describe("Data room for authenticated user", { tag: ['@UI', '@SMOKE'] }, ()
   let loginPage;
   let listingPage;
   let dataRoomPage;
+  let BuyerprojectGuid;
 
   // Setup before all tests: Log in and navigate to project details
   test.beforeAll(async ({ browser, baseURL }) => {
@@ -111,17 +112,10 @@ test.describe("Data room for authenticated user", { tag: ['@UI', '@SMOKE'] }, ()
     listingPage = new ListingPage(page);
     dataRoomPage = new dataRoomViewPage(page);
 
-    await loginPage.navigate();
-    await page.waitForURL("**/projects");
-    const ListingsButton = await listingPage.listings();
-    await expect(ListingsButton).toBeVisible();
-    await ListingsButton.click();
-    await page.waitForURL("**/listings/projects");
+    const data = getData("UI");
+    BuyerprojectGuid = data.BuyerprojectGuid
+    await page.goto(`${baseURL}/listings/projects/${BuyerprojectGuid}/overview`);
 
-    const projectTitle = await listingPage.projectItemCardContentMainTitle();
-    await expect(projectTitle).toBeVisible();
-    await projectTitle.click();
-    await page.waitForURL("**/overview");
   });
 
   // Teardown after all tests: Close the page
@@ -317,7 +311,7 @@ test.describe("Data room for authenticated user", { tag: ['@UI', '@SMOKE'] }, ()
     accessToken = authResponseBody.access_token;
     await saveData({ dataRoomAccessToken: accessToken }, 'UI');
 
-    const dataRoomUrl = `${API_ENDPOINTS.dataRoomUI}`;
+    const dataRoomUrl = `${API_ENDPOINTS.dataRoomGuid(BuyerprojectGuid)}`;
     const data = {
       name: DataRoomTestdata.dataRoomName
     }
@@ -470,6 +464,7 @@ test.describe("data room file for without access user", { tag: ['@UI', '@SMOKE']
   let loginPage;
   let listingPage;
   let dataRoomPage;
+  let BuyerprojectGuid;
 
   // Setup before all tests: Log in with restricted user and navigate to project details
   test.beforeAll(async ({ browser, baseURL }) => {
@@ -480,21 +475,14 @@ test.describe("data room file for without access user", { tag: ['@UI', '@SMOKE']
     listingPage = new ListingPage(page);
     dataRoomPage = new dataRoomViewPage(page);
 
+    const data = getData("UI");
+    BuyerprojectGuid = data.BuyerprojectGuid;
+
     // Navigate to the login page and perform login
     await loginPage.navigate();
     await loginPage.login(projectValidationCredentials.email, projectValidationCredentials.password);
     await page.waitForURL("**/projects");
-    const ListingsButton = await listingPage.listings();
-    await expect(ListingsButton).toBeVisible();
-    await ListingsButton.click();
-
-    await page.waitForURL("**/listings/projects");
-
- // Click on first project to navigate to project details
-    const projectTitle = await listingPage.projectItemCardContentMainTitle();
-    await expect(projectTitle).toBeVisible();
-    await projectTitle.click();
-    await page.waitForURL("**/overview");
+    await page.goto(`${baseURL}/listings/projects/${BuyerprojectGuid}/overview`);
   })
 
   // Teardown after all tests: Close the page

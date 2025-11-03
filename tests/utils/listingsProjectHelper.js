@@ -94,6 +94,18 @@ export const validateStepGroupVisiblity = async (projectListings, stepGroup, err
 
 }
 
+export const hasValidStepGroupFields = async (stepGroup) => {
+  return stepGroup.steps?.some(step =>
+    step.sections?.some(section =>
+      section?.field_groups?.some(fieldGroup =>
+        fieldGroup?.fields &&
+        fieldGroup.fields.length > 0 &&
+        fieldGroup.fields.some(field => field !== null)
+      )
+    )
+  );
+}
+
 export const hasValidStepFields = async (step) => {
   return step.sections?.some(section =>
     section?.field_groups?.some(fieldGroup =>
