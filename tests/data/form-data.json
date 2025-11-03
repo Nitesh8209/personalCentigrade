@@ -1,7 +1,7 @@
 {
   "dataSchema": "QA-ACR1.3-cgV1.0.0",
   "navigation": "form2.0-config",
-  "versionDate": "2025-10-29T09:51:41-07:00",
+  "versionDate": "2025-10-30T13:34:17-07:00",
   "methodology": {
     "id": 13,
     "nickname": "QA-ACR1.3",
@@ -8705,93 +8705,7 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 1
-                },
-                {
-                  "id": 516,
-                  "name": "lcaTemporalBoundaries",
-                  "label": "Temporal boundaries",
-                  "parent_id": 454,
-                  "attributes": null,
-                  "description": "",
-                  "nav_type_id": 1,
-                  "field_groups": [
-                    {
-                      "id": 653,
-                      "name": "temporalBoundaries",
-                      "label": "",
-                      "fields": null,
-                      "parent_id": 516,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 1,
-                      "nav_level_id": 5,
-                      "display_order": 0
-                    }
-                  ],
-                  "nav_level_id": 4,
-                  "display_order": 3
-                },
-                {
-                  "id": 517,
-                  "name": "lcaBiochar",
-                  "label": "Key biochar characteristics",
-                  "parent_id": 454,
-                  "attributes": null,
-                  "description": "",
-                  "nav_type_id": 1,
-                  "field_groups": [
-                    {
-                      "id": 654,
-                      "name": "biocharMaterialProperties",
-                      "label": "Biochar material properties",
-                      "fields": null,
-                      "parent_id": 517,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 1,
-                      "nav_level_id": 5,
-                      "display_order": 0
-                    },
-                    {
-                      "id": 656,
-                      "name": "biocharProductionProperties",
-                      "label": "",
-                      "fields": null,
-                      "parent_id": 517,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 1,
-                      "nav_level_id": 5,
-                      "display_order": 1
-                    },
-                    {
-                      "id": 655,
-                      "name": "biocharEndUseProperties",
-                      "label": "Biochar end-use application properties",
-                      "fields": null,
-                      "parent_id": 517,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 1,
-                      "nav_level_id": 5,
-                      "display_order": 2
-                    },
-                    {
-                      "id": 657,
-                      "name": "biocharPropertiesSummary",
-                      "label": "Biochar characteristics summary",
-                      "fields": null,
-                      "parent_id": 517,
-                      "attributes": {},
-                      "description": "",
-                      "nav_type_id": 1,
-                      "nav_level_id": 5,
-                      "display_order": 3
-                    }
-                  ],
-                  "nav_level_id": 4,
-                  "display_order": 4
+                  "display_order": 0
                 },
                 {
                   "id": 518,
@@ -8953,7 +8867,93 @@
                     }
                   ],
                   "nav_level_id": 4,
-                  "display_order": 5
+                  "display_order": 1
+                },
+                {
+                  "id": 517,
+                  "name": "lcaBiochar",
+                  "label": "Key biochar characteristics",
+                  "parent_id": 454,
+                  "attributes": null,
+                  "description": "",
+                  "nav_type_id": 1,
+                  "field_groups": [
+                    {
+                      "id": 654,
+                      "name": "biocharMaterialProperties",
+                      "label": "Biochar material properties",
+                      "fields": null,
+                      "parent_id": 517,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 1,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    },
+                    {
+                      "id": 656,
+                      "name": "biocharProductionProperties",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 517,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 1,
+                      "nav_level_id": 5,
+                      "display_order": 1
+                    },
+                    {
+                      "id": 655,
+                      "name": "biocharEndUseProperties",
+                      "label": "Biochar end-use application properties",
+                      "fields": null,
+                      "parent_id": 517,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 1,
+                      "nav_level_id": 5,
+                      "display_order": 2
+                    },
+                    {
+                      "id": 657,
+                      "name": "biocharPropertiesSummary",
+                      "label": "Biochar characteristics summary",
+                      "fields": null,
+                      "parent_id": 517,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 1,
+                      "nav_level_id": 5,
+                      "display_order": 3
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 2
+                },
+                {
+                  "id": 516,
+                  "name": "lcaTemporalBoundaries",
+                  "label": "Temporal boundaries",
+                  "parent_id": 454,
+                  "attributes": null,
+                  "description": "",
+                  "nav_type_id": 1,
+                  "field_groups": [
+                    {
+                      "id": 653,
+                      "name": "temporalBoundaries",
+                      "label": "",
+                      "fields": null,
+                      "parent_id": 516,
+                      "attributes": {},
+                      "description": "",
+                      "nav_type_id": 1,
+                      "nav_level_id": 5,
+                      "display_order": 0
+                    }
+                  ],
+                  "nav_level_id": 4,
+                  "display_order": 3
                 }
               ],
               "parent_id": 435,

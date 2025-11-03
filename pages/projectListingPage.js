@@ -139,15 +139,19 @@ export class ProjectListings {
   }
 
   async stepLabelDisplayOrder(order, stepGrouplabel){
-    return await this.page.locator('.collapsible', {hasText: stepGrouplabel}).locator('.menu .menu-item').nth(order - 1);
+    return await this.page.locator('.collapsible', {hasText: stepGrouplabel}).locator('.menu .menu-item').nth(order);
   }
 
   async sectionDisplayOrder(order) {
     return this.page.locator('.flex.flex-col.gap-md').nth(order).locator('h2');
   }
 
-  async fieldGroupDisplayOrder(order, sectionLabel) {
-    const accordionItems = await this.page.locator('.flex.flex-col.gap-md', {hasText: sectionLabel}).locator('> div');
+  async fieldGroupDisplayOrder(order, sectionLabel, fieldGroupLabel) {
+    if (!sectionLabel) {
+      const accordionItems = await this.page.locator('.flex.flex-col.gap-md').filter({ has: this.page.locator('label', { hasText: fieldGroupLabel }) }).locator('.field-group');
+      return await accordionItems.nth(order).locator('button .label-container');
+    }
+    const accordionItems = await this.page.locator('.flex.flex-col.gap-md').filter({ has: this.page.locator('h2', { hasText: sectionLabel }) }).locator('.field-group');
     return await accordionItems.nth(order).locator('button .label-container');
   }
 

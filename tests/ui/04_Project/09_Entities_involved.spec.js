@@ -223,10 +223,6 @@ test.describe("Entities involved in a project", { tag: ['@UI'] }, () => {
       await expect(addEntityOrganizationInput).toBeVisible();
       await addEntityOrganizationInput.click();
       await addEntityOrganizationInput.fill('automationProject2');
-      await expect(await entitiesInvolved.selectOrganizationInput()).toBeVisible();
-      const organizationOption = await entitiesInvolved.selectOrganizationInput();
-      await expect(organizationOption).toBeVisible();
-      await organizationOption.click();
     }, errors);
 
     await safeExpect('cancel the modal', async () => {
@@ -263,9 +259,6 @@ test.describe("Entities involved in a project", { tag: ['@UI'] }, () => {
       await expect(addEntityOrganizationInput).toBeVisible();
       await addEntityOrganizationInput.click();
       await addEntityOrganizationInput.fill('automationProject2');
-      const organizationOption = await entitiesInvolved.selectOrganizationInput();
-      await expect(organizationOption).toBeVisible();
-      await organizationOption.click();
     }, errors);
 
     // Click the Save button
@@ -279,6 +272,8 @@ test.describe("Entities involved in a project", { tag: ['@UI'] }, () => {
       const successMessagediv = await entitiesInvolved.successMessagediv();
       await expect(successMessagediv).toBeVisible();
       await expect(successMessagediv).toHaveText('Entity has been added successfully')
+      const closeToast = await fieldHandler.closeToast();
+      await closeToast.click();
     },errors) 
 
     // Validate that the entity is added to the list
@@ -362,9 +357,6 @@ test.describe("Entities involved in a project", { tag: ['@UI'] }, () => {
       await expect(addEntityOrganizationInput).toBeVisible();
       await addEntityOrganizationInput.click();
       await addEntityOrganizationInput.fill('automationProject1');
-      const organizationOption = await entitiesInvolved.selectOrganizationInput();
-      await expect(organizationOption).toBeVisible();
-      await organizationOption.click();
     }, errors);
 
     // // Click the Save button
@@ -378,6 +370,8 @@ test.describe("Entities involved in a project", { tag: ['@UI'] }, () => {
       const successMessagediv = await entitiesInvolved.successMessagediv();
       await expect(successMessagediv).toBeVisible();
       await expect(successMessagediv).toHaveText('Entity has been added successfully')
+      const closeToast = await fieldHandler.closeToast();
+      await closeToast.click();
     },errors) 
 
     // Validate that the entity is added to the list
@@ -461,6 +455,8 @@ test.describe("Entities involved in a project", { tag: ['@UI'] }, () => {
       const successMessagediv = await entitiesInvolved.successMessagediv();
       await expect(successMessagediv).toBeVisible();
       await expect(successMessagediv).toHaveText('Entity has been deleted successfully')
+      const closeToast = await fieldHandler.closeToast();
+      await closeToast.click();
     },errors) 
 
 

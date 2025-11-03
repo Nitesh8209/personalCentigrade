@@ -287,15 +287,17 @@ export async function validateFieldGroupsDisplayOrder(section, projectListings, 
     // Filter field groups that should be visible (have valid fields)
     const expectedVisibleFieldGroups = (section.field_groups || [])
       .filter(fieldGroup => {
-        return fieldGroup?.fields?.some(field => field !== null);
+        const hasLabel = fieldGroup?.label && fieldGroup.label.trim() !== '';
+        const hasVisibleFields = fieldGroup?.fields?.some(field => field !== null);
+        return hasLabel && hasVisibleFields;
       })
       .sort((a, b) => (a.display_order || 0) - (b.display_order || 0));
     if (expectedVisibleFieldGroups.length === 0) return;
 
     for (let i = 0; i < expectedVisibleFieldGroups.length; i++) {
       if (expectedVisibleFieldGroups[i].label) {
-        await expect(await projectListings.fieldGroupDisplayOrder(expectedVisibleFieldGroups[i].display_order, section.label)).toBeVisible();
-        await expect(await projectListings.fieldGroupDisplayOrder(expectedVisibleFieldGroups[i].display_order, section.label)).toHaveText(expectedVisibleFieldGroups[i].label);
+        await expect(await projectListings.fieldGroupDisplayOrder(i, section.label, expectedVisibleFieldGroups[i].label)).toBeVisible();
+        await expect(await projectListings.fieldGroupDisplayOrder(i, section.label, expectedVisibleFieldGroups[i].label)).toHaveText(expectedVisibleFieldGroups[i].label);
       }
     }
   }, errors);
@@ -344,9 +346,9 @@ export async function validateFieldsDisplayOrder(fieldGroup, projectListings, er
       // Proceed with validation only if label exists
       if (field.label) {
         const fieldLocator = await projectListings.fieldDisplayOrder(visibleIndex, fieldGroup, field);
+        visibleIndex++;
         await expect.soft(fieldLocator).toBeVisible();
         await expect.soft(fieldLocator).toHaveText(field.label);
-        visibleIndex++;
       }
     }
   }, errors);
