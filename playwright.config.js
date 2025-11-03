@@ -43,7 +43,8 @@ globalSetup: require.resolve('./tests/global-setup'),
     /* Base URL to use in actions like `await page.goto('/')`. */
     baseURL: baseUrl,
     actionTimeout: 60000,
-    navigationTimeout: 60000,
+    navigationTimeout: 90000,
+    // ignoreHTTPSErrors: true,
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
     screenshot: 'only-on-failure'

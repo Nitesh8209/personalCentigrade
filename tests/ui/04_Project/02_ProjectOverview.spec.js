@@ -428,7 +428,7 @@ test.describe('Project Overview Page', { tag: '@UI' }, () => {
       page.waitForEvent('popup'),
       await projectsPage.clickPreviewButton()
     ])
-    await newTab.waitForURL('**/preview/**/overview');
+    await newTab.waitForURL('**/overview?preview');
 
     const overviewPage = new ListingOverviewPage(newTab);
 

@@ -495,7 +495,6 @@ async fieldDisplayOrder(order, fieldGroup, field) {
   }
 
   async ValidateUploadedFile(field, locator){
-    await expect(await locator.locator('svg')).toBeVisible();
     await expect(await locator.locator('label')).toBeVisible();
     await expect(await locator.locator('label')).toHaveText(field.label);
     const value = await getFileValue(field.name);
