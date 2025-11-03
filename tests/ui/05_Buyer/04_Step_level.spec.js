@@ -98,6 +98,7 @@ test.describe("Step Level Validation", { tag: '@UI' }, () => {
 
               const errors = [];
               const firstStepName = topic.step_groups[0].steps[0].name;
+              let stepIndex = 0;
 
               for (const step of stepGroup.steps) {
                 
@@ -133,7 +134,8 @@ test.describe("Step Level Validation", { tag: '@UI' }, () => {
 
                 // Validate display order to the step
                 await safeExpect(`Step ${step.label} display order`, async () => {
-                  const stepElementByOrder = await projectListings.stepLabelDisplayOrder(step.display_order, stepGroup.label);
+                  const stepElementByOrder = await projectListings.stepLabelDisplayOrder(stepIndex, stepGroup.label);
+                  stepIndex++;
                   await expect(stepElementByOrder).toBeVisible();
                   await expect(stepElementByOrder).toHaveText(step.label);
                 }, errors);

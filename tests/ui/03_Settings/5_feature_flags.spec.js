@@ -138,11 +138,11 @@ test.describe('Feature Flags - Jedi Panel', { tag: '@UI' }, () => {
             }
         });
 
-        test(`should functional test feature flag "${label}" effect on application behavior`, async () => {
+        test(`should functional test feature flag "${label}" effect on application behavior`, async ({baseURL}) => {
             const switchControl = await featureFlags.switchControl(label);
 
             // Verify default functionality when feature flag is on/off
-            await verifyFeatureFlagByDefaultFunctionality(label, page);
+            await verifyFeatureFlagByDefaultFunctionality(baseURL, label, page);
 
             // Toggle the feature flag
             await switchControl.click();
@@ -153,7 +153,7 @@ test.describe('Feature Flags - Jedi Panel', { tag: '@UI' }, () => {
             await switchControl.click();
 
             //verify the default functionality again
-            await verifyFeatureFlagByDefaultFunctionality(label, page);
+            await verifyFeatureFlagByDefaultFunctionality(baseURL, label, page);
         });
 
     });

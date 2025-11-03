@@ -147,7 +147,7 @@ test.describe('Project Header - UI and Navigation for Authenticated Users', { ta
     await page.waitForURL('**/listings/projects');
 
     const { BuyerprojectGuid } = getData('UI');
-    await page.goto(`${baseURL}/listings/${BuyerprojectGuid}/overview`);
+    await page.goto(`${baseURL}/listings/projects/${BuyerprojectGuid}/overview`);
 
     // const projectTitle = await listingPage.projectItemCardContentMainTitle();
     //   await expect(projectTitle).toBeVisible();

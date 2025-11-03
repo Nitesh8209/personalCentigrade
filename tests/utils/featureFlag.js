@@ -4,14 +4,14 @@ import { featureFlagTestProjectGuid } from "../data/testData";
 import { AiSearch } from "../../pages/aiSearch";
 import { ProjectsPage } from "../../pages/projectsPage";
 
-export async function verifyFeatureFlagByDefaultFunctionality(label, page) {
+export async function verifyFeatureFlagByDefaultFunctionality(baseURL, label, page) {
   const superUserPage = await page.locator('iframe').contentFrame();
   const currentUrl = page.url();
 
   switch (label) {
     case 'project.ai_summaries': {
       const aiSummary = new AiSummary(superUserPage || page);
-      const targetUrl = `/projects/${featureFlagTestProjectGuid}/overview`;
+      const targetUrl = `${baseURL}/projects/${featureFlagTestProjectGuid}/overview`;
       if (!currentUrl.includes(targetUrl)) {
         await page.goto(targetUrl);
       }
@@ -23,7 +23,7 @@ export async function verifyFeatureFlagByDefaultFunctionality(label, page) {
       const viewAnalytics = await superUserPage.getByRole('button', { name: 'View analytics' });
       const banner = await superUserPage.locator('.banner-primary');
       await expect(viewAnalytics).not.toBeVisible();
-      await page.goto(`/projects/${featureFlagTestProjectGuid}/overview`);
+      await page.goto(`${baseURL}/projects/${featureFlagTestProjectGuid}/overview`);
       await expect(banner).not.toBeVisible();
       await page.goBack();
       break;
@@ -41,7 +41,7 @@ export async function verifyFeatureFlagByDefaultFunctionality(label, page) {
     case 'project.credit_inventory':
       const creditInventory = await superUserPage.locator('.menu-item.nav-link').filter({hasText: 'Credit inventory'});
       const transactions = await superUserPage.locator('.menu-item.nav-link').filter({hasText: 'Transactions'});
-       const targetUrl = `/projects/${featureFlagTestProjectGuid}/overview`;
+       const targetUrl = `${baseURL}/projects/${featureFlagTestProjectGuid}/overview`;
       if (!currentUrl.includes(targetUrl)) {
         await page.goto(targetUrl);
       }

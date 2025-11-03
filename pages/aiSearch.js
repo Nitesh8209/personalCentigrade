@@ -36,15 +36,15 @@ export class AiSearch {
    }
 
    async AIQuestionsFirst() {
-    return await (await this.AIQuestionsWrapper()).getByRole('button', {name: "What is this project's main climate benefit?"});
+    return await (await this.AIQuestionsWrapper()).getByRole('button', {name: "Review the project's baseline"});
    }
 
    async AIQuestionsSecond() {
-    return await (await this.AIQuestionsWrapper()).getByRole('button', {name: "What carbon pools are included in the calculations?"});
+    return await (await this.AIQuestionsWrapper()).getByRole('button', {name: "Ask about additionality"});
    }
    
    async AIQuestionsThird() {
-    return await (await this.AIQuestionsWrapper()).getByRole('button', {name: "How does the project ensure additionality?"});
+    return await (await this.AIQuestionsWrapper()).getByRole('button', {name: "Explore the project's monitoring approach"});
    }
 
    async drawer() {

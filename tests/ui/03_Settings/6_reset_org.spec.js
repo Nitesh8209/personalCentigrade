@@ -63,7 +63,10 @@ test.describe('reset organization - Jedi Panel', { tag: '@UI' }, () => {
 
         const resetButton = await projectsPage.resetButton();
         await resetButton.click();
-
+        await page.waitForResponse(
+                res => res.url().includes(`/${memberOrgId}`) && res.status() === 204
+            );
+            
         // Wait for the API after reset
         const resetResponse = await page.waitForResponse(res =>
             res.url().includes('/member-organizations') && res.status() === 200
