@@ -7,7 +7,7 @@ import { ProjectListings } from "../../../pages/projectListingPage";
 import { LoginPage } from "../../../pages/loginPage";
 import { ValidTestData } from "../../data/SignUpData";
 import { getData } from "../../utils/apiHelper";
-import { hasValidStepFields, navigateToStep, setupPage, validateFieldGroupsDisplayOrder, validateFieldGroupVisibility, validateSectionLabelVisibility, validateSectionsDisplayOrder } from "../../utils/listingsProjectHelper";
+import { hasValidStepFields, isFieldGroupVisible, navigateToStep, setupPage, validateFieldGroupsDisplayOrder, validateFieldGroupVisibility, validateSectionLabelVisibility, validateSectionsDisplayOrder } from "../../utils/listingsProjectHelper";
 import { authStates, project } from "../../data/projectData";
 
 const viewDatapath = path.join(__dirname, '..', '..', 'data', 'view-data.json');
@@ -209,6 +209,9 @@ test.describe("Step Level Validation", { tag: '@UI' }, () => {
                     // Validate field group visibility
                     for (const fieldGroup of section.field_groups || []) {
                       if (fieldGroup.fields && fieldGroup.label) {
+                           const isVisible = await isFieldGroupVisible(fieldGroup);
+                           if (!isVisible) continue;
+
                         await validateFieldGroupVisibility(fieldGroup, projectListings, errors);
                       }
                     }

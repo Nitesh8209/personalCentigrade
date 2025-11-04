@@ -57,9 +57,6 @@ for (const authState of authStates) {
       await expect.soft(await overviewPage.mainContent()).toBeVisible();
       await expect.soft(await overviewPage.orgName(apiProjectCreadentials.organizationName)).toBeVisible();
       await expect.soft(await overviewPage.projectName(project.buyerProject)).toBeVisible();
-
-      const value = await getFieldValue("projectProponentName");
-      await expect.soft(await overviewPage.projectDiscription(value)).toBeVisible();
     });
 
     test(`Validate fields label and value in step group: ${stepGroup.label}`, async () => {

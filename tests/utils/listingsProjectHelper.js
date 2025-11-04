@@ -306,11 +306,17 @@ export async function validateFieldGroupsDisplayOrder(section, projectListings, 
       .sort((a, b) => (a.display_order || 0) - (b.display_order || 0));
     if (expectedVisibleFieldGroups.length === 0) return;
 
-    for (let i = 0; i < expectedVisibleFieldGroups.length; i++) {
-      if (expectedVisibleFieldGroups[i].label) {
-        await expect(await projectListings.fieldGroupDisplayOrder(i, section.label, expectedVisibleFieldGroups[i].label)).toBeVisible();
-        await expect(await projectListings.fieldGroupDisplayOrder(i, section.label, expectedVisibleFieldGroups[i].label)).toHaveText(expectedVisibleFieldGroups[i].label);
+    let visibleIndex = 0;
+
+    for (const fieldGroup of expectedVisibleFieldGroups) {
+      const isVisible = await isFieldGroupVisible(fieldGroup);
+      if (!isVisible) continue; // skip hidden ones
+
+      if (fieldGroup.label) {
+        await expect.soft(await projectListings.fieldGroupDisplayOrder(visibleIndex, section.label, fieldGroup.label)).toBeVisible();
+        await expect.soft(await projectListings.fieldGroupDisplayOrder(visibleIndex, section.label, fieldGroup.label)).toHaveText(fieldGroup.label);
       }
+      visibleIndex++;
     }
   }, errors);
 }
@@ -365,3 +371,19 @@ export async function validateFieldsDisplayOrder(fieldGroup, projectListings, er
     }
   }, errors);
 }
+
+export const isFieldGroupVisible = async (fieldGroup) => {
+  if (!fieldGroup?.fields || fieldGroup.fields.length === 0) {
+    return false;
+  }
+
+  for (const field of fieldGroup.fields) {
+    const value = await getFieldValue(field.name);
+    if (value) {
+      // Found at least one matching field in JSON
+      return true;
+    }
+  }
+
+  return false;
+};

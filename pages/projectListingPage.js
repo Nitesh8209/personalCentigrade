@@ -250,10 +250,7 @@ async fieldDisplayOrder(order, fieldGroup, field) {
         return false;
 
       case 'key-value-table':
-        if (field.component === 'file-upload-multiple' || field.component === 'file-upload') {
-          return this.page.locator('.content').locator('.key-value-item').filter({ hasText: field.label });
-        }
-          return this.page.locator('.content').locator('.ComponentContainer').getByText(field.label, { exact: true }).locator('..').locator('..');
+          return this.page.locator('.content').locator('.ComponentContainer').locator('.key-value-list').getByText(field.label, { exact: true }).locator('..').locator('..');
       
       case 'truncated-text':
         return this.page.locator('.content').locator('.key-value-item').filter({ hasText: field.label });
@@ -278,6 +275,9 @@ async fieldDisplayOrder(order, fieldGroup, field) {
         
       case 'block-table':
         return this.page.locator('.content').locator('.ComponentContainer').locator('.TrioHeroBlockRow');
+
+      case 'date':
+        return this.page.locator('.content').locator('.ComponentContainer').getByText(field.label, { exact: true }).locator('..').locator('..');
         
       default:
         return this.page.locator('.content').locator('.key-value-list').locator('.label-container > label').getByText(field.label , {exact: true});  
