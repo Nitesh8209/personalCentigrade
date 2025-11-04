@@ -5,7 +5,7 @@ import { ProjectListings } from "../../../pages/projectListingPage";
 import { ValidTestData } from "../../data/SignUpData";
 import { getData } from "../../utils/apiHelper";
 import { safeExpect } from "../../utils/authHelper";
-import { hasValidStepFields, validateFieldsDisplayOrder, hasValidStepGroupFields } from "../../utils/listingsProjectHelper";
+import { hasValidStepFields, validateFieldsDisplayOrder, hasValidStepGroupFields, checkDisplayDependencyField, isFieldGroupVisible } from "../../utils/listingsProjectHelper";
 import path from "path";
 import fs from 'fs';
 import { project } from "../../data/projectData";
@@ -175,7 +175,8 @@ test.describe("Fields Level Validation - after Login", { tag: '@UI' }, () => {
 
                   // Iterate through field groups in the section
                   for (const fieldGroup of section?.field_groups || []) {
-                    if (fieldGroup?.fields == null) continue;
+                    const isVisible = await isFieldGroupVisible(fieldGroup);
+                    if (!isVisible) continue;
 
                     // Validate field group label visibility and expand if closed
                     if (fieldGroup.label) {
