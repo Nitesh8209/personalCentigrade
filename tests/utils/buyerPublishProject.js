@@ -46,7 +46,7 @@ const generateFieldData = (field, fileData = null, fileTierFilter = null) => {
         return faker.number.int(100).toString();
       } else {
         if(field.name == "projectMission-nameValue-nameValue"){
-          return faker.lorem.words(75);
+          return faker.lorem.words(85);
         }else{
           return faker.lorem.words(3);
         }

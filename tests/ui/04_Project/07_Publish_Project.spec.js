@@ -497,7 +497,7 @@ test.describe('Project after approve Project', { tag: ['@UI', '@SMOKE'] }, () =>
         const newPage = await context.newPage();
         await newPage.goto(`https://${copiedUrl}`);
         const newProjectPage = new ProjectsPage(newPage, baseURL);
-        await expect(newPage.url()).toBe(`https://${copiedUrl}`);
+        await expect(newPage.url()).toContain('/overview?share=sharelink');
         await expect(await newProjectPage.listingprojectTitle(project.uiProjectName)).toBeVisible({timeout: 30000});
         await expect(await newProjectPage.listingprojectTitle(project.uiProjectName)).toHaveText(project.uiProjectName);
       },
