@@ -137,13 +137,7 @@ test.describe('Button Level Validations', { tag: '@UI' }, () => {
                       async () => {
                         const inputLocator = await fieldHandler.getLocator(field.name, field.label, field.type, field.component);
                         await expect(inputLocator).toBeVisible();
-                        await fieldHandler.validateField(inputLocator, {
-                          type: field.type,
-                          component: field.component,
-                          label: field.label,
-                          options: field.options,
-                          columns: field.columns,
-                        });
+                        await fieldHandler.validateField(inputLocator, field);
                       },
                       errors
                     );
@@ -206,12 +200,7 @@ test.describe('Button Level Validations', { tag: '@UI' }, () => {
                         async () => {
                           const inputLocator = await fieldHandler.getLocator(field.name, field.label, field.type, field.component);
                           await expect(inputLocator).toBeVisible();
-                          await fieldHandler.validateField(inputLocator, {
-                            type: field.type,
-                            component: field.component,
-                            label: field.label,
-                            options: field.options
-                          });
+                          await fieldHandler.validateField(inputLocator, field);
                         },
                         errors
                       );
@@ -260,12 +249,7 @@ test.describe('Button Level Validations', { tag: '@UI' }, () => {
                       async () => { 
                         const inputLocator = await fieldHandler.getLocator(field.name, field.label, field.type, field.component);
                         await expect(inputLocator).toBeVisible();
-                        await fieldHandler.validateFieldAfterCancel(inputLocator, {
-                          type: field.type,
-                          component: field.component,
-                          label: field.label,
-                          options: field.options
-                        });
+                        await fieldHandler.validateFieldAfterCancel(inputLocator, field);
                       },
                       errors
                     );
@@ -306,12 +290,7 @@ test.describe('Button Level Validations', { tag: '@UI' }, () => {
                         async () => {
                           const inputLocator = await fieldHandler.getLocator(field.name, field.label, field.type, field.component);
                           await expect(inputLocator).toBeVisible();
-                          await fieldHandler.validateField(inputLocator, {
-                            type: field.type,
-                            component: field.component,
-                            label: field.label,
-                            options: field.options
-                          });
+                          await fieldHandler.validateField(inputLocator, field);
                         },
                         errors
                       );
@@ -350,12 +329,7 @@ test.describe('Button Level Validations', { tag: '@UI' }, () => {
                       async () => {
                         const inputLocator = await fieldHandler.getLocator(field.name, field.label, field.type, field.component);
                         await expect(inputLocator).toBeVisible();
-                        await fieldHandler.validateFieldAfterDiscard(inputLocator, {
-                          type: field.type,
-                          component: field.component,
-                          label: field.label,
-                          options: field.options
-                        });
+                        await fieldHandler.validateFieldAfterDiscard(inputLocator, field);
                       },
                       errors
                     );

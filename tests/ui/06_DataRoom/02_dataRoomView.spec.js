@@ -312,6 +312,7 @@ test.describe("Data room for authenticated user", { tag: ['@UI', '@SMOKE'] }, ()
     await saveData({ dataRoomAccessToken: accessToken }, 'UI');
 
     const dataRoomUrl = `${API_ENDPOINTS.dataRoomGuid(BuyerprojectGuid)}`;
+    const getDataRoomsUrl = `${API_ENDPOINTS.dataRoomsGuid(BuyerprojectGuid)}`;
     const data = {
       name: DataRoomTestdata.dataRoomName
     }
@@ -321,10 +322,18 @@ test.describe("Data room for authenticated user", { tag: ['@UI', '@SMOKE'] }, ()
       'x-centigrade-organization-id': 409,
     };
 
-    const response = await postRequest(dataRoomUrl,JSON.stringify(data), headers);
-    const responseBody = await response.json();
-    dataRoomId = responseBody.id;
-    await saveData({ dataRoomId: dataRoomId }, 'UI');
+    const getResponse = await getRequest(getDataRoomsUrl, headers);
+    const getResponseBody = await getResponse.json();
+
+    if(getResponseBody.length == 0){
+        const response = await postRequest(dataRoomUrl,JSON.stringify(data), headers);
+        const responseBody = await response.json();
+        dataRoomId = responseBody.id;
+        await saveData({ dataRoomId: dataRoomId }, 'UI');
+    }else{
+        dataRoomId = getResponseBody[0].id;
+        await saveData({ dataRoomId: dataRoomId }, 'UI');
+    }
 
     await page.reload();
     const documents = await listingPage.DocumentsTab();

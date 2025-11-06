@@ -378,10 +378,42 @@ export const isFieldGroupVisible = async (fieldGroup) => {
   }
 
   for (const field of fieldGroup.fields) {
-    const value = await getFieldValue(field.name);
-    if (value) {
-      // Found at least one matching field in JSON
+    // Get the value for this field (from saved data)
+    const fieldValue = await getFieldValue(field.name);
+
+    // Field itself has a saved value
+    if (fieldValue && fieldValue.trim() !== '') {
       return true;
+    }
+
+    // Check display dependencies
+    if (Array.isArray(field.display_dependencies) && field.display_dependencies.length > 0) {
+      for (const dependency of field.display_dependencies) {
+        const dependencyValue = await getFieldValue(dependency.field);
+
+        if (dependencyValue) {
+          try {
+            // Handle values that may be JSON arrays
+            const parsedValue = JSON.parse(dependencyValue);
+            if (Array.isArray(parsedValue)) {
+              // Match if any array element matches the pattern
+              if (parsedValue.some((val) => new RegExp(dependency.pattern, 'i').test(val))) {
+                return true;
+              }
+            } else {
+              // Match if single value matches
+              if (new RegExp(dependency.pattern, 'i').test(parsedValue)) {
+                return true;
+              }
+            }
+          } catch {
+            // Handle normal string values (not JSON)
+            if (new RegExp(dependency.pattern, 'i').test(dependencyValue)) {
+              return true;
+            }
+          }
+        }
+      }
     }
   }
 

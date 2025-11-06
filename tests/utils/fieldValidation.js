@@ -80,7 +80,7 @@ export class FieldHandler {
 
     if (component === COMPONENT_TYPES.DATA_GRID) {
       return this.page.locator('.field').filter({
-        has: this.page.getByText(fieldLabel, { exact: true })
+        has: this.page.locator(`label[for="${fieldName}"]`)
       })
     }
 
@@ -667,22 +667,7 @@ export class FieldHandler {
   */
 
   async validateLabel(field) {
-
-    // Validate field attributes
-    switch (field.component) {
-      case COMPONENT_TYPES.TEXT_INPUT:
-        return this.page.locator('.field-label').getByText(field.label, { exact: true });
-
-      case COMPONENT_TYPES.SELECT:
-        return this.page.locator('.field-label').getByText(field.label, { exact: true });
-
-      case COMPONENT_TYPES.FILE_UPLOAD:
-        return this.page.locator('.field').getByText(field.label, { exact: true });
-
-      default:
-        return this.page.locator('.label-container').getByText(field.label, { exact: true });
-
-    }
+    return this.page.locator(`label[for="${field.name}"]`);
   }
 
 
@@ -807,8 +792,18 @@ export class FieldHandler {
         break;
 
       case COMPONENT_TYPES.YEAR_INPUT:
-        value = field.label.includes('start year') ? value = faker.date.past({ years: 10 }).getFullYear().toString() : faker.date.future({ years: 10 }).getFullYear().toString();
-        await this.fillNumberField(locator, value);
+        if(field.name === 'creditStart-nameValue-nameValue' || field.name === 'creditEnd-nameValue-nameValue'){
+          const yearValue = await locator.getAttribute('value');
+          if(yearValue && yearValue.trim() !== ''){
+            value = yearValue;
+          }else{
+          value = field.label.includes('start year') ? faker.date.past({ years: 5 }).getFullYear().toString() : faker.date.future({ years: 5 }).getFullYear().toString();
+          await this.fillNumberField(locator, value);
+        }
+        }else{
+          value = field.label.includes('start year') ? faker.date.past({ years: 5 }).getFullYear().toString() : faker.date.future({ years: 5 }).getFullYear().toString();
+          await this.fillNumberField(locator, value);
+        }
         break;
 
       case COMPONENT_TYPES.MEDIA_CAROUSEL:
