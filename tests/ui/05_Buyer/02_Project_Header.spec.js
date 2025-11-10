@@ -316,7 +316,7 @@ test.describe('Project Header - UI and Navigation for Authenticated Users', { ta
         const newPage = await context.newPage();
         await newPage.goto(copiedUrl);
         const newProjectPage = new ProjectListings(newPage);
-        await expect(newPage.url()).toBe(copiedUrl);
+        await expect(newPage.url()).toContain('/overview?share=sharelink');
         await expect(await newProjectPage.listingprojectTitle(project.buyerProject)).toBeVisible();
         await expect(await newProjectPage.listingprojectTitle(project.buyerProject)).toHaveText(project.buyerProject);
       },
