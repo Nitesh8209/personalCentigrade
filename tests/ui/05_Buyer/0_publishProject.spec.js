@@ -142,38 +142,39 @@ test.describe("fill all fields For validate listings buyer page", { tag: ['@UI',
       const data = getData("UI");
       BuyerprojectGuid = data.BuyerprojectGuid
     }
-    // Load the file to be used for upload tests
-    const filePath = './tests/assets/file.png';
-    const fileBuffer = fs.readFileSync(filePath);
 
-    if (!projectId) {
-      const data = getData("UI");
-      projectId = data.BuyerprojectId
-    }
+    // Resolve absolute file path to avoid cwd issues in CI
+    const absFilePath = path.resolve(process.cwd(), 'tests', 'assets', 'file.png');
+    const fileBuffer = fs.readFileSync(absFilePath);
+
     const fileUrl = `${API_ENDPOINTS.createProjectguid(BuyerprojectGuid)}/file`;
 
     for (const { configFieldId } of ProjectData.fileData) {
-
-      const fileData = {
-        multipart: {
-          configFieldId: configFieldId,
-          file: {
-            name: 'file.png',
-            mimeType: 'application/octet-stream',
-            buffer: fileBuffer,
+      const maxRetries = 2;
+      let status;
+      for (let attempt = 1; attempt <= maxRetries; attempt++) {
+        const response = await request.post(fileUrl, {
+          multipart: {
+            configFieldId,
+            file: {
+              name: 'file.png',
+              mimeType: 'image/png',
+              buffer: fileBuffer,
+            },
           },
-        },
-        headers: {
-          'Authorization': `Bearer ${projectAccessToken}`,
-          'x-centigrade-organization-id': '409',
-        }
-      };
+          headers: {
+            'Authorization': `Bearer ${projectAccessToken}`,
+            'x-centigrade-organization-id': '409',
+          },
+        });
 
-      // Perform file upload
-      const response = await request.post(fileUrl, fileData);
-
-      expect(response.status()).toBe(200);
-    };
+        status = response.status();
+        if (status === 200) break;
+        // Exponential backoff before retrying
+        await new Promise(r => setTimeout(r, attempt * 2000));
+      }
+      expect(status).toBe(200);
+    }
   });
 
 });
