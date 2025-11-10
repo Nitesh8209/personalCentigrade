@@ -1783,11 +1783,11 @@ class ProjectsPage {
     }
 
     async projectOverviewTier1Cardprogressbarcontainer() {
-        return await this.page.locator('.tier-progress > :nth-child(3) > .card-body > .progressBarContainer');
+        return await this.page.locator('.tier-progress > :nth-child(3) > .card-body > .linear-progress');
     }
 
     async projectOverviewTier1Cardprogressbar() {
-        return await this.page.locator('.tier-progress > :nth-child(3) > .card-body > .progressBarContainer > .progressBarWrapper');
+        return await this.page.locator('.tier-progress > :nth-child(3) > .card-body > .linear-progress > .linear-progress-track');
     }
 
     async projectOverviewTier1CardprogressbarText() {
@@ -1811,11 +1811,11 @@ class ProjectsPage {
     }
 
     async projectOverviewTier2Cardprogressbarcontainer() {
-        return await this.page.locator('.tier-progress > :nth-child(4) > .card-body > .progressBarContainer');
+        return await this.page.locator('.tier-progress > :nth-child(4) > .card-body > .linear-progress');
     }
 
     async projectOverviewTier2Cardprogressbar() {
-        return await this.page.locator('.tier-progress > :nth-child(4) > .card-body > .progressBarContainer > .progressBarWrapper');
+        return await this.page.locator('.tier-progress > :nth-child(4) > .card-body > .linear-progress > .linear-progress-track');
     }
 
     async projectOverviewTier2CardprogressbarText() {
@@ -1839,11 +1839,11 @@ class ProjectsPage {
     }
 
     async projectOverviewTier3Cardprogressbarcontainer() {
-        return await this.page.locator('.tier-progress > :nth-child(5) > .card-body > .progressBarContainer');
+        return await this.page.locator('.tier-progress > :nth-child(5) > .card-body > .linear-progress');
     }
 
     async projectOverviewTier3Cardprogressbar() {
-        return await this.page.locator('.tier-progress > :nth-child(5) > .card-body > .progressBarContainer > .progressBarWrapper');
+        return await this.page.locator('.tier-progress > :nth-child(5) > .card-body > .linear-progress > .linear-progress-track');
     }
 
     async projectOverviewTier3CardprogressbarText() {

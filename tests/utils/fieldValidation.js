@@ -462,7 +462,7 @@ export class FieldHandler {
 
     const bannerContent = await banner.locator('.banner-content > div');
     await expect(bannerContent).toBeVisible();
-    await expect(bannerContent).toHaveText('To enter data, use "Crediting start year" and "Crediting end year" in Tier 0 - Project details to define the period');
+    await expect(bannerContent).toHaveText('To enter data, use "Crediting start year" and "Crediting end year" in Tier 0 - Provenance - Project details to define the period');
 
     const bannerLink = await banner.getByRole('link', { name: 'Go to Project details' });
     await expect(bannerLink).toBeVisible();
