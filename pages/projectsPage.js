@@ -1755,11 +1755,11 @@ class ProjectsPage {
     }
 
     async projectOverviewTier0Cardprogressbarcontainer() {
-        return await this.page.locator('.tier-progress > :nth-child(2) > .card-body > .progressBarContainer');
+        return await this.page.locator('.tier-progress > :nth-child(2) > .card-body > .linear-progress');
     }
 
     async projectOverviewTier0Cardprogressbar() {
-        return await this.page.locator('.tier-progress > :nth-child(2) > .card-body > .progressBarContainer > .progressBarWrapper > .progressBar');
+        return await this.page.locator('.tier-progress > :nth-child(2) > .card-body > .linear-progress > .linear-progress-track > .linear-progress-range');
     }
 
     async projectOverviewTier0CardprogressbarText() {
