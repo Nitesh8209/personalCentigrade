@@ -1106,6 +1106,11 @@ class ProjectsPage {
         return await methodologyDropdown.getByText(option);
     }
 
+    async methodologyselectbyid(id) {
+        const methodologyDropdown = await this.methodologyDropdown();
+        return await methodologyDropdown.locator(`[data-value="${id}"]`)
+    }
+
     async projectScaleDropdown() {
         return this.page.getByRole('listbox', { name: 'Project scale' })
     }
