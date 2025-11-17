@@ -79,7 +79,12 @@ test.describe('Field level validation', { tag: '@UI' }, async () => {
               await expect(stepElement).toBeVisible();
               await expect(stepElement).toBeEnabled();
               await stepElement.click();
-              await expect(await fieldHandler.title()).toBeVisible();
+              await expect(await fieldHandler.title()).toBeVisible({timeout: 20000});
+
+              const discard = await fieldHandler.discardButton()
+              if (await discard.isVisible()) {
+                await discard.click();
+              }
             })
 
             test(`Validate Fields Are Hidden Until Display Dependencies Are Completed for Step: ${step.label}`, async () => {

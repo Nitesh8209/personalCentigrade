@@ -27,34 +27,34 @@ export class AiSummary {
     return await (await this.aiSummaries()).getByRole('heading', { name: label, exact: true });
   }
 
-  async stepLabel(label) {
-    return await (await this.aiSummaries()).locator('label').filter({ hasText: label });
+  async stepLabel(label, stepGroupLabel) {
+    return await (await this.aiSummaries()).locator('.ai-summaries-step-group', { has: this.page.locator('h3', { hasText: stepGroupLabel }) }).locator('label').filter({ hasText: label });
   }
 
-  async stepAccordion(label) {
-    return await (await this.aiSummaries()).locator('.accordion-item').filter({
+  async stepAccordion(label, stepGroupLabel) {
+    return await (await this.aiSummaries()).locator('.ai-summaries-step-group', { has: this.page.locator('h3', { hasText: stepGroupLabel }) }).locator('.accordion-item').filter({
       has: this.page.locator('label', { hasText: label })
     });
   }
 
-  async accordionItemBadge(label) {
-    return await (await this.stepAccordion(label)).locator('.accordion-item-badge');
+  async accordionItemBadge(label, stepGroupLabel) {
+    return await (await this.stepAccordion(label, stepGroupLabel)).locator('.accordion-item-badge');
   }
 
-  async stepAccordionButton(label) {
-    return await (await this.stepAccordion(label)).locator('.accordion-item-trigger');
+  async stepAccordionButton(label, stepGroupLabel) {
+    return await (await this.stepAccordion(label, stepGroupLabel)).locator('.accordion-item-trigger');
   }
 
-  async accordionItemContent(label) {
-    return await (await this.stepAccordion(label)).locator('.prose');
+  async accordionItemContent(label, stepGroupLabel) {
+    return await (await this.stepAccordion(label, stepGroupLabel)).locator('.prose');
   }
 
-  async stepAccordionThumbsRating(label) {
-    return await (await this.stepAccordion(label)).locator('.thumbs-rating');
+  async stepAccordionThumbsRating(label, stepGroupLabel) {
+    return await (await this.stepAccordion(label, stepGroupLabel)).locator('.thumbs-rating');
   }
 
-  async stepAccordionViewProjectButton(label, rating) {
-    return await (await this.stepAccordion(label)).getByRole('button', { name: 'View in project' });
+  async stepAccordionViewProjectButton(label, stepGroupLabel) {
+    return await (await this.stepAccordion(label, stepGroupLabel)).getByRole('button', { name: 'View in project' });
   }
 
   async buyerAiSummaryContent(Content) {

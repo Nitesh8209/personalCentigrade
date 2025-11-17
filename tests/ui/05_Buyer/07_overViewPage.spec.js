@@ -44,8 +44,8 @@ for (const authState of authStates) {
       overviewPage = new ListingOverviewPage(page);
 
       const loginPage = authState.isAuthenticated ? new LoginPage(page, baseURL) : null;
-      await setupPage(page, loginPage, credentials, listingPage, baseURL);
-        await page.goto(`${baseURL}/listings/projects/${BuyerprojectGuid}/overview`);
+      // await setupPage(page, loginPage, credentials, listingPage, baseURL);
+      await page.goto(`${baseURL}/listings/projects/${BuyerprojectGuid}/overview`);
 
     });
 

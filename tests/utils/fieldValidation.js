@@ -742,9 +742,7 @@ export class FieldHandler {
           // Check if option is already selected by looking for exact badge matches
           const selectedBadges = await locator.locator('.badge').allTextContents();
           const isAlreadySelected = selectedBadges.some(badgeText => {
-            // Remove any extra whitespace and compare exact text
-            const cleanBadgeText = badgeText.trim().replace(/\s+/g, ' ');
-            return cleanBadgeText === option;
+            return badgeText === option;
           });
           
           if (isAlreadySelected) {
@@ -769,8 +767,7 @@ export class FieldHandler {
         const finalSelectedBadges = await locator.locator('.badge').allTextContents();
         for (const expectedOption of field.options) {
           const isSelected = finalSelectedBadges.some(badgeText => {
-            const cleanBadgeText = badgeText.trim().replace(/\s+/g, ' ');
-            return cleanBadgeText === expectedOption;
+            return badgeText === expectedOption;
           });
           expect(isSelected).toBe(true);
         }

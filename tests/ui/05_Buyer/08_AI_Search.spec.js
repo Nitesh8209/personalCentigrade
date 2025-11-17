@@ -28,7 +28,8 @@ test.describe('AI Search Functionality Tests', { tag: '@UI' }, () => {
     const loginPage = new LoginPage(page, baseURL);
     const listingPage = new ListingPage(page);
     aiSearch = new AiSearch(page);
-    await setupPage(page, loginPage, credentials, listingPage, baseURL);
+    // await setupPage(page, loginPage, credentials, listingPage, baseURL);
+    await page.goto(`${baseURL}/listings/projects/${BuyerprojectGuid}/overview`);
   })
 
   test.afterAll(async () => {

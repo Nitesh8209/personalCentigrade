@@ -27,7 +27,7 @@ test.describe('AiSummary After Publish', { tag: '@UI' }, () => {
     await loginPage.navigate();
     await page.waitForURL("**/projects");
 
-    await projectsPage.viewProjectByName(project.uiProjectName);
+    await projectsPage.viewProjectByName(project.buyerProject);
     await page.waitForURL(`**/overview`);
 
     aiSummary = new AiSummary(page);
@@ -78,8 +78,8 @@ test.describe('AiSummary After Publish', { tag: '@UI' }, () => {
             test(`Verify Step - ${step.label}`, async () => {
               const errors = [];
 
-              const stepLabel = await aiSummary.stepLabel(step.label);
-              const stepAccordion = await aiSummary.stepAccordion(step.label);
+              const stepLabel = await aiSummary.stepLabel(step.label, stepGroup.label);
+              const stepAccordion = await aiSummary.stepAccordion(step.label, stepGroup.label);
               await safeExpect('Step label and accordion should be visible', async () => {
                 await expect(stepAccordion).toBeVisible();
                 await expect(stepLabel).toBeVisible();
@@ -87,16 +87,15 @@ test.describe('AiSummary After Publish', { tag: '@UI' }, () => {
               }, errors);
 
               await safeExpect('Accordion item badge should be visible', async () => {
-                const stepAccordionButton = await aiSummary.stepAccordionButton(step.label);
+                const stepAccordionButton = await aiSummary.stepAccordionButton(step.label, stepGroup.label);
                 await expect(stepAccordionButton).toBeEnabled();
                 await stepAccordionButton.click();
-                const accordionItemContent = await aiSummary.accordionItemContent(step.label);
+                const accordionItemContent = await aiSummary.accordionItemContent(step.label, stepGroup.label);
                 await expect(accordionItemContent).toBeVisible();
                 const accordionItemContentText = await accordionItemContent.textContent();
-                console.log(`Accordion content for step "${step.label}": ${accordionItemContentText}`);
-                const stepAccordionThumbsRating = await aiSummary.stepAccordionThumbsRating(step.label);
+                const stepAccordionThumbsRating = await aiSummary.stepAccordionThumbsRating(step.label, stepGroup.label);
                 await expect(stepAccordionThumbsRating).toBeVisible();
-                const stepAccordionViewProjectButton = await aiSummary.stepAccordionViewProjectButton(step.label);
+                const stepAccordionViewProjectButton = await aiSummary.stepAccordionViewProjectButton(step.label, stepGroup.label);
                 await expect(stepAccordionViewProjectButton).toBeVisible();
 
                 const [newPage] = await Promise.all([
@@ -107,7 +106,7 @@ test.describe('AiSummary After Publish', { tag: '@UI' }, () => {
                 await newPage.waitForLoadState();
 
                 // Assert the URL
-                expect(newPage.url()).toContain(`/${(summary.name).toLowerCase()}/${stepGroup.name}/${step.name}`);
+                expect(newPage.url()).toContain(`/${summary.name}/${stepGroup.name}/${step.name}`);
 
                 const buyerAiSummary = new AiSummary(newPage);
                 const buyerAiSummaryContent = await buyerAiSummary.buyerAiSummaryContent(accordionItemContentText);
