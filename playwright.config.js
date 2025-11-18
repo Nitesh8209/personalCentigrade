@@ -291,7 +291,7 @@ globalSetup: require.resolve('./tests/global-setup'),
         viewport: { width: 1366, height: 768 },
         },
       fullyParallel: false,
-      dependencies: ['PublishProject']
+      dependencies: ['buyerPublishProject']
     },
     {
       name: 'LoginApi',

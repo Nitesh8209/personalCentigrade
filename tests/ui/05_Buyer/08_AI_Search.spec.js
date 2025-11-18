@@ -9,7 +9,7 @@ import { setupPage } from '../../utils/listingsProjectHelper';
 import { AiSearch } from '../../../pages/aiSearch';
 
 test.describe('AI Search Functionality Tests', { tag: '@UI' }, () => {
-  const { newEmail } = getData('UI');
+  const { newEmail, BuyerprojectGuid } = getData('UI');
   const credentials = {
     email: newEmail,
     password: ValidTestData.newPassword
@@ -28,7 +28,8 @@ test.describe('AI Search Functionality Tests', { tag: '@UI' }, () => {
     const loginPage = new LoginPage(page, baseURL);
     const listingPage = new ListingPage(page);
     aiSearch = new AiSearch(page);
-    await setupPage(page, loginPage, credentials, listingPage, baseURL);
+    // await setupPage(page, loginPage, credentials, listingPage, baseURL);
+    await page.goto(`${baseURL}/listings/projects/${BuyerprojectGuid}/overview`);
   })
 
   test.afterAll(async () => {

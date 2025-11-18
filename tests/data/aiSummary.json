@@ -5,6 +5,16 @@
       "label": "Project story",
       "step_groups": [
         {
+          "name": "organizationDetails",
+          "label": "Organization details",
+          "steps": [
+            { 
+              "name": "organizationOverview",
+              "label": "Organization overview"
+            }
+          ]
+        },
+        {
           "name": "projectDetails",
           "label": "Project details",
           "steps": [
@@ -25,6 +35,35 @@
       "label": "Project data",
       "step_groups": [
         {
+          "name": "baselineView",
+          "label": "Baseline",
+          "steps": [
+            { "name": "bslSummary", "label": "Summary" }
+          ]
+        },
+        {
+          "name": "projectView",
+          "label": "Project",
+          "steps": [
+            { "name": "projSummary", "label": "Summary" }
+          ]
+        },
+        {
+          "name": "boundariesView",
+          "label": "Boundaries",
+          "steps": [
+            { "name": "spatialBoundaries", "label": "Spatial boundaries" },
+            { "name": "systemBoundaries", "label": "System boundaries" }
+          ]
+        },
+        {
+          "name": "mrv",
+          "label": "MRV",
+          "steps": [
+            { "name": "mrvDesign", "label": "Monitoring plan" }
+          ]
+        },
+        {
           "name": "durability",
           "label": "Permanence and risk",
           "steps": [
@@ -44,6 +83,14 @@
           "steps": [
             { "name": "additionality", "label": "Additionality" }
           ]
+        },
+        {
+          "name": "externalAssessment",
+          "label": "External assessment",
+          "steps": [
+            { "name": "validation", "label": "Validation" },
+            { "name": "verification", "label": "Verification" }
+          ]
         }
       ]
     },
@@ -53,14 +100,14 @@
       "step_groups": [
         {
           "name": "socioeconomicImpacts",
-          "label": "Socio-economic impacts",
+          "label": "Socioeconomic impacts",
           "steps": [
             { "name": "socioeconomicDueDiligence", "label": "Socioeconomic due diligence" },
             { "name": "socioeconomicImpacts", "label": "Socioeconomic impacts" }
           ]
         },
         {
-          "name": "EcologicalImpacts",
+          "name": "ecologicalImpacts",
           "label": "Ecological impacts",
           "steps": [
             { "name": "ecologicalDueDiligenceView", "label": "Ecological due diligence" },

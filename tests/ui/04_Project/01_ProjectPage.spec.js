@@ -184,8 +184,9 @@ test.describe('Project Page', { tag: '@UI' }, () => {
             await methodologytrigger.click();
           }
           const item = expectedDescriptions[i];
-          await expect(await projectsPage.methodologyselectOption(item)).toBeVisible();
-          const selectOption = await projectsPage.methodologyselectOption(item);
+          const id = responseBody[i].id;
+          await expect(await projectsPage.methodologyselectbyid(id)).toBeVisible();
+          const selectOption = await projectsPage.methodologyselectbyid(id);
           await selectOption.click();
           await expect(methodologymenu).not.toBeVisible();
           await expect(await projectsPage.selectedMethodology()).toHaveText(item);

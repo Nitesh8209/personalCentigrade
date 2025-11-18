@@ -94,21 +94,21 @@ test.describe('AiSummary Before Publish', {tag: '@UI'}, () => {
               const errors = [];
 
               await safeExpect(`Step label and accordion for "${step.label}" should be visible`, async () => {
-                const stepLabel = await aiSummary.stepLabel(step.label);
-                const stepAccordion = await aiSummary.stepAccordion(step.label);
+                const stepLabel = await aiSummary.stepLabel(step.label, stepGroup.label);
+                const stepAccordion = await aiSummary.stepAccordion(step.label, stepGroup.label);
                 await expect(stepAccordion).toBeVisible();
                 await expect(stepLabel).toBeVisible();
                 await expect(stepLabel).toHaveText(step.label);
               }, errors);
 
               await safeExpect(`Accordion item badge for "${step.label}" should be visible and show "Not enough data"`, async () => {
-                const accordionItemBadge = await aiSummary.accordionItemBadge(step.label);
+                const accordionItemBadge = await aiSummary.accordionItemBadge(step.label, stepGroup.label);
                 await expect(accordionItemBadge).toBeVisible();
                 await expect(accordionItemBadge).toHaveText('Not enough data');
               }, errors);
 
               await safeExpect(`Accordion button for "${step.label}" should be disabled`, async () => {
-                const stepAccordionButton = await aiSummary.stepAccordionButton(step.label);
+                const stepAccordionButton = await aiSummary.stepAccordionButton(step.label, stepGroup.label);
                 await expect(stepAccordionButton).toBeDisabled();
               }, errors);
 
