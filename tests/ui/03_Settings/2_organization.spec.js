@@ -194,10 +194,10 @@ test('Verify unsaved changes modal on Settings - Organization page', async () =>
     const errors = [];
     const cancelButton = await settingsPage.cancelButton();
     const selectedValues = await settingsPage.orgfunctiondropdownsaelected();
+    const optionsToSelect = ['Sponsor', 'Registry', 'Auditor'];
 
     const visibleCancel = await cancelButton.isEnabled();
     if(!visibleCancel){
-      const optionsToSelect = ['Sponsor', 'Registry', 'Auditor'];
       await settingsPage.selectOrganizationFunctions(optionsToSelect);
     }
 

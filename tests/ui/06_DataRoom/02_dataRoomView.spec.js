@@ -694,19 +694,23 @@ test.describe("After Delete Data Room", { tag: ['@UI', '@SMOKE'] }, () => {
     listingPage = new ListingPage(page);
     dataRoomPage = new dataRoomViewPage(page);
 
-    // Navigate to the login page and perform login
-    await loginPage.navigate();
-    await page.waitForURL("**/projects");
-    const ListingsButton = await listingPage.listings();
-    await expect(ListingsButton).toBeVisible();
-    await ListingsButton.click();
-    await page.waitForURL("**/listings/projects");
+    const data = getData("UI");
+    const BuyerprojectGuid = data.BuyerprojectGuid
 
-    // Click on first project to navigate to project details
-    const projectTitle = await listingPage.projectItemCardContentMainTitle();
-    await expect(projectTitle).toBeVisible();
-    await projectTitle.click();
-    await page.waitForURL("**/overview");
+    // Navigate to the login page and perform login
+    // await loginPage.navigate();
+    // await page.waitForURL("**/projects");
+    // const ListingsButton = await listingPage.listings();
+    // await expect(ListingsButton).toBeVisible();
+    // await ListingsButton.click();
+    // await page.waitForURL("**/listings/projects");
+
+    // // Click on first project to navigate to project details
+    // const projectTitle = await listingPage.projectItemCardContentMainTitle();
+    // await expect(projectTitle).toBeVisible();
+    // await projectTitle.click();
+    // await page.waitForURL("**/overview");
+    await page.goto(`${baseURL}/listings/projects/${BuyerprojectGuid}/overview`);
   });
 
   // Teardown after all tests: Close the page

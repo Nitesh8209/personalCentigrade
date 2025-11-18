@@ -9,7 +9,7 @@ import { setupPage } from '../../utils/listingsProjectHelper';
 import { AiSearch } from '../../../pages/aiSearch';
 
 test.describe('AI Search Functionality Tests', { tag: '@UI' }, () => {
-  const { newEmail } = getData('UI');
+  const { newEmail, BuyerprojectGuid } = getData('UI');
   const credentials = {
     email: newEmail,
     password: ValidTestData.newPassword
