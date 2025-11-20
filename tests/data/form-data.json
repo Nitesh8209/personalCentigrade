@@ -1,7 +1,7 @@
 {
   "dataSchema": "QA-ACR1.3-cgV1.0.0",
   "navigation": "form2.0-config",
-  "versionDate": "2025-10-30T13:34:17-07:00",
+  "versionDate": "2025-11-19T12:17:13-08:00",
   "methodology": {
     "id": 13,
     "nickname": "QA-ACR1.3",
@@ -66,7 +66,7 @@
                             "field": ""
                           },
                           "half_width": false,
-                          "helper_text": "",
+                          "helper_text": "new helper text",
                           "display_order": 0,
                           "view_component": "key-value-table",
                           "validation_schema": null,
@@ -4699,8 +4699,8 @@
                             "Aquatic habitat restoration - In-stream barrier removal",
                             "Aquatic habitat restoration - Dam reoperation",
                             "Aquatic habitat restoration - Floodplain inundation/reestablish hydrologic connection",
-                            "Water Governance - direct engagement in water governance and pulic water management",
-                            "Catalytic activities - Activities that pave the way for longer-term water stewardship outcomes"
+                            "Catalytic activities - Activities that pave the way for longer-term water stewardship outcomes",
+                            "Water Governance - direct engagement in water governance and public water management"
                           ],
                           "tooltip": "Classification of water-related activities undertaken as part of the project activity (e.g., water demand reduction, water efficiency measures, land restoration, etc.)",
                           "elements": null,
@@ -14884,7 +14884,7 @@
                           "type": "string",
                           "label": "Overview of leakage quantification",
                           "columns": null,
-                          "options": [],
+                          "options": null,
                           "tooltip": "Overview of the project's approach to calculating and/or accounting for leakage",
                           "elements": null,
                           "component": "rich-text",
@@ -15150,11 +15150,11 @@
                           "type": "array",
                           "label": "Leakage supporting documents",
                           "columns": null,
-                          "options": [],
+                          "options": null,
                           "tooltip": "",
                           "elements": null,
                           "component": "file-upload-multiple",
-                          "attributes": null,
+                          "attributes": {},
                           "half_width": false,
                           "helper_text": "",
                           "display_order": 3,
