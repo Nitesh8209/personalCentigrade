@@ -79,22 +79,21 @@ test.describe('Field level validation', { tag: '@UI' }, async () => {
               await expect(stepElement).toBeVisible();
               await expect(stepElement).toBeEnabled();
               await stepElement.click();
-              await expect(await fieldHandler.title()).toBeVisible({timeout: 20000});
 
               const discard = await fieldHandler.discardButton()
-              if (await discard.isVisible()) {
+              const modalVisible = await discard.waitFor({ state: 'visible', timeout: 2000 })
+                .then(() => true)
+                .catch(() => false);
+
+              if (modalVisible) {
                 await discard.click();
               }
+              await expect(await fieldHandler.title()).toBeVisible({timeout: 20000});
+              await expect(await fieldHandler.title()).toHaveText(step.label);
             })
 
             test(`Validate Fields Are Hidden Until Display Dependencies Are Completed for Step: ${step.label}`, async () => {
               const errors = [];
-
-              // Discard any unsaved changes
-              const discard = await fieldHandler.discardButton()
-              if (await discard.isVisible()) {
-                await discard.click();
-              }
 
               // Iterate over each section in the step
               for (const section of step.sections) {

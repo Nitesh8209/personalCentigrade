@@ -777,8 +777,8 @@ export class FieldHandler {
         value = 'United States of America';
         if(!(await locator.locator('.autocomplete-control').innerText()).includes(value)){
         await locator.locator('.autocomplete-control').click();
-        await locator.locator('input').fill(value);
         await expect(await this.page.locator('.autocomplete-menu')).toBeVisible();
+        await locator.locator('input').fill(value);
         await this.page.locator('.autocomplete-option').click();
         await this.page.locator('.step-title').click();
         }
