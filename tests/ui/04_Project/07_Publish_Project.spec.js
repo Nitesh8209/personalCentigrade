@@ -140,6 +140,7 @@ test.describe('Fill All Required Fields and Save', { tag: ['@UI', '@SMOKE'] }, (
           // Ensure step is visible and click on it
           await expect(stepElement).toBeVisible();
           await stepElement.click();
+          await expect(await fieldHandler.title()).toBeVisible({timeout: 20000});
         })
 
         test(`Complete and Save All Fields for Step: ${step.label}`, async () => {
