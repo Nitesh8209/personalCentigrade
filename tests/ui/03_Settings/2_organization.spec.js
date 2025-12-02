@@ -194,6 +194,7 @@ test('Verify unsaved changes modal on Settings - Organization page', async () =>
     const errors = [];
     const cancelButton = await settingsPage.cancelButton();
     const selectedValues = await settingsPage.orgfunctiondropdownsaelected();
+    const actualSelectedTexts = await selectedValues.allTextContents();
     const optionsToSelect = ['Sponsor', 'Registry', 'Auditor'];
 
     const visibleCancel = await cancelButton.isEnabled();
@@ -208,7 +209,7 @@ test('Verify unsaved changes modal on Settings - Organization page', async () =>
     const modalCancelButton = await settingsPage.modalCancelButton();
     await safeExpect('State after click on cancel button in the unsaved changes modal', async () => {
       await modalCancelButton.click();
-      await expect(selectedValues.sort()).toContainText(optionsToSelect.sort());
+      await expect(actualSelectedTexts.sort()).toEqual(optionsToSelect.sort());
       await expect(await settingsPage.cancelButton()).toBeEnabled();
       await expect(await settingsPage.saveButton()).toBeEnabled();
     }, errors);
