@@ -83,7 +83,7 @@ export const quickLinkGroupData = [
      * - helperText: Description text shown to users
      * - checked: Default state of the feature flag
      */
-export const featureFlagTestProjectGuid = "Z0EqNtflzy";
+export const featureFlagTestProjectGuid = "GbtF3zBBwH";
 export const featureFlagsTestData = [
         {
             label: "project.ai_summaries",
