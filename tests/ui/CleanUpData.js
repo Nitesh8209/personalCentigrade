@@ -41,7 +41,7 @@ export default async function globalTeardown() {
   const publishProjectDeleteResponse = await deleteRequest(publishProjectUrl, headers);
   console.log(publishProjectDeleteResponse)
 
-  BuyerHeaders = {
+  const BuyerHeaders = {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${accessToken}`,
     'x-centigrade-organization-id': 409

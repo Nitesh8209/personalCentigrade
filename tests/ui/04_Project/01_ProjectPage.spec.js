@@ -255,7 +255,7 @@ test.describe('Project Page', { tag: '@UI' }, () => {
         await cancel.click();
 
         await createProjectButton.click();
-        await expect(await projectsPage.selectedMethodology()).toHaveText('');
+        await expect(await projectsPage.selectedMethodology()).toHaveText('Select a methodology');
       },
       errors
     )
