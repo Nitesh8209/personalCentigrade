@@ -41,9 +41,14 @@ export default async function globalTeardown() {
   const publishProjectDeleteResponse = await deleteRequest(publishProjectUrl, headers);
   console.log(publishProjectDeleteResponse)
 
-  const { BuyerprojectId } = getData('UI');
-  const BuyerProjectUrl = `${API_ENDPOINTS.createProject}/${BuyerprojectId}`
-  const BuyerProjectDeleteResponse = await deleteRequest(BuyerProjectUrl, headers);
+  BuyerHeaders = {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${accessToken}`,
+    'x-centigrade-organization-id': 409
+  };
+  const { BuyerprojectGuid } = getData('UI');
+  const BuyerProjectUrl = `${API_ENDPOINTS.modularbenefitprojectguid(BuyerprojectGuid)}`
+  const BuyerProjectDeleteResponse = await deleteRequest(BuyerProjectUrl, BuyerHeaders);
   console.log(BuyerProjectDeleteResponse)
 
 
