@@ -3,7 +3,7 @@ import path from 'path';
 import { LoginPage } from '../../../pages/loginPage';
 import { ProjectsPage } from '../../../pages/projectsPage';
 import { FieldHandler } from '../../utils/fieldValidation';
-import { getData } from '../../utils/apiHelper';
+import { getData, saveData } from '../../utils/apiHelper';
 import * as fs from 'fs';
 import { safeExpect } from "../../utils/authHelper";
 import { methodologyOptions, project } from '../../data/projectData';
@@ -61,7 +61,15 @@ test.describe('project creation', { tag: ['@UI', '@SMOKE'] }, () => {
     await safeExpect('click on save and verify the project is display',
       async () => {
         const create = await projectsPage.createButton();
-        await create.click();
+        const [ response ] = await Promise.all([
+          page.waitForResponse(resp => resp.url().includes('/project')),
+          await create.click()
+        ])
+
+        const responseBody = await response.json();
+        const projectId = responseBody.id;
+        await saveData({ publishProjectId: projectId}, "UI");
+
         await page.waitForURL('**/projects/**/overview');
         await page.waitForLoadState('networkidle');
 

@@ -36,6 +36,15 @@ export default async function globalTeardown() {
   const response = await deleteRequest(projectUrl, headers);
   console.log(response)
 
+  const { publishProjectId } = getData('UI');
+  const publishProjectUrl = `${API_ENDPOINTS.createProject}/${publishProjectId}`
+  const publishProjectDeleteResponse = await deleteRequest(publishProjectUrl, headers);
+  console.log(publishProjectDeleteResponse)
+
+  const { BuyerprojectId } = getData('UI');
+  const BuyerProjectUrl = `${API_ENDPOINTS.createProject}/${BuyerprojectId}`
+  const BuyerProjectDeleteResponse = await deleteRequest(BuyerProjectUrl, headers);
+  console.log(BuyerProjectDeleteResponse)
 
   // delete the organization AutomationUi
   headers = {
