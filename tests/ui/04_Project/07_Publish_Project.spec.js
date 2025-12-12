@@ -68,8 +68,10 @@ test.describe('project creation', { tag: ['@UI', '@SMOKE'] }, () => {
 
         const responseBody = await response.json();
         const projectId = responseBody.id;
+        const projectGuid = responseBody.guid;
         await saveData({ publishProjectId: projectId}, "UI");
-        
+        await saveData({publishProjectGuid: projectGuid}, "UI");
+
         await page.waitForURL('**/projects/**/overview');
         await page.waitForLoadState('networkidle');
 
