@@ -892,7 +892,7 @@ class ProjectsPage {
     }
 
     async unpublishTrigger(){
-        return await this.page.locator("button.dropdown-trigger")
+        return await this.page.locator(".project-actions .dropdown-trigger")
     }
 
     async unPublishButton() {

@@ -149,7 +149,10 @@ test.describe('Project Page', { tag: '@UI' }, () => {
     );
 
     const responseBody = await response.json();
-     expectedDescriptions = responseBody.map(item => item.description);
+    const filteredResponse = await responseBody.filter(item =>
+      item.type === "methodology"
+    );
+     expectedDescriptions = filteredResponse.map(item => item.description);
 
     const methodologytrigger = await projectsPage.methodologytrigger();
     const methodologymenu = await projectsPage.methodologymenu();
@@ -176,20 +179,20 @@ test.describe('Project Page', { tag: '@UI' }, () => {
 
     await safeExpect('Select different Metholodogies',
       async () => {
-        for (let i = 0; i < expectedDescriptions.length; i++) {
+        for (let i = 0; i < filteredResponse.length; i++) {
           const methodologydropdown = await projectsPage.methodologyDropdown();
           const Visiblelistbox = await methodologydropdown.isVisible();
 
           if (!Visiblelistbox) {
             await methodologytrigger.click();
           }
-          const item = expectedDescriptions[i];
-          const id = responseBody[i].id;
+          const item = filteredResponse[i];
+          const id = filteredResponse[i].id;
           await expect(await projectsPage.methodologyselectbyid(id)).toBeVisible();
           const selectOption = await projectsPage.methodologyselectbyid(id);
           await selectOption.click();
           await expect(methodologymenu).not.toBeVisible();
-          await expect(await projectsPage.selectedMethodology()).toHaveText(item);
+          await expect(await projectsPage.selectedMethodology()).toHaveText(item.description);
         }
       },
       errors
@@ -252,7 +255,7 @@ test.describe('Project Page', { tag: '@UI' }, () => {
         await cancel.click();
 
         await createProjectButton.click();
-        await expect(await projectsPage.selectedMethodology()).toHaveText('');
+        await expect(await projectsPage.selectedMethodology()).toHaveText('Select a methodology');
       },
       errors
     )
