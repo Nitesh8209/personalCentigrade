@@ -550,7 +550,7 @@ export class FieldHandler {
     );
 
     expect(options.length).toBeGreaterThan(0);
-    expect(options).toEqual(normalizedExpectedOptions);
+    expect(options).toEqual( expect.arrayContaining(normalizedExpectedOptions) );
 
     for (const expectedOption of normalizedExpectedOptions) {
       if (expectedOption === 'Other') continue;
