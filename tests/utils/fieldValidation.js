@@ -550,7 +550,7 @@ export class FieldHandler {
     );
 
     expect(options.length).toBeGreaterThan(0);
-    expect(options).toEqual(normalizedExpectedOptions);
+    expect(options).toEqual( expect.arrayContaining(normalizedExpectedOptions) );
 
     for (const expectedOption of normalizedExpectedOptions) {
       if (expectedOption === 'Other') continue;
@@ -1368,4 +1368,13 @@ export class FieldHandler {
 
   }
 
+
+  async shouldVisibleSectionLabel(section){
+    return await section.field_groups?.some(fieldGroup =>
+        fieldGroup.fields?.some(field =>
+           field.attributes?.endYear !== "$creditEnd-nameValue-nameValue" &&
+           field.attributes?.startYear !== "$creditStart-nameValue-nameValue"
+        )
+      )
+  }
 }

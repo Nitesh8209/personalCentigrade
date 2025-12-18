@@ -36,16 +36,21 @@ export default async function globalTeardown() {
   const response = await deleteRequest(projectUrl, headers);
   console.log(response)
 
-  const { publishProjectId } = getData('UI');
-  const publishProjectUrl = `${API_ENDPOINTS.createProject}/${publishProjectId}`
-  const publishProjectDeleteResponse = await deleteRequest(publishProjectUrl, headers);
-  console.log(publishProjectDeleteResponse)
-
-  const { BuyerprojectId } = getData('UI');
-  const BuyerProjectUrl = `${API_ENDPOINTS.createProject}/${BuyerprojectId}`
-  const BuyerProjectDeleteResponse = await deleteRequest(BuyerProjectUrl, headers);
+  const GuidHeaders = {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${accessToken}`,
+    'x-centigrade-organization-id': 409
+  };
+  const { BuyerprojectGuid } = getData('UI');
+  const BuyerProjectUrl = `${API_ENDPOINTS.createProjectguid(BuyerprojectGuid)}`
+  const BuyerProjectDeleteResponse = await deleteRequest(BuyerProjectUrl, GuidHeaders);
   console.log(BuyerProjectDeleteResponse)
 
+  const { publishProjectGuid } = getData('UI');
+  const publishProjectUrl = `${API_ENDPOINTS.createProjectguid(publishProjectGuid)}`
+  const publishProjectGuidDeleteResponse = await deleteRequest(publishProjectUrl, GuidHeaders);
+  console.log(publishProjectGuidDeleteResponse)
+  
   // delete the organization AutomationUi
   headers = {
     'Content-Type': 'application/x-www-form-urlencoded',
@@ -63,7 +68,7 @@ export default async function globalTeardown() {
   const organizationResponseBody = await organizationResponse.json()
   console.log(organizationResponseBody)
   expect(organizationResponse.status).toBe(200);
-  if(organizationResponseBody[0]?.id){
+  if (organizationResponseBody[0]?.id) {
     const organizationId = organizationResponseBody[0].id; // Assuming the response contains an array of organizations
     const deleteOrganizationUrl = `${API_ENDPOINTS.organization}/${organizationId}`;
     const deleteOrganizationHeaders = {
@@ -82,7 +87,7 @@ export default async function globalTeardown() {
   const automationApiResponsebody = await automationApiResponse.json()
   console.log(automationApiResponsebody)
   expect(automationApiResponse.status).toBe(200);
-  if(automationApiResponsebody[0]?.id){
+  if (automationApiResponsebody[0]?.id) {
     const organizationId = automationApiResponsebody[0].id; // Assuming the response contains an array of organizations
     const deleteOrganizationUrl = `${API_ENDPOINTS.organization}/${organizationId}`;
     const deleteOrganizationHeaders = {
