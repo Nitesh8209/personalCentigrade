@@ -48,7 +48,7 @@ export class ListingOverviewPage {
   }
 
   async summaryPanel() {
-    return await this.page.locator('.SummaryPanel');
+    return await this.page.locator('.overview-right-panel');
   }
 
   async quickLinkGroup() {
