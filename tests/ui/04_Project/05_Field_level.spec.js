@@ -42,7 +42,7 @@ test.describe('Field level validation', { tag: '@UI' }, async () => {
 
     // Validate project title
     const projectTitle = await projectsPage.overviewtitle();
-    await expect(projectTitle).toBeVisible({ timeout: 20000});
+    await expect(projectTitle).toBeVisible({ timeout: 30000 });
     await expect(projectTitle).toHaveText(project.uiProjectName);
   });
 

@@ -269,13 +269,8 @@ export class FieldHandler {
         for (const option of field.options) {
           const selectedValuesText = await locator.textContent();
           if (selectedValuesText.includes(option)) continue;
-          const optionLocator = listbox.locator(`text="${option}"`);
+          const optionLocator = listbox.getByText(option, { exact: true });
           await expect(optionLocator).toBeVisible();
-          await optionLocator.evaluate(el => {
-            const rect = el.getBoundingClientRect();
-            const middleY = window.innerHeight / 2;
-            window.scrollBy({ top: rect.top - middleY, behavior: 'instant' });
-          });
           await optionLocator.click();
         }
         await indicator.click();
@@ -752,11 +747,6 @@ export class FieldHandler {
           
           const optionLocator = listbox.locator(`text="${option}"`);
           await expect(optionLocator).toBeVisible();
-          await optionLocator.evaluate(el => {
-            const rect = el.getBoundingClientRect();
-            const middleY = window.innerHeight / 2;
-            window.scrollBy({ top: rect.top - middleY, behavior: 'instant' });
-          });
           await optionLocator.click();
           value.push(option);
         }
