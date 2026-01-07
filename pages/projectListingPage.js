@@ -297,8 +297,7 @@ export class ProjectListings {
     } else {
       return false;
     }
-
-
+  }
 
     async keyFactorRow(label) {
       // Locate label cell
