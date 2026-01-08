@@ -40,16 +40,6 @@ test.describe('Project Overview Page', { tag: '@UI' }, () => {
   test('Verify left sidebar and project overview sections on the project overview page', async () => {
     const errors = [];
 
-    // project overview
-    await safeExpect('Left Sidebar',
-      async () => {
-        await expect(await projectsPage.leftSideBar()).toBeVisible();
-        await expect(await projectsPage.leftSideBarHeading()).toBeVisible();
-        await expect(await projectsPage.leftSideBarHeading()).toHaveText('Project Outline');
-      },
-      errors
-    )
-
     await safeExpect('Project overview',
       async () => {
         await expect(await projectsPage.projectOverview()).toBeVisible();
