@@ -284,14 +284,17 @@ async fieldDisplayOrder(order, fieldGroup, field) {
     }
   }
 
-  async contentOverviewFieldLocator(field, step){
-    if(step.name === 'keyFactors'){
-      return this.page.locator('.flex.flex-col.gap-sm', { hasText: 'Key factors' });
-    }else if(step.name === 'keyDifferentiators'){
-      return this.page.locator('.KeyDifferentiatorContainer');
-    }else if(step.name === 'creditSummary' && field.view_component === 'block-table'){
-      return this.page.locator('.content').locator('.Summary__content');
-    }else{
+  async contentOverviewFieldLocator(field, step) {
+    if (step.name === 'keyFactors') {
+      return this.page.locator('.key-factors');
+    } else if (step.name === 'keyDifferentiators') {
+      const index = Math.floor(field.display_order / 3); // 3 fields per differentiator
+      return this.page
+        .locator('.key-differentiator')
+        .nth(index);
+    } else if (step.name === 'creditSummary' && field.view_component === 'block-table') {
+      return this.page.locator('.overview-right-panel').locator('.Summary__content');
+    } else {
       return false;
     }
 
@@ -300,11 +303,11 @@ async fieldDisplayOrder(order, fieldGroup, field) {
 
   async keyFactorRow(label) {
     // Locate label cell
-    const rowLabel = await this.page.locator('.key-value-table .flex.bg-subtle', { hasText: label });
+    const rowLabel = await this.page.locator('.kv-pair > dt', { hasText: label });
     // Its next sibling is the value cell
-    const rowValue = await rowLabel.locator('xpath=following-sibling::div[1]');
+    const rowValue = await rowLabel.locator('xpath=following-sibling::dd[1]');
     return { rowLabel, rowValue };
-    }
+  }
 
   async overViewFieldValue(field, locator, step) {
 
@@ -324,27 +327,53 @@ async fieldDisplayOrder(order, fieldGroup, field) {
           await expect(rowValue).toHaveText(value);
 
         } else if (value && field.component === 'select-multiple') {
-          // For multiple values
-          const parseValue = JSON.parse(value);
-          const listItems = rowValue.locator('ul > li');
-          const textContent = await listItems.allTextContents();
-          await expect(textContent).toEqual(parseValue);
-        }
-        break;
-         
-      case 'keyDifferentiators':
-        const value2 = await getFieldValue(field.name);
+          const parsedValue = JSON.parse(value);
 
-        if(value2){
-          await expect(await locator.getByText(value2)).toBeVisible();
-          await expect(await locator.getByText(value2)).toHaveText(value2);
+          // Locate pill labels inside the value cell
+          const pillLabels = rowValue.locator('.pill__label');
+          const textContent = await pillLabels.allTextContents();
+
+          // Trim spaces for safety
+          const normalizedText = textContent.map(t => t.trim());
+
+          await expect(normalizedText).toEqual(parsedValue);
         }
         break;
 
-      case 'creditSummary' :
-          await this.validateBlockTable(field, locator);
+      case 'keyDifferentiators': {
+        const value = await getFieldValue(field.name);
+        if (!value) break;
+
+        switch (field.component) {
+
+          case 'text-input': {
+            const titleLocator = locator.locator('.text-label-primary', { hasText: value });
+            await expect(titleLocator).toBeVisible();
+            await expect(titleLocator).toHaveText(value);
+            break;
+          }
+
+          case 'rich-text': {
+            const detailsLocator = locator.locator('.text-body-primary');
+            await expect(detailsLocator).toContainText(value);
+            break;
+          }
+
+          case 'file-upload': {
+            // Assuming image/video preview exists
+            const mediaLocator = locator.locator('img, video');
+            await expect(mediaLocator).toBeVisible();
+            break;
+          }
+        }
+
         break;
-  }
+      }
+
+      case 'creditSummary':
+        await this.validateBlockTable(field, locator);
+        break;
+    }
   }
 
   async contentField(field, locator){  
