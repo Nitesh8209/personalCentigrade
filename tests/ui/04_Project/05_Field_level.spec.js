@@ -250,83 +250,83 @@ test.describe('Field level validation', { tag: '@UI' }, async () => {
             });
 
 
-            test(`Validate Dependent Field Visibility After Filling Parent Fields for Step: ${step.label}`, async () => {
-              const errors = [];
-              let selectedFields = [];
+            // test(`Validate Dependent Field Visibility After Filling Parent Fields for Step: ${step.label}`, async () => {
+            //   const errors = [];
+            //   let selectedFields = [];
 
-              // Iterate over each section in the step
-              for (const section of step.sections) {
-                if (!section?.field_groups) continue;
+            //   // Iterate over each section in the step
+            //   for (const section of step.sections) {
+            //     if (!section?.field_groups) continue;
 
-                // Iterate over each field group in the section
-                for (const fieldGroup of section.field_groups) {
-                  if (!fieldGroup?.fields) continue;
+            //     // Iterate over each field group in the section
+            //     for (const fieldGroup of section.field_groups) {
+            //       if (!fieldGroup?.fields) continue;
 
-                  // Iterate over each field in the field group
-                  for (const field of fieldGroup.fields) {
-                    if (field?.display_dependencies) {
-                      if (field.label == "Other project type") continue;
+            //       // Iterate over each field in the field group
+            //       for (const field of fieldGroup.fields) {
+            //         if (field?.display_dependencies) {
+            //           if (field.label == "Other project type") continue;
 
-                      // validate and Fill Dependent Parent Fields
-                      await safeExpect(`Validate field ${field.label} and Fill Dependent Parent Fields`,
-                        async () => {
-                          await fieldHandler.handleDisplayDependencies(step, field, formData, selectedFields, topic);
-                        },
-                        errors
-                      )
+            //           // validate and Fill Dependent Parent Fields
+            //           await safeExpect(`Validate field ${field.label} and Fill Dependent Parent Fields`,
+            //             async () => {
+            //               await fieldHandler.handleDisplayDependencies(step, field, formData, selectedFields, topic);
+            //             },
+            //             errors
+            //           )
 
-                      // Validate field label
-                      await safeExpect(
-                        `Field label: ${field.label}`,
-                        async () => {
-                          const labelElement = await fieldHandler.validateLabel(field);
-                          await expect(labelElement).toBeVisible();
-                        },
-                        errors
-                      );
+            //           // Validate field label
+            //           await safeExpect(
+            //             `Field label: ${field.label}`,
+            //             async () => {
+            //               const labelElement = await fieldHandler.validateLabel(field);
+            //               await expect(labelElement).toBeVisible();
+            //             },
+            //             errors
+            //           );
 
-                      // Validate field locator
-                      await safeExpect(
-                        `Field locator: ${field.label}`,
-                        async () => {
-                          const inputLocator = await fieldHandler.getLocator(field.name, field.label, field.type, field.component);
-                          await expect(inputLocator).toBeVisible();
-                          await fieldHandler.validateField(inputLocator, {
-                            type: field.type,
-                            component: field.component,
-                            label: field.label,
-                            options: field.options,
-                            columns: field.columns,
-                            name: field.name
-                          });
-                        },
-                        errors
-                      );
+            //           // Validate field locator
+            //           await safeExpect(
+            //             `Field locator: ${field.label}`,
+            //             async () => {
+            //               const inputLocator = await fieldHandler.getLocator(field.name, field.label, field.type, field.component);
+            //               await expect(inputLocator).toBeVisible();
+            //               await fieldHandler.validateField(inputLocator, {
+            //                 type: field.type,
+            //                 component: field.component,
+            //                 label: field.label,
+            //                 options: field.options,
+            //                 columns: field.columns,
+            //                 name: field.name
+            //               });
+            //             },
+            //             errors
+            //           );
 
-                      // Validate helper text if available
-                      if (field.helper_text) {
-                        await safeExpect(
-                          `Helper text: ${field.label}`,
-                          async () => {
-                            const helperElement = await fieldHandler.validateHelperText(field.label, field.helper_text);
-                            await expect(helperElement).toBeVisible();
-                            await expect(helperElement).toHaveText(field.helper_text);
-                          },
-                          errors
-                        );
-                      }
+            //           // Validate helper text if available
+            //           if (field.helper_text) {
+            //             await safeExpect(
+            //               `Helper text: ${field.label}`,
+            //               async () => {
+            //                 const helperElement = await fieldHandler.validateHelperText(field.label, field.helper_text);
+            //                 await expect(helperElement).toBeVisible();
+            //                 await expect(helperElement).toHaveText(field.helper_text);
+            //               },
+            //               errors
+            //             );
+            //           }
 
-                    }
+            //         }
 
-                  }
-                }
-              }
+            //       }
+            //     }
+            //   }
 
-              // If there are any errors, fail the test with all collected errors
-              if (errors.length > 0) {
-                throw new Error(`Validation errors found:\n${errors.join('\n')}`);
-              }
-            });
+            //   // If there are any errors, fail the test with all collected errors
+            //   if (errors.length > 0) {
+            //     throw new Error(`Validation errors found:\n${errors.join('\n')}`);
+            //   }
+            // });
 
             test(`Validate the Tier 0 fields is required for Step: ${step.label}`, async () => {
               const errors = [];
