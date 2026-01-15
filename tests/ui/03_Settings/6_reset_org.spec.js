@@ -5,7 +5,7 @@ import { FeatureFlags } from "../../../pages/feature_Flags";
 import { LoginPage } from "../../../pages/loginPage";
 
 
-test.describe('reset organization - Jedi Panel', { tag: '@UI' }, () => {
+test.describe('reset organization - Jedi Panel', { tag: ['@settings', '@UI'] }, () => {
 
     // Test fixtures and page objects
     let page;

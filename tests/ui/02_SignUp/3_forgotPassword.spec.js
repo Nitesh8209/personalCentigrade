@@ -5,7 +5,7 @@ import { inValidTestData } from '../../data/SignUpData';
 import API_ENDPOINTS from '../../../api/apiEndpoints';
 import { ForgotPasswordPage } from '../../../pages/forgotPasswordPage';
  
-test.describe('Forgot password Page UI Tests', { tag: '@UI' }, () => {
+test.describe('Forgot password Page UI Tests', { tag: ['@signup', '@UI'] }, () => {
     let page;
     let loginPage;
     let forgotPasswordPage;

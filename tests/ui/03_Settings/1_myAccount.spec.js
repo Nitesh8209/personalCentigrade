@@ -6,7 +6,7 @@ import { getData } from '../../utils/apiHelper';
 import { safeExpect } from '../../utils/authHelper';
 
 
-test.describe('Settings - My Account Page UI Tests', { tag: '@UI' }, () => {
+test.describe('Settings - My Account Page UI Tests', { tag: ['@settings', '@UI'] }, () => {
   const { newEmail } = getData('UI');
 
   let loginPage;
