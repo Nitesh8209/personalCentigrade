@@ -2,7 +2,8 @@ export const project = {
   projectName: "Automation Api Project",
   uiProjectName: "Automation new Ui Project",
   buyerProject: 'Automation Buyer Project',
-  deleteProject: 'Automation Delete Project'
+  deleteProject: 'Automation Delete Project',
+  frameworkProjectName: 'Automation Framework Test'
 };
 
 export const authStates = [

@@ -116,6 +116,24 @@ export const featureFlagsTestData = [
             checked: false
         }
     ];
+
+export const FRAMEWORKS = [
+        'Socio-environmental data framework',
+        "NICC's North American tribe-focused framework",
+        'Carbon Data Open Protocol',
+        'Carbon credit data framework',
+        'Climate, Community & Biodiversity Standards Framework',
+      ];
+    
+export const FRAMEWORK_MENU_ITEMS = [
+        'All fields',
+        'RMI seccdf',
+        'CCB Standards',
+        'NICC Framework',
+        'cdop',
+        'RMI ccdf',
+        'Add or remove frameworks',
+      ];
  
 
 export const API_BASE_URL =

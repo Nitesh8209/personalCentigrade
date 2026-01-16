@@ -257,6 +257,13 @@ globalSetup: require.resolve('./tests/global-setup'),
       dependencies: ['PublishProject'],
     },
     {
+      name: 'Frameworks',
+      testMatch: ['ui/04_Project/11_Frameworks.spec.js'],
+      use: { ...devices['Desktop Chrome'] },
+      fullyParallel: false,
+      dependencies: ['ProjectPage'],
+    },
+    {
       name: 'buyerPublishProject',
       testMatch: [ 'ui/05_Buyer/0_publishProject.spec.js'],
       use: { 
