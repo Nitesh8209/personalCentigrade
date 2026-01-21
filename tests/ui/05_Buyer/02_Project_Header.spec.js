@@ -13,7 +13,7 @@ import { projectPublishCredentials } from '../../data/testData';
 import { getGmailMessages } from '../../utils/signUpHelper';
 
 
-test.describe('Project Header - UI and Navigation for Unauthenticated Users', { tag: '@UI' }, async () => {
+test.describe('Project Header - UI and Navigation for Unauthenticated Users', { tag: ['@projectViewUi', '@UI'] }, async () => {
 
   let page;
 
@@ -116,7 +116,7 @@ test.describe('Project Header - UI and Navigation for Unauthenticated Users', { 
 
 
 // after Login 
-test.describe('Project Header - UI and Navigation for Authenticated Users', { tag: '@UI' }, async () => {
+test.describe('Project Header - UI and Navigation for Authenticated Users', { tag: ['@projectViewUi', '@UI'] }, async () => {
   const { newEmail } = getData('UI');
   const authStoragePath = path.join(__dirname, '..', '..', 'data', 'project-buyer-auth.json');
 

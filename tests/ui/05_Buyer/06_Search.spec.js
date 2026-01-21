@@ -9,7 +9,7 @@ import { SearchModal } from "../../../pages/searchModal";
 import { AiSearch } from "../../../pages/aiSearch";
 
 // Test suite for search functionality in the buyer view
-test.describe('Search Functionlity in the Public view', { tag: '@UI' }, async () => {
+test.describe('Search Functionlity in the Public view', { tag: ['@projectViewUi', '@UI'] }, async () => {
   const { BuyerprojectGuid } = getData('UI');
 
   let page;
@@ -36,7 +36,7 @@ test.describe('Search Functionlity in the Public view', { tag: '@UI' }, async ()
 })
 
 // Test suite for search functionality in the buyer view
-test.describe('Search Functionlity in the buyer view', { tag: '@UI' }, async () => {
+test.describe('Search Functionlity in the buyer view', { tag: ['@projectViewUi', '@UI'] }, async () => {
   // Retrieve test data for new email and set up credentials object
   const { newEmail , BuyerprojectGuid} = getData('UI');
   const credentials = {

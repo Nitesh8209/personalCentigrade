@@ -9,7 +9,7 @@ import { safeExpect } from "../../utils/authHelper";
 import { projectValidationCredentials } from "../../data/testData";
 
 
-test.describe('Project Page', { tag: '@UI' }, () => {
+test.describe('Project Page', { tag: ['@projectFormUi', '@UI'] }, () => {
 
   let page;
   

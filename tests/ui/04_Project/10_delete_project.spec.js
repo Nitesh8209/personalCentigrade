@@ -5,7 +5,7 @@ import { methodologyOptions, project } from "../../data/projectData";
 import { Credentials, projectPublishCredentials } from "../../data/testData";
 import { safeExpect } from "../../utils/authHelper";
 
-test.describe('Delete Project Test cases', () => {
+test.describe('Delete Project Test cases', { tag: ['@projectFormUi', '@UI'] }, () => {
 
   test.describe('create project and delete project by Admin', () => {
     let page;

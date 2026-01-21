@@ -8,7 +8,7 @@ import { LoginPage } from "../../../pages/loginPage";
 import path from "path";
 import { DataRoomTestdata } from "../../data/testData";
 
-test.describe("test for data Room for invite", { tag: ['@UI', '@SMOKE'] }, () => {
+test.describe("test for data Room for invite", { tag: ['@dataRoomUi', '@UI', '@SMOKE'] }, () => {
   const authStoragePath = path.join(
     __dirname,
     "..",
@@ -377,7 +377,7 @@ test.describe("test for data Room for invite", { tag: ['@UI', '@SMOKE'] }, () =>
 
 });
 
-test.describe('UnPublish Project', { tag: ['@UI', '@SMOKE'] }, () => {
+test.describe('UnPublish Project', { tag: ['@dataRoomUi', '@UI', '@SMOKE'] }, () => {
   let projectsPage;
   let fieldHandler;
   let page;

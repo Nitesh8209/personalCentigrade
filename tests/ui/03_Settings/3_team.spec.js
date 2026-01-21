@@ -8,7 +8,7 @@ import { getData } from '../../utils/apiHelper';
 import { safeExpect } from '../../utils/authHelper';
 
 
-test.describe('Settings - Team Page UI Tests', { tag: '@UI' }, () => {
+test.describe('Settings - Team Page UI Tests', { tag: ['@settingsUi', '@UI'] }, () => {
   const { newEmail, InviteEmail } = getData('UI');
 
   let loginPage;
@@ -683,7 +683,7 @@ test.describe('Settings - Team Page UI Tests', { tag: '@UI' }, () => {
 
 });
 
-test.describe('Settings - Team Page Functional Tests for Reject', { tag: ['@UI', '@SMOKE'] }, () => {
+test.describe('Settings - Team Page Functional Tests for Reject', { tag: ['@settingsUi', '@UI', '@SMOKE'] }, () => {
   const { newEmail } = getData('UI');
 
   test('Sign up a new user, reject the request, and verify rejection', async ({ page, baseURL }) => {

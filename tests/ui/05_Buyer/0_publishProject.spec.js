@@ -7,7 +7,7 @@ import { apiProjectCreadentials, Credentials, projectPublishCredentials } from "
 import { LoginPage } from '../../../pages/loginPage';
 const fs = require("fs");
 
-test.describe("fill all fields For validate listings buyer page", { tag: ['@UI', '@SMOKE'] }, async () => {
+test.describe("fill all fields For validate listings buyer page", { tag: ['@projectViewUi', '@UI', '@SMOKE'] }, async () => {
   let headers;
   let projectAccessToken;
   let projectId;
@@ -179,7 +179,7 @@ test.describe("fill all fields For validate listings buyer page", { tag: ['@UI',
 
 });
 
-test.describe('publish project after for validate listings buyer page', { tag: ['@UI', '@SMOKE'] }, () => {
+test.describe('publish project after for validate listings buyer page', { tag: ['@projectViewUi', '@UI', '@SMOKE'] }, () => {
   let headers;
   let projectId;
   let projectGuid;

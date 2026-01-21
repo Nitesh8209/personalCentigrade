@@ -7,7 +7,7 @@ import { project } from "../../data/projectData";
 import { FieldHandler } from "../../utils/fieldValidation";
 import { EntitiesInvolvedPage } from "../../../pages/entitiesInvolvedPage";
 
-test.describe("Entities involved in a project", { tag: ['@UI'] }, () => {
+test.describe("Entities involved in a project", { tag: ['@projectFormUi', '@UI'] }, () => {
 
   let page;
   let fieldHandler;

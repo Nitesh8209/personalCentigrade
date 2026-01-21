@@ -7,7 +7,7 @@ import { getData } from '../../utils/apiHelper';
 import { SettingsPage } from '../../../pages/settingsPage';
 import { ProjectsPage } from '../../../pages/projectsPage';
 
- test.describe('Edge cases for Sign Up', { tag: '@UI' }, () => {
+ test.describe('Edge cases for Sign Up', { tag: ['@signUpUi', '@UI'] }, () => {
 
   let page;
   let unVerifiedEmail;

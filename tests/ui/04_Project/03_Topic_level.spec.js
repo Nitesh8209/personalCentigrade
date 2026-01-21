@@ -14,7 +14,7 @@ const formDataPath = path.join(__dirname, '..', '..', 'data', 'form-data.json');
 const formData = JSON.parse(fs.readFileSync(formDataPath, 'utf-8'));
 
 // Test Suite for Topic and Step Visibility
-test.describe('Verify Topic and Step Visibility in Project Workflow', { tag: '@UI' }, () => {
+test.describe('Verify Topic and Step Visibility in Project Workflow', { tag: ['@projectFormUi', '@UI'] }, () => {
 
   // Load project ID 
   const { newEmail } = getData('UI');
