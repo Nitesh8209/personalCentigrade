@@ -193,7 +193,7 @@ export class FieldHandler {
   }
 
   async unsavedChangeModal() {
-    return await this.page.getByLabel('Unsaved changes');
+    return await this.page.getByRole('dialog');
   }
 
   async unsavedChangeHeading() {
@@ -270,8 +270,9 @@ export class FieldHandler {
           const selectedValuesText = await locator.textContent();
           if (selectedValuesText.includes(option)) continue;
           const optionLocator = listbox.getByText(option, { exact: true });
+          await optionLocator.scrollIntoViewIfNeeded();
           await expect(optionLocator).toBeVisible();
-          await optionLocator.click();
+          await optionLocator.click({ force: true });
         }
         await indicator.click();
         const finalSelectedValuesText = await locator.textContent();
@@ -509,7 +510,8 @@ export class FieldHandler {
   */
   async validateTextInput(locator, field) {
     const testValue = field.type === FIELD_TYPES.STRING ? 'Test Input' : '123';
-    await locator.fill(testValue);
+    await locator.clear();
+    await locator.type(testValue);
     await expect(locator).toHaveValue(testValue);
   }
 
@@ -887,28 +889,41 @@ export class FieldHandler {
    * Fill display dependency field 
    */
   async FillDisplayDependenciesField(locator, displayDependencyField, field) {
+  const dependency = field.display_dependencies[0];
+
+  // Extract IDs from pattern
+  const ids = this.extractIdsFromPattern(dependency.pattern);
+
+  // Resolve labels from options_obj
+  const labels = this.resolveOptionLabels(displayDependencyField, ids);
+
+  if (!labels.length) {
+    throw new Error(
+      `No matching options found for dependency field "${displayDependencyField.name}" with pattern "${dependency.pattern}"`
+    );
+  }
 
     switch (displayDependencyField.component) {
 
       case COMPONENT_TYPES.SELECT:
-        await this.fillSelectField(locator, displayDependencyField.label, field.display_dependencies[0]?.pattern);
+        await this.fillSelectField(locator, displayDependencyField.label, labels[0]);
         break;
 
       case COMPONENT_TYPES.SELECT_MULTIPLE:
-        const patterns = field.display_dependencies[0]?.pattern.split("|").map(p => p.trim()); // Split and trim values
-        for (const pattern of patterns) {
-          await this.fillMultiSelectField(locator, displayDependencyField.label, pattern);
+        // const patterns = field.display_dependencies[0]?.pattern.split("|").map(p => p.trim()); // Split and trim values
+        for (const label of labels) {
+          await this.fillMultiSelectField(locator, displayDependencyField.label, label);
         }
         break;
 
       case COMPONENT_TYPES.RADIO:
       case COMPONENT_TYPES.RADIOYN:
       case COMPONENT_TYPES.RADIOIDK:
-        await this.fillRadioField(locator, field.display_dependencies[0]?.pattern, displayDependencyField.label);
+        await this.fillRadioField(locator, labels[0], displayDependencyField.label);
         break;
 
       case COMPONENT_TYPES.CHECKBOX:
-        await this.fillCheckboxField(locator, field.component);
+        await this.fillCheckboxField(locator, displayDependencyField.component);
         break;
     }
   }
@@ -1367,4 +1382,20 @@ export class FieldHandler {
         )
       )
   }
+
+  extractIdsFromPattern(pattern) {
+    if (!pattern) return [];
+    const match = pattern.match(/\((.*?)\)/);
+    return match ? match[1].split('|').map(id => id.trim()) : [];
+  }
+
+  resolveOptionLabels(field, ids) {
+    if (!field?.options_obj?.length) return [];
+
+    return field.options_obj
+      .filter(opt => ids.includes(opt.id.toString()))
+      .map(opt => opt.label);
+  }
+
 }
+
