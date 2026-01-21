@@ -13,7 +13,7 @@ import { project } from "../../data/projectData";
 const viewDatapath = path.join(__dirname, '..', '..', 'data', 'view-data.json');
 export const viewData = JSON.parse(fs.readFileSync(viewDatapath, 'utf-8'));
 
-test.describe("Fields Level Validation - after Login", { tag: '@UI' }, () => {
+test.describe("Fields Level Validation - after Login", { tag: ['@projectViewUi', '@UI'] }, () => {
 
   const { BuyerprojectGuid } = getData('UI');
 

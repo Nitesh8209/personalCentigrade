@@ -7,7 +7,7 @@ import { ValidTestData } from '../../data/SignUpData';
 import { saveData } from '../../utils/apiHelper';
 import { CreateAccountPage } from '../../../pages/createAccountPage';
 
-test.describe('Create Account Page UI Tests', { tag: '@UI' }, () => {
+test.describe('Create Account Page UI Tests', { tag: ['@signUpUi', '@UI'] }, () => {
   let page;
   let loginPage;
   let createAccountPage;

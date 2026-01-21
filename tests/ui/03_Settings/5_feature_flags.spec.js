@@ -6,7 +6,7 @@ import { FeatureFlags } from "../../../pages/feature_Flags";
 import { verifyFeatureFlagByDefaultFunctionality, verifyFeatureFlagFunctionality } from "../../utils/featureFlag";
 
 
-test.describe('Feature Flags - Jedi Panel', { tag: '@UI' }, () => {
+test.describe('Feature Flags - Jedi Panel', { tag: ['@settingsUi', '@UI'] }, () => {
 
     // Test fixtures and page objects
     let page;

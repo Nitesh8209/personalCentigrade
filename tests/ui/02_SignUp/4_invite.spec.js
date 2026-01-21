@@ -6,7 +6,7 @@ import { getData, saveData } from '../../utils/apiHelper';
 import { LoginPage } from "../../../pages/loginPage";
 
 // Describe the test suite for awaiting-approval Page UI Tests
-test.describe('awaiting-approval Page UI Tests', { tag: ['@UI', '@SMOKE'] }, () => {
+test.describe('awaiting-approval Page UI Tests', { tag: ['@signUpUi','@UI', '@SMOKE'] }, () => {
 
   // Test to verify sign-up in an existing organization and navigation to the awaiting-approval page
   test('Verify sign-up in an existing organization and navigation to the awaiting-approval page', async ({ page, baseURL }) => {

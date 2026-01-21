@@ -11,7 +11,7 @@ import API_ENDPOINTS from '../../../api/apiEndpoints';
 import { ProjectsPage } from '../../../pages/projectsPage';
 import { safeExpect } from '../../utils/authHelper';
 
-test.describe('Create Account Page UI Tests', { tag: '@UI' }, () => {
+test.describe('Create Account Page UI Tests', { tag: ['@signUpUi', '@UI'] }, () => {
   let newEmail;
   let page;
   let receivedVerificationCode;
@@ -325,7 +325,7 @@ test.describe('Create Account Page UI Tests', { tag: '@UI' }, () => {
 
 });
 
-test.describe('Set Member to Admin', { tag: '@UI' }, () => {
+test.describe('Set Member to Admin', { tag: ['@signUpUi', '@UI'] }, () => {
   let data ;
   test.beforeAll(async ()=>{
      data = getData('UI');

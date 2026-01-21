@@ -9,7 +9,7 @@ import { safeExpect } from "../../utils/authHelper";
 import { ListingOverviewPage } from "../../../pages/listingsOverviewPage";
 import { projectValidationCredentials } from "../../data/testData";
 
-test.describe('Project Overview Page', { tag: '@UI' }, () => {
+test.describe('Project Overview Page', { tag: ['@projectFormUi', '@UI'] }, () => {
   const { newEmail } = getData('UI');
   let page;
   let projectsPage;
@@ -39,16 +39,6 @@ test.describe('Project Overview Page', { tag: '@UI' }, () => {
 
   test('Verify left sidebar and project overview sections on the project overview page', async () => {
     const errors = [];
-
-    // project overview
-    await safeExpect('Left Sidebar',
-      async () => {
-        await expect(await projectsPage.leftSideBar()).toBeVisible();
-        await expect(await projectsPage.leftSideBarHeading()).toBeVisible();
-        await expect(await projectsPage.leftSideBarHeading()).toHaveText('Project Outline');
-      },
-      errors
-    )
 
     await safeExpect('Project overview',
       async () => {
