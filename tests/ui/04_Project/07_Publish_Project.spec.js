@@ -54,6 +54,9 @@ test.describe('project creation', { tag: ['@projectFormUi', '@UI', '@SMOKE'] }, 
         await selectmethodologyOptions.click();
         await expect(await projectsPage.selectedMethodology()).toHaveText(selectedMethodology);
 
+        await expect(await projectsPage.radioGroup).toBeVisible();
+        await projectsPage.enableAutoFillRadio.click();
+        await expect(await projectsPage.enableAutoFillInput).toBeChecked();
       },
       errors
     );

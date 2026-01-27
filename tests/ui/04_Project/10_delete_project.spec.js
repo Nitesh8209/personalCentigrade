@@ -48,6 +48,10 @@ test.describe('Delete Project Test cases', { tag: ['@projectFormUi', '@UI'] }, (
         const selectmethodologyOptions = await projectsPage.methodologyselectOption(selectedMethodology);
         await selectmethodologyOptions.click();
         await expect(await projectsPage.selectedMethodology()).toHaveText(selectedMethodology);
+
+        await expect(await projectsPage.radioGroup).toBeVisible();
+        await projectsPage.enableAutoFillRadio.click();
+        await expect(await projectsPage.enableAutoFillInput).toBeChecked();
       }, errors);
 
       await safeExpect("Save Project and Verify Navigation", async () => {
