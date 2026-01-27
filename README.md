@@ -120,3 +120,16 @@ You can trigger tests with specific tags via **CircleCI Parameters**.
 
 - To run **ALL tests**:
     - No Need to add any parameter               
+
+### UI Feature Tags
+
+| Feature | Tags |
+|------|-----|
+| Login UI | `@loginUi`, `@UI` |
+| Signup UI | `@signUpUi`, `@UI` |
+| Settings UI | `@settingsUi`, `@UI` |
+| Project Form UI | `@projectFormUi`, `@UI` |
+| Project View UI | `@projectViewUi`, `@UI`, `@SMOKE` |
+| Data Room UI | `@dataRoomUi`, `@UI`, `@SMOKE` |
+| AI Summary UI | `@aiSummaryUi`, `@UI` |
+   
