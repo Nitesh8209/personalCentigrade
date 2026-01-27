@@ -41,59 +41,107 @@ const COMPONENT_TYPES = {
 const generateFieldData = (field, fileData = null, fileTierFilter = null) => {
   switch (field.component) {
     case COMPONENT_TYPES.TEXT_INPUT:
-    case COMPONENT_TYPES.TEXTAREA:
-      if (FIELD_TYPES.NUMBER === field.type || FIELD_TYPES.INTEGER === field.type) {
-        return faker.number.int(100).toString();
-      } else {
-        if(field.name == "projectMission-nameValue-nameValue"){
-          return faker.lorem.words(85);
-        }else{
-          return faker.lorem.words(3);
-        }
+    case COMPONENT_TYPES.TEXTAREA: {
+      const value =
+        (FIELD_TYPES.NUMBER === field.type || FIELD_TYPES.INTEGER === field.type)
+          ? faker.number.int(100).toString()
+          : field.name === "projectMission-nameValue-nameValue"
+            ? faker.lorem.words(85)
+            : faker.lorem.words(3);
+
+      return { value, label: value };
+    }
+
+    case COMPONENT_TYPES.RICH_TEXT: {
+      const value = faker.lorem.words(3);
+      return { value, label: value };
+    }
+
+    case COMPONENT_TYPES.SELECT: {
+      if (field.label === 'Project type') {
+        return {
+          value: "Improved Forest Management (IFM)",
+          label: "Improved Forest Management (IFM)"
+        };
       }
 
-    case COMPONENT_TYPES.RICH_TEXT:
-      return faker.lorem.words(3);
-
-    case COMPONENT_TYPES.SELECT:
-      if (field.label == 'Project type') {
-        return "Improved Forest Management (IFM)";
+      if (field.options_obj?.length) {
+        const option = field.options_obj[0];
+        return {
+          value: String(option.id),
+          label: option.label
+        };
       }
-      return field.options[0];
+
+      const fallback = field.options?.[0];
+      return { value: fallback, label: fallback };
+    }
 
     case COMPONENT_TYPES.SELECT_MULTIPLE:
-      let value = [];
-      for (const option of field.options) {
-        value.push(option);
+    case COMPONENT_TYPES.CHECKBOX: {
+      if (field.options_obj?.length) {
+        const ids = field.options_obj.map(o => String(o.id));
+        const labels = field.options_obj.map(o => o.label);
+
+        return {
+          value: JSON.stringify(ids),    
+          label: labels                   
+        };
       }
-      return JSON.stringify(value);
 
-    case COMPONENT_TYPES.COUNTRY_SELECT:
-      return '["GB","IN"]';
+      const values = field.options ?? [];
 
-    case COMPONENT_TYPES.YEAR_INPUT:
-      return field.label.includes('start year') ? faker.date.past({ years: 10 }).getFullYear().toString() : faker.date.future({ years: 10 }).getFullYear().toString();
+      return {
+        value: JSON.stringify(values),    
+        label: values
+      };
+    } 
 
-    case COMPONENT_TYPES.CHECKBOX:
-      return JSON.stringify(field.options);
+    case COMPONENT_TYPES.COUNTRY_SELECT: {
+      const value = JSON.stringify(["GB","IN"]);
+      return { value, label: value };
+    }
+
+    case COMPONENT_TYPES.YEAR_INPUT: {
+      const value = field.label.includes('start year')
+        ? faker.date.past({ years: 10 }).getFullYear().toString()
+        : faker.date.future({ years: 10 }).getFullYear().toString();
+
+      return { value, label: value };
+    }
 
     case COMPONENT_TYPES.RADIOYN:
     case COMPONENT_TYPES.RADIOIDK:
-      return "Yes";
+    case COMPONENT_TYPES.RADIO: {
+      if (field.options_obj?.length) {
+        const option =
+          field.options_obj.find(o => o.label === 'Yes') ??
+          field.options_obj[0];
 
-    case COMPONENT_TYPES.RADIO:
-      return field.options[0];
-
-    case COMPONENT_TYPES.DATE_PICKER:
-      return faker.date.past().toISOString().split('T')[0];
-
-    case COMPONENT_TYPES.TEXT_INPUT_MULTIPLE:
-      if (FIELD_TYPES.STRING === field.type) {
-        const latitude = faker.location.latitude();
-        const longitude = faker.location.longitude();
-        return `${latitude}, ${longitude}`;
+        return {
+          value: String(option.id),
+          label: option.label
+        };
       }
-      return "[\"Kolkata\"]"
+
+      const fallback = field.options?.[0] ?? "Yes";
+      return { value: fallback, label: fallback };
+    }
+
+    case COMPONENT_TYPES.DATE_PICKER: {
+      const value = faker.date.past().toISOString().split('T')[0];
+      return { value, label: value };
+    }
+
+    case COMPONENT_TYPES.TEXT_INPUT_MULTIPLE: {
+      if (FIELD_TYPES.STRING === field.type) {
+        const value = `${faker.location.latitude()}, ${faker.location.longitude()}`;
+        return { value, label: value };
+      }
+
+      const value = "[\"Kolkata\"]";
+      return { value, label: value };
+    }
 
     case COMPONENT_TYPES.FILE_UPLOAD:
     case COMPONENT_TYPES.FILE_UPLOAD_MULTIPLE:
@@ -122,6 +170,7 @@ export const extractFieldsFromTopics = async () => {
   const items = [];
   const currentValues = {}; // to track fields for dependency check
   const fileData = [];
+  const uiExpectations = {};
 
   topics.forEach(topic => {
     topic.step_groups?.forEach(stepGroup => {
@@ -134,23 +183,12 @@ export const extractFieldsFromTopics = async () => {
               // Check dependency if it exists
               if (display_dependencies?.length > 0) {
                 const allDepsSatisfied = display_dependencies.every(dep => {
-                  const actualVal = currentValues[dep.field];
-                  const pattern = dep.pattern;
 
+                  const actualVal = currentValues[dep.field];
                   if (!actualVal) return false;
 
-                  try {
-                    const parsedValue = JSON.parse(actualVal);
-
-                    if (Array.isArray(parsedValue)) {
-                      return parsedValue.includes(pattern);
-                    } else {
-                      return parsedValue === pattern;
-                    }
-                  } catch (e) {
-                    // actualVal is not a JSON string, compare directly
-                    return actualVal === pattern;
-                  }
+                  const regex = new RegExp(dep.pattern);
+                  return regex.test(String(actualVal));
                 });
 
                 if (!allDepsSatisfied) {
@@ -159,11 +197,12 @@ export const extractFieldsFromTopics = async () => {
               }
 
               // Generate fake data
-              const value = generateFieldData(field, fileData, 0);
+              const data = generateFieldData(field, fileData, 0);
               const cleanKeyName = name.replace(/-nameValue(-nameValue)?$/, '')
-              if (value) {
-                items.push({ keyName: cleanKeyName, value });
-                currentValues[name] = value;
+              if (data?.value !== undefined) {
+                items.push({ keyName: cleanKeyName, value: data.value });
+                currentValues[name] = data.value;
+                uiExpectations[cleanKeyName] = data.label;
               }
             });
           });
@@ -171,8 +210,8 @@ export const extractFieldsFromTopics = async () => {
       });
     });
   });
-
-  const finalData = { fields: { items }, fileData };
+  
+  const finalData = { fields: { items }, uiExpectations, fileData };
 
   const outputPath = path.join(__dirname, '..', 'data', 'Project-data-new.json');
   fs.writeFileSync(outputPath, JSON.stringify(finalData, null, 2));
@@ -281,7 +320,6 @@ export const extractNonTier0FieldsFromTopics = async () => {
 
               // Skip fields with excluded names
               if (excludedNames.includes(name)) {
-                console.log(`Excluded field: ${name}`);
                 return;
               }
 

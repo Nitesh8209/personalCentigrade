@@ -225,9 +225,12 @@ const rawData = fs.readFileSync(projectdataFile, 'utf-8');
 const jsonData = JSON.parse(rawData);
 
   const cleanKeyName = field.replace(/-nameValue(-nameValue)?$/, '')
-  const foundItem = jsonData.fields?.items?.find(item => item.keyName == cleanKeyName);
+  // const foundItem = jsonData.fields?.items?.find(item => item.keyName == cleanKeyName);
+   const foundItem = jsonData.uiExpectations?.[cleanKeyName];
+
   if(foundItem){
-    let value = foundItem.value;
+    // let value = foundItem.value;
+    let value = foundItem;
     if(value == "[\"GB\",\"IN\"]"){
       value = "United Kingdom, India"
     }
@@ -382,7 +385,10 @@ export const isFieldGroupVisible = async (fieldGroup) => {
     const fieldValue = await getFieldValue(field.name);
 
     // Field itself has a saved value
-    if (fieldValue && fieldValue.trim() !== '') {
+    // if (fieldValue && fieldValue.trim() !== '') {
+    //   return true;
+    // }
+    if (fieldValue) {
       return true;
     }
 
