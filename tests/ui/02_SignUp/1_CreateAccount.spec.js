@@ -169,7 +169,7 @@ test.describe('Create Account Page UI Tests', { tag: ['@signUpUi', '@UI'] }, () 
     const resetPasswordsuccesserrormsg = await signUpPage.resetPasswordsuccesserrormsg();
 
     // Validate error messages for existing user
-    await expect(page).toHaveURL(`${baseURL}/login?emailExpired=true&email=${encodeURIComponent(Credentials.username)}`);
+    await expect(page).toHaveURL(`${baseURL}/login?email=${encodeURIComponent(Credentials.username)}`);
     await expect(resetPassworderrorBanner).toBeVisible();
     await expect(forgotPassworderrortitle).toBeVisible();
     await expect(forgotPassworderrortitle).toHaveText('This email is already registered');
