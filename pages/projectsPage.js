@@ -11,6 +11,18 @@ class ProjectsPage {
         this.page = page;
         this.baseURL = baseURL;
         // this.disableFeedbackWidget();
+
+
+        this.saveTimeAutoFill = this.page.locator('.auto-ingest-field');
+        this.saveTimeAutoFillHeading = this.saveTimeAutoFill.locator('.text-label-primary');
+        this.saveTimeAutoFillDescription = this.saveTimeAutoFill.locator('p').first();
+        this.radioGroup = this.saveTimeAutoFill.getByRole("radiogroup");
+        this.radioGroupOptions = this.saveTimeAutoFill.locator('.radio-group-options');
+        this.enableAutoFillRadio = this.radioGroupOptions.locator('label:has-text("Enable autofill")');
+        this.skipAutoFillRadio = this.radioGroupOptions.locator('label:has-text("Skip autofill")');
+        this.enableAutoFillInput = this.radioGroupOptions.locator('input[value="enable"]');
+        this.skipAutoFillInput = this.radioGroupOptions.locator('input[value="skip"]');
+        this.autoFillHelperText = this.saveTimeAutoFill.locator('.body-sm.text-secondary');
     }
 
     // async disableFeedbackWidget() {
