@@ -327,16 +327,20 @@ async fieldDisplayOrder(order, fieldGroup, field) {
           await expect(rowValue).toHaveText(value);
 
         } else if (value && field.component === 'select-multiple') {
-          const parsedValue = JSON.parse(value);
+          let expectedValues = [];
 
-          // Locate pill labels inside the value cell
-          const pillLabels = rowValue.locator('.pill__label');
-          const textContent = await pillLabels.allTextContents();
+          if (Array.isArray(value)) {
+            expectedValues = value.flat(); // handles nested arrays
+          } else if (typeof value === 'string') {
+            expectedValues = [value];
+          }
 
-          // Trim spaces for safety
-          const normalizedText = textContent.map(t => t.trim());
+          // Get UI values
+          const pillLabels = locator.locator('.pill__label, > div');
+          const actualValues = (await pillLabels.allTextContents()).map(v => v.trim());
 
-          await expect(normalizedText).toEqual(parsedValue);
+          // Assert
+          await expect(actualValues).toEqual(expectedValues);
         }
         break;
 

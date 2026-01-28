@@ -98,6 +98,10 @@ export class ListingPage {
     return await (await this.projectItemCardContentFooter()).getByText('Status');
   }
 
+  async projectItemCardContentByText(value){
+    return await (await this.projectItemCardContentFooter()).getByText(value);
+  }
+
   async projectItemCardContentFootercreditIssuer(){
     return await (await this.projectItemCardContentFooter()).getByText('Credit Issuer');
   }
@@ -116,6 +120,18 @@ export class ListingPage {
 
   async projectItemCardDetailsLocation(){
     return (await this.projectItemCardDetails()).getByText('Location');;
+  }
+
+  async projectItemCardDetailsByText(value){
+    return await (await this.projectItemCardDetails()).getByText(value);
+  }
+
+  async projectItemCardDetailsLocationBadge() {
+    return await (await this
+      .projectItemCardDetails())
+      .locator('.listing-card__details-row-item', {
+        hasText: 'Location'
+      }).locator('.badge .line-clamp-1');
   }
 
   async listings(){

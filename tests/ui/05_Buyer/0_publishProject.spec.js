@@ -81,12 +81,12 @@ test.describe("fill all fields For validate listings buyer page", { tag: ['@proj
     }
     const data = {
       projectGuid: BuyerprojectGuid,
-      classificationCategory: '["Carbon avoidance","Carbon reduction","Carbon removal","Undefined"]',
+      classificationCategory: '[\"6\",\"7\",\"8\",\"9\"]',
       classificationMethod:
-        "Natural - The activity claim uses natural methods (e.g. IFM)",
-      projectScale: "Micro (fewer than 1k tCO2e)",
+        "10",
+      projectScale: "1", 
       projectType: "ifm",
-    };
+    };  // data updated for the option obj.
     const modularUrl = API_ENDPOINTS.modularbenefitprojectguid(BuyerprojectGuid);
     const response = await postRequest(
       modularUrl,

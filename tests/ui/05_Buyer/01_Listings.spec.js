@@ -71,7 +71,7 @@ test.describe('Listings Page - UI and Navigation', { tag: ['@projectViewUi', '@U
     const errors = [];
     const listingPage = new ListingPage(page);
 
-    await validateListingsProject(listingPage, errors);
+    await validateListingsProject(listingPage, errors, false);
 
     if (errors.length > 0) {
       throw new Error(`Validation errors found:\n${errors.join('\n')}`);
@@ -145,7 +145,7 @@ test.describe('Listings Page - After Login', { tag: ['@projectViewUi', '@UI'] },
     const errors = [];
     const listingPage = new ListingPage(page);
 
-    await validateListingsProject(listingPage, errors);
+    await validateListingsProject(listingPage, errors, true);
 
     await safeExpect(`Need Help Butotn Visibility`, async () => {
       await expect(await listingPage.needHelp()).toBeVisible();
