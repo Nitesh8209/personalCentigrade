@@ -270,9 +270,29 @@ export class FieldHandler {
           const selectedValuesText = await locator.textContent();
           if (selectedValuesText.includes(option)) continue;
           const optionLocator = listbox.getByText(option, { exact: true });
-          await optionLocator.scrollIntoViewIfNeeded();
+
           await expect(optionLocator).toBeVisible();
-          await optionLocator.click({ force: true });
+          await expect(optionLocator).toBeEnabled();
+
+          try {
+            await optionLocator.click({ timeout: 2000 });
+          } catch {
+            // Fallback for virtualized / overflow lists
+            const headerHeight = 80; // adjust if needed
+
+            const box = await listbox.boundingBox();
+            if (box) {
+              await this.page.evaluate(
+                ({ y, headerHeight }) => {
+                  window.scrollBy(0, y - headerHeight - 20);
+                },
+                { y: box.y, headerHeight }
+              );
+            }
+
+            await expect(optionLocator).toBeVisible({ timeout: 3000 });
+            await optionLocator.click({ force: true });
+          }
         }
         await indicator.click();
         const finalSelectedValuesText = await locator.textContent();
@@ -749,7 +769,26 @@ export class FieldHandler {
           
           const optionLocator = listbox.locator(`text="${option}"`);
           await expect(optionLocator).toBeVisible();
-          await optionLocator.click();
+
+          try {
+            await optionLocator.click({ timeout: 2000 });
+          } catch {
+            // Fallback for virtualized / overflow lists
+            const headerHeight = 80; // adjust if needed
+
+            const box = await listbox.boundingBox();
+            if (box) {
+              await this.page.evaluate(
+                ({ y, headerHeight }) => {
+                  window.scrollBy(0, y - headerHeight - 20);
+                },
+                { y: box.y, headerHeight }
+              );
+            }
+
+            await expect(optionLocator).toBeVisible({ timeout: 3000 });
+            await optionLocator.click({ force: true });
+          }
           value.push(option);
         }
         
@@ -933,7 +972,6 @@ export class FieldHandler {
     const selectedValuesText = await locator.textContent();
 
     if (selectedValuesText.includes(value)) {
-      console.log(`Value "${value}" is already selected. Skipping.`);
       return;
     }
     await locator.click();
@@ -968,7 +1006,6 @@ export class FieldHandler {
   async fillRadioField(locator, value, label) {
     const radiolocator = await locator.locator('.radio-container').getByText(value);
     const isChecked = await radiolocator.isChecked();
-    console.log(`radio - ${label}`, isChecked);
     if (!isChecked) {
       await radiolocator.check();
       await expect(radiolocator).toBeChecked();
@@ -1021,8 +1058,6 @@ export class FieldHandler {
       case COMPONENT_TYPES.METHODOLOGY_SELECT:
         const MethodologyselectedValuesText = await locator.textContent();
         await expect(MethodologyselectedValuesText).toBe('QA (ACR 1.3 test methodology)');
-        console.log('select', MethodologyselectedValuesText)
-
         break;
 
       case COMPONENT_TYPES.RADIOYN:
@@ -1084,7 +1119,6 @@ export class FieldHandler {
       case COMPONENT_TYPES.METHODOLOGY_SELECT:
         const MethodologyselectedValuesText = await locator.textContent();
         await expect(MethodologyselectedValuesText).toBe('QA (ACR 1.3 test methodology)');
-        console.log('select', MethodologyselectedValuesText)
         break;
 
       case COMPONENT_TYPES.RADIOYN:
