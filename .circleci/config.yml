@@ -11,39 +11,45 @@ jobs:
       - image: cimg/node:23.9.0
     parameters:
       test_tag:
-        type: string 
+        type: string
     steps:
       - checkout
       - setup_remote_docker
+
       - run:
           name: Build Docker image
           command: docker build -t playwright-tests .
+
       - run:
           name: Run Playwright tests
           command: |
             if [ "<< parameters.test_tag >>" = "" ]; then
-              TEST_CMD="npx playwright test "
+              TEST_CMD="npx playwright test"
             else
-              TEST_CMD="npx playwright test --grep "<< parameters.test_tag >>" "
+              TEST_CMD="npx playwright test --grep \"@<< parameters.test_tag >>\""
             fi
-             
+
+            echo "Running: $TEST_CMD"
+
             docker run --name playwright-container \
-            -e PLATFORM=dev \
-            -e CLIENT_ID="$CLIENT_ID" \
-            -e CLIENT_SECRET="$CLIENT_SECRET" \
-            -e REFRESH_TOKEN="$REFRESH_TOKEN" \
-            playwright-tests $TEST_CMD || EXIT_CODE=$?
+              -e PLATFORM=dev \
+              -e CLIENT_ID="$CLIENT_ID" \
+              -e CLIENT_SECRET="$CLIENT_SECRET" \
+              -e REFRESH_TOKEN="$REFRESH_TOKEN" \
+              playwright-tests sh -c "$TEST_CMD" || EXIT_CODE=$?
+
             echo "Copying Playwright report..."
             docker cp playwright-container:/app/playwright-report ./playwright-report || echo "Report not found."
+
             exit ${EXIT_CODE:-0}
 
       - store_artifacts:
           path: playwright-report
           destination: playwright-report
           when: always
-          
+
 workflows:
   run-build-and-test:
     jobs:
       - build-and-test:
-          test_tag: << pipeline.parameters.test_tag >> 
+          test_tag: << pipeline.parameters.test_tag >>
