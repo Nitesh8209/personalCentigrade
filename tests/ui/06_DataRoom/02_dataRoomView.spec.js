@@ -18,7 +18,7 @@ const filePath = './tests/assets/file.png';
 const fileBuffer = fs.readFileSync(filePath);
 
 // Test suite for unauthenticated user access to the data room
-test.describe("Data Room Access for Unauthenticated User", { tag: ['@dataRoomUi', '@UI', '@SMOKE'] }, () => {
+test.describe("Data Room Access for Unauthenticated User", { tag: ['@dataRoomViewUi', '@UI', '@SMOKE'] }, () => {
   let page;
   let listingPage;
   let dataRoomPage;
@@ -86,7 +86,7 @@ test.describe("Data Room Access for Unauthenticated User", { tag: ['@dataRoomUi'
 });
 
 // Test suite for authenticated user access to the data room
-test.describe("Data room for authenticated user", { tag: ['@dataRoomUi', '@UI', '@SMOKE'] }, () => {
+test.describe("Data room for authenticated user", { tag: ['@dataRoomViewUi', '@UI', '@SMOKE'] }, () => {
   const authStoragePath = path.join(
     __dirname,
     "..",
@@ -467,7 +467,7 @@ test.describe("Data room for authenticated user", { tag: ['@dataRoomUi', '@UI', 
 });
 
 // Test suite for data room access control for users without access
-test.describe("data room file for without access user", { tag: ['@dataRoomUi', '@UI', '@SMOKE'] }, () => {
+test.describe("data room file for without access user", { tag: ['@dataRoomViewUi', '@UI', '@SMOKE'] }, () => {
 
   let page;
   let loginPage;
@@ -669,7 +669,7 @@ test.describe("data room file for without access user", { tag: ['@dataRoomUi', '
 })
 
 // Test suite for verifying data room behavior after deletion
-test.describe("After Delete Data Room", { tag: ['@dataRoomUi', '@UI', '@SMOKE'] }, () => {
+test.describe("After Delete Data Room", { tag: ['@dataRoomViewUi', '@UI', '@SMOKE'] }, () => {
   const authStoragePath = path.join(
     __dirname,
     "..",

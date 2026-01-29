@@ -7,7 +7,7 @@ import { ProjectsPage } from "../../../pages/projectsPage";
 import fs from 'fs';
 import { safeExpect } from '../../utils/authHelper';
 
-test.describe('AiSummary After Publish', { tag: ['@aiSummaryUi', '@UI'] }, () => {
+test.describe('AiSummary After Publish', { tag: ['@aiSummaryAfterPublish', '@UI'] }, () => {
 
   const authStoragePath = path.join(__dirname, "..",
     "..",
